@@ -1,15 +1,61 @@
-/*! esri-leaflet-geocoder - v0.0.1 - 2013-10-10
+/*! esri-leaflet-geocoder - v0.0.1 - 2013-11-04
 *   Copyright (c) 2013 Environmental Systems Research Institute, Inc.
 *   Apache License*/
 
 (function(L){
 
-  var protocol = (window.location.protocol === "https:") ? "https:" : "http:";
+  // function to ensure namespaces exist
+  function namespace(ns, root){
+    root = root || window;
 
-  var GeocodeService = L.Class.extend({
+    var parent = root,
+        parts = ns.split('.'),
+        part;
+
+    while(part = parts.shift()){
+      if(!parent[part]){
+        parent[part] = {};
+      }
+      parent = parent[part];
+    }
+
+    return parent;
+  }
+
+  // serialize params to query string
+  function serialize(params){
+    var qs="?";
+
+    for(var param in params){
+      if(params.hasOwnProperty(param)){
+        var key = param;
+        var value = params[param];
+        qs+=encodeURIComponent(key);
+        qs+="=";
+        qs+=encodeURIComponent(value);
+        qs+="&";
+      }
+    }
+
+    return qs.substring(0, qs.length - 1);
+  }
+
+  // convert an arcgis extent to a leaflet bounds
+  function extentToBounds(extent){
+    var southWest = new L.LatLng(extent.ymin, extent.xmin);
+    var northEast = new L.LatLng(extent.ymax, extent.xmax);
+    return new L.LatLngBounds(southWest, northEast);
+  }
+
+  // ensure the namespaces exist
+  namespace('L.esri.Services.Geocoding');
+  namespace('L.esri.Controls.Geosearch');
+
+  L.esri.Services.Geocoding = L.Class.extend({
+    includes: L.Mixin.Events,
     options: {
-      url: protocol + '//geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/',
-      outFields: "Subregion, Region, PlaceName, Match_addr, Country, Addr_type, City, Type"
+      url: 'https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/',
+      outFields: 'Subregion, Region, PlaceName, Match_addr, Country, Addr_type, City'
     },
     initialize: function (options) {
       L.Util.setOptions(this, options);
@@ -18,18 +64,20 @@
       var callbackId = "c"+(Math.random() * 1e9).toString(36).replace(".", "_");
 
       params.f="json";
-      params.callback="GeocodeService._callback."+callbackId;
+      params.callback="L.esri.Services.Geocoding._callback."+callbackId;
 
       var script = document.createElement('script');
       script.type = 'text/javascript';
       script.src = url + serialize(params);
       script.id = callbackId;
+      this.fire('loading');
 
-      GeocodeService._callback[callbackId] = function(response){
+      L.esri.Services.Geocoding._callback[callbackId] = L.Util.bind(function(response){
+        this.fire('load');
         callback(response);
         document.body.removeChild(script);
-        delete GeocodeService._callback[callbackId];
-      };
+        delete L.esri.Services.Geocoding._callback[callbackId];
+      }, this);
 
       document.body.appendChild(script);
     },
@@ -48,9 +96,13 @@
     }
   });
 
-  GeocodeService._callback = {};
+  L.esri.Services.geocoding = function(options){
+    return new L.esri.Services.Geocoding(options);
+  };
 
-  L.GeocoderControl = L.Control.extend({
+  L.esri.Services.Geocoding._callback = {};
+
+  L.esri.Controls.Geosearch = L.Control.extend({
     includes: L.Mixin.Events,
     options: {
       position: 'topleft',
@@ -58,15 +110,15 @@
       useMapBounds: 11,
       collapseAfterResult: true,
       expanded: false,
-      contianerClass: "geocoder-control",
+      containerClass: "geocoder-control",
       inputClass: "geocoder-control-input leaflet-bar",
       suggestionsWrapperClass: "geocoder-control-suggestions leaflet-bar",
-      selectedSuggestionClass: "geocoser-control-selected",
+      selectedSuggestionClass: "geocoder-control-selected",
       expandedClass: "geocoder-control-expanded"
     },
     initialize: function (options) {
       L.Util.setOptions(this, options);
-      this._service = new GeocodeService();
+      this._service = new L.esri.Services.Geocoding();
     },
     _geocode: function(text, key){
       var options = {
@@ -74,6 +126,7 @@
       };
 
       L.DomUtil.addClass(this._input, "loading");
+      this.fire('loading');
 
       this._service.geocode(text, options, L.Util.bind(function(response){
         L.DomUtil.removeClass(this._input, "loading");
@@ -86,11 +139,12 @@
           this._map.fitBounds(bounds);
         }
 
+        this.fire('load');
+
         this.fire("result", {
           text: text,
           bounds: bounds,
           latlng: new L.LatLng(match.feature.geometry.y, match.feature.geometry.x),
-          type: attributes.Type,
           name: attributes.PlaceName,
           match: attributes.Addr_type,
           country: attributes.Country,
@@ -144,7 +198,7 @@
     onAdd: function (map) {
       this._map = map;
 
-      this._container = L.DomUtil.create('div', this.options.contianerClass + ((this.options.expanded) ? " " + this.options.expandedClass  : ""));
+      this._container = L.DomUtil.create('div', this.options.containerClass + ((this.options.expanded) ? " " + this.options.expandedClass  : ""));
 
       this._input = L.DomUtil.create('input', this.options.inputClass, this._container);
 
@@ -207,27 +261,8 @@
     }
   });
 
-  function serialize(params){
-    var qs="?";
-
-    for(var param in params){
-      if(params.hasOwnProperty(param)){
-        var key = param;
-        var value = params[param];
-        qs+=encodeURIComponent(key);
-        qs+="=";
-        qs+=encodeURIComponent(value);
-        qs+="&";
-      }
-    }
-
-    return qs.substring(0, qs.length - 1);
-  }
-
-  function extentToBounds(extent){
-    var southWest = new L.LatLng(extent.ymin, extent.xmin);
-    var northEast = new L.LatLng(extent.ymax, extent.xmax);
-    return new L.LatLngBounds(southWest, northEast);
-  }
+  L.esri.Controls.geosearch = function(options){
+    return new L.esri.Controls.Geosearch(options);
+  };
 
 })(L);
