@@ -150,7 +150,7 @@ Option | Type | Default | Description
 Method | Options | Description
 --- | --- | ---
 `geocode(text, object, callback)` | [`<GeocodeOptions>`](#geocode-options) | Geocodes the specified `text` with the passed [`<GeocodeOptions>``](#geocode-options). `callback` will be called with `error` and `response` parameters.
-`suggest(text, object, callback)` | [`<SuggestOptions>](#geocode-options) | Suggests results for `text` with the given [`<SuggestOptions>``](#suggest-options)`. `callback` will be called with `error` and `response` parameters.
+`suggest(text, object, callback)` | [`<SuggestOptions>`](#geocode-options) | Suggests results for `text` with the given [`<SuggestOptions>`](#suggest-options). `callback` will be called with `error` and `response` parameters.
 
 ### Events
 
