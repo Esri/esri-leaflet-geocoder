@@ -59,13 +59,13 @@ module.exports = function(grunt) {
         }
       }
     },
-    imagemin: {                          // Task
-      dynamic: {                         // Another target
+    imagemin: {
+      dynamic: {
         files: [{
-          expand: true,                  // Enable dynamic expansion
-          cwd: 'src/',                   // Src matches are relative to this path
-          src: ['img/*.{png,jpg,gif}'],   // Actual patterns to match
-          dest: 'dist/img'                  // Destination path prefix
+          expand: true,
+          cwd: 'src/',
+          src: ['img/*.{png,jpg,gif}'],
+          dest: 'dist/img'
         }]
       }
     },
@@ -88,7 +88,6 @@ module.exports = function(grunt) {
 
   grunt.registerTask('default', ['build']);
   grunt.registerTask('build', ['jshint', 'concat', 'uglify', 'imagemin', 'cssmin']);
-  grunt.registerTask('test', ['karma:single']);
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-jshint');
