@@ -6,7 +6,7 @@ The Esri Leaflet Geocoder is a small series of API helpers and UI controls to in
 
 ## Example
 
-Take a look at the live demo at http://esri.github.io/esri-leaflet-geocoder
+Take a look at the live demo at http://esri.github.io/esri-leaflet-geocoder/
 
 ![Example Image](https://raw.github.com/esri/esri-leaflet-geocoder/master/example.png)
 
