@@ -1,0 +1,20 @@
+# Mac
+.DS_Store
+Icon
+._*
+.Spotlight-V100
+
+# SublimeText
+/*.sublime-project
+*.sublime-workspace
+*.sublime-project
+.idea/*
+
+# Node
+node_modules
+
+# Coverage
+coverage
+
+# Debugging Files
+debug.html

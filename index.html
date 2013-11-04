@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Esri Leaflet Geocoder</title>
+
+    <!-- Load Leaflet from their CDN -->
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
+    <![endif]-->
+    <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet-src.js"></script>
+
+    <!-- Make the map fill the entire page -->
+    <style>
+      #map {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+      }
+    </style>
+
+    <script src="src/esri-leaflet-geocoder.js"></script>
+    <link rel="stylesheet" href="src/esri-leaflet-geocoder.css" />
+
+  </head>
+  <body>
+    <div id="map"></div>
+
+    <script>
+      var map = L.map('map').setView([45.5165, -122.6764], 11);
+
+      L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+
+      var searchControl = new L.esri.Controls.Geosearch().addTo(map);
+
+      searchControl.on("result", function(result){
+        // Do stuff with the result
+        console.log(result);
+      });
+    </script>
+  </body>
+</html>
