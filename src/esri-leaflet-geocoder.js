@@ -92,6 +92,10 @@
     }
   });
 
+  L.esri.Services.geocoding = function(options){
+    return new L.esri.Services.Geocoding(options);
+  };
+
   L.esri.Services.Geocoding._callback = {};
 
   L.esri.Controls.Geosearch = L.Control.extend({
@@ -252,5 +256,9 @@
       return this._container;
     }
   });
+
+  L.esri.Controls.geosearch = function(options){
+    return new L.esri.Controls.Geosearch(options);
+  };
 
 })(L);

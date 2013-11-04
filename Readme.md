@@ -6,7 +6,7 @@ The Esri Leaflet Geocoder is a small series of API helpers and UI controls to in
 
 ## Example
 
-![Example Image](https://raw.github.com/Esri/esri-leaflet-geocoder/master/example.png)
+![Example Image](https://raw.github.com/esri/esri-leaflet-geocoder/master/example.png)
 
 ```html
 <!DOCTYPE html>
@@ -59,16 +59,16 @@ The Esri Leaflet Geocoder is a small series of API helpers and UI controls to in
 
 ### Constructor
 
-**Extends** [`L.Control`](http://leafletjs.com/reference.html#control);
+**Extends** [`L.Control`](http://leafletjs.com/reference.html#control)
 
 Constructor | Options | Description
 --- | --- | ---
-`new L.esri.Controls.Geosearch(options)`<br>or `L.esri.Controls.geosearch(options)` | [`<GeosearchOptions>`](#options) | Creates a new Geosearch control.
+`new L.esri.Controls.Geosearch(options)`<br>`L.esri.Controls.geosearch(options)` | [`<GeosearchOptions>`](#options) | Creates a new Geosearch control.
 
 ### Options
 
-Option | Default | Description
---- | --- | ---
+Option | Type | Default | Description
+--- | --- | --- | ---
 `position` | `String` | `topleft` | On of the valid Leaflet [control positions](http://leafletjs.com/reference.html#control-positions).
 `zoomToResult` | `Boolean` | `true` | If `true` the map will zoom the result after geocoding is complete.
 `useMapBounds` | `Boolean` or <br> `Integer` | `11` | Determines if the geocoder should begin using the bounds of the map to enchance search results. If `true` the geocoder will always return results in the current map bounds. If `false` it will always search the world. If an integer like `11` is passed in a search will use the bounds of the map for searhcing is the map is at a zoom level equal or greater then the integer.
@@ -92,7 +92,7 @@ Event | Data | Description
 --- | --- | ---
 `load` | `null` | A generic event fired when a request to the geocoder starts.
 `loading` | `null` | A generic event fired when a request to the geocoder finished.
-`result` | `[<ResultEvent>](#result-event)` | Fired when a result is returned from the geocoder.
+`result` | [`<ResultEvent>`](#result-event) | Fired when a result is returned from the geocoder.
 
 ### Styling
 
@@ -134,28 +134,28 @@ A basic wrapper for ArcGIS Online geocoding services. Used internally by `L.esri
 
 Constructor | Options | Description
 --- | --- | ---
-`new L.esri.Controls.Geosearch(options)`<br>or `L.esri.Controls.geosearch(options)` | [`<GeosearchOptions>`](#options) | Creates a new Geosearch control.
+`new L.esri.Controls.Geosearch(options)`<br>`L.esri.Controls.geosearch(options)` | [`<GeosearchOptions>`](#options-1) | Creates a new Geosearch control.
 
 ### Options
 
 Option | Type | Default | Description
 --- | --- | --- | ---
-`url` | `String` | `"https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/"` | This should be the url of the Geocoding service you want to use. If you don't this means don't change this.
+`url` | `String` | `<WorldGeocodeServiceURL>` | Defaults to the ArcGIS World Geocoding service. Should be the url of the Geocoding service you want to use. If you don't this means don't change this.
 `outFields`| `String` | "Subregion, Region, PlaceName, Match_addr, Country, Addr_type, City" | 
 
 ### Methods
 
 Method | Options | Description
 --- | --- | ---
-`geocode(<String> text, <GeocodeOptions> object, <Function> callback)` | `[<GeocodeOptions>](#geocode-options)` |
-`suggest(<String> text, <SuggestOptions> object, <Function> callback)` | `[<SuggestOptions>](#geocode-options)`|
+`geocode(text, object, callback)` | [`<GeocodeOptions>`](#geocode-options) | Geocodes the specified `text` with the passed [`<GeocodeOptions>``](#geocode-options). `callback` will be called with `error` and `response` parameters.
+`suggest(text, object, callback)` | [`<SuggestOptions>](#geocode-options) | Suggests results for `text` with the given [`<SuggestOptions>``](#suggest-options)`. `callback` will be called with `error` and `response` parameters.
 
 ### Events
 
 Event | Data | Description
 --- | --- | ---
-`load` | `null` | A generic event fired when a request to the geocoder starts.
-`loading` | `null` | A generic event fired when a request to the geocoder finished.
+`load` | `null` | A generic event fired when a request to the geocoder begins.
+`loading` | `null` | A generic event fired when a request to the geocoder is finished.
 
 #### Geocode Options
 
@@ -179,6 +179,7 @@ Despite sharing a name and a namespace the Esri Leaflet Geocoder **does not*** r
 
 ## Resources
 
+* [Geocoding Service Documentation](http://resources.arcgis.com/en/help/arcgis-rest-api/#/Single_input_field_geocoding/02r300000015000000/)
 * [ArcGIS for Developers](http://developers.arcgis.com)
 * [ArcGIS REST Services](http://resources.arcgis.com/en/help/arcgis-rest-api/)
 * [ArcGIS for JavaScript API Resource Center](http://help.arcgis.com/en/webapi/javascript/arcgis/index.html)
