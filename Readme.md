@@ -44,11 +44,11 @@ Take a look at the live demo at http://esri.github.io/esri-leaflet-geocoder
     <script>
       var map = L.map('map').setView([45.5165, -122.6764], 11);
 
-      L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+      var tiles = L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
 
-      search = new L.esri.Controls.Geosearch().addTo(map);
+      var searchControl = new L.esri.Controls.Geosearch().addTo(map);
 
-      search.on("result", function(result){
+      searchControl.on("result", function(result){
         // Do stuff with the result
         console.log(result);
       });

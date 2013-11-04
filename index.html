@@ -13,6 +13,7 @@
     <!-- Make the map fill the entire page -->
     <style>
       #map {
+        position: fixed;
         top: 0;
         bottom: 0;
         left: 0;
@@ -30,7 +31,7 @@
     <script>
       var map = L.map('map').setView([45.5165, -122.6764], 11);
 
-      L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+      var tiles = L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
 
       var searchControl = new L.esri.Controls.Geosearch().addTo(map);
 
