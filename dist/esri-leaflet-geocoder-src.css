@@ -1,4 +1,4 @@
-/*! esri-leaflet-geocoder - v0.0.1 - 2013-10-10
+/*! esri-leaflet-geocoder - v0.0.1 - 2013-11-04
 *   Copyright (c) 2013 Environmental Systems Research Institute, Inc.
 *   Apache License*/
 
@@ -85,7 +85,7 @@ only screen and (min-device-pixel-ratio: 2) {
   border: none;
 }
 
-.geocoder-control-suggestions li.geocoser-control-selected,
+.geocoder-control-suggestions li.geocoder-control-selected,
 .geocoder-control-suggestions li:hover {
   background: #00c0ff;
   border-color: #00c0ff;
