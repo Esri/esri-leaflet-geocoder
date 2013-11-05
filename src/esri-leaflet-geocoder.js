@@ -256,7 +256,7 @@
 
       L.DomEvent.addListener(this._input, "keyup", function(e){
         if(e.keyCode !== 13 && e.keyCode !== 38 && e.keyCode !== 40){
-          this._suggest(e.target.value);
+          this._suggest((e.target || e.srcElement).value);
         }
       }, this);
 
