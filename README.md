@@ -4,7 +4,7 @@ The Esri Leaflet Geocoder is a small series of API helpers and UI controls to in
 
 **Currently Esri Leaflet Geocoder is in development. Use at your own risk.**
 
-Despite sharing a name and a namespace with Esri Leaflet, Esri Leaflet Geocoder **does not*** require Esri Leaflet. It is however tested with Esri Leaflet and will work just fine with our without it.
+Despite sharing a name and a namespace with Esri Leaflet, Esri Leaflet Geocoder **does not** require Esri Leaflet. It is however tested with Esri Leaflet and will work just fine with our without it.
 
 ## Example
 
@@ -179,7 +179,7 @@ The `suggest` method can accept any options from the [Suggest service](http://re
 
 ## Dependencies
 
-Despite sharing a name and a namespace the Esri Leaflet Geocoder **does not*** require Esri Leaflet. It only requires [Leaflet](http://leaflet.com).
+Despite sharing a name and a namespace the Esri Leaflet Geocoder **does not** require Esri Leaflet. It only requires [Leaflet](http://leaflet.com).
 
 ## Resources
 
