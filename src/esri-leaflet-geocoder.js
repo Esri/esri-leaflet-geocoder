@@ -117,16 +117,17 @@
       this._service = new L.esri.Services.Geocoding();
     },
     _geocode: function(text, key){
-      var options = {
-        magicKey: key
-      };
+      var options = {};
+
+      if(key){
+        options.magicKey = key;
+      }
 
       L.DomUtil.addClass(this._input, "loading");
       this.fire('loading');
 
       this._service.geocode(text, options, L.Util.bind(function(response){
         L.DomUtil.removeClass(this._input, "loading");
-
         var match = response.locations[0];
         var attributes = match.feature.attributes;
         var bounds = extentToBounds(match.extent);
@@ -159,7 +160,7 @@
 
       var options = {};
 
-      if(this.options.useMapBounds === true || (this._map.getZoom() > this.options.useMapBounds)){
+      if(this.options.useMapBounds === true || (this._map.getZoom() >= this.options.useMapBounds)){
         var bounds = this._map.getBounds();
         var center = bounds.getCenter();
         var ne = bounds.getNorthWest();
@@ -217,9 +218,12 @@
         var selected = this._suggestions.getElementsByClassName(this.options.selectedSuggestionClass)[0];
         switch(e.keyCode){
         case 13:
-          selected = selected || this._suggestions.childNodes[0].innerHTML;
-          this._geocode(selected.innerHTML, selected["data-magic-key"]);
-          this.clear();
+          if(selected){
+            this._geocode(selected.innerHTML, selected["data-magic-key"]);
+            this.clear();
+          } else {
+            L.DomUtil.addClass(this._suggestions.childNodes[0], this.options.selectedSuggestionClass);
+          }
           L.DomEvent.preventDefault(e);
           break;
         case 38:
