@@ -218,7 +218,7 @@
       }, this);
 
       L.DomEvent.addListener(this._input, "keydown", function(e){
-        var selected = this._suggestions.getElementsByClassName(this.options.selectedSuggestionClass)[0];
+        var selected = this._suggestions.querySelectorAll(this.options.selectedSuggestionClass)[0];
         switch(e.keyCode){
         case 13:
           if(selected){
