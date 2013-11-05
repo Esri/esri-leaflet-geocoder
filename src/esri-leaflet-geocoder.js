@@ -255,11 +255,13 @@
         }
       }, this);
 
-      L.DomEvent.addListener(this._input, "keyup", L.Util.limitExecByInterval(function(e){
-        if(e.keyCode !== 13 && e.keyCode !== 38 && e.keyCode !== 40){
+      L.DomEvent.addListener(this._input, "keypress", function(e){
+        var key = e.keyCode;
+        console.log(key);
+        if(key !== 13 && key !== 38 && key !== 40){
           this._suggest((e.target || e.srcElement).value);
         }
-      }, 50, this), this);
+      }, this);
 
       return this._container;
     }
