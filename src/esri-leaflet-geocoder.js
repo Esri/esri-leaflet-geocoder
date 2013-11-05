@@ -209,7 +209,8 @@
       }, this);
 
       L.DomEvent.addListener(this._suggestions, "mousedown", function(e){
-        this._geocode(e.target.innerHTML, e.target["data-magic-key"]);
+        var suggestionItem = e.target || e.srcElement;
+        this._geocode(suggestionItem.innerHTML, suggestionItem["data-magic-key"]);
         this.clear();
       }, this);
 
@@ -218,7 +219,7 @@
       }, this);
 
       L.DomEvent.addListener(this._input, "keydown", function(e){
-        var selected = this._suggestions.getElementsByClassName(this.options.selectedSuggestionClass)[0];
+        var selected = this._suggestions.querySelectorAll('.' + this.options.selectedSuggestionClass)[0];
         switch(e.keyCode){
         case 13:
           if(selected){
@@ -254,9 +255,10 @@
         }
       }, this);
 
-      L.DomEvent.addListener(this._input, "keyup", function(e){
-        if(e.keyCode !== 13 && e.keyCode !== 38 && e.keyCode !== 40){
-          this._suggest(e.target.value);
+      L.DomEvent.addListener(this._input, "keypress", function(e){
+        var key = e.keyCode;
+        if(key !== 13 && key !== 38 && key !== 40){
+          this._suggest((e.target || e.srcElement).value);
         }
       }, this);
 
