@@ -257,7 +257,6 @@
 
       L.DomEvent.addListener(this._input, "keypress", function(e){
         var key = e.keyCode;
-        console.log(key);
         if(key !== 13 && key !== 38 && key !== 40){
           this._suggest((e.target || e.srcElement).value);
         }
