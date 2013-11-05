@@ -209,7 +209,8 @@
       }, this);
 
       L.DomEvent.addListener(this._suggestions, "mousedown", function(e){
-        this._geocode(e.target.innerHTML, e.target["data-magic-key"]);
+        var suggestionItem = e.target || e.srcElement;
+        this._geocode(suggestionItem.innerHTML, suggestionItem["data-magic-key"]);
         this.clear();
       }, this);
 
