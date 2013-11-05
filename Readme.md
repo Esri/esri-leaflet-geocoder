@@ -37,7 +37,7 @@ Take a look at the live demo at http://esri.github.io/esri-leaflet-geocoder/
     </style>
 
     <script src="dist/esri-leaflet-geocoder.js"></script>
-    <link rel="stylesheet" href="distA/esri-leaflet-geocoder.css" />
+    <link rel="stylesheet" href="dist/esri-leaflet-geocoder.css" />
 
   </head>
   <body>
