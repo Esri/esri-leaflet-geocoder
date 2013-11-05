@@ -219,7 +219,7 @@
       }, this);
 
       L.DomEvent.addListener(this._input, "keydown", function(e){
-        var selected = this._suggestions.querySelectorAll(this.options.selectedSuggestionClass)[0];
+        var selected = this._suggestions.querySelectorAll('.' + this.options.selectedSuggestionClass)[0];
         switch(e.keyCode){
         case 13:
           if(selected){
@@ -255,11 +255,11 @@
         }
       }, this);
 
-      L.DomEvent.addListener(this._input, "keyup", function(e){
+      L.DomEvent.addListener(this._input, "keyup", L.Util.limitExecByInterval(function(e){
         if(e.keyCode !== 13 && e.keyCode !== 38 && e.keyCode !== 40){
           this._suggest((e.target || e.srcElement).value);
         }
-      }, this);
+      }, 50, this), this);
 
       return this._container;
     }
