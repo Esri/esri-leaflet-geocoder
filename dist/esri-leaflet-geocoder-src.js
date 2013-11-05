@@ -121,16 +121,17 @@
       this._service = new L.esri.Services.Geocoding();
     },
     _geocode: function(text, key){
-      var options = {
-        magicKey: key
-      };
+      var options = {};
+
+      if(key){
+        options.magicKey = key;
+      }
 
       L.DomUtil.addClass(this._input, "loading");
       this.fire('loading');
 
       this._service.geocode(text, options, L.Util.bind(function(response){
         L.DomUtil.removeClass(this._input, "loading");
-
         var match = response.locations[0];
         var attributes = match.feature.attributes;
         var bounds = extentToBounds(match.extent);
@@ -163,7 +164,7 @@
 
       var options = {};
 
-      if(this.options.useMapBounds === true || (this._map.getZoom() > this.options.useMapBounds)){
+      if(this.options.useMapBounds === true || (this._map.getZoom() >= this.options.useMapBounds)){
         var bounds = this._map.getBounds();
         var center = bounds.getCenter();
         var ne = bounds.getNorthWest();
@@ -172,17 +173,20 @@
       }
 
       this._service.suggest(text, options, L.Util.bind(function(response){
-        this._suggestions.innerHTML = "";
+        // make sure something is still in the input field before putting in suggestions.
+        if(this._input.value){
+          this._suggestions.innerHTML = "";
 
-        if(response.suggestions){
-          for (var i = 0; i < response.suggestions.length; i++) {
-            var suggestion = L.DomUtil.create('li', 'geocoder-control-suggestion', this._suggestions);
-            suggestion.innerHTML = response.suggestions[i].text;
-            suggestion["data-magic-key"] = response.suggestions[i].magicKey;
+          if(response.suggestions){
+            for (var i = 0; i < response.suggestions.length; i++) {
+              var suggestion = L.DomUtil.create('li', 'geocoder-control-suggestion', this._suggestions);
+              suggestion.innerHTML = response.suggestions[i].text;
+              suggestion["data-magic-key"] = response.suggestions[i].magicKey;
+            }
           }
-        }
 
-        L.DomUtil.removeClass(this._input, "loading");
+          L.DomUtil.removeClass(this._input, "loading");
+        }
       }, this));
     },
     clear: function(){
@@ -221,9 +225,12 @@
         var selected = this._suggestions.getElementsByClassName(this.options.selectedSuggestionClass)[0];
         switch(e.keyCode){
         case 13:
-          selected = selected || this._suggestions.childNodes[0].innerHTML;
-          this._geocode(selected.innerHTML, selected["data-magic-key"]);
-          this.clear();
+          if(selected){
+            this._geocode(selected.innerHTML, selected["data-magic-key"]);
+            this.clear();
+          } else {
+            L.DomUtil.addClass(this._suggestions.childNodes[0], this.options.selectedSuggestionClass);
+          }
           L.DomEvent.preventDefault(e);
           break;
         case 38:
