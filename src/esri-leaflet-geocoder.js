@@ -169,17 +169,20 @@
       }
 
       this._service.suggest(text, options, L.Util.bind(function(response){
-        this._suggestions.innerHTML = "";
+        // make sure something is still in the input field before putting in suggestions.
+        if(this._input.value){
+          this._suggestions.innerHTML = "";
 
-        if(response.suggestions){
-          for (var i = 0; i < response.suggestions.length; i++) {
-            var suggestion = L.DomUtil.create('li', 'geocoder-control-suggestion', this._suggestions);
-            suggestion.innerHTML = response.suggestions[i].text;
-            suggestion["data-magic-key"] = response.suggestions[i].magicKey;
+          if(response.suggestions){
+            for (var i = 0; i < response.suggestions.length; i++) {
+              var suggestion = L.DomUtil.create('li', 'geocoder-control-suggestion', this._suggestions);
+              suggestion.innerHTML = response.suggestions[i].text;
+              suggestion["data-magic-key"] = response.suggestions[i].magicKey;
+            }
           }
-        }
 
-        L.DomUtil.removeClass(this._input, "loading");
+          L.DomUtil.removeClass(this._input, "loading");
+        }
       }, this));
     },
     clear: function(){
