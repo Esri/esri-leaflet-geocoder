@@ -1,6 +1,6 @@
 # Esri Leaflet Geocoder
 
-The Esri Leaflet Geocoder is a small series of API helpers and UI controls to interact with ArcGIS Onlines geocoding services.
+The Esri Leaflet Geocoder is a small series of API helpers and UI controls to interact with the ArcGIS Online geocoding services.
 
 **Currently Esri Leaflet Geocoder is in development. Use at your own risk.**
 
