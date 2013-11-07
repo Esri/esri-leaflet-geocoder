@@ -138,13 +138,13 @@ A basic wrapper for ArcGIS Online geocoding services. Used internally by `L.esri
 
 Constructor | Options | Description
 --- | --- | ---
-`new L.esri.Controls.Geosearch(options)`<br>`L.esri.Controls.geosearch(options)` | [`<GeosearchOptions>`](#options-1) | Creates a new Geosearch control.
+`new L.esri.Services.Geocoding(options)`<br>`L.esri.Controls.geosearch(options)` | [`<GeosearchOptions>`](#options-1) | Creates a new Geosearch control.
 
 ### Options
 
 Option | Type | Default | Description
 --- | --- | --- | ---
-`url` | `String` | `<WorldGeocodeServiceURL>` | Defaults to the ArcGIS World Geocoding service. Should be the url of the Geocoding service you want to use. If you don't this means don't change this.
+`url` | `String` | `<WorldGeocodeServiceURL>` | Defaults to the ArcGIS World Geocoding service.
 `outFields`| `String` | "Subregion, Region, PlaceName, Match_addr, Country, Addr_type, City" | 
 
 ### Methods
