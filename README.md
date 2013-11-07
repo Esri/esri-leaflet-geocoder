@@ -202,7 +202,7 @@ Esri welcomes contributions from anyone and everyone. Please see our [guidelines
 In order the use the ArcGIS Online Geocoding Service you should signup for an [ArcGIS for Developers account](https://developers.arcgis.com/en/plans) or purchase an [ArcGIS Online Organizational Subscription](http://www.arcgis.com/features/plans/pricing.html).
 
 1. Once you have an account you are good to go. Thats it!
-2. Your users can search for as many places as they want. Esri defines this as "Geosearch" and its free. You only consume credits when oyu want to store the result of geocodes.
+2. Your users can search for as many places as they want. Esri defines this as "Geosearch" and its free. You only consume credits when you want to store the result of geocodes.
 3. You are not allowed to store the results of any geocoding you do. There is a `forStorage` flag which you can set that will allow this. There is an [issue](https://github.com/Esri/esri-leaflet-geocoder/issues/10) for including the `forStorage` flag
 4. If you use this library in a revenue generating application or for goverment use you must upgrade to a paid account. You are not allowed to generate revenue while on a free plan.
 
