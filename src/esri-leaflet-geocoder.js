@@ -198,6 +198,12 @@
     onAdd: function (map) {
       this._map = map;
 
+      if (!map.attributionControl) {
+        L.control.attribution().addAttribution('Geocoding by Esri').addTo(map);
+      } else {
+        map.attributionControl.addAttribution('Geocoding by Esri');
+      };
+
       this._container = L.DomUtil.create('div', this.options.containerClass + ((this.options.expanded) ? " " + this.options.expandedClass  : ""));
 
       this._input = L.DomUtil.create('input', this.options.inputClass, this._container);
@@ -263,6 +269,9 @@
       }, this);
 
       return this._container;
+    },
+    onRemove: function (map) {
+      map.attributionControl.removeAttribution('Geocoding by Esri');
     }
   });
 
