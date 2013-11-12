@@ -75,9 +75,9 @@ Option | Type | Default | Description
 --- | --- | --- | ---
 `position` | `String` | `topleft` | On of the valid Leaflet [control positions](http://leafletjs.com/reference.html#control-positions).
 `zoomToResult` | `Boolean` | `true` | If `true` the map will zoom the result after geocoding is complete.
-`useMapBounds` | `Boolean` or <br> `Integer` | `11` | Determines if the geocoder should begin using the bounds of the map to enchance search results. If `true` the geocoder will always return results in the current map bounds. If `false` it will always search the world. If an integer like `11` is passed in a search will use the bounds of the map for searhcing is the map is at a zoom level equal or greater then the integer.
+`useMapBounds` | `Boolean` or <br> `Integer` | `11` | Determines if the geocoder should begin using the bounds of the map to enchance search results. If `true` the geocoder will always return results in the current map bounds. If `false` it will always search the world. If an integer like `11` is passed in a search will use the bounds of the map for searching if the map is at a zoom level equal or greater than the integer.
 `collapseAfterResult` | `Boolean` | `true` | If the geocoder is expanded after a result this will collapse it.
-`expanded` | `Boolean` | `true` | Start the control in an expanded state.
+`expanded` | `Boolean` | `false` | Start the control in an expanded state.
 `containerClass` | `String` | `"geocoder-control"` | Used for styling the geocoder. See the [styling guide](#Styling) for more details.
 `inputClass` | `String` | `"geocoder-control-input"` | Used for styling the geocoder. See the [styling guide](#Styling) for more details.
 `suggestionsWrapperClass` | `String` | `"geocoder-control-suggestions"` | Used for styling the geocoder. See the [styling guide](#Styling) for more details.
