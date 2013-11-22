@@ -1,4 +1,4 @@
-/*! esri-leaflet-geocoder - v0.0.1 - 2013-11-04
+/*! esri-leaflet-geocoder - v0.0.1 - 2013-11-22
 *   Copyright (c) 2013 Environmental Systems Research Institute, Inc.
 *   Apache License*/
 
@@ -110,6 +110,7 @@
       useMapBounds: 11,
       collapseAfterResult: true,
       expanded: false,
+      allowMultipleResults: true,
       containerClass: "geocoder-control",
       inputClass: "geocoder-control-input leaflet-bar",
       suggestionsWrapperClass: "geocoder-control-suggestions leaflet-bar",
@@ -120,42 +121,80 @@
       L.Util.setOptions(this, options);
       this._service = new L.esri.Services.Geocoding();
     },
+    _processMatch: function(text, match){
+      var attributes = match.feature.attributes;
+      var bounds = extentToBounds(match.extent);
+
+      return {
+        text: text,
+        bounds: bounds,
+        latlng: new L.LatLng(match.feature.geometry.y, match.feature.geometry.x),
+        name: attributes.PlaceName,
+        match: attributes.Addr_type,
+        country: attributes.Country,
+        region: attributes.Region,
+        subregion: attributes.Subregion,
+        city: attributes.City,
+        address: attributes.Match_addr
+      };
+    },
     _geocode: function(text, key){
       var options = {};
 
       if(key){
         options.magicKey = key;
+      } else {
+        var mapBounds = this._map.getBounds();
+        var center = mapBounds.getCenter();
+        var ne = mapBounds.getNorthWest();
+        options.bbox = mapBounds.toBBoxString();
+        options.maxLocations = 50;
+        options.location = center.lng + "," + center.lat;
+        options.distance = Math.min(Math.max(center.distanceTo(ne), 2000), 50000);
       }
 
       L.DomUtil.addClass(this._input, "loading");
       this.fire('loading');
 
       this._service.geocode(text, options, L.Util.bind(function(response){
-        L.DomUtil.removeClass(this._input, "loading");
-        var match = response.locations[0];
-        var attributes = match.feature.attributes;
-        var bounds = extentToBounds(match.extent);
+        if(response.locations.length > 1){
+          var results = [];
+          var bounds = new L.LatLngBounds();
+          var i;
 
-        if(this.options.zoomToResult){
-          this._map.fitBounds(bounds);
+          for (i = response.locations.length - 1; i >= 0; i--) {
+            results.push(this._processMatch(text, response.locations[i]));
+          }
+
+          for (i = results.length - 1; i >= 0; i--) {
+            bounds.extend(results[i].latlng);
+          }
+
+          this.fire('results', {
+            results: results,
+            bounds: bounds,
+            latlng: bounds.getCenter()
+          });
+
+          if(this.options.zoomToResult){
+            this._map.fitBounds(bounds);
+          }
+        } else {
+          var result = this._processMatch(text, response.locations[0]);
+
+          this.fire('result', result);
+
+          if(this.options.zoomToResult){
+            this._map.fitBounds(result.bounds);
+          }
         }
+
+        L.DomUtil.removeClass(this._input, "loading");
 
         this.fire('load');
 
-        this.fire("result", {
-          text: text,
-          bounds: bounds,
-          latlng: new L.LatLng(match.feature.geometry.y, match.feature.geometry.x),
-          name: attributes.PlaceName,
-          match: attributes.Addr_type,
-          country: attributes.Country,
-          region: attributes.Region,
-          subregion: attributes.Subregion,
-          city: attributes.City,
-          address: attributes.Match_addr
-        });
-
         this.clear();
+
       }, this));
     },
     _suggest: function(text){
@@ -202,6 +241,12 @@
     onAdd: function (map) {
       this._map = map;
 
+      if (!map.attributionControl) {
+        L.control.attribution().addAttribution('Geocoding by Esri').addTo(map);
+      } else {
+        map.attributionControl.addAttribution('Geocoding by Esri');
+      }
+
       this._container = L.DomUtil.create('div', this.options.containerClass + ((this.options.expanded) ? " " + this.options.expandedClass  : ""));
 
       this._input = L.DomUtil.create('input', this.options.inputClass, this._container);
@@ -213,7 +258,8 @@
       }, this);
 
       L.DomEvent.addListener(this._suggestions, "mousedown", function(e){
-        this._geocode(e.target.innerHTML, e.target["data-magic-key"]);
+        var suggestionItem = e.target || e.srcElement;
+        this._geocode(suggestionItem.innerHTML, suggestionItem["data-magic-key"]);
         this.clear();
       }, this);
 
@@ -222,15 +268,18 @@
       }, this);
 
       L.DomEvent.addListener(this._input, "keydown", function(e){
-        var selected = this._suggestions.getElementsByClassName(this.options.selectedSuggestionClass)[0];
+        var selected = this._suggestions.querySelectorAll('.' + this.options.selectedSuggestionClass)[0];
         switch(e.keyCode){
         case 13:
           if(selected){
             this._geocode(selected.innerHTML, selected["data-magic-key"]);
             this.clear();
+          } else if(this.options.allowMultipleResults){
+            this._geocode(this._input.value);
           } else {
             L.DomUtil.addClass(this._suggestions.childNodes[0], this.options.selectedSuggestionClass);
           }
+          this.clear();
           L.DomEvent.preventDefault(e);
           break;
         case 38:
@@ -258,13 +307,17 @@
         }
       }, this);
 
-      L.DomEvent.addListener(this._input, "keyup", function(e){
-        if(e.keyCode !== 13 && e.keyCode !== 38 && e.keyCode !== 40){
-          this._suggest(e.target.value);
+      L.DomEvent.addListener(this._input, "keypress", function(e){
+        var key = e.keyCode;
+        if(key !== 13 && key !== 38 && key !== 40){
+          this._suggest((e.target || e.srcElement).value);
         }
       }, this);
 
       return this._container;
+    },
+    onRemove: function (map) {
+      map.attributionControl.removeAttribution('Geocoding by Esri');
     }
   });
 

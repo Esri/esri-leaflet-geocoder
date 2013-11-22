@@ -1,4 +1,4 @@
-/*! esri-leaflet-geocoder - v0.0.1 - 2013-11-04
+/*! esri-leaflet-geocoder - v0.0.1 - 2013-11-22
 *   Copyright (c) 2013 Environmental Systems Research Institute, Inc.
 *   Apache License*/
 
@@ -21,6 +21,7 @@
   -ms-transition: all .125s ease-in;
   -o-transition: all .125s ease-in;
   transition: all .125s ease-in;
+  cursor: pointer;
 }
 
  .geocoder-control {
@@ -60,11 +61,11 @@ only screen and (min-device-pixel-ratio: 2) {
 
 .geocoder-control-input:focus {
   outline: none;
+  cursor: text;
 }
 
 .geocoder-control-suggestions {
   width: 100%;
-  background-color: white;
   list-style: none;
   padding: 0;
   margin: 10px 0 0 0;
@@ -74,6 +75,7 @@ only screen and (min-device-pixel-ratio: 2) {
 .geocoder-control-suggestions li {
   font-size: 13px;
   padding: 7px;
+  background: white;
   border-top: 1px solid #f1f1f1;
   white-space: nowrap;
   overflow: hidden;

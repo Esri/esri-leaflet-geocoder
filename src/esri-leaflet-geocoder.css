@@ -17,6 +17,7 @@
   -ms-transition: all .125s ease-in;
   -o-transition: all .125s ease-in;
   transition: all .125s ease-in;
+  cursor: pointer;
 }
 
  .geocoder-control {
@@ -56,6 +57,7 @@ only screen and (min-device-pixel-ratio: 2) {
 
 .geocoder-control-input:focus {
   outline: none;
+  cursor: text;
 }
 
 .geocoder-control-suggestions {
