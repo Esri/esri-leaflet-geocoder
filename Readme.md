@@ -36,23 +36,35 @@ Take a look at the live demo at http://esri.github.io/esri-leaflet-geocoder/
       }
     </style>
 
-    <script src="dist/esri-leaflet-geocoder.js"></script>
-    <link rel="stylesheet" href="distA/esri-leaflet-geocoder.css" />
+    <script src="src/esri-leaflet-geocoder.js"></script>
+    <link rel="stylesheet" href="src/esri-leaflet-geocoder.css" />
 
   </head>
   <body>
+
     <div id="map"></div>
 
+    <a href="https://github.com/Esri/esri-leaflet-geocoder"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub"></a>
+
     <script>
-      var map = L.map('map').setView([45.5165, -122.6764], 11);
+      var map = L.map('map').setView([45.5165, -122.6764], 12);
 
       var tiles = L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
 
       var searchControl = new L.esri.Controls.Geosearch().addTo(map);
 
-      searchControl.on("result", function(result){
-        // Do stuff with the result
-        console.log(result);
+      var results = new L.LayerGroup().addTo(map);
+
+      searchControl.on("result", function(data){
+        results.clearLayers();
+        results.addLayer(L.marker(data.latlng));
+      });
+
+      searchControl.on("results", function(data){
+        results.clearLayers();
+        for (var i = data.results.length - 1; i >= 0; i--) {
+          results.addLayer(L.marker(data.results[i].latlng));
+        };
       });
     </script>
   </body>
@@ -78,6 +90,7 @@ Option | Type | Default | Description
 `useMapBounds` | `Boolean` or <br> `Integer` | `11` | Determines if the geocoder should begin using the bounds of the map to enchance search results. If `true` the geocoder will always return results in the current map bounds. If `false` it will always search the world. If an integer like `11` is passed in a search will use the bounds of the map for searhcing is the map is at a zoom level equal or greater then the integer.
 `collapseAfterResult` | `Boolean` | `true` | If the geocoder is expanded after a result this will collapse it.
 `expanded` | `Boolean` | `true` | Start the control in an expanded state.
+`allowMultipleResults` | `true` | When a user hits enter without selecting a suggestion their text will be geocoded within the current bounds of the map. A `results` event will fire with multuiple results. If this is `false` the first suggestion will be used.
 `containerClass` | `String` | `"geocoder-control"` | Used for styling the geocoder. See the [styling guide](#Styling) for more details.
 `inputClass` | `String` | `"geocoder-control-input"` | Used for styling the geocoder. See the [styling guide](#Styling) for more details.
 `suggestionsWrapperClass` | `String` | `"geocoder-control-suggestions"`` | Used for styling the geocoder. See the [styling guide](#Styling) for more details.
@@ -96,7 +109,7 @@ Event | Data | Description
 --- | --- | ---
 `load` | `null` | A generic event fired when a request to the geocoder starts.
 `loading` | `null` | A generic event fired when a request to the geocoder finished.
-`result` | [`<ResultEvent>`](#result-event) | Fired when a result is returned from the geocoder.
+`result` | [`<ResultEvent>`](#result-event--object) | Fired when a result is returned from the geocoder.
 
 ### Styling
 
@@ -130,6 +143,14 @@ Property | Type | Description
 `subregion` | `String` | The next largest administrative area for a the geocoded place, typically a county or region.
 `city` | `String` | The city the geocoded place is located in
 `address` | `String` | Complete address returned for the geocoded place. The format is based on address standards for the country within which the address is located.
+
+#### Results Event / Object
+
+Property | Type | Description
+--- | --- | ---
+`bounds` | [`L.LatLngBounds`](http://leafletjs.com/reference.html#latlngbounds)| The bounds arround this suggestion. Good for zooming to results like cities and states.
+`latlng` | [`L.LatLng`](http://leafletjs.com/reference.html#latlng)| The center of the result.
+`results` | [`<ResultObject>`](#result-event--object) | An array of [result objects](#result-event--object).
 
 ## L.esri.Services.Geocoding
 A basic wrapper for ArcGIS Online geocoding services. Used internally by `L.esri.Controls.Geosearch`.

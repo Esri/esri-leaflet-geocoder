@@ -106,6 +106,7 @@
       useMapBounds: 11,
       collapseAfterResult: true,
       expanded: false,
+      allowMultipleResults: true,
       containerClass: "geocoder-control",
       inputClass: "geocoder-control-input leaflet-bar",
       suggestionsWrapperClass: "geocoder-control-suggestions leaflet-bar",
@@ -116,42 +117,80 @@
       L.Util.setOptions(this, options);
       this._service = new L.esri.Services.Geocoding();
     },
+    _processMatch: function(text, match){
+      var attributes = match.feature.attributes;
+      var bounds = extentToBounds(match.extent);
+
+      return {
+        text: text,
+        bounds: bounds,
+        latlng: new L.LatLng(match.feature.geometry.y, match.feature.geometry.x),
+        name: attributes.PlaceName,
+        match: attributes.Addr_type,
+        country: attributes.Country,
+        region: attributes.Region,
+        subregion: attributes.Subregion,
+        city: attributes.City,
+        address: attributes.Match_addr
+      };
+    },
     _geocode: function(text, key){
       var options = {};
 
       if(key){
         options.magicKey = key;
+      } else {
+        var mapBounds = this._map.getBounds();
+        var center = mapBounds.getCenter();
+        var ne = mapBounds.getNorthWest();
+        options.bbox = mapBounds.toBBoxString();
+        options.maxLocations = 50;
+        options.location = center.lng + "," + center.lat;
+        options.distance = Math.min(Math.max(center.distanceTo(ne), 2000), 50000);
       }
 
       L.DomUtil.addClass(this._input, "loading");
       this.fire('loading');
 
       this._service.geocode(text, options, L.Util.bind(function(response){
-        L.DomUtil.removeClass(this._input, "loading");
-        var match = response.locations[0];
-        var attributes = match.feature.attributes;
-        var bounds = extentToBounds(match.extent);
+        if(response.locations.length > 1){
+          var results = [];
+          var bounds = new L.LatLngBounds();
+          var i;
 
-        if(this.options.zoomToResult){
-          this._map.fitBounds(bounds);
+          for (i = response.locations.length - 1; i >= 0; i--) {
+            results.push(this._processMatch(text, response.locations[i]));
+          }
+
+          for (i = results.length - 1; i >= 0; i--) {
+            bounds.extend(results[i].latlng);
+          }
+
+          this.fire('results', {
+            results: results,
+            bounds: bounds,
+            latlng: bounds.getCenter()
+          });
+
+          if(this.options.zoomToResult){
+            this._map.fitBounds(bounds);
+          }
+        } else {
+          var result = this._processMatch(text, response.locations[0]);
+
+          this.fire('result', result);
+
+          if(this.options.zoomToResult){
+            this._map.fitBounds(result.bounds);
+          }
         }
+
+        L.DomUtil.removeClass(this._input, "loading");
 
         this.fire('load');
 
-        this.fire("result", {
-          text: text,
-          bounds: bounds,
-          latlng: new L.LatLng(match.feature.geometry.y, match.feature.geometry.x),
-          name: attributes.PlaceName,
-          match: attributes.Addr_type,
-          country: attributes.Country,
-          region: attributes.Region,
-          subregion: attributes.Subregion,
-          city: attributes.City,
-          address: attributes.Match_addr
-        });
-
         this.clear();
+
       }, this));
     },
     _suggest: function(text){
@@ -225,9 +264,12 @@
           if(selected){
             this._geocode(selected.innerHTML, selected["data-magic-key"]);
             this.clear();
+          } else if(this.options.allowMultipleResults){
+            this._geocode(this._input.value);
           } else {
             L.DomUtil.addClass(this._suggestions.childNodes[0], this.options.selectedSuggestionClass);
           }
+          this.clear();
           L.DomEvent.preventDefault(e);
           break;
         case 38:
