@@ -153,7 +153,20 @@
       this.fire('loading');
 
       this._service.geocode(text, options, L.Util.bind(function(response){
-        if(response.locations.length > 1){
+        
+        if (response.locations.length == 0) {
+           
+           //this.fire('result', null);  // don't fire for 0 results
+
+        } else if (response.locations.length == 1) {
+          var result = this._processMatch(text, response.locations[0]);
+
+          this.fire('result', result);
+
+          if(this.options.zoomToResult){
+            this._map.fitBounds(result.bounds);
+          }
+        } else if (response.locations.length > 1) {
           var results = [];
           var bounds = new L.LatLngBounds();
           var i;
@@ -175,15 +188,7 @@
           if(this.options.zoomToResult){
             this._map.fitBounds(bounds);
           }
-        } else {
-          var result = this._processMatch(text, response.locations[0]);
-
-          this.fire('result', result);
-
-          if(this.options.zoomToResult){
-            this._map.fitBounds(result.bounds);
-          }
-        }
+        } 
 
         L.DomUtil.removeClass(this._input, "loading");
 
