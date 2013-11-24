@@ -51,7 +51,7 @@
     includes: L.Mixin.Events,
     options: {
       url: 'https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/',
-      outFields: 'Subregion, Region, PlaceName, Match_addr, Country, Addr_type, City'
+      outFields: 'Subregion, Region, PlaceName, Match_addr, Country, Addr_type, City, Place_addr'
     },
     initialize: function (options) {
       L.Util.setOptions(this, options);
@@ -131,7 +131,7 @@
         region: attributes.Region,
         subregion: attributes.Subregion,
         city: attributes.City,
-        address: attributes.Match_addr
+        address: attributes.Place_addr ? attributes.Place_addr : attributes.Match_addr 
       };
     },
     _geocode: function(text, key){
@@ -144,7 +144,7 @@
         var center = mapBounds.getCenter();
         var ne = mapBounds.getNorthWest();
         options.bbox = mapBounds.toBBoxString();
-        options.maxLocations = 50;
+        options.maxLocations = 25;
         options.location = center.lng + "," + center.lat;
         options.distance = Math.min(Math.max(center.distanceTo(ne), 2000), 50000);
       }
@@ -153,7 +153,20 @@
       this.fire('loading');
 
       this._service.geocode(text, options, L.Util.bind(function(response){
-        if(response.locations.length > 1){
+        
+        if (response.locations.length === 0) {
+           
+           //this.fire('result', null);  // don't fire for 0 results
+
+        } else if (response.locations.length === 1) {
+          var result = this._processMatch(text, response.locations[0]);
+
+          this.fire('result', result);
+
+          if(this.options.zoomToResult){
+            this._map.fitBounds(result.bounds);
+          }
+        } else if (response.locations.length > 1) {
           var results = [];
           var bounds = new L.LatLngBounds();
           var i;
@@ -175,15 +188,7 @@
           if(this.options.zoomToResult){
             this._map.fitBounds(bounds);
           }
-        } else {
-          var result = this._processMatch(text, response.locations[0]);
-
-          this.fire('result', result);
-
-          if(this.options.zoomToResult){
-            this._map.fitBounds(result.bounds);
-          }
-        }
+        } 
 
         L.DomUtil.removeClass(this._input, "loading");
 
