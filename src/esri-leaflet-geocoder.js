@@ -51,7 +51,7 @@
     includes: L.Mixin.Events,
     options: {
       url: 'https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/',
-      outFields: 'Subregion, Region, PlaceName, Match_addr, Country, Addr_type, City'
+      outFields: 'Subregion, Region, PlaceName, Match_addr, Country, Addr_type, City, Place_addr'
     },
     initialize: function (options) {
       L.Util.setOptions(this, options);
@@ -131,7 +131,7 @@
         region: attributes.Region,
         subregion: attributes.Subregion,
         city: attributes.City,
-        address: attributes.Match_addr
+        address: attributes.Place_addr ? attributes.Place_addr : attributes.Match_addr 
       };
     },
     _geocode: function(text, key){
