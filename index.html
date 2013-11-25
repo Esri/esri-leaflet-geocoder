@@ -51,6 +51,10 @@
           results.addLayer(L.marker(data.results[i].latlng));
         };
       });
+
+      searchControl.on("noresults", function(){
+        // handle a search that didn't return
+      });
     </script>
   </body>
 </html>

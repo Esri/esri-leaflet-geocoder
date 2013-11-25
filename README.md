@@ -114,6 +114,8 @@ Event | Data | Description
 `load` | `null` | A generic event fired when a request to the geocoder starts.
 `loading` | `null` | A generic event fired when a request to the geocoder finished.
 `result` | [`<ResultEvent>`](#result-event--object) | Fired when a result is returned from the geocoder.
+`results` | [`<ResultsEvent>`](#results-event) | Fired when a result is returned from the geocoder.
+`noresults` | [`NoResultsEvent`](#no-results-event) | Fired when a geocoding or search result doesn't return any results.
 
 ### Styling
 

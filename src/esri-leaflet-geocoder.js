@@ -153,7 +153,9 @@
       this.fire('loading');
 
       this._service.geocode(text, options, L.Util.bind(function(response){
-        if(response.locations.length > 1){
+        if(!response.locations.length){
+          this.fire('noresults');
+        }else if(!key){
           var results = [];
           var bounds = new L.LatLngBounds();
           var i;
