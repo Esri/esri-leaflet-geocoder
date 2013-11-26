@@ -138,7 +138,7 @@ Property | Type | Description
 --- | --- | ---
 `bounds` | [`L.LatLngBounds`](http://leafletjs.com/reference.html#latlngbounds)| The bounds arround this suggestion. Good for zooming to results like cities and states.
 `latlng` | [`L.LatLng`](http://leafletjs.com/reference.html#latlng)| The center of the result.
-`results` | [`<ResultObject>`](#result-object) | An array of [result objects](#result--object).
+`results` | [`[ <ResultObject> ]`](#result-object) | An array of [result objects](#result-object).
 
 #### Result Object
 
@@ -146,7 +146,7 @@ A single result from the geocoder. You should not rely on all these properties b
 
 Property | Type | Description
 --- | --- | ---
-`text` | `String` | The text that was passed to the geocodeer.
+`text` | `String` | The text that was passed to the geocoder.
 `bounds` | [`L.LatLngBounds`](http://leafletjs.com/reference.html#latlngbounds)| The bounds arround this suggestion. Good for zooming to results like cities and states.
 `latlng` | [`L.LatLng`](http://leafletjs.com/reference.html#latlng)| The center of the result.
 `name` | `String` | Name of the geocoded place. Usually something like "Paris" or "Starbucks".
@@ -154,7 +154,7 @@ Property | Type | Description
 `country` | `String` | The country the geocoded place is located in.
 `region` | `String` | The largest administrative area for a country that the geocoded palce is in, typically a state or province.
 `subregion` | `String` | The next largest administrative area for a the geocoded place, typically a county or region.
-`city` | `String` | The city the geocoded place is located in
+`city` | `String` | The city the geocoded place is located in.
 `address` | `String` | Complete address returned for the geocoded place. The format is based on address standards for the country within which the address is located.
 
 ## L.esri.Services.Geocoding
