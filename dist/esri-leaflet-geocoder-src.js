@@ -278,11 +278,8 @@
         case 13:
           if(selected){
             this._geocode(selected.innerHTML, selected["data-magic-key"]);
-            this.clear();
-          } else if(this.options.allowMultipleResults){
-            this._geocode(this._input.value);
           } else {
-            L.DomUtil.addClass(this._suggestions.childNodes[0], this.options.selectedSuggestionClass);
+            this._geocode(this._input.value);
           }
           this.clear();
           L.DomEvent.preventDefault(e);
