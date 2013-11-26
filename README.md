@@ -50,21 +50,23 @@ Take a look at the live demo at http://esri.github.io/esri-leaflet-geocoder/
       var map = L.map('map').setView([45.5165, -122.6764], 12);
 
       var tiles = L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
-
+      
+      // create the geocoding control and add it to the map
       var searchControl = new L.esri.Controls.Geosearch().addTo(map);
-
+  
+      // create an empty layer group to store the results and add it to the map
       var results = new L.LayerGroup().addTo(map);
-
-      searchControl.on("result", function(data){
-        results.clearLayers();
-        results.addLayer(L.marker(data.latlng));
-      });
-
+      
+      // listen for the results event and add every result to the map
       searchControl.on("results", function(data){
         results.clearLayers();
         for (var i = data.results.length - 1; i >= 0; i--) {
           results.addLayer(L.marker(data.results[i].latlng));
         };
+      });
+
+      searchControl.on("error", function(e){
+        console.log(e);
       });
     </script>
   </body>
@@ -89,12 +91,8 @@ Option | Type | Default | Description
 `zoomToResult` | `Boolean` | `true` | If `true` the map will zoom the result after geocoding is complete.
 `useMapBounds` | `Boolean` or <br> `Integer` | `11` | Determines if the geocoder should begin using the bounds of the map to enchance search results. If `true` the geocoder will always return results in the current map bounds. If `false` it will always search the world. If an integer like `11` is passed in a search will use the bounds of the map for searching if the map is at a zoom level equal or greater than the integer.
 `collapseAfterResult` | `Boolean` | `true` | If the geocoder is expanded after a result this will collapse it.
-<<<<<<< HEAD:Readme.md
 `expanded` | `Boolean` | `true` | Start the control in an expanded state.
-`allowMultipleResults` | `true` | When a user hits enter without selecting a suggestion their text will be geocoded within the current bounds of the map. A `results` event will fire with multuiple results. If this is `false` the first suggestion will be used.
-=======
-`expanded` | `Boolean` | `false` | Start the control in an expanded state.
->>>>>>> f67d5ff836b083f4917feac0594a0f8237eb408f:README.md
+`maxResults` | `Integer` | `25` | The maximum number of results to return from a geocoding request. Max is 50.
 `containerClass` | `String` | `"geocoder-control"` | Used for styling the geocoder. See the [styling guide](#Styling) for more details.
 `inputClass` | `String` | `"geocoder-control-input"` | Used for styling the geocoder. See the [styling guide](#Styling) for more details.
 `suggestionsWrapperClass` | `String` | `"geocoder-control-suggestions"` | Used for styling the geocoder. See the [styling guide](#Styling) for more details.
@@ -113,7 +111,8 @@ Event | Data | Description
 --- | --- | ---
 `load` | `null` | A generic event fired when a request to the geocoder starts.
 `loading` | `null` | A generic event fired when a request to the geocoder finished.
-`result` | [`<ResultEvent>`](#result-event--object) | Fired when a result is returned from the geocoder.
+`results` | [`<ResultsEvent>`](#results-event) | Fired when a result is returned from the geocoder.
+`error` | [`ErrorEvent`](#error-event) | Fired when the geocoding service returns an error.
 
 ### Styling
 
@@ -133,11 +132,21 @@ For reference here is the internal structure of the geocoder...
 </div>
 ```
 
-#### Result Event
+#### Results Event
 
 Property | Type | Description
 --- | --- | ---
-`text` | `String` | The text that was passed to the geocodeer.
+`bounds` | [`L.LatLngBounds`](http://leafletjs.com/reference.html#latlngbounds)| The bounds arround this suggestion. Good for zooming to results like cities and states.
+`latlng` | [`L.LatLng`](http://leafletjs.com/reference.html#latlng)| The center of the result.
+`results` | [`[ <ResultObject> ]`](#result-object) | An array of [result objects](#result-object).
+
+#### Result Object
+
+A single result from the geocoder. You should not rely on all these properties being present in every result object.
+
+Property | Type | Description
+--- | --- | ---
+`text` | `String` | The text that was passed to the geocoder.
 `bounds` | [`L.LatLngBounds`](http://leafletjs.com/reference.html#latlngbounds)| The bounds arround this suggestion. Good for zooming to results like cities and states.
 `latlng` | [`L.LatLng`](http://leafletjs.com/reference.html#latlng)| The center of the result.
 `name` | `String` | Name of the geocoded place. Usually something like "Paris" or "Starbucks".
@@ -145,16 +154,8 @@ Property | Type | Description
 `country` | `String` | The country the geocoded place is located in.
 `region` | `String` | The largest administrative area for a country that the geocoded palce is in, typically a state or province.
 `subregion` | `String` | The next largest administrative area for a the geocoded place, typically a county or region.
-`city` | `String` | The city the geocoded place is located in
+`city` | `String` | The city the geocoded place is located in.
 `address` | `String` | Complete address returned for the geocoded place. The format is based on address standards for the country within which the address is located.
-
-#### Results Event / Object
-
-Property | Type | Description
---- | --- | ---
-`bounds` | [`L.LatLngBounds`](http://leafletjs.com/reference.html#latlngbounds)| The bounds arround this suggestion. Good for zooming to results like cities and states.
-`latlng` | [`L.LatLng`](http://leafletjs.com/reference.html#latlng)| The center of the result.
-`results` | [`<ResultObject>`](#result-event--object) | An array of [result objects](#result-event--object).
 
 ## L.esri.Services.Geocoding
 A basic wrapper for ArcGIS Online geocoding services. Used internally by `L.esri.Controls.Geosearch`.
@@ -170,7 +171,7 @@ Constructor | Options | Description
 Option | Type | Default | Description
 --- | --- | --- | ---
 `url` | `String` | `<WorldGeocodeServiceURL>` | Defaults to the ArcGIS World Geocoding service.
-`outFields`| `String` | "Subregion, Region, PlaceName, Match_addr, Country, Addr_type, City" | 
+`outFields`| `String` | "Subregion, Region, PlaceName, Match_addr, Country, Addr_type, City, Place_addr" | The fields from the service that you would like returned. 
 
 ### Methods
 
