@@ -338,7 +338,7 @@
     },
     onRemove: function (map) {
       map.attributionControl.removeAttribution('Geocoding by Esri');
-    },
+    }
   });
 
   L.esri.Controls.geosearch = function(options){
