@@ -143,13 +143,14 @@
         var mapBounds = this._map.getBounds();
         var center = mapBounds.getCenter();
         var ne = mapBounds.getNorthWest();
+
         options.bbox = mapBounds.toBBoxString();
         options.maxLocations = this.options.maxResults;
         options.location = center.lng + "," + center.lat;
         options.distance = Math.min(Math.max(center.distanceTo(ne), 2000), 50000);
       }
 
-      L.DomUtil.addClass(this._input, "loading");
+      L.DomUtil.addClass(this._input, "geocoder-control-loading");
 
       this.fire('loading');
 
@@ -190,17 +191,17 @@
           });
         }
 
-        L.DomUtil.removeClass(this._input, "loading");
+        L.DomUtil.removeClass(this._input, "geocoder-control-loading");
 
         this.fire('load');
 
         this.clear();
 
+        this._input.blur();
       }, this));
     },
     _suggest: function(text){
-
-      L.DomUtil.addClass(this._input, "loading");
+      L.DomUtil.addClass(this._input, "geocoder-control-loading");
 
       var options = {};
 
@@ -216,8 +217,10 @@
         // make sure something is still in the input field before putting in suggestions.
         if(this._input.value){
           this._suggestions.innerHTML = "";
+          this._suggestions.style.display = "none";
 
           if(response.suggestions){
+            this._suggestions.style.display = "block";
             for (var i = 0; i < response.suggestions.length; i++) {
               var suggestion = L.DomUtil.create('li', 'geocoder-control-suggestion', this._suggestions);
               suggestion.innerHTML = response.suggestions[i].text;
@@ -225,19 +228,18 @@
             }
           }
 
-          L.DomUtil.removeClass(this._input, "loading");
+          L.DomUtil.removeClass(this._input, "geocoder-control-loading");
         }
       }, this));
     },
-    clear: function(){
+    clear: function(blur){
       this._suggestions.innerHTML = "";
+      this._suggestions.style.display = "none";
       this._input.value = "";
 
       if(this.options.collapseAfterResult){
-        L.DomUtil.removeClass(this._container, this.options.expandedClass);
+        L.DomUtil.removeClass(this._container, "geocoder-control-expanded");
       }
-
-      this._input.blur();
     },
     onAdd: function (map) {
       this._map = map;
@@ -248,14 +250,14 @@
         map.attributionControl.addAttribution('Geocoding by Esri');
       }
 
-      this._container = L.DomUtil.create('div', this.options.containerClass + ((this.options.expanded) ? " " + this.options.expandedClass  : ""));
+      this._container = L.DomUtil.create('div', "geocoder-control" + ((this.options.expanded) ? " " + "geocoder-control-expanded"  : ""));
 
-      this._input = L.DomUtil.create('input', this.options.inputClass, this._container);
+      this._input = L.DomUtil.create('input', "geocoder-control-input leaflet-bar", this._container);
 
-      this._suggestions = L.DomUtil.create('ul', this.options.suggestionsWrapperClass, this._container);
+      this._suggestions = L.DomUtil.create('ul', "geocoder-control-suggestions leaflet-bar", this._container);
 
-      L.DomEvent.addListener(this._container, "click", function(e){
-        L.DomUtil.addClass(this._container, this.options.expandedClass);
+      L.DomEvent.addListener(this._input, "focus", function(e){
+        L.DomUtil.addClass(this._container, "geocoder-control-expanded");
       }, this);
 
       L.DomEvent.addListener(this._suggestions, "mousedown", function(e){
@@ -269,54 +271,74 @@
       }, this);
 
       L.DomEvent.addListener(this._input, "keydown", function(e){
-        var selected = this._suggestions.querySelectorAll('.' + this.options.selectedSuggestionClass)[0];
+        var selected = this._suggestions.querySelectorAll('.' + "geocoder-control-selected")[0];
         switch(e.keyCode){
         case 13:
           if(selected){
             this._geocode(selected.innerHTML, selected["data-magic-key"]);
-          } else {
+            this.clear();
+          } else if(this.options.allowMultipleResults){
             this._geocode(this._input.value);
+          } else {
+            L.DomUtil.addClass(this._suggestions.childNodes[0], "geocoder-control-selected");
           }
           this.clear();
           L.DomEvent.preventDefault(e);
           break;
         case 38:
           if(selected){
-            L.DomUtil.removeClass(selected, this.options.selectedSuggestionClass);
+            L.DomUtil.removeClass(selected, "geocoder-control-selected");
           }
           if(selected && selected.previousSibling) {
-            L.DomUtil.addClass(selected.previousSibling, this.options.selectedSuggestionClass);
+            L.DomUtil.addClass(selected.previousSibling, "geocoder-control-selected");
           } else {
-            L.DomUtil.addClass(this._suggestions.childNodes[this._suggestions.childNodes.length-1], this.options.selectedSuggestionClass);
+            L.DomUtil.addClass(this._suggestions.childNodes[this._suggestions.childNodes.length-1], "geocoder-control-selected");
           }
           L.DomEvent.preventDefault(e);
           break;
         case 40:
           if(selected){
-            L.DomUtil.removeClass(selected, this.options.selectedSuggestionClass);
+            L.DomUtil.removeClass(selected, "geocoder-control-selected");
           }
           if(selected && selected.nextSibling) {
-            L.DomUtil.addClass(selected.nextSibling, this.options.selectedSuggestionClass);
+            L.DomUtil.addClass(selected.nextSibling, "geocoder-control-selected");
           } else {
-            L.DomUtil.addClass(this._suggestions.childNodes[0], this.options.selectedSuggestionClass);
+            L.DomUtil.addClass(this._suggestions.childNodes[0], "geocoder-control-selected");
           }
           L.DomEvent.preventDefault(e);
           break;
         }
       }, this);
 
-      L.DomEvent.addListener(this._input, "keypress", function(e){
-        var key = e.keyCode;
+      L.DomEvent.addListener(this._input, "keyup", function(e){
+        var key = e.which || e.keyCode;
+        var text = (e.target || e.srcElement).value;
+
+        // require at least 2 characters for suggestions
+        if(text.length < 2) {
+          return;
+        }
+
+        // if this is the escape key it will clear the input so clear suggestions
+        if(key === 27){
+          this._suggestions.innerHTML = "";
+          this._suggestions.style.display = "none";
+          return;
+        }
+
+        // if this is NOT the up/down arrows or enter make a suggestion
         if(key !== 13 && key !== 38 && key !== 40){
-          this._suggest((e.target || e.srcElement).value);
+          this._suggest(text);
         }
       }, this);
+
+      L.DomEvent.disableClickPropagation(this._container);
 
       return this._container;
     },
     onRemove: function (map) {
       map.attributionControl.removeAttribution('Geocoding by Esri');
-    }
+    },
   });
 
   L.esri.Controls.geosearch = function(options){
