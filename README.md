@@ -124,7 +124,7 @@ Property | Type | Description
 --- | --- | ---
 `bounds` | [`L.LatLngBounds`](http://leafletjs.com/reference.html#latlngbounds)| The bounds arround this suggestion. Good for zooming to results like cities and states.
 `latlng` | [`L.LatLng`](http://leafletjs.com/reference.html#latlng)| The center of the result.
-`results` | [`[ <ResultObject> ]`](#result-object) | An array of [result objects](#result-object).
+`results` | [`[<ResultObject>]`](#result-object) | An array of [result objects](#result-object).
 
 #### Result Object
 
