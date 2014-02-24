@@ -2,9 +2,9 @@
 
 The Esri Leaflet Geocoder is a small series of API helpers and UI controls to interact with the ArcGIS Online geocoding services.
 
-**Currently Esri Leaflet Geocoder is in development. Use at your own risk.**
+**Currently Esri Leaflet Geocoder is in development and should be thoguht of as a beta or preview**
 
-Despite sharing a name and a namespace with Esri Leaflet, Esri Leaflet Geocoder **does not** require Esri Leaflet. It is however tested with Esri Leaflet and will work just fine with our without it.
+Despite sharing a name and a namespace with Esri Leaflet, Esri Leaflet Geocoder **does not** require Esri Leaflet. It is however tested with Esri Leaflet and will work just fine with or without it.
 
 ## Example
 
@@ -19,11 +19,8 @@ Take a look at the live demo at http://esri.github.io/esri-leaflet-geocoder/
     <title>Esri Leaflet Geocoder</title>
 
     <!-- Load Leaflet from their CDN -->
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
-    <!--[if lte IE 8]>
-        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
-    <![endif]-->
-    <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet-src.js"></script>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet-src.js"></script>
 
     <!-- Make the map fill the entire page -->
     <style>
@@ -43,9 +40,6 @@ Take a look at the live demo at http://esri.github.io/esri-leaflet-geocoder/
   <body>
 
     <div id="map"></div>
-
-    <a href="https://github.com/Esri/esri-leaflet-geocoder"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub"></a>
-
     <script>
       var map = L.map('map').setView([45.5165, -122.6764], 12);
 
@@ -87,17 +81,12 @@ Constructor | Options | Description
 
 Option | Type | Default | Description
 --- | --- | --- | ---
-`position` | `String` | `topleft` | On of the valid Leaflet [control positions](http://leafletjs.com/reference.html#control-positions).
+`position` | `String` | `topleft` | One of the valid Leaflet [control positions](http://leafletjs.com/reference.html#control-positions).
 `zoomToResult` | `Boolean` | `true` | If `true` the map will zoom the result after geocoding is complete.
-`useMapBounds` | `Boolean` or <br> `Integer` | `11` | Determines if the geocoder should begin using the bounds of the map to enchance search results. If `true` the geocoder will always return results in the current map bounds. If `false` it will always search the world. If an integer like `11` is passed in a search will use the bounds of the map for searching if the map is at a zoom level equal or greater than the integer.
+`useMapBounds` | `Boolean` or <br> `Integer` | `11` | Determines if and when the geocoder should begin using the bounds of the map to enchance search results. If `true` the geocoder will always return results in the current map bounds. If `false` it will always search the world. If an integer like `11` is passed in the geocoder will use the bounds of the map for searching if the map is at a zoom level equal to or greater than the integer. This mean the geocoder will prefer local results when the map is zoomed in.
 `collapseAfterResult` | `Boolean` | `true` | If the geocoder is expanded after a result this will collapse it.
 `expanded` | `Boolean` | `true` | Start the control in an expanded state.
 `maxResults` | `Integer` | `25` | The maximum number of results to return from a geocoding request. Max is 50.
-`containerClass` | `String` | `"geocoder-control"` | Used for styling the geocoder. See the [styling guide](#Styling) for more details.
-`inputClass` | `String` | `"geocoder-control-input"` | Used for styling the geocoder. See the [styling guide](#Styling) for more details.
-`suggestionsWrapperClass` | `String` | `"geocoder-control-suggestions"` | Used for styling the geocoder. See the [styling guide](#Styling) for more details.
-`selectedSuggestionClass` | `String` | `"geocoder-control-selected"` | Used for styling the geocoder. See the [styling guide](#Styling) for more details.
-`expandedClass` | `String` | `"geocoder-control-expanded"` | Used for styling the geocoder. See the [styling guide](#Styling) for more details.
 
 ### Methods
 
@@ -115,9 +104,6 @@ Event | Data | Description
 `error` | [`ErrorEvent`](#error-event) | Fired when the geocoding service returns an error.
 
 ### Styling
-
-Styling the geocoder is possible by changing the `containerClass`, `inputClass`, `suggestionsWrapperClass`, `selectedSuggestionClass` and `expandedClass` options. By changing these options to the classes you want to use for styling and then writing your own CSS.
-
 For reference here is the internal structure of the geocoder...
 
 ```html
@@ -126,8 +112,8 @@ For reference here is the internal structure of the geocoder...
   <input class="geocoder-control-input leaflet-bar">
 
   <ul class="geocoder-control-suggestions leaflet-bar">
-    <li class="geocoder-control-selected">The Selected Result</li>
-    <li class="geocoder-control-selected">Another Result</li>
+    <li class="geocoder-control-suggestion geocoder-control-selected">The Selected Result</li>
+    <li class="geocoder-control-suggestion">Another Result</li>
   </ul>
 </div>
 ```
@@ -212,7 +198,6 @@ Despite sharing a name and a namespace the Esri Leaflet Geocoder **does not** re
 * [Geocoding Service Documentation](http://resources.arcgis.com/en/help/arcgis-rest-api/#/Single_input_field_geocoding/02r300000015000000/)
 * [ArcGIS for Developers](http://developers.arcgis.com)
 * [ArcGIS REST Services](http://resources.arcgis.com/en/help/arcgis-rest-api/)
-* [ArcGIS for JavaScript API Resource Center](http://help.arcgis.com/en/webapi/javascript/arcgis/index.html)
 * [twitter@esri](http://twitter.com/esri)
 
 ## Issues
