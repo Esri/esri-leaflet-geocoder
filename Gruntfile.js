@@ -29,7 +29,7 @@ module.exports = function(grunt) {
       options: {
         banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>\n' +
         '*   Copyright (c) <%= grunt.template.today("yyyy") %> Environmental Systems Research Institute, Inc.\n' +
-        '*   Apache License' +
+        '*   Apache 2.0 License ' +
         '*/\n\n'
       },
       js: {
@@ -65,7 +65,7 @@ module.exports = function(grunt) {
           expand: true,
           cwd: 'src/',
           src: ['img/*.{png,jpg,gif}'],
-          dest: 'dist/img'
+          dest: 'dist/'
         }]
       }
     },

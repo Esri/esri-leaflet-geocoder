@@ -1,8 +1,12 @@
 {
   "name": "esri-leaflet-geocoder",
-  "version": "0.0.1",
+  "version": "0.0.1-beta.2",
   "description": "A Leaflet plugin that allows users to search for locations on a map.",
-  "main": "src/esri-leaflet.js",
+  "homepage": "https://github.com/Esri/esri-leaflet-geocoder",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Esri/esri-leaflet-geocoder.git"
+  },
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-jshint": "~0.4.3",
@@ -18,5 +22,6 @@
   ],
   "license": "Apache",
   "readmeFilename": "README.md",
-  "dependencies": {}
+  "dependencies": {},
+  "license": "Apache 2.0"
 }
