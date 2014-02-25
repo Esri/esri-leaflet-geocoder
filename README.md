@@ -44,13 +44,13 @@ Take a look at the live demo at http://esri.github.io/esri-leaflet-geocoder/
       var map = L.map('map').setView([45.5165, -122.6764], 12);
 
       var tiles = L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
-      
+
       // create the geocoding control and add it to the map
       var searchControl = new L.esri.Controls.Geosearch().addTo(map);
-  
+
       // create an empty layer group to store the results and add it to the map
       var results = new L.LayerGroup().addTo(map);
-      
+
       // listen for the results event and add every result to the map
       searchControl.on("results", function(data){
         results.clearLayers();
@@ -108,7 +108,7 @@ For reference here is the internal structure of the geocoder...
 
 ```html
 <div class="geocoder-control leaflet-control">
-  
+
   <input class="geocoder-control-input leaflet-bar">
 
   <ul class="geocoder-control-suggestions leaflet-bar">
@@ -157,7 +157,7 @@ Constructor | Options | Description
 Option | Type | Default | Description
 --- | --- | --- | ---
 `url` | `String` | `<WorldGeocodeServiceURL>` | Defaults to the ArcGIS World Geocoding service.
-`outFields`| `String` | "Subregion, Region, PlaceName, Match_addr, Country, Addr_type, City, Place_addr" | The fields from the service that you would like returned. 
+`outFields`| `String` | "Subregion, Region, PlaceName, Match_addr, Country, Addr_type, City, Place_addr" | The fields from the service that you would like returned.
 
 ### Methods
 
@@ -226,7 +226,7 @@ Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-   http://www.apache.org/licenses/LICENSE-2.0
+> http://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -234,7 +234,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-A copy of the license is available in the repository's [license.txt]( https://raw.github.com/Esri/esri-leaflet/master/license.txt) file.
+A copy of the license is available in the repository's [license.txt]( https://raw.github.com/Esri/esri-leaflet-geocoder/master/license.txt) file.
 
 [](Esri Tags: ArcGIS Web Mapping Leaflet Geocoding)
 [](Esri Language: JavaScript)
