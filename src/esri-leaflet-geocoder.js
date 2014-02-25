@@ -106,12 +106,7 @@
       useMapBounds: 11,
       collapseAfterResult: true,
       expanded: false,
-      maxResults: 25,
-      containerClass: "geocoder-control",
-      inputClass: "geocoder-control-input leaflet-bar",
-      suggestionsWrapperClass: "geocoder-control-suggestions leaflet-bar",
-      selectedSuggestionClass: "geocoder-control-selected",
-      expandedClass: "geocoder-control-expanded"
+      maxResults: 25
     },
     initialize: function (options) {
       L.Util.setOptions(this, options);
@@ -258,6 +253,11 @@
 
       L.DomEvent.addListener(this._input, "focus", function(e){
         L.DomUtil.addClass(this._container, "geocoder-control-expanded");
+      }, this);
+
+      L.DomEvent.addListener(this._container, "click", function(e){
+        L.DomUtil.addClass(this._container, "geocoder-control-expanded");
+        this._input.focus();
       }, this);
 
       L.DomEvent.addListener(this._suggestions, "mousedown", function(e){
