@@ -1,48 +1,44 @@
-/*! esri-leaflet-geocoder - v0.0.1-beta.2 - 2014-02-25
+/*! esri-leaflet-geocoder - v0.0.1-beta.3 - 2014-02-27
 *   Copyright (c) 2014 Environmental Systems Research Institute, Inc.
 *   Apache 2.0 License */
 
 .geocoder-control-input {
+  position: absolute;
+  left: 0;
+  top: 0;
   background-color: white;
   background-repeat: no-repeat;
   background-image: url("img/search.png");
-  background-size: 14px 14px;
+  background-size: 26px;
   border: none;
   padding: 0;
   text-indent: 6px;
   font-size: 13px;
   height: 26px;
-  width: 26px;
+  width: 100%;
   line-height: 26px;
-  background-position: center center;
-  -webkit-transition: all .125s ease-in;
-  -moz-transition: all .125s ease-in;
-  -ms-transition: all .125s ease-in;
-  -o-transition: all .125s ease-in;
-  transition: all .125s ease-in;
+  background-position: right center;
   cursor: pointer;
 }
 
 .geocoder-control {
   width: 26px;
-  -webkit-transition: all .175s ease-in;
-  -moz-transition: all .175s ease-in;
-  -ms-transition: all .175s ease-in;
-  -o-transition: all .175s ease-in;
-  transition: all .175s ease-in;
+  height: 26px;
+  -webkit-transition: width .175s ease-in;
+  -moz-transition: width .175s ease-in;
+  -ms-transition: width .175s ease-in;
+  -o-transition: width .175s ease-in;
+  transition: width .175s ease-in;
 }
 
-.geocoder-control-expanded, .geocoder-control-expanded .geocoder-control-input {
+.geocoder-control-expanded,
+.leaflet-touch .geocoder-control-expanded {
   width: 275px;
-}
-
-.geocoder-control.geocoder-control-expanded .geocoder-control-input {
-  background-position: 98% center;
 }
 
 .geocoder-control-input.geocoder-control-loading {
   background-image: url("img/loading.gif");
-  background-size: 16px 16px;
+  background-size: 26px;
 }
 
 @media only screen and (min--moz-device-pixel-ratio: 2),
@@ -51,7 +47,6 @@ only screen and (-webkit-min-device-pixel-ratio: 2),
 only screen and (min-device-pixel-ratio: 2) {
   .geocoder-control-input {
     background-image: url("img/search@2x.png");
-
   }
   .geocoder-control-input.geocoder-control-loading {
     background-image: url("img/loading@2x.gif");
@@ -69,6 +64,9 @@ only screen and (min-device-pixel-ratio: 2) {
 
 .geocoder-control-suggestions {
   width: 100%;
+  position: absolute;
+  top: 26px;
+  left: 0;
   list-style: none;
   padding: 0;
   margin: 10px 0 0 0;
@@ -97,16 +95,42 @@ only screen and (min-device-pixel-ratio: 2) {
   border-color: #00c0ff;
 }
 
-.leaflet-touch .geocoder-control-input {
-  width: 30px;
-  height: 30px;
-  line-height: 30px;
+/* styles when positioned on right */
+
+.leaflet-right .geocoder-control-suggestions {
+  left: auto;
+  right: 0;
 }
 
-.leaflet-touch .geocoder-control-expanded, .geocoder-control-expanded .geocoder-control-input {
+.leaflet-right .geocoder-control-input {
+  left: auto;
+  right: 0;
+}
+
+/* styles when on a touch device */
+
+.leaflet-touch .geocoder-control {
+  width: 30px;
+  height: 30px;
+}
+
+.leaflet-touch .geocoder-control.geocoder-control-expanded {
   width: 275px;
 }
 
-.leaflet-oldie .geocoder-control-input {
+.leaflet-touch .geocoder-control-input {
+  height: 30px;
+  line-height: 30px;
+  background-size: 30px;
+}
+
+.leaflet-touch .geocoder-control-suggestions {
+  top: 30px;
+}
+
+/* styles when browser is old and busted */
+
+.leaflet-oldie .geocoder-control-input,
+.leaflet-oldie .geocoder-control-suggestions {
   border: 1px solid #999;
 }

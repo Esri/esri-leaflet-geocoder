@@ -1,4 +1,4 @@
-/*! esri-leaflet-geocoder - v0.0.1-beta.2 - 2014-02-25
+/*! esri-leaflet-geocoder - v0.0.1-beta.3 - 2014-02-27
 *   Copyright (c) 2014 Environmental Systems Research Institute, Inc.
 *   Apache 2.0 License */
 
