@@ -1,6 +1,6 @@
 {
   "name": "esri-leaflet-geocoder",
-  "version": "0.0.1-beta.2",
+  "version": "0.0.1-beta.3",
   "description": "A Leaflet plugin that allows users to search for locations on a map.",
   "homepage": "https://github.com/Esri/esri-leaflet-geocoder",
   "repository": {
