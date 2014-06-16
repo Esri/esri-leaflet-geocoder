@@ -1,106 +1,89 @@
-/*! esri-leaflet-geocoder - v0.0.1-beta.2 - 2014-02-25
+/*! esri-leaflet-geocoder - v0.0.1-beta.3 - 2014-06-16
 *   Copyright (c) 2014 Environmental Systems Research Institute, Inc.
 *   Apache 2.0 License */
 
 (function(L){
 
-  // function to ensure namespaces exist
-  function namespace(ns, root){
-    root = root || window;
-
-    var parent = root,
-        parts = ns.split('.'),
-        part;
-
-    while(part = parts.shift()){
-      if(!parent[part]){
-        parent[part] = {};
-      }
-      parent = parent[part];
-    }
-
-    return parent;
-  }
-
-  // serialize params to query string
-  function serialize(params){
-    var qs="?";
-
-    for(var param in params){
-      if(params.hasOwnProperty(param)){
-        var key = param;
-        var value = params[param];
-        qs+=encodeURIComponent(key);
-        qs+="=";
-        qs+=encodeURIComponent(value);
-        qs+="&";
-      }
-    }
-
-    return qs.substring(0, qs.length - 1);
-  }
-
-  // convert an arcgis extent to a leaflet bounds
-  function extentToBounds(extent){
-    var southWest = new L.LatLng(extent.ymin, extent.xmin);
-    var northEast = new L.LatLng(extent.ymax, extent.xmax);
-    return new L.LatLngBounds(southWest, northEast);
-  }
-
-  // ensure the namespaces exist
-  namespace('L.esri.Services.Geocoding');
-  namespace('L.esri.Controls.Geosearch');
-
-  L.esri.Services.Geocoding = L.Class.extend({
-    includes: L.Mixin.Events,
-    options: {
-      url: 'https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/',
-      outFields: 'Subregion, Region, PlaceName, Match_addr, Country, Addr_type, City, Place_addr'
+  L.esri.Services.Geocoding = L.esri.Services.Service.extend({
+    statics: {
+      WorldGeocodingService: "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/"
     },
-    initialize: function (options) {
+    includes: L.Mixin.Events,
+    initialize: function (url, options) {
+      url = (typeof url === 'string') ? url : L.esri.Services.Geocoding.WorldGeocodingService;
+      options = (typeof url === 'object') ? url : options;
+      this.url = L.esri.Util.cleanUrl(url);
       L.Util.setOptions(this, options);
     },
-    request: function(url, params, callback){
-      var callbackId = "c"+(Math.random() * 1e9).toString(36).replace(".", "_");
-
-      params.f="json";
-      params.callback="L.esri.Services.Geocoding._callback."+callbackId;
-
-      var script = document.createElement('script');
-      script.type = 'text/javascript';
-      script.src = url + serialize(params);
-      script.id = callbackId;
-      this.fire('loading');
-
-      L.esri.Services.Geocoding._callback[callbackId] = L.Util.bind(function(response){
-        this.fire('load');
-        callback(response);
-        document.body.removeChild(script);
-        delete L.esri.Services.Geocoding._callback[callbackId];
-      }, this);
-
-      document.body.appendChild(script);
-    },
-    geocode: function(text, opts, callback){
+    geocode: function(text, opts, callback, context){
       var defaults = {
-        outFields: this.options.outFields
+        outFields: 'Subregion, Region, PlaceName, Match_addr, Country, Addr_type, City, Place_addr'
       };
-      var options = L.extend(defaults, opts);
-      options.text = text;
-      this.request(this.options.url + "find", options, callback);
+      var params = L.extend(defaults, opts);
+      params.text = text;
+      this.get("find", params, function(error, response){
+        if(error) {
+          callback.call(context, error);
+        } else {
+          var results = [];
+          for (var i = response.locations.length - 1; i >= 0; i--) {
+            var result = response.locations[i];
+            results.push(this._processResult(text, result));
+          }
+          callback.call(context, error, results, response);
+        }
+      }, this);
     },
-    suggest: function(text, opts, callback){
-      var options = opts || {};
-      options.text = text;
-      this.request(this.options.url + "suggest", options, callback);
+    reverse: function(latlng, opts, callback, context){
+      var params = opts || {};
+      params.location = [latlng.lng, latlng.lat].join(',');
+      this.get('reverseGeocode', params, function(error, response){
+        if(error) {
+          callback.call(context, error);
+        } else {
+          var address = response.address;
+          var result = {
+            latlng: new L.LatLng(response.location.y, response.location.x),
+            address: address.Address,
+            neighborhood: address.Neighborhood,
+            city: address.City,
+            subregion: address.Subregion,
+            region: address.Region,
+            postal: address.Postal,
+            postalExt: address.PostalExt,
+            countryCode: address.CountryCode
+          };
+          callback.call(context, error, result, response);
+        }
+      }, this);
+    },
+    suggest: function(text, opts, callback, context){
+      var params = opts || {};
+      params.text = text;
+      this.get("suggest", params, callback, context);
+    },
+    _processResult: function(text, result){
+      var attributes = result.feature.attributes;
+      var bounds = L.esri.Util.extentToBounds(result.extent);
+
+      return {
+        text: text,
+        bounds: bounds,
+        latlng: new L.LatLng(result.feature.geometry.y, result.feature.geometry.x),
+        name: attributes.PlaceName,
+        match: attributes.Addr_type,
+        country: attributes.Country,
+        region: attributes.Region,
+        subregion: attributes.Subregion,
+        city: attributes.City,
+        address: attributes.Place_addr ? attributes.Place_addr : attributes.Match_addr
+      };
     }
   });
 
   L.esri.Services.geocoding = function(options){
     return new L.esri.Services.Geocoding(options);
   };
-
-  L.esri.Services.Geocoding._callback = {};
 
   L.esri.Controls.Geosearch = L.Control.extend({
     includes: L.Mixin.Events,
@@ -114,24 +97,13 @@
     },
     initialize: function (options) {
       L.Util.setOptions(this, options);
-      this._service = new L.esri.Services.Geocoding();
-    },
-    _processMatch: function(text, match){
-      var attributes = match.feature.attributes;
-      var bounds = extentToBounds(match.extent);
-
-      return {
-        text: text,
-        bounds: bounds,
-        latlng: new L.LatLng(match.feature.geometry.y, match.feature.geometry.x),
-        name: attributes.PlaceName,
-        match: attributes.Addr_type,
-        country: attributes.Country,
-        region: attributes.Region,
-        subregion: attributes.Subregion,
-        city: attributes.City,
-        address: attributes.Place_addr ? attributes.Place_addr : attributes.Match_addr
-      };
+      this._service = new L.esri.Services.Geocoding(options);
+      this._service.on('authenticationrequired requeststart requestend requesterror requestsuccess', function (e) {
+        e = L.extend({
+          target: this
+        }, e);
+        this.fire(e.type, e);
+      }, this);
     },
     _geocode: function(text, key){
       var options = {};
@@ -153,20 +125,10 @@
 
       this.fire('loading');
 
-      this._service.geocode(text, options, L.Util.bind(function(response){
-        if(response.error){
-          this.fire("error", {
-            code: response.error.code,
-            message: response.error.messsage
-          });
-        } else if(response.locations.length) {
-          var results = [];
+      this._service.geocode(text, options, function(error, results, response){
+        if(results && results.length) {
           var bounds = new L.LatLngBounds();
           var i;
-
-          for (i = response.locations.length - 1; i >= 0; i--) {
-            results.push(this._processMatch(text, response.locations[i]));
-          }
 
           for (i = results.length - 1; i >= 0; i--) {
             bounds.extend(results[i].bounds);
@@ -197,7 +159,7 @@
         this.clear();
 
         this._input.blur();
-      }, this));
+      }, this);
     },
     _suggest: function(text){
       L.DomUtil.addClass(this._input, "geocoder-control-loading");
@@ -212,13 +174,13 @@
         options.distance = Math.min(Math.max(center.distanceTo(ne), 2000), 50000);
       }
 
-      this._service.suggest(text, options, L.Util.bind(function(response){
+      this._service.suggest(text, options, function(error, response){
         // make sure something is still in the input field before putting in suggestions.
         if(this._input.value){
           this._suggestions.innerHTML = "";
           this._suggestions.style.display = "none";
 
-          if(response.suggestions){
+          if(response && response.suggestions){
             this._suggestions.style.display = "block";
             for (var i = 0; i < response.suggestions.length; i++) {
               var suggestion = L.DomUtil.create('li', 'geocoder-control-suggestion', this._suggestions);
@@ -229,7 +191,7 @@
 
           L.DomUtil.removeClass(this._input, "geocoder-control-loading");
         }
-      }, this));
+      }, this);
     },
     clear: function(blur){
       this._suggestions.innerHTML = "";
@@ -243,9 +205,7 @@
     onAdd: function (map) {
       this._map = map;
 
-      if (!map.attributionControl) {
-        L.control.attribution().addAttribution('Geocoding by Esri').addTo(map);
-      } else {
+      if (map.attributionControl) {
         map.attributionControl.addAttribution('Geocoding by Esri');
       }
 
@@ -345,8 +305,8 @@
     }
   });
 
-  L.esri.Controls.geosearch = function(options){
-    return new L.esri.Controls.Geosearch(options);
+  L.esri.Controls.geosearch = function(url, options){
+    return new L.esri.Controls.Geosearch(url, options);
   };
 
 })(L);

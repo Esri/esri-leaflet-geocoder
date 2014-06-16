@@ -35,10 +35,8 @@ Take a look at the live demo at http://esri.github.io/esri-leaflet-geocoder/
 
     <script src="dist/esri-leaflet-geocoder.js"></script>
     <link rel="stylesheet" href="dist/esri-leaflet-geocoder.css" />
-
   </head>
   <body>
-
     <div id="map"></div>
     <script>
       var map = L.map('map').setView([45.5165, -122.6764], 12);
@@ -87,6 +85,8 @@ Option | Type | Default | Description
 `collapseAfterResult` | `Boolean` | `true` | If the geocoder is expanded after a result this will collapse it.
 `expanded` | `Boolean` | `true` | Start the control in an expanded state.
 `maxResults` | `Integer` | `25` | The maximum number of results to return from a geocoding request. Max is 50.
+
+You can also pass any options you can pass to L.esri.Services.Geocoding.
 
 ### Methods
 
@@ -150,21 +150,23 @@ A basic wrapper for ArcGIS Online geocoding services. Used internally by `L.esri
 
 Constructor | Options | Description
 --- | --- | ---
-`new L.esri.Services.Geocoding(options)`<br>`L.esri.Controls.geosearch(options)` | [`<GeosearchOptions>`](#options-1) | Creates a new Geosearch control.
+`new L.esri.Services.Geocoding(url, options)`<br>`L.esri.Controls.geosearch(url, options)`<br>`new L.esri.Services.Geocoding(options)`<br>`L.esri.Controls.geosearch(options)` | [`<GeosearchOptions>`](#options-1) | Creates a new Geosearch control you can pass the url as the first parameter or as `url` in the options to a custom geocoding enpoint if you do no want to use the ArcGIS Online World Geocoding service.
 
 ### Options
 
 Option | Type | Default | Description
 --- | --- | --- | ---
 `url` | `String` | `<WorldGeocodeServiceURL>` | Defaults to the ArcGIS World Geocoding service.
-`outFields`| `String` | "Subregion, Region, PlaceName, Match_addr, Country, Addr_type, City, Place_addr" | The fields from the service that you would like returned.
+
+You can also pass any options you can pass to L.esri.Services.Service.
 
 ### Methods
 
 Method | Options | Description
 --- | --- | ---
-`geocode(text, object, callback)` | [`<GeocodeOptions>`](#geocode-options) | Geocodes the specified `text` with the passed [`<GeocodeOptions>``](#geocode-options). `callback` will be called `response` as the first parameter.
-`suggest(text, object, callback)` | [`<SuggestOptions>`](#geocode-options) | Suggests results for `text` with the given [`<SuggestOptions>`](#suggest-options). `callback` will be called with `response` as the first parameter.
+`geocode(text, object, callback)` | [`<GeocodeOptions>`](#geocode-options) | Geocodes the specified `text` with the passed [`<GeocodeOptions>``](#geocode-options). `callback` will be called with `error`, [`Geocode Results`](geocode-results) and `response` as the parameters.
+`suggest(text, object, callback)` | [`<SuggestOptions>`](#suggest-options) | Suggests results for `text` with the given [`<SuggestOptions>`](#suggest-options). `callback` will be called with `error` and `response` parameters.
+`reverse(latlng, object, callback)` | [`<ReverseOptions>`](#reverse-options) | Suggests results for `text` with the given [`<ReverseOptions>`](#reverse-options). `callback` will be called with `error`, [`Reverse Geocode Result`](reverse-geocode-result) and `response` as the parameters.
 
 ### Events
 
@@ -175,11 +177,53 @@ Event | Data | Description
 
 #### Geocode Options
 
-The `geocode` method can accept any options from the [Geocode service](http://resources.arcgis.com/en/help/arcgis-rest-api/#/Single_input_field_geocoding/02r300000015000000/) with the exception of `text`.
+The `geocode` method can accept any options from the [geocode service](http://resources.arcgis.com/en/help/arcgis-rest-api/#/Single_input_field_geocoding/02r300000015000000/) with the exception of `text`.
 
 #### Suggest Options
 
-The `suggest` method can accept any options from the [Suggest service](http://resources.arcgis.com/en/help/arcgis-rest-api/#/Working_with_suggestions/02r300000238000000/) with the exception of `text`.
+The `suggest` method can accept any options from the [suggest service](http://resources.arcgis.com/en/help/arcgis-rest-api/#/Working_with_suggestions/02r300000238000000/) with the exception of `text`.
+
+#### Reverse Geocode Options
+
+The `suggest` method can accept any options from the [reverse geocoding service](http://resources.arcgis.com/en/help/arcgis-rest-api/#/Reverse_geocoding/02r30000000n000000/) with the exception of location.
+
+#### Geocode Results
+
+Geocode results conform to the following format
+
+```json
+[
+  {
+    text: 'Text',
+    bounds: L.LatLngBounds,
+    latlng: L.LatLng,
+    name: 'PlaceName',
+    match: 'AddressType',
+    country: 'Country',
+    region: 'Region',
+    subregion: 'Subregion',
+    city: 'City',
+    address: 'Address'
+  }
+]
+```
+
+#### Reverse Geocode Result
+Reverse geocoding results conform to the following format
+
+```json
+{
+  latlng: L.LatLng,
+  address: 'Address',
+  neighborhood: 'Neighborhood',
+  city: 'City',
+  subregion: 'Subregion',
+  region: 'Region',
+  postal: 'Postal',
+  postalExt: 'PostalExt',
+  countryCode: 'CountryCode'
+}
+```
 
 ## Development Instructions
 

@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
     <script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet-src.js"></script>
 
+    <script src="http://cdn-geoweb.s3.amazonaws.com/esri-leaflet/0.0.1-beta.5/esri-leaflet-core.js"></script>
+
     <!-- Make the map fill the entire page -->
     <style>
       #map {
@@ -33,7 +35,7 @@
       var map = L.map('map').setView([45.5165, -122.6764], 12);
 
       var tiles = L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
-
+      var geocodeService = new L.esri.Services.Geocoding();
       var searchControl = new L.esri.Controls.Geosearch().addTo(map);
 
       var results = new L.LayerGroup().addTo(map);
@@ -47,6 +49,12 @@
 
       searchControl.on("error", function(e){
         console.log(e);
+      });
+
+      map.on('click', function(e){
+        geocodeService.reverse(e.latlng, {}, function(error, result, response){
+          console.log(error, result, response);
+        });
       });
     </script>
   </body>
