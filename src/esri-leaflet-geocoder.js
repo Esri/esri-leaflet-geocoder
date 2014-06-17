@@ -10,6 +10,7 @@
       options = (typeof url === 'object') ? url : options;
       this.url = L.esri.Util.cleanUrl(url);
       L.Util.setOptions(this, options);
+      L.esri.Services.Service.prototype.initialize.call(this, url, options);
     },
     geocode: function(text, opts, callback, context){
       var defaults = {
@@ -89,7 +90,8 @@
       useMapBounds: 11,
       collapseAfterResult: true,
       expanded: false,
-      maxResults: 25
+      maxResults: 25,
+      forStorage: false
     },
     initialize: function (options) {
       L.Util.setOptions(this, options);
@@ -115,6 +117,10 @@
         options.maxLocations = this.options.maxResults;
         options.location = center.lng + "," + center.lat;
         options.distance = Math.min(Math.max(center.distanceTo(ne), 2000), 50000);
+      }
+
+      if(this.options.forStorage){
+        options.forStorage = true;
       }
 
       L.DomUtil.addClass(this._input, "geocoder-control-loading");

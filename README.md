@@ -4,11 +4,11 @@ The Esri Leaflet Geocoder is a small series of API helpers and UI controls to in
 
 **Currently Esri Leaflet Geocoder is in development and should be thoguht of as a beta or preview**
 
-Despite sharing a name and a namespace with Esri Leaflet, Esri Leaflet Geocoder **does not** require Esri Leaflet. It is however tested with Esri Leaflet and will work just fine with or without it.
+Esri Leaflet Geocoder relies on the minimal Esri Leaflet Core which handles abstraction for requests and authentication when neccessary. You can fine out more about teh Esri Leaflet Core on the [Esri Leaflet downloads page](http://esri.github.com/esri-leaflet/downloads).
 
 ## Example
 
-Take a look at the live demo at http://esri.github.io/esri-leaflet-geocoder/
+Take a look at the live demo at http://esri.github.com/esri-leaflet/examples/geocoding-control.htmlhttp://esri.github.io/esri-leaflet-geocoder/
 
 ![Example Image](https://raw.github.com/esri/esri-leaflet-geocoder/master/example.png)
 
@@ -19,8 +19,8 @@ Take a look at the live demo at http://esri.github.io/esri-leaflet-geocoder/
     <title>Esri Leaflet Geocoder</title>
 
     <!-- Load Leaflet from their CDN -->
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
-    <script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet-src.js"></script>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet-src.js"></script>
 
     <!-- Make the map fill the entire page -->
     <style>
@@ -33,8 +33,12 @@ Take a look at the live demo at http://esri.github.io/esri-leaflet-geocoder/
       }
     </style>
 
-    <script src="dist/esri-leaflet-geocoder.js"></script>
-    <link rel="stylesheet" href="dist/esri-leaflet-geocoder.css" />
+    <!-- Esri Leaflet Core -->
+    <script src="http://cdn-geoweb.s3.amazonaws.com/esri-leaflet/0.0.1-beta.5/esri-leaflet-core.js"></script>
+
+    <!-- Esri Leaflet Geocoder -->
+    <script src="http://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.3/esri-leaflet-geocoder.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.3/esri-leaflet-geocoder.css">
   </head>
   <body>
     <div id="map"></div>
@@ -85,6 +89,8 @@ Option | Type | Default | Description
 `collapseAfterResult` | `Boolean` | `true` | If the geocoder is expanded after a result this will collapse it.
 `expanded` | `Boolean` | `true` | Start the control in an expanded state.
 `maxResults` | `Integer` | `25` | The maximum number of results to return from a geocoding request. Max is 50.
+`token` | `String` | `false` | A token to pass with requests.
+`forStorage` | `Boolean` | `true` | You must set this to true if you intend for your users to store the results of your results.
 
 You can also pass any options you can pass to L.esri.Services.Geocoding.
 
@@ -235,7 +241,7 @@ Reverse geocoding results conform to the following format
 
 ## Dependencies
 
-Despite sharing a name and a namespace the Esri Leaflet Geocoder **does not** require Esri Leaflet. It only requires [Leaflet](http://leaflet.com).
+Esri Leaflet Geocoder relies on the minimal Esri Leaflet Core which handles abstraction for requests and authentication when neccessary. You can fine out more about teh Esri Leaflet Core on the [Esri Leaflet downloads page](http://esri.github.com/esri-leaflet/downloads).
 
 ## Resources
 
@@ -258,7 +264,7 @@ In order the use the ArcGIS Online Geocoding Service you should signup for an [A
 
 1. Once you have an account you are good to go. Thats it!
 2. Your users can search for as many places as they want. Esri defines this as "Geosearch" and its free. You only consume credits when you want to store the result of geocodes.
-3. You are not allowed to store the results of any geocoding you do. There is a `forStorage` flag which you can set that will allow this. There is an [issue](https://github.com/Esri/esri-leaflet-geocoder/issues/10) for including the `forStorage` flag
+3. You are  allowed to store the results of any geocoding you do if you pass the `forStorage` flag and a valid access token.
 4. If you use this library in a revenue generating application or for goverment use you must upgrade to a paid account. You are not allowed to generate revenue while on a free plan.
 
 This information is from the [ArcGIS for Developers Terms of Use FAQ](https://developers.arcgis.com/en/terms/faq/) and the [ArcGIS Online World Geocoder documentation](http://resources.arcgis.com/en/help/arcgis-rest-api/#/Single_input_field_geocoding/02r300000015000000/)
