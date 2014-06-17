@@ -231,6 +231,8 @@
       }, this);
 
       L.DomEvent.addListener(this._input, "keydown", function(e){
+        L.DomUtil.addClass(this._container, "geocoder-control-expanded");
+
         var selected = this._suggestions.querySelectorAll('.' + "geocoder-control-selected")[0];
         switch(e.keyCode){
         case 13:
