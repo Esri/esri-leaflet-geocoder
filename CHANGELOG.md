@@ -3,8 +3,8 @@
 ## Beta 5
 
 **Changes**
-* Improve experiance for users when they hit enter with no suggestion selected. The current test in the input will be geocoded and the map centered on the extent of all results. This behavir can be disabled by setting `allowMultipleResults` to `false`.
-* Fix behavor of `useMapBounds` which was incorrect.
+* Improve experience for users when they hit enter with no suggestion selected. The current test in the input will be geocoded and the map centered on the extent of all results. This behavior can be disabled by setting `allowMultipleResults` to `false`.
+* Fix behavior of `useMapBounds` which was incorrect.
 * Don't pass `bbox` with suggest. The suggest API doesn't use it.
 * Increase `useMapBounds` default to `12`.
 
