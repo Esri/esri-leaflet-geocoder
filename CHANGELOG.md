@@ -1,5 +1,13 @@
 # Changelog
 
+## Beta 5
+
+**Changes**
+* Improve experiance for users when they hit enter with no suggestion selected. The current test in the input will be geocoded and the map centered on the extent of all results. This behavir can be disabled by setting `allowMultipleResults` to `false`.
+* Fix behavor of `useMapBounds` which was incorrect.
+* Don't pass `bbox` with suggest. The suggest API doesn't use it.
+* Increase `useMapBounds` default to `12`.
+
 ## Beta 4
 
 **Breaking Changes**
@@ -9,7 +17,7 @@
 
 **Changes**
 * Fix a display issues where the form would close but would not expand again. https://github.com/Esri/esri-leaflet-geocoder/issues/33
-* Now that `L.esri.Services.Geocoder` extends on `L.esri.Services.Service` you can pass teh `forStorage` flag with any call and authenticate. Listen for the
+* Now that `L.esri.Services.Geocoder` extends on `L.esri.Services.Service` you can pass teh `forStorage` flag with any call and authenticate. Listen for the `authenticationrequired` event and provide a token or pass a `token` option.
 
 ## Beta 3
 

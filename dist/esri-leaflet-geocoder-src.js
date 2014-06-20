@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-/*! esri-leaflet-geocoder - v0.0.1-beta.4 - 2014-06-17
-=======
-/*! esri-leaflet-geocoder - v0.0.1-beta.3 - 2014-02-27
->>>>>>> c0996d95991c8c8226f10c9de271fe2a32ee7cee
+/*! esri-leaflet-geocoder - v0.0.1-beta.5 - 2014-06-20
 *   Copyright (c) 2014 Environmental Systems Research Institute, Inc.
 *   Apache 2.0 License */
 
@@ -95,11 +91,12 @@
     options: {
       position: 'topleft',
       zoomToResult: true,
-      useMapBounds: 11,
+      useMapBounds: 12,
       collapseAfterResult: true,
       expanded: false,
       maxResults: 25,
-      forStorage: false
+      forStorage: false,
+      allowMultipleResults: true
     },
     initialize: function (options) {
       L.Util.setOptions(this, options);
@@ -117,14 +114,15 @@
       if(key){
         options.magicKey = key;
       } else {
-        var mapBounds = this._map.getBounds();
-        var center = mapBounds.getCenter();
-        var ne = mapBounds.getNorthWest();
-
-        options.bbox = mapBounds.toBBoxString();
         options.maxLocations = this.options.maxResults;
-        options.location = center.lng + "," + center.lat;
-        options.distance = Math.min(Math.max(center.distanceTo(ne), 2000), 50000);
+        if(this.options.useMapBounds === true || (this.options.useMapBounds <= this._map.getZoom())){
+          var mapBounds = this._map.getBounds();
+          var center = mapBounds.getCenter();
+          var ne = mapBounds.getNorthWest();
+          options.bbox = mapBounds.toBBoxString();
+          options.location = center.lng + "," + center.lat;
+          options.distance = Math.min(Math.max(center.distanceTo(ne), 2000), 50000);
+        }
       }
 
       if(this.options.forStorage){
@@ -176,10 +174,10 @@
 
       var options = {};
 
-      if(this.options.useMapBounds === true || (this._map.getZoom() >= this.options.useMapBounds)){
-        var bounds = this._map.getBounds();
-        var center = bounds.getCenter();
-        var ne = bounds.getNorthWest();
+      if(this.options.useMapBounds === true || (this.options.useMapBounds <= this._map.getZoom())){
+        var mapBounds = this._map.getBounds();
+        var center = mapBounds.getCenter();
+        var ne = mapBounds.getNorthWest();
         options.location = center.lng + "," + center.lat;
         options.distance = Math.min(Math.max(center.distanceTo(ne), 2000), 50000);
       }
@@ -255,10 +253,10 @@
             this.clear();
           } else if(this.options.allowMultipleResults){
             this._geocode(this._input.value);
+            this.clear();
           } else {
             L.DomUtil.addClass(this._suggestions.childNodes[0], "geocoder-control-selected");
           }
-          this.clear();
           L.DomEvent.preventDefault(e);
           break;
         case 38:

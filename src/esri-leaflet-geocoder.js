@@ -87,11 +87,12 @@
     options: {
       position: 'topleft',
       zoomToResult: true,
-      useMapBounds: 11,
+      useMapBounds: 12,
       collapseAfterResult: true,
       expanded: false,
       maxResults: 25,
-      forStorage: false
+      forStorage: false,
+      allowMultipleResults: true
     },
     initialize: function (options) {
       L.Util.setOptions(this, options);
@@ -109,14 +110,15 @@
       if(key){
         options.magicKey = key;
       } else {
-        var mapBounds = this._map.getBounds();
-        var center = mapBounds.getCenter();
-        var ne = mapBounds.getNorthWest();
-
-        options.bbox = mapBounds.toBBoxString();
         options.maxLocations = this.options.maxResults;
-        options.location = center.lng + "," + center.lat;
-        options.distance = Math.min(Math.max(center.distanceTo(ne), 2000), 50000);
+        if(this.options.useMapBounds === true || (this.options.useMapBounds <= this._map.getZoom())){
+          var mapBounds = this._map.getBounds();
+          var center = mapBounds.getCenter();
+          var ne = mapBounds.getNorthWest();
+          options.bbox = mapBounds.toBBoxString();
+          options.location = center.lng + "," + center.lat;
+          options.distance = Math.min(Math.max(center.distanceTo(ne), 2000), 50000);
+        }
       }
 
       if(this.options.forStorage){
@@ -168,10 +170,10 @@
 
       var options = {};
 
-      if(this.options.useMapBounds === true || (this._map.getZoom() >= this.options.useMapBounds)){
-        var bounds = this._map.getBounds();
-        var center = bounds.getCenter();
-        var ne = bounds.getNorthWest();
+      if(this.options.useMapBounds === true || (this.options.useMapBounds <= this._map.getZoom())){
+        var mapBounds = this._map.getBounds();
+        var center = mapBounds.getCenter();
+        var ne = mapBounds.getNorthWest();
         options.location = center.lng + "," + center.lat;
         options.distance = Math.min(Math.max(center.distanceTo(ne), 2000), 50000);
       }
@@ -247,10 +249,10 @@
             this.clear();
           } else if(this.options.allowMultipleResults){
             this._geocode(this._input.value);
+            this.clear();
           } else {
             L.DomUtil.addClass(this._suggestions.childNodes[0], "geocoder-control-selected");
           }
-          this.clear();
           L.DomEvent.preventDefault(e);
           break;
         case 38:

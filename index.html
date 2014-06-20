@@ -47,10 +47,6 @@
         };
       });
 
-      searchControl.on("error", function(e){
-        console.log(e);
-      });
-
       map.on('click', function(e){
         geocodeService.reverse(e.latlng, {}, function(error, result, response){
           console.log(error, result, response);
