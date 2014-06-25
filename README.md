@@ -8,7 +8,7 @@ Esri Leaflet Geocoder relies on the minimal Esri Leaflet Core which handles abst
 
 ## Example
 
-Take a look at the live demo at http://esri.github.com/esri-leaflet/examples/geocoding-control.htmlhttp://esri.github.io/esri-leaflet-geocoder/
+Take a look at the [live demo](http://esri.github.com/esri-leaflet/examples/geocoding-control.html).
 
 ![Example Image](https://raw.github.com/esri/esri-leaflet-geocoder/master/example.png)
 
