@@ -4,7 +4,7 @@ The Esri Leaflet Geocoder is a small series of API helpers and UI controls to in
 
 **Currently Esri Leaflet Geocoder is in development and should be thoguht of as a beta or preview**
 
-Esri Leaflet Geocoder relies on the minimal Esri Leaflet Core which handles abstraction for requests and authentication when neccessary. You can fine out more about teh Esri Leaflet Core on the [Esri Leaflet downloads page](http://esri.github.com/esri-leaflet/downloads).
+Esri Leaflet Geocoder relies on the minimal Esri Leaflet Core which handles abstraction for requests and authentication when neccessary. You can fine out more about the Esri Leaflet Core on the [Esri Leaflet downloads page](http://esri.github.com/esri-leaflet/downloads).
 
 ## Example
 
