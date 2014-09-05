@@ -63,11 +63,31 @@ only screen and (min-device-pixel-ratio: 2) {
   position: absolute;
   top: 26px;
   left: 0;
-  list-style: none;
-  padding: 0;
-  margin: 10px 0 0 0;
+  margin-top: 10px;
   overflow: hidden;
   display: none;
+}
+.geocoder-control-list + .geocoder-control-header {
+  border-top: 1px solid #d5d5d5;
+}
+
+.geocoder-control-header {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #444;
+  background: #F2F2F2;
+  border-bottom: 1px solid #d5d5d5;
+  display: inline-block;
+  padding: .5em;
+  width: 100%;
+}
+
+.geocoder-control-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .geocoder-control-suggestions .geocoder-control-suggestion {
@@ -87,8 +107,8 @@ only screen and (min-device-pixel-ratio: 2) {
 
 .geocoder-control-suggestions .geocoder-control-suggestion.geocoder-control-selected,
 .geocoder-control-suggestions .geocoder-control-suggestion:hover {
-  background: #00c0ff;
-  border-color: #00c0ff;
+  background: #7FDFFF;
+  border-color: #7FDFFF;
 }
 
 /* styles when positioned on right */

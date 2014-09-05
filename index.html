@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
 
     <!-- Load Leaflet from their CDN -->
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
-    <script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet-src.js"></script>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet-src.js"></script>
 
-    <script src="http://cdn-geoweb.s3.amazonaws.com/esri-leaflet/0.0.1-beta.5/esri-leaflet-core-src.js"></script>
+    <script src="esri-leaflet-src.js"></script>
 
     <!-- Make the map fill the entire page -->
     <style>
@@ -21,22 +21,62 @@
       }
     </style>
 
-    <script src="src/esri-leaflet-geocoder.js"></script>
+    <script src="src/Services/Geocoding.js"></script>
+    <script src="src/Controls/Geosearch.js"></script>
+    <script src="src/Providers/ArcgisOnlineGeocodeService.js"></script>
+    <script src="src/Providers/FeatureLayer.js"></script>
+    <script src="src/Providers/GeocodeService.js"></script>
+    <script src="src/Providers/MapService.js"></script>
+    <script src="src/Providers/GeoJSON.js"></script>
+    <script src="peaks.js"></script>
     <link rel="stylesheet" href="src/esri-leaflet-geocoder.css" />
+    <script src="https://rawgit.com/krisk/Fuse/master/src/fuse.min.js"></script>
 
+    <style>
+    #test {
+      position: fixed;
+      top: 0px;
+      right: 0px;
+      z-index: 100;
+    }
+    </style>
   </head>
   <body>
-
+    <div id="test"></div>
     <div id="map"></div>
-
     <a href="https://github.com/Esri/esri-leaflet-geocoder"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub"></a>
 
     <script>
-      var map = L.map('map').setView([45.5165, -122.6764], 12);
+      var map = L.map('map').setView([37.74, -121.62], 9);
 
-      var tiles = L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+      // var tiles = L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+      var tiles = L.esri.basemapLayer('Topographic').addTo(map);
+
       var geocodeService = new L.esri.Services.Geocoding();
-      var searchControl = new L.esri.Controls.Geosearch().addTo(map);
+
+      var searchControl = new L.esri.Controls.Geosearch({
+        // useArcgisWorldGeocoder: false,
+        maxResults: 3,
+        providers: [
+          new L.esri.Controls.Geosearch.Providers.MapService('http://services.nationalmap.gov/arcgis/rest/services/govunits/MapServer', {
+            layer: 11,
+            searchField: 'NAME'
+          }),
+          new L.esri.Controls.Geosearch.Providers.GeoJSON(peaks, {
+            property: 'name',
+            bufferRadius: 25000
+          }),
+          new L.esri.Controls.Geosearch.Providers.FeatureLayer('http://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/USA_Parks/FeatureServer/0', {
+            searchField: 'NAME'
+          }),
+          // new L.esri.Controls.Geosearch.Providers.GeocodeServer('https://services.portlandmaps.com/ags/rest/services/Public/Address_Geocoding_PDX/GeocodeServer', {
+          //   label : 'Portland Addresses',
+          //   useCors: false
+          // }),
+        ]
+      }).addTo(map);
+
+      // searchControl.appendTo(document.getElementById('test'),map);
 
       var results = new L.LayerGroup().addTo(map);
 
@@ -47,11 +87,35 @@
         };
       });
 
-      map.on('click', function(e){
-        geocodeService.reverse(e.latlng, {}, function(error, result, response){
-          console.log(error, result, response);
-        });
-      });
+
+L.esri.Tasks.Task = L.Class.extend({
+  initialize: function(endpoint){
+    if(endpoint.url && endpoint.get){
+      this._service = endpoint;
+      this.url = endpoint.url;
+    } else {
+      this.url = L.esri.Util.cleanUrl(endpoint);
+    }
+    this.params = L.Util.extend({}, this.params);
+  },
+  request: function(callback, context){
+    if(this._service){
+      this._service.get(this.path, this.params, callback, context);
+    } else {
+      L.esri.get(this.path, this.params, callback, context);
+    }
+  }
+});
+
+L.esri.Tasks.Geocode = L.esri.Tasks.Task.extend({
+  path: 'geocode',
+  params : {
+    sr: 4326,
+    layers: 'all',
+    tolerance: 3,
+    returnGeometry: true
+  }
+});
     </script>
   </body>
 </html>
