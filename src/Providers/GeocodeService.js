@@ -9,17 +9,14 @@ L.esri.Controls.Geosearch.Providers.GeocodeServer = L.esri.Services.Geocoding.ex
     return false;
   },
   results: function(map, text, key, options, callback){
-    var params = {
-      outSr: 4326
-    };
+    var request = this.geocode().text(text);
 
-    params.maxLocations = options.maxResults;
-
-    if((options.useMapBounds === true || (options.useMapBounds <= map.getZoom())) && options.useMapBounds !== false){
-      params.bbox = L.esri.Util.boundsToExtent(map.getBounds());
+    request.maxLocations(options.maxResults);
+    if((options.useMapBounds === true || (options.useMapBounds <= map.getZoom())) && !options.useMapBounds !== false){
+      request.within(map.getBounds());
     }
 
-    return this.geocode(text, params, callback);
+    return request.run(callback, this);
   }
 });
 

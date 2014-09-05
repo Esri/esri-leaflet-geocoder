@@ -36,7 +36,10 @@ module.exports = function(grunt) {
       },
       js: {
         src: [
-          'src/esri-leaflet-geocoder.js'
+          'src/Tasks/**/*.js',
+          'src/Services/**/*.js',
+          'src/Controls/**/*.js',
+          'src/Providers/**/*.js'
         ],
         dest: 'dist/esri-leaflet-geocoder-src.js'
       },

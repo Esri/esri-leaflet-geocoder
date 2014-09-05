@@ -4,52 +4,46 @@ L.esri.Controls.Geosearch.Providers.ArcgisOnline = L.esri.Services.Geocoding.ext
     maxResults: 5
   },
   suggestions: function(map, text, options, callback){
-    var params = {};
+    var request = this.suggest().text(text);
 
     if(options.useMapBounds === true || (options.useMapBounds <= map.getZoom())){
-      var mapBounds = map.getBounds();
-      var center = mapBounds.getCenter();
-      var ne = mapBounds.getNorthWest();
-      params.location = center.lng + "," + center.lat;
-      params.distance = Math.min(Math.max(center.distanceTo(ne), 2000), 50000);
+      request.within(map.getBounds());
     }
 
-    return this.suggest(text, params, function(error, response){
+    return request.run(function(error, results, response){
       var suggestions = [];
       if(!error){
         while(response.suggestions.length && suggestions.length <= (this.options.maxResults - 1)){
           var suggestion = response.suggestions.shift();
-          suggestions.push({
-            text: suggestion.text,
-            magicKey: suggestion.magicKey
-          });
+          if(!suggestion.isCollection){
+            suggestions.push({
+              text: suggestion.text,
+              magicKey: suggestion.magicKey
+            });
+          }
         }
       }
       callback(error, suggestions);
     }, this);
   },
+
   results: function(map, text, key, options, callback){
-    var params = {};
+    var request = this.geocode().text(text);
 
     if(key){
-      params.magicKey = key;
+      request.key(key);
     } else {
-      params.maxLocations = options.maxResults;
+      request.maxLocations(options.maxResults);
       if((options.useMapBounds === true || (options.useMapBounds <= map.getZoom())) && !options.useMapBounds !== false){
-        var mapBounds = map.getBounds();
-        var center = mapBounds.getCenter();
-        var ne = mapBounds.getNorthWest();
-        params.bbox = mapBounds.toBBoxString();
-        params.location = center.lng + "," + center.lat;
-        params.distance = Math.min(Math.max(center.distanceTo(ne), 2000), 50000);
+        request.within(map.getBounds());
       }
     }
 
     if(this.options.forStorage){
-      options.forStorage = true;
+      request.forStorage(true);
     }
 
-    return this.geocode(text, params, callback);
+    return request.run(callback, this);
   }
 });
 

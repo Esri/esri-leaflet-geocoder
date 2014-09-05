@@ -21,6 +21,9 @@
       }
     </style>
 
+    <script src="src/Tasks/Geocode.js"></script>
+    <script src="src/Tasks/ReverseGeocode.js"></script>
+    <script src="src/Tasks/Suggest.js"></script>
     <script src="src/Services/Geocoding.js"></script>
     <script src="src/Controls/Geosearch.js"></script>
     <script src="src/Providers/ArcgisOnlineGeocodeService.js"></script>
@@ -28,6 +31,7 @@
     <script src="src/Providers/GeocodeService.js"></script>
     <script src="src/Providers/MapService.js"></script>
     <script src="src/Providers/GeoJSON.js"></script>
+
     <script src="peaks.js"></script>
     <link rel="stylesheet" href="src/esri-leaflet-geocoder.css" />
     <script src="https://rawgit.com/krisk/Fuse/master/src/fuse.min.js"></script>
@@ -69,10 +73,10 @@
           new L.esri.Controls.Geosearch.Providers.FeatureLayer('http://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/USA_Parks/FeatureServer/0', {
             searchField: 'NAME'
           }),
-          // new L.esri.Controls.Geosearch.Providers.GeocodeServer('https://services.portlandmaps.com/ags/rest/services/Public/Address_Geocoding_PDX/GeocodeServer', {
-          //   label : 'Portland Addresses',
-          //   useCors: false
-          // }),
+          new L.esri.Controls.Geosearch.Providers.GeocodeServer('https://services.portlandmaps.com/ags/rest/services/Public/Address_Geocoding_PDX/GeocodeServer', {
+            label : 'Portland Addresses',
+            useCors: false
+          }),
         ]
       }).addTo(map);
 
