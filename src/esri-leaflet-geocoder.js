@@ -33,7 +33,13 @@
     },
     reverse: function(latlng, opts, callback, context){
       var params = opts || {};
-      params.location = [latlng.lng, latlng.lat].join(',');
+      if(latlng) {
+        if(latlng.lat && latlng.lng) {
+          params.location = [latlng.lng, latlng.lat].join(',');
+        } else {
+          params.location = latlng;
+        }
+      }
       this.get('reverseGeocode', params, function(error, response){
         if(error) {
           callback.call(context, error);
