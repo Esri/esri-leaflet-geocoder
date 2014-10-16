@@ -1,25 +1,24 @@
-L.esri.Controls.Geosearch.Providers.GeocodeServer = L.esri.Services.Geocoding.extend({
+EsriLeafletGeocoding.Controls.Geosearch.Providers.GeocodeServer = EsriLeafletGeocoding.Services.Geocoding.extend({
   options: {
     label: 'Geocode Server',
     maxResults: 5,
     outFields: '*'
   },
-  suggestions: function(map, text, options, callback){
+  suggestions: function(text, bounds, callback){
     callback(undefined, []);
     return false;
   },
-  results: function(map, text, key, options, callback){
+  results: function(text, key, bounds, callback){
     var request = this.geocode().text(text);
 
-    request.maxLocations(options.maxResults);
-    if((options.useMapBounds === true || (options.useMapBounds <= map.getZoom())) && !options.useMapBounds !== false){
-      request.within(map.getBounds());
+    request.maxLocations(this.options.maxResults);
+
+    if(bounds){
+      request.within(bounds);
     }
 
-    return request.run(callback, this);
+    return request.run(function(error, response){
+      callback(error, response.results);
+    }, this);
   }
 });
-
-L.esri.Controls.Geosearch.Providers.geocodeServer = function(url, options){
-  return new L.esri.Controls.Geosearch.Providers.GeocodeServer(url, options);
-};

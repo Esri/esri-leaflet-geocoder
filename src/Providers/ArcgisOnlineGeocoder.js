@@ -1,13 +1,13 @@
-L.esri.Controls.Geosearch.Providers.ArcgisOnline = L.esri.Services.Geocoding.extend({
+EsriLeafletGeocoding.Controls.Geosearch.Providers.ArcGISOnline = EsriLeafletGeocoding.Services.Geocoding.extend({
   options: {
     label: "Places and Addresses",
     maxResults: 5
   },
-  suggestions: function(map, text, options, callback){
+  suggestions: function(text, bounds, callback){
     var request = this.suggest().text(text);
 
-    if(options.useMapBounds === true || (options.useMapBounds <= map.getZoom())){
-      request.within(map.getBounds());
+    if(bounds){
+      request.within(bounds);
     }
 
     return request.run(function(error, results, response){
@@ -27,26 +27,25 @@ L.esri.Controls.Geosearch.Providers.ArcgisOnline = L.esri.Services.Geocoding.ext
     }, this);
   },
 
-  results: function(map, text, key, options, callback){
+  results: function(text, key, bounds, callback){
     var request = this.geocode().text(text);
 
     if(key){
       request.key(key);
     } else {
-      request.maxLocations(options.maxResults);
-      if((options.useMapBounds === true || (options.useMapBounds <= map.getZoom())) && !options.useMapBounds !== false){
-        request.within(map.getBounds());
-      }
+      request.maxLocations(this.options.maxResults);
+    }
+
+    if(bounds){
+      request.within(bounds);
     }
 
     if(this.options.forStorage){
       request.forStorage(true);
     }
 
-    return request.run(callback, this);
+    return request.run(function(error, response){
+      callback(error, response.results);
+    }, this);
   }
 });
-
-L.esri.Controls.Geosearch.Providers.arcgisOnline = function(options){
-  return new L.esri.Controls.Geosearch.Providers.ArcgisOnline(options);
-};

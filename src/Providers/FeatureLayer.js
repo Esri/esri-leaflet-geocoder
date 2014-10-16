@@ -1,18 +1,29 @@
-L.esri.Controls.Geosearch.Providers.FeatureLayer = L.esri.Services.FeatureLayer.extend({
+EsriLeafletGeocoding.Controls.Geosearch.Providers.FeatureLayer = L.esri.Services.FeatureLayer.extend({
   options: {
     label: 'Feature Layer',
-    maxResults: 5
+    maxResults: 5,
+    bufferRadius: 1000,
+    formatSuggestion: function(feature){
+      return feature.properties[this.options.searchFields[0]];
+    }
   },
-  suggestions: function(map, text, options, callback){
-    var query = this.query().where(this.options.searchField + " LIKE '%" + text + "%'")
+  intialize: function(url, options){
+    L.esri.Services.FeatureLayer.prototype.call(this, url, options);
+    L.Util.setOptions(this, options);
+    if(typeof this.options.searchFields === 'string'){
+      this.options.searchFields = [this.options.searchFields];
+    }
+  },
+  suggestions: function(text, bounds, callback){
+    var query = this.query().where(this._buildQuery(text))
                             .returnGeometry(false);
 
-    if((options.useMapBounds === true || (options.useMapBounds <= map.getZoom())) && options.useMapBounds !== false){
-      query.within(map.getBounds());
+    if(bounds){
+      query.within(bounds);
     }
 
     if(this.options.idField){
-      query.fields([this.options.idField, this.options.searchField]);
+      query.fields([this.options.idField].concat(this.options.searchFields));
     }
 
     var request = query.run(function(error, results, raw){
@@ -25,47 +36,62 @@ L.esri.Controls.Geosearch.Providers.FeatureLayer = L.esri.Services.FeatureLayer.
         for (var i = 0; i < count; i++) {
           var feature = results.features[i];
           suggestions.push({
-            text: feature.properties[this.options.searchField],
+            text: this.options.formatSuggestion(feature),
             magicKey: feature.id
           });
-        };
+        }
         callback(error, suggestions.slice(0, this.options.maxResults));
       }
     }, this);
 
     return request;
   },
-  results: function(map, text, key, options, callback){
-    var query = this.query()
+  results: function(text, key, bounds, callback){
+    var query = this.query();
 
     if(key){
       query.featureIds([key]);
     } else {
-      query.where(this.options.searchField + " LIKE '%"+text+"%'");
+      query.where(this._buildQuery(text));
     }
 
-    if(options.useMapBounds === true || (options.useMapBounds <= map.getZoom())){
-      query.within(map.getBounds());
+    if(bounds){
+      query.within(bounds);
     }
 
     return query.run(L.Util.bind(function(error, features){
       var results = [];
-      for (var i = 0; i < features; i++) {
+      for (var i = 0; i < features.features.length; i++) {
         var feature = features.features[i];
         if(feature){
-          var bounds = L.geoJson(feature).getBounds();
+          var bounds = this._featureBounds(feature);
           var result = feature.properties;
           result.latlng = bounds.getCenter();
           result.bounds = bounds;
-          result.text = feature.properties[this.options.searchField];
+          result.text = this.options.formatSuggestion(feature);
           results.push(result);
         }
-      };
+      }
       callback(error, results);
     }, this));
+  },
+  _buildQuery: function(text){
+    var queryString = [];
+
+    for (var i = this.options.searchFields.length - 1; i >= 0; i--) {
+      var field = this.options.searchFields[i];
+      queryString.push(field + ' LIKE \'%'+text+'%\'');
+    }
+
+    return queryString.join(' OR ');
+  },
+  _featureBounds: function(feature){
+    var geojson = L.geoJson(feature);
+    if(feature.geometry.type === 'Point'){
+      var center = geojson.getBounds().getCenter();
+      return new L. Circle(center, this.options.bufferRadius).getBounds();
+    } else {
+      return geojson.getBounds();
+    }
   }
 });
-
-L.esri.Controls.Geosearch.Providers.featureLayer = function(url, options){
-  return new L.esri.Controls.Geosearch.Providers.FeatureLayer(url, options);
-}

@@ -15,6 +15,7 @@
   line-height: 26px;
   background-position: right center;
   cursor: pointer;
+  box-sizing: border-box;
 }
 
 .geocoder-control {

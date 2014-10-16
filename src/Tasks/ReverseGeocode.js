@@ -1,5 +1,6 @@
-L.esri.Tasks.ReverseGeocode = L.esri.Tasks.Task.extend({
+EsriLeafletGeocoding.Tasks.ReverseGeocode = Esri.Tasks.Task.extend({
   path: 'reverseGeocode',
+
   params : {
     outSR: 4326
   },
@@ -7,18 +8,29 @@ L.esri.Tasks.ReverseGeocode = L.esri.Tasks.Task.extend({
     'distance': 'distance',
     'language': 'language'
   },
-  latlng: function (latlng) {
-    this.params.location = latlng.lng+',' + latlng.lat;
-  },
-  run: function(callback, context){
-    var path = (this.params.text) ? 'find' : 'findAddressCandidates';
 
-    return this.request(this.params, function(error, response){
+  initialize: function (url, options) {
+    url = (typeof url === 'string') ? url : EsriLeafletGeocoding.WorldGeocodingService;
+    options = (typeof url === 'object') ? url : (options || {});
+    this.url = Esri.Util.cleanUrl(url);
+    L.Util.setOptions(this, options);
+    Esri.Tasks.Task.prototype.initialize.call(this, url, options);
+  },
+
+  latlng: function (latlng) {
+    latlng = L.latLng(latlng);
+    this.params.location = latlng.lng + ',' + latlng.lat;
+    return this;
+  },
+
+  run: function(callback, context){
+    return this.request(function(error, response){
       var result;
+
       if(!error){
         result = {
           latlng: new L.LatLng(response.location.y, response.location.x),
-          properties: response.address
+          address: response.address
         };
       } else {
         result = undefined;
@@ -28,3 +40,7 @@ L.esri.Tasks.ReverseGeocode = L.esri.Tasks.Task.extend({
     }, this);
   }
 });
+
+EsriLeafletGeocoding.Tasks.reverseGeocode = function(url, options){
+  return new EsriLeafletGeocoding.Tasks.ReverseGeocode(url, options);
+};

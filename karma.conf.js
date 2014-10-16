@@ -12,14 +12,15 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css',
-      'http://cdn.leafletjs.com/leaflet-0.7.3/leaflet-src.js',
-      'http://cdn-geoweb.s3.amazonaws.com/esri-leaflet/0.0.1-beta.6/esri-leaflet.js',
+      'node_modules/leaflet/dist/leaflet.css',
+      'node_modules/leaflet/dist/leaflet.js',
+      'node_modules/esri-leaflet/dist/esri-leaflet-src.js',
       'spec/**/*Spec.js',
+      'src/EsriLeafletGeocoding.js',
       'src/Tasks/**/*.js',
       'src/Services/**/*.js',
-      'src/Providers/**/*.js',
-      'src/Controls/**/*.js'
+      'src/Controls/**/*.js',
+      'src/Providers/**/*.js'
     ],
 
     // list of files to exclude

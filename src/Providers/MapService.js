@@ -1,16 +1,22 @@
-L.esri.Controls.Geosearch.Providers.MapService = L.esri.Services.MapService.extend({
+EsriLeafletGeocoding.Controls.Geosearch.Providers.MapService = L.esri.Services.MapService.extend({
   options: {
-    label: 'Map Service'
+    layer: 0,
+    label: 'Map Service',
+    bufferRadius: 1000,
+    maxResults: 5,
+    formatSuggestion: function(feature){
+      return feature.properties[this.options.searchFields[0]];
+    }
   },
   initialize: function(url, options){
     L.esri.Services.MapService.prototype.initialize.call(this, url, options);
     this._getIdField();
   },
-  suggestions: function(map, text, options, callback){
-    var request = this.find().text(text).returnGeometry(false).layers([this.options.layer]);
+  suggestions: function(text, bounds, callback){
+    var request = this.find().text(text).returnGeometry(false).layers(this.options.layer);
 
-    if(this._idField){
-      request.fields([this.options.searchField, this.options._idField]);
+    if (this._idField) {
+      request.fields(this.options.searchFields);
     }
 
     return request.run(function(error, results){
@@ -19,10 +25,10 @@ L.esri.Controls.Geosearch.Providers.MapService = L.esri.Services.MapService.exte
       if(this._idField && !error){
         var count = Math.min(this.options.maxResults, results.features.length);
         for (var i = 0; i < count; i++) {
-          var suggestion = results.features[i];
+          var feature = results.features[i];
           suggestions.push({
-            text: suggestion.properties[this.options.searchField],
-            magicKey: suggestion.properties[this._idField]
+            text: this.options.formatSuggestion.call(this, feature),
+            magicKey: feature.properties[this._idField]
           });
         }
       }
@@ -30,7 +36,7 @@ L.esri.Controls.Geosearch.Providers.MapService = L.esri.Services.MapService.exte
       callback(error, suggestions);
     }, this);
   },
-  results: function(map, text, key, options, callback){
+  results: function(text, key, bounds, callback){
     var results = [];
     var request;
 
@@ -41,7 +47,7 @@ L.esri.Controls.Geosearch.Providers.MapService = L.esri.Services.MapService.exte
     }
 
     if(this._idField){
-      request.fields([this.options.searchField, this.options._idField]);
+      request.fields([this.options.searchFields, this.options._idField]);
     }
 
     request.run(function(error, features){
@@ -49,11 +55,11 @@ L.esri.Controls.Geosearch.Providers.MapService = L.esri.Services.MapService.exte
         for (var i = 0; i < features.features.length; i++) {
           var feature = features.features[i];
           if(feature){
-            var bounds = L.geoJson(feature).getBounds();
+            var bounds = this._featureBounds(feature);
             var result = feature.properties;
             result.latlng = bounds.getCenter();
             result.bounds = bounds;
-            result.text = feature.properties[this.options.searchField];
+            result.text = this.options.formatSuggestion.call(this,feature);
             results.push(result);
           }
         }
@@ -61,19 +67,25 @@ L.esri.Controls.Geosearch.Providers.MapService = L.esri.Services.MapService.exte
       callback(error, results);
     }, this);
   },
+  _featureBounds: function(feature){
+    var geojson = L.geoJson(feature);
+    if(feature.geometry.type === 'Point'){
+      var center = geojson.getBounds().getCenter();
+      return new L. Circle(center, this.options.bufferRadius).getBounds();
+    } else {
+      return geojson.getBounds();
+    }
+  },
   _getIdField: function(){
     this.get(this.options.layer, {}, function(error, metadata){
       for (var i = 0; i < metadata.fields.length; i++) {
         var field = metadata.fields[i];
         if(field.type === 'esriFieldTypeOID'){
           this._idField = field.name;
+          this.options.searchFields.push(field.name);
           break;
         }
       }
     }, this);
   }
 });
-
-L.esri.Controls.Geosearch.Providers.mapService = function(url, options){
-  return new L.esri.Controls.Geosearch.Providers.MapService(url, options);
-};

@@ -1,4 +1,5 @@
-L.esri.Tasks.Geocode = L.esri.Tasks.Task.extend({
+EsriLeafletGeocoding.Tasks.Geocode = Esri.Tasks.Task.extend({
+  path: 'find',
 
   params : {
     outSr: 4326,
@@ -19,32 +20,43 @@ L.esri.Tasks.Geocode = L.esri.Tasks.Task.extend({
     'text': 'text',
     'category': 'category[]',
     'token' : 'token',
-    'key': 'key',
+    'key': 'magicKey',
     'fields': 'outFields[]',
     'forStorage': 'forStorage'
   },
 
+  initialize: function (url, options) {
+    url = (typeof url === 'string') ? url : EsriLeafletGeocoding.WorldGeocodingService;
+    options = (typeof url === 'object') ? url : (options || {});
+    this.url = Esri.Util.cleanUrl(url);
+    L.Util.setOptions(this, options);
+    Esri.Tasks.Task.prototype.initialize.call(this, url, options);
+  },
+
   within: function(bounds){
-    this.params.bbox = L.esri.Util.boundsToExtent(bounds);
+    bounds = L.latLngBounds(bounds);
+    console.log(bounds);
+    this.params.bbox = Esri.Util.boundsToExtent(bounds);
   },
 
   nearby: function(latlng, radius){
-    this.params.location = latlng.lng + "," + latlng.lat;
+    latlng = L.latLng(latlng);
+    this.params.location = latlng.lng + ',' + latlng.lat;
     this.params.distance = Math.min(Math.max(radius, 2000), 50000);
   },
 
   run: function(callback, context){
-    var path = (this.params.text) ? 'find' : 'findAddressCandidates';
+    this.path = (this.params.text) ? 'find' : 'findAddressCandidates';
 
-    if(path === 'findAddressCandidates' && this.params.bbox) {
+    if(this.path === 'findAddressCandidates' && this.params.bbox) {
       this.params.searchExtent = this.params.bbox;
       delete this.params.bbox;
     }
 
     return this.request(function(error, response){
-      var processor = (this.params.text === 'find') ? this._processFindResponse : this._processFindAddressCandidatesResponse;
+      var processor = (this.path === 'find') ? this._processFindResponse : this._processFindAddressCandidatesResponse;
       var results = (!error) ? processor(response) : undefined;
-      callback.call(context, error, results, response);
+      callback.call(context, error, { results: results }, response);
     }, this);
   },
 
@@ -53,12 +65,13 @@ L.esri.Tasks.Geocode = L.esri.Tasks.Task.extend({
 
     for (var i = 0; i < response.locations.length; i++) {
       var location = response.locations[i];
-      var bounds = L.esri.Util.extentToBounds(location.extent);
+      var bounds = Esri.Util.extentToBounds(location.extent);
 
       results.push({
         text: location.name,
         bounds: bounds,
-        latlng: new L.LatLng(result.feature.geometry.y, result.feature.geometry.x),
+        score: location.feature.attributes.Score,
+        latlng: new L.LatLng(location.feature.geometry.y, location.feature.geometry.x),
         properties: location.feature.attributes
       });
     }
@@ -69,17 +82,16 @@ L.esri.Tasks.Geocode = L.esri.Tasks.Task.extend({
   _processFindAddressCandidatesResponse: function(response){
     var results = [];
 
-    for (var i = 0; i < response.canidates.length; i++) {
-      var canidate = response.canidates[i];
-      var bounds = L.esri.Util.extentToBounds(canidate.extent);
-      var properties = canidate.attributes;
-      attributes.Score = canidate.score;
+    for (var i = 0; i < response.candidates.length; i++) {
+      var candidate = response.candidates[i];
+      var bounds = Esri.Util.extentToBounds(candidate.extent);
 
       results.push({
-        text: canidate.address,
+        text: candidate.address,
         bounds: bounds,
-        latlng: new L.LatLng(canidate.location.y, canidate.location.x),
-        properties :attributes
+        score: candidate.score,
+        latlng: new L.LatLng(candidate.location.y, candidate.location.x),
+        properties: candidate.attributes
       });
     }
 
@@ -87,3 +99,7 @@ L.esri.Tasks.Geocode = L.esri.Tasks.Task.extend({
   }
 
 });
+
+EsriLeafletGeocoding.Tasks.geocode = function(url, options){
+  return new EsriLeafletGeocoding.Tasks.Geocode(url, options);
+};
