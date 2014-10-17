@@ -22,7 +22,8 @@ EsriLeafletGeocoding.Tasks.Geocode = Esri.Tasks.Task.extend({
     'token' : 'token',
     'key': 'magicKey',
     'fields': 'outFields[]',
-    'forStorage': 'forStorage'
+    'forStorage': 'forStorage',
+    'maxLocations': 'maxLocations'
   },
 
   initialize: function (url, options) {

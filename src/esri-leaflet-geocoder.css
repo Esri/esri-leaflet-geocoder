@@ -10,9 +10,11 @@
   padding: 0;
   text-indent: 6px;
   font-size: 13px;
-  height: 26px;
+  line-height: normal;
+  height: auto;
+  padding-top: 5px;
+  padding-bottom: 5px;
   width: 100%;
-  line-height: 26px;
   background-position: right center;
   cursor: pointer;
   box-sizing: border-box;

@@ -1,13 +1,15 @@
-EsriLeafletGeocoding.Controls.Geosearch.Providers.GeocodeServer = EsriLeafletGeocoding.Services.Geocoding.extend({
+EsriLeafletGeocoding.Controls.Geosearch.Providers.GeocodeService = EsriLeafletGeocoding.Services.Geocoding.extend({
   options: {
     label: 'Geocode Server',
     maxResults: 5,
     outFields: '*'
   },
+
   suggestions: function(text, bounds, callback){
     callback(undefined, []);
     return false;
   },
+
   results: function(text, key, bounds, callback){
     var request = this.geocode().text(text);
 

@@ -107,9 +107,17 @@ EsriLeafletGeocoding.Controls.Geosearch = L.Control.extend({
           for (var j = 0; j < provider.nodes.length; j++) {
             this._suggestions.removeChild(provider.nodes[j]);
           }
+
+          provider.nodes = [];
         }
 
         if(suggestions.length && this._input.value === text) {
+          if(provider.nodes){
+            for (var j = 0; j < provider.nodes.length; j++) {
+              this._suggestions.removeChild(provider.nodes[j]);
+            }
+          }
+
           provider._lastRender = text;
           provider.nodes = this._renderSuggestions(suggestions);
         }
@@ -150,23 +158,30 @@ EsriLeafletGeocoding.Controls.Geosearch = L.Control.extend({
     this._suggestions.style.display = 'block';
     var nodes = [];
     var list;
+    var header;
     for (var i = 0; i < suggestions.length; i++) {
       var suggestion = suggestions[i];
-      if(this.options.providers.length > 1 && currentGroup !== suggestion.provider.options.label){
-        var header = L.DomUtil.create('span', 'geocoder-control-header', this._suggestions);
+      if(!header && this.options.providers.length > 1 && currentGroup !== suggestion.provider.options.label){
+        header = L.DomUtil.create('span', 'geocoder-control-header', this._suggestions);
+        header.textContent = suggestion.provider.options.label;
         header.innerText = suggestion.provider.options.label;
         currentGroup = suggestion.provider.options.label;
         nodes.push(header);
       }
+
       if(!list){
         list = L.DomUtil.create('ul', 'geocoder-control-list', this._suggestions);
       }
+
       var suggestionItem = L.DomUtil.create('li', 'geocoder-control-suggestion', list);
+
       suggestionItem.innerHTML = suggestion.text;
       suggestionItem.provider = suggestion.provider;
       suggestionItem['data-magic-key'] = suggestion.magicKey;
     }
+
     nodes.push(list);
+    console.log(nodes.length);
     return nodes;
   },
 

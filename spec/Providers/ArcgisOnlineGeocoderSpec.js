@@ -101,6 +101,7 @@ describe('Providers.ArcgisOnline', function () {
       done();
     });
 
+    expect(request.url).to.contain('text=380%20New%20York%20St%2C%20Redlands%2C%20California%2C%2092373');
     expect(request.url).to.contain('magicKey=foo');
 
     request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleFindResponse);
@@ -115,6 +116,8 @@ describe('Providers.ArcgisOnline', function () {
       expect(results[0].properties.Addr_Type).to.equal('PointAddress');
       done();
     });
+
+    expect(request.url).to.contain('text=380%20New%20York%20St%2C%20Redlands%2C%20California%2C%2092373');
 
     request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleFindResponse);
   });

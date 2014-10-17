@@ -36,11 +36,11 @@ EsriLeafletGeocoding.Controls.Geosearch.Providers.FeatureLayer = L.esri.Services
         for (var i = 0; i < count; i++) {
           var feature = results.features[i];
           suggestions.push({
-            text: this.options.formatSuggestion(feature),
+            text: this.options.formatSuggestion.call(this, feature),
             magicKey: feature.id
           });
         }
-        callback(error, suggestions.slice(0, this.options.maxResults));
+        callback(error, suggestions.slice(0, this.options.maxResults).reverse());
       }
     }, this);
 
@@ -68,7 +68,7 @@ EsriLeafletGeocoding.Controls.Geosearch.Providers.FeatureLayer = L.esri.Services
           var result = feature.properties;
           result.latlng = bounds.getCenter();
           result.bounds = bounds;
-          result.text = this.options.formatSuggestion(feature);
+          result.text = this.options.formatSuggestion.call(this, feature);
           results.push(result);
         }
       }
@@ -80,7 +80,7 @@ EsriLeafletGeocoding.Controls.Geosearch.Providers.FeatureLayer = L.esri.Services
 
     for (var i = this.options.searchFields.length - 1; i >= 0; i--) {
       var field = this.options.searchFields[i];
-      queryString.push(field + ' LIKE \'%'+text+'%\'');
+      queryString.push(field + " LIKE '%" + text + "%'");
     }
 
     return queryString.join(' OR ');
