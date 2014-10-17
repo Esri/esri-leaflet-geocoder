@@ -105,7 +105,9 @@ EsriLeafletGeocoding.Controls.Geosearch = L.Control.extend({
 
         if(provider._lastRender !== text && provider.nodes) {
           for (var j = 0; j < provider.nodes.length; j++) {
-            this._suggestions.removeChild(provider.nodes[j]);
+            if(provider.nodes[j].parentElement){
+              this._suggestions.removeChild(provider.nodes[j]);
+            }
           }
 
           provider.nodes = [];
@@ -114,7 +116,9 @@ EsriLeafletGeocoding.Controls.Geosearch = L.Control.extend({
         if(suggestions.length && this._input.value === text) {
           if(provider.nodes){
             for (var j = 0; j < provider.nodes.length; j++) {
-              this._suggestions.removeChild(provider.nodes[j]);
+              if(provider.nodes[j].parentElement){
+                this._suggestions.removeChild(provider.nodes[j]);
+              }
             }
           }
 
