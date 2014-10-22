@@ -1,5 +1,23 @@
 # Changelog
 
+## Release Canidate 1
+
+** Breaking Changes **
+
+* Namespacing has changed. All methods and classes are now under `L.esri.Geocoding`. `L.esri.Geocoding` organizes everything into `Controls`, `Services`, and `Tasks`.
+* `GeocodeService` has been rewritten from scrath to mirror the Esri Leaflet service style that returns tasks.
+* `GeocodeService.suggest`, `GeocodeService.geocode` and `GeocodeService.reverse` all return their respective tasks.
+
+** Changes **
+
+* New tasks for `Suggest`, `Geocode` and `ReverseGeocode` that mirror the Esri Leaflet task structure.
+* `L.esri.Geocoding.Controls.Geosearch` can now search multiple providers.
+* Available on NPM and Bower
+* Wrapped as a CommonJS module
+* Wrapped as an AMD module
+* Basic unit tests
+* Source maps for compressed builds
+
 ## Beta 5
 
 **Changes**
