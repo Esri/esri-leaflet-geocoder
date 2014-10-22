@@ -22,6 +22,7 @@ debug/*
 
 # Built Files
 dist/**/*.js
+dist/**/*.map
 dist/**/*.css
 dist/**/*.gif
 dist/**/*.png
