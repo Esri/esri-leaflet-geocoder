@@ -87,6 +87,7 @@ module.exports = function(grunt) {
         banner: copyright + umdHeader,
         footer: umdFooter,
         sourceMap: true,
+        sourceMapIncludeSources: true,
       },
       dist: {
         files: {
@@ -189,7 +190,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('test', 'karma:run');
   grunt.registerTask('default', ['build']);
-  grunt.registerTask('build', ['jshint', 'concat', 'uglify', 'imagemin', 'cssmin']);
+  grunt.registerTask('build', ['jshint', 'test', 'concat', 'uglify', 'imagemin', 'cssmin']);
   grunt.registerTask('prepublish', ['concat', 'uglify', 'imagemin', 'cssmin']);
   grunt.registerTask('release', ['releaseable', 's3']);
 

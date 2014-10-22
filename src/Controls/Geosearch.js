@@ -83,6 +83,8 @@ EsriLeafletGeocoding.Controls.Geosearch = L.Control.extend({
 
     var createCallback = L.Util.bind(function(text, provider){
       return L.Util.bind(function(error, suggestions){
+        var i;
+
         activeRequests = activeRequests - 1;
 
         if(this._input.value < 2) {
@@ -92,15 +94,15 @@ EsriLeafletGeocoding.Controls.Geosearch = L.Control.extend({
         }
 
         if(suggestions){
-          for (var i = 0; i < suggestions.length; i++) {
+          for (i = 0; i < suggestions.length; i++) {
             suggestions[i].provider = provider;
           }
         }
 
         if(provider._lastRender !== text && provider.nodes) {
-          for (var j = 0; j < provider.nodes.length; j++) {
-            if(provider.nodes[j].parentElement){
-              this._suggestions.removeChild(provider.nodes[j]);
+          for (i = 0; i < provider.nodes.length; i++) {
+            if(provider.nodes[i].parentElement){
+              this._suggestions.removeChild(provider.nodes[i]);
             }
           }
 
@@ -109,9 +111,9 @@ EsriLeafletGeocoding.Controls.Geosearch = L.Control.extend({
 
         if(suggestions.length && this._input.value === text) {
           if(provider.nodes){
-            for (var j = 0; j < provider.nodes.length; j++) {
-              if(provider.nodes[j].parentElement){
-                this._suggestions.removeChild(provider.nodes[j]);
+            for (i = 0; i < provider.nodes.length; i++) {
+              if(provider.nodes[i].parentElement){
+                this._suggestions.removeChild(provider.nodes[i]);
               }
             }
           }
