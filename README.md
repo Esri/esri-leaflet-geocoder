@@ -65,7 +65,7 @@ Take a look at the [live demo](http://esri.github.com/esri-leaflet/examples/geoc
 </html>
 ```
 
-## L.esri.Controls.Geosearch
+## L.esri.Geocoding.Controls.Geosearch
 
 ### Constructor
 
@@ -85,11 +85,9 @@ Option | Type | Default | Description
 `collapseAfterResult` | `Boolean` | `true` | If the geocoder is expanded after a result this will collapse it.
 `expanded` | `Boolean` | `true` | Start the control in an expanded state.
 `maxResults` | `Integer` | `25` | The maximum number of results to return from a geocoding request. Max is 50.
-`token` | `String` | `false` | A token to pass with requests.
-`forStorage` | `Boolean` | `true` | You must set this to true if you intend for your users to store the results of your results.
 `allowMultipleResults` | `Boolean` | `true` | If set to `true` and the user submits the form without a suggestion selected geocodes the current text in the input and zooms the user to view all the results.
-
-You can also pass any options you can pass to L.esri.Services.Geocoding.
+`useArcgisWorldGeocoder` | `Boolean` | `true` | Use the ArcGIS Online World Geocoder by default in the array of providers.
+`providers` | `Array` | See Description | An array of `EsriLeafletGeocoding.Controls.Geosearch.Providers` objects. These additional providers will also be searched for possible results and added to the suggestion list.
 
 ### Methods
 
@@ -105,7 +103,6 @@ Event | Data | Description
 `loading` | `null` | A generic event fired when a request to the geocoder finished.
 `results` | [`<ResultsEvent>`](#results-event) | Fired when a result is returned from the geocoder.
 
-
 ### Styling
 For reference here is the internal structure of the geocoder...
 
@@ -120,6 +117,42 @@ For reference here is the internal structure of the geocoder...
   </ul>
 </div>
 ```
+
+### Providers
+
+The `Geosearch` control can also search for results from a varity of sources includeing Feature Layers and Map Services. This is done with plain text matching and is not "real" geocoding. But it allows you to mix custom results into search box.
+
+```js
+var gisDay = new L.esri.Geocoding.Controls.Geosearch.Providers.FeatureLayer('https://services.arcgis.com/uCXeTVveQzP4IIcx/arcgis/rest/services/GIS_Day/FeatureServer/0', {
+  searchFields: ['EventName', 'Organizati'], // Search these fields for text matches
+  label: 'GIS Day Events', // Group suggestions under this header
+  formatSuggestion: function(feature){
+    return feature.properties.EventName + ' - ' + feature.properties.Organizati; // format suggestions like this.
+  }
+});
+
+L.esri.Geocoding.Controls.geosearch({
+  providers: [gisDay]
+}).addTo(map);
+```
+
+#### Available Providers
+
+* `L.esri.Geocoding.Controls.Geosearch.Providers.ArcGISOnline` - Included by default unless the `useArcgisWorldGeocoder` option is set to false.
+* `L.esri.Geocoding.Controls.Geosearch.Providers.FeatureLayer` - Gets results by querying the Feature Layer for text matches.
+* `L.esri.Geocoding.Controls.Geosearch.Providers.MapService` - Uses the find and query methods on the Map Service to get text matches.
+* `L.esri.Geocoding.Controls.Geosearch.Providers.GeocodeService` - Use a ArcGIS Server Geocode Service. This option does not support suggestions.
+
+#### Provider Options
+
+Option | Type | Default | Description
+--- | --- | --- | ---
+`searchFields` | `Array[Strings]` | None | An array of fields to search for text. Not valid for the `ArcGISOnline` and `GeocodeService` providers.
+`layer` | `Integer` | `0` | Only valid for `MapService` providers, the layer to find text matchs on.
+`label` | `String` | Provider Type | Text that will be used to group suggestions under.
+`maxResults` | `Integer` | 5 | Maxiumum number of results to show for this provider.
+`bufferRadius`, | `Integer` | If a service or layer contains points buffer points by this radius to create bounds. Not valid for the `ArcGISOnline` and `GeocodeService` providers
+`formatSuggestion`| `Function` | See Description | Formating function for the suggestion text. Recives a feature and returns a string.
 
 #### Results Event
 
@@ -138,94 +171,156 @@ Property | Type | Description
 `text` | `String` | The text that was passed to the geocoder.
 `bounds` | [`L.LatLngBounds`](http://leafletjs.com/reference.html#latlngbounds)| The bounds arround this suggestion. Good for zooming to results like cities and states.
 `latlng` | [`L.LatLng`](http://leafletjs.com/reference.html#latlng)| The center of the result.
-`name` | `String` | Name of the geocoded place. Usually something like "Paris" or "Starbucks".
-`match` | `String` | What was matched internally in the geocoder. Cooresponded to the [`Addr_type`](http://resources.arcgis.com/en/help/arcgis-rest-api/#/Service_output/02r300000017000000/) field in the geocoding service.
-`country` | `String` | The country the geocoded place is located in.
-`region` | `String` | The largest administrative area for a country that the geocoded palce is in, typically a state or province.
-`subregion` | `String` | The next largest administrative area for a the geocoded place, typically a county or region.
-`city` | `String` | The city the geocoded place is located in.
-`address` | `String` | Complete address returned for the geocoded place. The format is based on address standards for the country within which the address is located.
 
-## L.esri.Services.Geocoding
+The result object will also contain any additional properties from the provider. So when geocoding you will also get address breakdowns and when text matching features you will get the additional fields from that feature.
+
+## L.esri.Geocoding.Services.Geocoding
 A basic wrapper for ArcGIS Online geocoding services. Used internally by `L.esri.Controls.Geosearch`.
 
 ### Constructor
 
-Constructor | Options | Description
---- | --- | ---
-`new L.esri.Services.Geocoding(url, options)`<br>`L.esri.Controls.geosearch(url, options)`<br>`new L.esri.Services.Geocoding(options)`<br>`L.esri.Controls.geosearch(options)` | [`<GeosearchOptions>`](#options-1) | Creates a new Geosearch control you can pass the url as the first parameter or as `url` in the options to a custom geocoding enpoint if you do no want to use the ArcGIS Online World Geocoding service.
+Constructor | Description
+--- | ---
+`new L.esri.Geocoding.Geocoding(url, options)`<br>`L.esri.Controls.geosearch(url, options)`<br>`new L.esri.Services.Geocoding(options)`<br>`L.esri.Controls.geosearch(options)` | Creates a new Geosearch control you can pass the url as the first parameter or as `url` in the options to a custom geocoding enpoint if you do no want to use the ArcGIS Online World Geocoding service.
 
 ### Options
 
-Option | Type | Default | Description
---- | --- | --- | ---
-`url` | `String` | `<WorldGeocodeServiceURL>` | Defaults to the ArcGIS World Geocoding service.
-
-You can also pass any options you can pass to L.esri.Services.Service.
+You can pass any options you can pass to L.esri.Services.Service.
 
 ### Methods
 
-Method | Options | Description
+Method | Returns | Description
 --- | --- | ---
-`geocode(text, object, callback)` | [`<GeocodeOptions>`](#geocode-options) | Geocodes the specified `text` with the passed [`<GeocodeOptions>``](#geocode-options). `callback` will be called with `error`, [`Geocode Results`](geocode-results) and `response` as the parameters.
-`suggest(text, object, callback)` | [`<SuggestOptions>`](#suggest-options) | Suggests results for `text` with the given [`<SuggestOptions>`](#suggest-options). `callback` will be called with `error` and `response` parameters.
-`reverse(latlng, object, callback)` | [`<ReverseOptions>`](#reverse-options) | Suggests results for `text` with the given [`<ReverseOptions>`](#reverse-options). `callback` will be called with `error`, [`Reverse Geocode Result`](reverse-geocode-result) and `response` as the parameters.
+`geocode()` | L.esri.Geocoding.Tasks.Geocode | Returns a new Geocode task bound to this server.
+`suggest()` | L.esri.Geocoding.Tasks.Suggest | Returns a new Suggest task bound to this server.
+`reverse()` | L.esri.Geocoding.Tasks.ReverseGeocode | Returns a new ReverseGeocode task bound to this server.
 
 ### Events
 
-Event | Data | Description
+L.esri.Services.FeatureLayer fires all L.esri.Services.service events.
+
+## L.esri.Geocoding.Tasks.Geocode
+
+### Constructor
+
+Constructor | Description
+--- | ---
+`new L.esri.Geocoding.Tasks.Geocode(url, options)`<br>`L.esri.Geocoding.Tasks.geocode(url, options)` | Creates a new Geocode task. `L.esri.Geocoding.WorldGeocodingService` can be used as a reference to the ArcGIS Online World Geocoder.
+
+### Options
+
+You can pass any options you can pass to L.esri.Tasks.Task.
+
+### Methods
+
+Method | Returns | Description
 --- | --- | ---
-`load` | `null` | A generic event fired when a request to the geocoder begins.
-`loading` | `null` | A generic event fired when a request to the geocoder is finished.
+`text(text &lt;String&gt;)` | `this` | The text to geocode. If you specify `text` all other params like `address`, `city`, `subregion`, and `region`, `postal`, and `country` will be ignored.
+`address(text &lt;String&gt;)` | Specify the street and house number to be geocoded.
+`neighborhood(text &lt;String&gt;)` | Specify the neighborhood to be geocoded.
+`city(text &lt;String&gt;)` | Specify the city to be geocoded.
+`subregion(text &lt;String&gt;)` | Specify the subregion to be geocoded. Depending on the country, subregion can represent a county, state, or province.
+`region(text &lt;String&gt;)` | Specify the region to be geocoded. Typically a state or province
+`postal(text &lt;String&gt;)` | Specify the postal code to be geocoded.
+`country(text &lt;String&gt;)` | Specify the country to be geocoded.
+`category(category &lt;String&gt;)` | The category to search for suggestions. By default no categogy. A list of categories can be found here https://developers.arcgis.com/rest/geocode/api-reference/geocoding-category-filtering.htm#ESRI_SECTION1_502B3FE2028145D7B189C25B1A00E17B
+`within(bounds &lt;L.LatLngBounds&gt;)` | A bounding box to search for suggestions in.
+`nearby(latlng &lt;L.LatLng&gt;, distance &lt;Integer&gt;)` | Searches for suggestions only inside an area around the LatLng. `distance` is in meters.
+`run(callback &lt;Function&gt;, context&lt;Object&gt;)` | `XMLHttpRequest` | Executes this request chain and accepts the response callback.
 
-#### Geocode Options
+### Examples
 
-The `geocode` method can accept any options from the [geocode service](http://resources.arcgis.com/en/help/arcgis-rest-api/#/Single_input_field_geocoding/02r300000015000000/) with the exception of `text`.
-
-#### Suggest Options
-
-The `suggest` method can accept any options from the [suggest service](http://resources.arcgis.com/en/help/arcgis-rest-api/#/Working_with_suggestions/02r300000238000000/) with the exception of `text`.
-
-#### Reverse Geocode Options
-
-The `suggest` method can accept any options from the [reverse geocoding service](http://resources.arcgis.com/en/help/arcgis-rest-api/#/Reverse_geocoding/02r30000000n000000/) with the exception of location.
-
-#### Geocode Results
-
-Geocode results conform to the following format
-
-```json
-[
-  {
-    text: 'Text',
-    bounds: L.LatLngBounds,
-    latlng: L.LatLng,
-    name: 'PlaceName',
-    match: 'AddressType',
-    country: 'Country',
-    region: 'Region',
-    subregion: 'Subregion',
-    city: 'City',
-    address: 'Address'
-  }
-]
+```js
+L.esri.Geocoding.Tasks.geocode().text('380 New York St, Redlands, California, 92373').run(function(err, results, response){
+  console.log(results);
+});
 ```
 
-#### Reverse Geocode Result
-Reverse geocoding results conform to the following format
+```js
+L.esri.Geocoding.Tasks.geocode().address('380 New York St').city('Redlands').region('California').postal(92373).run(function(err, results, response){
+  console.log(results);
+});
+```
 
-```json
+### Results Object
+
+In the above examples the `results` object will look like this.
+
+```js
 {
-  latlng: L.LatLng,
-  address: 'Address',
-  neighborhood: 'Neighborhood',
-  city: 'City',
-  subregion: 'Subregion',
-  region: 'Region',
-  postal: 'Postal',
-  postalExt: 'PostalExt',
-  countryCode: 'CountryCode'
+  results: [
+    {
+      latlng: L.LatLng,
+      text: 'Formated Address',
+      score: 100, // ranking of the certainty of the match
+      properties: {
+        // additonal info like specific address components like Country Code ect...
+      }
+    }
+  ]
 }
+```
+
+
+## L.esri.Geocoding.Tasks.Suggest
+
+### Constructor
+
+Constructor | Description
+--- | ---
+`new L.esri.Geocoding.Tasks.Suggest(url, options)`<br>`L.esri.Geocoding.Tasks.suggest(url, options)` | Creates a new Suggest task. `L.esri.Geocoding.WorldGeocodingService` can be used as a reference to the ArcGIS Online World Geocoder.
+
+### Options
+
+You can pass any options you can pass to L.esri.Tasks.Task.
+
+### Methods
+
+Method | Returns | Description
+--- | --- | ---
+`text(text &lt;String&gt;)` | `this` | The text to recive suggestions for.
+`category(category &lt;String&gt;)` | The category to search for suggestions. By default no categogy. A list of categories can be found here https://developers.arcgis.com/rest/geocode/api-reference/geocoding-category-filtering.htm#ESRI_SECTION1_502B3FE2028145D7B189C25B1A00E17B
+`within(bounds &lt;L.LatLngBounds&gt;)` | A bounding box to search for suggestions in.
+`nearby(latlng &lt;L.LatLng&gt;, distance &lt;Integer&gt;)` | Searches for suggestions only inside an area around the LatLng. `distance` is in meters.
+`run(callback &lt;Function&gt;, context&lt;Object&gt;)` | `XMLHttpRequest` | Executes this request chain and accepts the response callback.
+
+### Example
+
+```js
+L.esri.Geocoding.Tasks.suggest().text('trea').nearby([45,-121], 5000).run(function(error, response){
+  // response matches the suggest API response https://developers.arcgis.com/rest/geocode/api-reference/geocoding-suggest.htm#ESRI_SECTION1_FC3884A45AD24E62BD11C9888F1392DB
+});
+```
+
+## L.esri.Geocoding.Tasks.ReverseGeocode
+
+### Constructor
+
+Constructor | Description
+--- | ---
+`new L.esri.Geocoding.Tasks.ReverseGeocode(url, options)`<br>`L.esri.Geocoding.Tasks.reverseGeocode(url, options)` | Creates a new ReverseGeocode task. `L.esri.Geocoding.WorldGeocodingService` can be used as a reference to the ArcGIS Online World Geocoder.
+
+### Options
+
+You can pass any options you can pass to L.esri.Tasks.Task.
+
+### Methods
+
+Method | Returns | Description
+--- | --- | ---
+`latlng(latlng &lt;L.LatLng&gt;)` | The L.LatLng object for which the address will be looked up.
+`distance(distance &lt;Integer&gt;)` | The distance (in meters) around the point for which addresses will be looked up.
+`language(language &lt;String&gt;)` | `this` | The language to return the address in.
+`run(callback &lt;Function&gt;, context&lt;Object&gt;)` | `XMLHttpRequest` | Executes this request chain and accepts the response callback.
+
+### Example
+
+```js
+L.esri.Geocoding.Tasks.reverseGeocode().latlng([48.8583,  2.2945]).run(function(error, result, response){
+  // callback is called with error, result, and response.
+  // result.latlng contains the latlng of the located address
+  // result.address contains the address information
+});
 ```
 
 ## Development Instructions

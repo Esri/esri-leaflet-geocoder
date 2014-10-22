@@ -122,7 +122,7 @@ describe('L.esri.Controls.Geosearch.Providers.FeatureLayer', function () {
       done();
     });
 
-    expect(request.url).to.contain('geometry=%7B%22xmin%22%3A0%2C%22ymin%22%3A0%2C%22xmax%22%3A100%2C%22ymax%22%3A100%2C%22spatialReference%22%3A%7B%22wkid%22%3A4326%7D%7D&');
+    expect(request.url).to.contain('geometry=%7B%22xmin%22%3A0%2C%22ymin%22%3A0%2C%22xmax%22%3A100%2C%22ymax%22%3A100%2C%22spatialReference%22%3A%7B%22wkid%22%3A4326%7D%7D');
     expect(request.url).to.contain('geometryType=esriGeometryEnvelope');
     expect(request.url).to.contain('spatialRel=esriSpatialRelIntersects');
 

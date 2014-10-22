@@ -9,14 +9,13 @@ EsriLeafletGeocoding.Tasks.Geocode = Esri.Tasks.Task.extend({
   },
 
   setters: {
-    'street': 'street',
+    'address': 'address',
     'neighborhood': 'neighborhood',
     'city': 'city',
     'subregion': 'subregion',
     'region': 'region',
     'postal': 'postal',
     'country': 'country',
-    'address': 'address',
     'text': 'text',
     'category': 'category[]',
     'token' : 'token',
@@ -24,14 +23,6 @@ EsriLeafletGeocoding.Tasks.Geocode = Esri.Tasks.Task.extend({
     'fields': 'outFields[]',
     'forStorage': 'forStorage',
     'maxLocations': 'maxLocations'
-  },
-
-  initialize: function (url, options) {
-    url = (typeof url === 'string') ? url : EsriLeafletGeocoding.WorldGeocodingService;
-    options = (typeof url === 'object') ? url : (options || {});
-    this.url = Esri.Util.cleanUrl(url);
-    L.Util.setOptions(this, options);
-    Esri.Tasks.Task.prototype.initialize.call(this, url, options);
   },
 
   within: function(bounds){

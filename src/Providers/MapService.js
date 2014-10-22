@@ -33,7 +33,7 @@ EsriLeafletGeocoding.Controls.Geosearch.Providers.MapService = L.esri.Services.M
         }
       }
 
-      callback(error, suggestions);
+      callback(error, suggestions.reverse());
     }, this);
   },
   results: function(text, key, bounds, callback){
@@ -41,30 +41,32 @@ EsriLeafletGeocoding.Controls.Geosearch.Providers.MapService = L.esri.Services.M
     var request;
 
     if(key){
-      request = this.find().text(text).contains(false).layers(this.options.layer);
-    } else {
       request = this.query().layer(this.options.layer).featureIds(key);
+    } else {
+      request = this.find().text(text).contains(false).layers(this.options.layer);
     }
 
     if(this._idField){
       request.fields([this.options.searchFields, this.options._idField]);
     }
 
-    request.run(function(error, features){
+    return request.run(function(error, features){
       if(this._idField && !error){
         for (var i = 0; i < features.features.length; i++) {
           var feature = features.features[i];
           if(feature){
             var bounds = this._featureBounds(feature);
-            var result = feature.properties;
-            result.latlng = bounds.getCenter();
-            result.bounds = bounds;
-            result.text = this.options.formatSuggestion.call(this,feature);
+            var result = {
+              latlng: bounds.getCenter(),
+              bounds: bounds,
+              text: this.options.formatSuggestion.call(this, feature),
+              properties: feature.properties
+            };
             results.push(result);
           }
         }
       }
-      callback(error, results);
+      callback(error, results.reverse());
     }, this);
   },
   _featureBounds: function(feature){

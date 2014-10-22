@@ -149,6 +149,15 @@ only screen and (min-device-pixel-ratio: 2) {
 
 /* styles when browser is old and busted */
 
+.leaflet-oldie .geocoder-control-input {
+  width: 28px;
+  height: 28px;
+}
+
+.leaflet-oldie .geocoder-control-expanded .geocoder-control-input {
+  width: auto;
+}
+
 .leaflet-oldie .geocoder-control-input,
 .leaflet-oldie .geocoder-control-suggestions {
   border: 1px solid #999;

@@ -19,7 +19,7 @@ EsriLeafletGeocoding.Controls.Geosearch.Providers.FeatureLayer = L.esri.Services
                             .returnGeometry(false);
 
     if(bounds){
-      query.within(bounds);
+      query.intersects(bounds);
     }
 
     if(this.options.idField){
@@ -65,10 +65,14 @@ EsriLeafletGeocoding.Controls.Geosearch.Providers.FeatureLayer = L.esri.Services
         var feature = features.features[i];
         if(feature){
           var bounds = this._featureBounds(feature);
-          var result = feature.properties;
-          result.latlng = bounds.getCenter();
-          result.bounds = bounds;
-          result.text = this.options.formatSuggestion.call(this, feature);
+
+          var result = {
+            latlng: bounds.getCenter(),
+            bounds: bounds,
+            text: this.options.formatSuggestion.call(this, feature),
+            properties: feature.properties
+          };
+
           results.push(result);
         }
       }

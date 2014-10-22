@@ -15,16 +15,10 @@ EsriLeafletGeocoding.Controls.Geosearch = L.Control.extend({
 
   initialize: function (options) {
     L.Util.setOptions(this, options);
-    this._service = new EsriLeafletGeocoding.Services.Geocoding(options);
-    this._service.on('authenticationrequired requeststart requestend requesterror requestsuccess', function (e) {
-      e = L.extend({
-        target: this
-      }, e);
-      this.fire(e.type, e);
-    }, this);
 
     if(this.options.useArcgisWorldGeocoder){
-      this.options.providers.push(new EsriLeafletGeocoding.Controls.Geosearch.Providers.ArcGISOnline());
+      var geocoder = new EsriLeafletGeocoding.Controls.Geosearch.Providers.ArcGISOnline();
+      this.options.providers.push(geocoder);
     }
 
     if(this.options.maxResults){
@@ -54,7 +48,7 @@ EsriLeafletGeocoding.Controls.Geosearch = L.Control.extend({
         this.fire('results', {
           results: allResults,
           bounds: bounds,
-          latlng: (bounds) ? bounds : undefined,
+          latlng: (bounds) ? bounds.getCenter() : undefined,
           text: text
         });
 
@@ -136,6 +130,8 @@ EsriLeafletGeocoding.Controls.Geosearch = L.Control.extend({
 
     for (var i = 0; i < this.options.providers.length; i++) {
       var provider = this.options.providers[i];
+      console.log(!!provider);
+      console.log(provider.options.label);
       var request = provider.suggestions(text, this._searchBounds(), createCallback(text, provider));
       this._pendingSuggestions.push(request);
     }
@@ -230,8 +226,7 @@ EsriLeafletGeocoding.Controls.Geosearch = L.Control.extend({
       map.attributionControl.addAttribution('Geocoding by Esri');
     }
 
-    this._wrapper = L.DomUtil.create('div', 'geocoder-control' + ((this.options.expanded) ? ' ' + 'geocoder-control-expanded'  : ''));
-
+    this._wrapper = L.DomUtil.create('div', 'geocoder-control ' + ((this.options.expanded) ? ' ' + 'geocoder-control-expanded'  : ''));
     this._input = L.DomUtil.create('input', 'geocoder-control-input leaflet-bar', this._wrapper);
 
     this._suggestions = L.DomUtil.create('div', 'geocoder-control-suggestions leaflet-bar', this._wrapper);

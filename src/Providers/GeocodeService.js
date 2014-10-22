@@ -1,8 +1,7 @@
 EsriLeafletGeocoding.Controls.Geosearch.Providers.GeocodeService = EsriLeafletGeocoding.Services.Geocoding.extend({
   options: {
     label: 'Geocode Server',
-    maxResults: 5,
-    outFields: '*'
+    maxResults: 5
   },
 
   suggestions: function(text, bounds, callback){

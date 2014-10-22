@@ -103,7 +103,7 @@ describe('L.esri.Tasks.Geocode', function () {
   });
 
   it('should make a basic geocode request to ArcGIS Online', function(done){
-    var request = new L.esri.Geocoding.Tasks.geocode().text('380 New York St, Redlands, California, 92373').run(function(err, response){
+    var request = new L.esri.Geocoding.Tasks.geocode(L.esri.Geocoding.WorldGeocodingService).text('380 New York St, Redlands, California, 92373').run(function(err, response){
       expect(response.results[0].latlng.lat).to.equal(34.056490727765947);
       expect(response.results[0].latlng.lng).to.equal(-117.19566584280369);
       expect(response.results[0].text).to.equal('380 New York St, Redlands, California, 92373');
@@ -135,7 +135,7 @@ describe('L.esri.Tasks.Geocode', function () {
   });
 
   it('should make a findAddressCanidates request to ArcGIS Online', function(done){
-    var request = new L.esri.Geocoding.Tasks.geocode().street('380 New York St').city('Redlands').region('California').postal(92373).run(function(err, response){
+    var request = new L.esri.Geocoding.Tasks.geocode(L.esri.Geocoding.WorldGeocodingService).address('380 New York St').city('Redlands').region('California').postal(92373).run(function(err, response){
       expect(response.results[0].latlng.lat).to.equal(34.056490727765947);
       expect(response.results[0].latlng.lng).to.equal(-117.19566584280369);
       expect(response.results[0].text).to.equal('380 New York St, Redlands, California, 92373');
@@ -145,7 +145,7 @@ describe('L.esri.Tasks.Geocode', function () {
     });
 
     expect(request.url).to.contain('//geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates');
-    expect(request.url).to.contain('street=380%20New%20York%20St');
+    expect(request.url).to.contain('address=380%20New%20York%20St');
     expect(request.url).to.contain('city=Redlands');
     expect(request.url).to.contain('region=California');
     expect(request.url).to.contain('postal=92373');
@@ -154,7 +154,7 @@ describe('L.esri.Tasks.Geocode', function () {
   });
 
   it('should make a findAddressCanidates request to a Geocode Service', function(done){
-    var request = new L.esri.Geocoding.Tasks.geocode('http://gis.example.com/arcgis/rest/services/Geocoder').street('380 New York St').city('Redlands').region('California').postal(92373).run(function(err, response){
+    var request = new L.esri.Geocoding.Tasks.geocode('http://gis.example.com/arcgis/rest/services/Geocoder').address('380 New York St').city('Redlands').region('California').postal(92373).run(function(err, response){
       expect(response.results[0].latlng.lat).to.equal(34.056490727765947);
       expect(response.results[0].latlng.lng).to.equal(-117.19566584280369);
       expect(response.results[0].text).to.equal('380 New York St, Redlands, California, 92373');
@@ -164,7 +164,7 @@ describe('L.esri.Tasks.Geocode', function () {
     });
 
     expect(request.url).to.contain('http://gis.example.com/arcgis/rest/services/Geocoder/findAddressCandidates');
-    expect(request.url).to.contain('street=380%20New%20York%20St');
+    expect(request.url).to.contain('address=380%20New%20York%20St');
     expect(request.url).to.contain('city=Redlands');
     expect(request.url).to.contain('region=California');
     expect(request.url).to.contain('postal=92373');

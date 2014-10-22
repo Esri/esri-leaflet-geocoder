@@ -51,7 +51,7 @@ describe('Providers.GeocodeService', function () {
     });
 
     expect(request.url).to.contain('http://example.com/arcgis/arcgis/rest/services/MockGeocodeService');
-    expect(request.url).to.contain('text=380%20New%20York%20St%2C%20Redlands%2C%20California');
+    expect(request.url).to.contain('text=380%20New%20York%20St%2C%20Redlands');
 
     request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleFindResponse);
   });

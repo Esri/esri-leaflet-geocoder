@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
     <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet-src.js"></script>
 
-    <script src="http://cdn-geoweb.s3.amazonaws.com/esri-leaflet/1.0.0-rc.1/esri-leaflet.js"></script>
+    <script src="http://cdn-geoweb.s3.amazonaws.com/esri-leaflet/1.0.0-rc.2/esri-leaflet.js"></script>
 
     <!-- Make the map fill the entire page -->
     <style>
@@ -58,14 +58,6 @@
 
       var searchControl = new L.esri.Geocoding.Controls.Geosearch({
         providers: [
-          // new L.esri.Geocoding.Controls.Geosearch.Providers.MapService('http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Hurricanes/NOAA_Tracks_1851_2007/MapServer', {
-          //   layer: 0,
-          //   searchFields: ['NAME'],
-          //   useCors: false,
-          //   formatSuggestion: function(feature){
-          //     return feature.properties.Name;
-          //   }
-          // }),
           new L.esri.Geocoding.Controls.Geosearch.Providers.FeatureLayer('https://services.arcgis.com/uCXeTVveQzP4IIcx/arcgis/rest/services/GIS_Day/FeatureServer/0', {
             searchFields: ['EventName', 'Organizati'],
             label: 'GIS Day Events',
@@ -73,13 +65,13 @@
             formatSuggestion: function(feature){
               return feature.properties.EventName + ' - ' + feature.properties.Organizati;
             }
-          }),
-          // new L.esri.Controls.Geosearch.Providers.GeocodeServer('https://services.portlandmaps.com/ags/rest/services/Public/Address_Geocoding_PDX/GeocodeServer', {
-          //   label : 'Portland Addresses',
-          //   useCors: false
-          // }),
+          })
         ]
       }).addTo(map);
+
+      searchControl.on('results', function(e){
+        console.log(e);
+      });
     </script>
   </body>
 </html>

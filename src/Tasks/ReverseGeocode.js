@@ -9,14 +9,6 @@ EsriLeafletGeocoding.Tasks.ReverseGeocode = Esri.Tasks.Task.extend({
     'language': 'language'
   },
 
-  initialize: function (url, options) {
-    url = (typeof url === 'string') ? url : EsriLeafletGeocoding.WorldGeocodingService;
-    options = (typeof url === 'object') ? url : (options || {});
-    this.url = Esri.Util.cleanUrl(url);
-    L.Util.setOptions(this, options);
-    Esri.Tasks.Task.prototype.initialize.call(this, url, options);
-  },
-
   latlng: function (latlng) {
     latlng = L.latLng(latlng);
     this.params.location = latlng.lng + ',' + latlng.lat;
