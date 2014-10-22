@@ -1,6 +1,8 @@
 # Changelog
 
-## Release Canidate 1
+## Release Candidate 1
+
+Please read throught the docs and changes list carefully. There has been a major refactoring.
 
 ** Breaking Changes **
 
