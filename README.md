@@ -90,6 +90,7 @@ Option | Type | Default | Description
 `allowMultipleResults` | `Boolean` | `true` | If set to `true` and the user submits the form without a suggestion selected geocodes the current text in the input and zooms the user to view all the results.
 `useArcgisWorldGeocoder` | `Boolean` | `true` | Use the ArcGIS Online World Geocoder by default in the array of providers.
 `providers` | `Array` | See Description | An array of `EsriLeafletGeocoding.Controls.Geosearch.Providers` objects. These additional providers will also be searched for possible results and added to the suggestion list.
+`placeholder` | `String` | `'Search for places or addresses'` | Placeholder text for the search input.
 
 ### Methods
 
