@@ -92,6 +92,70 @@ describe('L.esri.Tasks.Geocode', function () {
     ]
   });
 
+  var sampleFindLocationsResponse = JSON.stringify({
+    "spatialReference": {
+      "wkid": 4326,
+      "latestWkid": 4326
+    },
+    "locations": [
+      {
+        "name": "380 New York St, Redlands, California, 92373",
+        "extent": {
+          "xmin": -117.196667,
+          "ymin": 34.055491,
+          "xmax": -117.194667,
+          "ymax": 34.057491
+        },
+        "feature": {
+          "geometry": {
+            "x": -117.19566602536605,
+            "y": 34.056490511029324
+          },
+          "attributes": {
+            "Loc_name": "USA.PointAddress",
+            "Score": 100,
+            "Match_addr": "380 New York St, Redlands, California, 92373",
+            "Addr_type": "PointAddress",
+            "Type": "",
+            "PlaceName": "",
+            "Place_addr": "",
+            "Phone": "",
+            "URL": "",
+            "Rank": "",
+            "AddBldg": "",
+            "AddNum": "380",
+            "AddNumFrom": "",
+            "AddNumTo": "",
+            "Side": "R",
+            "StPreDir": "",
+            "StPreType": "",
+            "StName": "New York",
+            "StType": "St",
+            "StDir": "",
+            "StAddr": "",
+            "Nbrhd": "",
+            "City": "Redlands",
+            "Subregion": "",
+            "Region": "California",
+            "Postal": "92373",
+            "PostalExt": "",
+            "Country": "USA",
+            "LangCode": "ENG",
+            "Distance": 0,
+            "X": -117.195667,
+            "Y": 34.056491,
+            "DisplayX": -117.195311,
+            "DisplayY": 34.05611,
+            "Xmin": -117.196667,
+            "Xmax": -117.194667,
+            "Ymin": 34.055491,
+            "Ymax": 34.057491
+          }
+        }
+      }
+    ]
+  });
+
   var xhr;
 
   beforeEach(function(){
@@ -170,6 +234,27 @@ describe('L.esri.Tasks.Geocode', function () {
     expect(request.url).to.contain('postal=92373');
 
     request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleFindAddressCanidatesResponse);
+  });
+
+  it('should make a `within` request to ArcGIS Online', function(done){
+    var southWest = L.latLng(34.0500, -117.2000),
+        northEast = L.latLng(34.0600, -117.1900),
+        bounds = L.latLngBounds(southWest, northEast);
+  
+    var request = new L.esri.Geocoding.Tasks.geocode(L.esri.Geocoding.WorldGeocodingService).text('380 New York St').within(bounds).run(function(err, response){
+      expect(response.results[0].latlng.lat).to.equal(34.056490511029324);
+      expect(response.results[0].latlng.lng).to.equal(-117.19566602536605);
+      expect(response.results[0].text).to.equal('380 New York St, Redlands, California, 92373');
+      expect(response.results[0].score).to.equal(100);
+      expect(response.results[0].properties.Addr_type).to.equal('PointAddress');
+      done();
+    });
+
+    expect(request.url).to.contain('//geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/find');
+    expect(request.url).to.contain('text=380%20New%20York%20St');
+    expect(request.url).to.contain('bbox=%7B%22xmin%22%3A-117.2%2C%22ymin%22%3A34.05%2C%22xmax%22%3A-117.19%2C%22ymax%22%3A34.06%2C%22spatialReference%22%3A%7B%22wkid%22%3A4326%7D%7D');
+    
+    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleFindLocationsResponse);
   });
 
 });

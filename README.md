@@ -234,14 +234,24 @@ Method | Returns | Description
 ### Examples
 
 ```js
-L.esri.Geocoding.Tasks.geocode().text('380 New York St, Redlands, California, 92373').run(function(err, results, response){
+L.esri.Geocoding.Tasks.geocode(L.esri.Geocoding.WorldGeocodingService).text('380 New York St, Redlands, California, 92373').run(function(err, results, response){
   console.log(results);
 });
 ```
 
 ```js
-L.esri.Geocoding.Tasks.geocode().address('380 New York St').city('Redlands').region('California').postal(92373).run(function(err, results, response){
+L.esri.Geocoding.Tasks.geocode(L.esri.Geocoding.WorldGeocodingService).address('380 New York St').city('Redlands').region('California').postal(92373).run(function(err, results, response){
   console.log(results);
+});
+```
+
+```js
+var southWest = L.latLng(37.712, -108.227),
+    northEast = L.latLng(41.774, -102.125),
+    bounds = L.latLngBounds(southWest, northEast); // Colorado
+
+L.esri.Geocoding.Tasks.geocode(L.esri.Geocoding.WorldGeocodingService).text("Denver").within(bounds).run(function(err, response){
+  console.log(response);
 });
 ```
 
