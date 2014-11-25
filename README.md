@@ -126,11 +126,11 @@ For reference here is the internal structure of the geocoder...
 The `Geosearch` control can also search for results from a varity of sources includeing Feature Layers and Map Services. This is done with plain text matching and is not "real" geocoding. But it allows you to mix custom results into search box.
 
 ```js
-var gisDay = new L.esri.Geocoding.Controls.Geosearch.Providers.FeatureLayer('https://services.arcgis.com/uCXeTVveQzP4IIcx/arcgis/rest/services/GIS_Day/FeatureServer/0', {
-  searchFields: ['EventName', 'Organizati'], // Search these fields for text matches
+var gisDay = new L.esri.Geocoding.Controls.Geosearch.Providers.FeatureLayer('https://services.arcgis.com/uCXeTVveQzP4IIcx/arcgis/rest/services/GIS_Day_Final/FeatureServer/0', {
+  searchFields: ['Name', 'Organization'], // Search these fields for text matches
   label: 'GIS Day Events', // Group suggestions under this header
   formatSuggestion: function(feature){
-    return feature.properties.EventName + ' - ' + feature.properties.Organizati; // format suggestions like this.
+    return feature.properties.Name + ' - ' + feature.properties.Organization; // format suggestions like this.
   }
 });
 
