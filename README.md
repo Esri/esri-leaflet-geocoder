@@ -218,18 +218,18 @@ You can pass any options you can pass to L.esri.Tasks.Task.
 
 Method | Returns | Description
 --- | --- | ---
-`text(text &lt;String&gt;)` | `this` | The text to geocode. If you specify `text` all other params like `address`, `city`, `subregion`, and `region`, `postal`, and `country` will be ignored.
-`address(text &lt;String&gt;)` | Specify the street and house number to be geocoded.
-`neighborhood(text &lt;String&gt;)` | Specify the neighborhood to be geocoded.
-`city(text &lt;String&gt;)` | Specify the city to be geocoded.
-`subregion(text &lt;String&gt;)` | Specify the subregion to be geocoded. Depending on the country, subregion can represent a county, state, or province.
-`region(text &lt;String&gt;)` | Specify the region to be geocoded. Typically a state or province
-`postal(text &lt;String&gt;)` | Specify the postal code to be geocoded.
-`country(text &lt;String&gt;)` | Specify the country to be geocoded.
-`category(category &lt;String&gt;)` | The category to search for suggestions. By default no categogy. A list of categories can be found here https://developers.arcgis.com/rest/geocode/api-reference/geocoding-category-filtering.htm#ESRI_SECTION1_502B3FE2028145D7B189C25B1A00E17B
-`within(bounds &lt;L.LatLngBounds&gt;)` | A bounding box to search for suggestions in.
-`nearby(latlng &lt;L.LatLng&gt;, distance &lt;Integer&gt;)` | Searches for suggestions only inside an area around the LatLng. `distance` is in meters.
-`run(callback &lt;Function&gt;, context&lt;Object&gt;)` | `XMLHttpRequest` | Executes this request chain and accepts the response callback.
+`text(text <String>)` | `this` | The text to geocode. If you specify `text` all other params like `address`, `city`, `subregion`, and `region`, `postal`, and `country` will be ignored.
+`address(text <String>)` | Specify the street and house number to be geocoded.
+`neighborhood(text <String>)` | Specify the neighborhood to be geocoded.
+`city(text <String>)` | Specify the city to be geocoded.
+`subregion(text <String>)` | Specify the subregion to be geocoded. Depending on the country, subregion can represent a county, state, or province.
+`region(text <String>)` | Specify the region to be geocoded. Typically a state or province
+`postal(text <String>)` | Specify the postal code to be geocoded.
+`country(text <String>)` | Specify the country to be geocoded.
+`category(category <String>)` | The category to search for suggestions. By default no categogy. A list of categories can be found here https://developers.arcgis.com/rest/geocode/api-reference/geocoding-category-filtering.htm#ESRI_SECTION1_502B3FE2028145D7B189C25B1A00E17B
+`within(bounds <L.LatLngBounds>)` | A bounding box to search for suggestions in.
+`nearby(latlng <L.LatLng>, distance <Integer>)` | Searches for suggestions only inside an area around the LatLng. `distance` is in meters.
+`run(callback <Function>, context <Object>)` | `XMLHttpRequest` | Executes this request chain and accepts the response callback.
 
 ### Examples
 
@@ -281,11 +281,11 @@ You can pass any options you can pass to L.esri.Tasks.Task.
 
 Method | Returns | Description
 --- | --- | ---
-`text(text &lt;String&gt;)` | `this` | The text to recive suggestions for.
-`category(category &lt;String&gt;)` | The category to search for suggestions. By default no categogy. A list of categories can be found here https://developers.arcgis.com/rest/geocode/api-reference/geocoding-category-filtering.htm#ESRI_SECTION1_502B3FE2028145D7B189C25B1A00E17B
-`within(bounds &lt;L.LatLngBounds&gt;)` | A bounding box to search for suggestions in.
-`nearby(latlng &lt;L.LatLng&gt;, distance &lt;Integer&gt;)` | Searches for suggestions only inside an area around the LatLng. `distance` is in meters.
-`run(callback &lt;Function&gt;, context&lt;Object&gt;)` | `XMLHttpRequest` | Executes this request chain and accepts the response callback.
+`text(text <String>)` | `this` | The text to recive suggestions for.
+`category(category <String>)` | The category to search for suggestions. By default no categogy. A list of categories can be found here https://developers.arcgis.com/rest/geocode/api-reference/geocoding-category-filtering.htm#ESRI_SECTION1_502B3FE2028145D7B189C25B1A00E17B
+`within(bounds <L.LatLngBounds>)` | A bounding box to search for suggestions in.
+`nearby(latlng <L.LatLng>, distance <Integer>)` | Searches for suggestions only inside an area around the LatLng. `distance` is in meters.
+`run(callback <Function>, context<Object>)` | `XMLHttpRequest` | Executes this request chain and accepts the response callback.
 
 ### Example
 
@@ -311,10 +311,10 @@ You can pass any options you can pass to L.esri.Tasks.Task.
 
 Method | Returns | Description
 --- | --- | ---
-`latlng(latlng &lt;L.LatLng&gt;)` | The L.LatLng object for which the address will be looked up.
-`distance(distance &lt;Integer&gt;)` | The distance (in meters) around the point for which addresses will be looked up.
-`language(language &lt;String&gt;)` | `this` | The language to return the address in.
-`run(callback &lt;Function&gt;, context&lt;Object&gt;)` | `XMLHttpRequest` | Executes this request chain and accepts the response callback.
+`latlng(latlng <L.LatLng>)` | The L.LatLng object for which the address will be looked up.
+`distance(distance <Integer>)` | The distance (in meters) around the point for which addresses will be looked up.
+`language(language <String>)` | `this` | The language to return the address in.
+`run(callback <Function>, context <Object>)` | `XMLHttpRequest` | Executes this request chain and accepts the response callback.
 
 ### Example
 
