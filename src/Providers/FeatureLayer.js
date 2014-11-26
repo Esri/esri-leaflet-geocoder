@@ -84,7 +84,7 @@ EsriLeafletGeocoding.Controls.Geosearch.Providers.FeatureLayer = L.esri.Services
 
     for (var i = this.options.searchFields.length - 1; i >= 0; i--) {
       var field = this.options.searchFields[i];
-      queryString.push(field + " LIKE '%" + text + "%'");
+      queryString.push(field + ' LIKE \'%' + text + '%\'');
     }
 
     return queryString.join(' OR ');
