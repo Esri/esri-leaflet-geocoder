@@ -246,6 +246,7 @@ L.esri.Geocoding.Tasks.geocode(L.esri.Geocoding.WorldGeocodingService).address('
 ```
 
 ```js
+//Using .within()
 var southWest = L.latLng(37.712, -108.227),
     northEast = L.latLng(41.774, -102.125),
     bounds = L.latLngBounds(southWest, northEast); // Colorado
@@ -254,6 +255,16 @@ L.esri.Geocoding.Tasks.geocode(L.esri.Geocoding.WorldGeocodingService).text("Den
   console.log(response);
 });
 ```
+
+```js
+//Using .nearby()
+var denver = L.latLng(37.712, -108.227);
+
+L.esri.Geocoding.Tasks.geocode(L.esri.Geocoding.WorldGeocodingService).text("Highlands Ranch").nearby(denver, 20000).run(function(err, response){
+  console.log(response);
+});
+```
+
 
 ### Results Object
 

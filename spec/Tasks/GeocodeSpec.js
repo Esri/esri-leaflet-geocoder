@@ -92,7 +92,7 @@ describe('L.esri.Tasks.Geocode', function () {
     ]
   });
 
-  var sampleFindLocationsResponse = JSON.stringify({
+  var sampleFindWithinResponse = JSON.stringify({
     "spatialReference": {
       "wkid": 4326,
       "latestWkid": 4326
@@ -150,6 +150,70 @@ describe('L.esri.Tasks.Geocode', function () {
             "Xmax": -117.194667,
             "Ymin": 34.055491,
             "Ymax": 34.057491
+          }
+        }
+      }
+    ]
+  });
+
+  var sampleFindNearbyResponse = JSON.stringify(  {
+    "spatialReference": {
+      "wkid": 4326,
+      "latestWkid": 4326
+    },
+    "locations": [
+      {
+        "name": "Highlands Ranch, Colorado, United States",
+        "extent": {
+          "xmin": -105.053427,
+          "ymin": 39.469876,
+          "xmax": -104.885427,
+          "ymax": 39.637876
+        },
+        "feature": {
+          "geometry": {
+            "x": -104.96942569799967,
+            "y": 39.55387558400048
+          },
+          "attributes": {
+            "Loc_name": "Gaz.WorldGazetteer.POI1",
+            "Score": 100,
+            "Match_addr": "Highlands Ranch, Colorado, United States",
+            "Addr_type": "POI",
+            "Type": "City",
+            "PlaceName": "Highlands Ranch",
+            "Place_addr": "",
+            "Phone": "",
+            "URL": "",
+            "Rank": "8.04",
+            "AddBldg": "",
+            "AddNum": "",
+            "AddNumFrom": "",
+            "AddNumTo": "",
+            "Side": "",
+            "StPreDir": "",
+            "StPreType": "",
+            "StName": "",
+            "StType": "",
+            "StDir": "",
+            "StAddr": "",
+            "Nbrhd": "",
+            "City": "",
+            "Subregion": "Douglas",
+            "Region": "Colorado",
+            "Postal": "",
+            "PostalExt": "",
+            "Country": "USA",
+            "LangCode": "",
+            "Distance": 349299.97,
+            "X": -104.969427,
+            "Y": 39.553876,
+            "DisplayX": -104.969427,
+            "DisplayY": 39.553876,
+            "Xmin": -105.053427,
+            "Xmax": -104.885427,
+            "Ymin": 39.469876,
+            "Ymax": 39.637876
           }
         }
       }
@@ -246,6 +310,7 @@ describe('L.esri.Tasks.Geocode', function () {
       expect(response.results[0].latlng.lng).to.equal(-117.19566602536605);
       expect(response.results[0].text).to.equal('380 New York St, Redlands, California, 92373');
       expect(response.results[0].score).to.equal(100);
+      expect(response.results[0].properties.Region).to.equal('California');
       expect(response.results[0].properties.Addr_type).to.equal('PointAddress');
       done();
     });
@@ -254,7 +319,29 @@ describe('L.esri.Tasks.Geocode', function () {
     expect(request.url).to.contain('text=380%20New%20York%20St');
     expect(request.url).to.contain('bbox=%7B%22xmin%22%3A-117.2%2C%22ymin%22%3A34.05%2C%22xmax%22%3A-117.19%2C%22ymax%22%3A34.06%2C%22spatialReference%22%3A%7B%22wkid%22%3A4326%7D%7D');
     
-    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleFindLocationsResponse);
+    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleFindWithinResponse);
+  });
+
+  it('should make a `nearby` request to ArcGIS Online', function(done){
+    var denver = L.latLng(37.712, -108.227);
+  
+    var request = new L.esri.Geocoding.Tasks.geocode(L.esri.Geocoding.WorldGeocodingService).text('Highlands Ranch').nearby(denver, 10000).run(function(err, response){
+      expect(response.results[0].latlng.lat).to.equal(39.55387558400048);
+      expect(response.results[0].latlng.lng).to.equal(-104.96942569799967);
+      expect(response.results[0].text).to.equal('Highlands Ranch, Colorado, United States');
+      expect(response.results[0].score).to.equal(100);
+      expect(response.results[0].properties.Subregion).to.equal('Douglas');
+      expect(response.results[0].properties.Region).to.equal('Colorado');
+      expect(response.results[0].properties.Addr_type).to.equal('POI');
+      done();
+    });
+
+    expect(request.url).to.contain('//geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/find');
+    expect(request.url).to.contain('text=Highlands%20Ranch');
+    expect(request.url).to.contain('location=-108.227%2C37.712');
+    expect(request.url).to.contain('distance=10000');
+    
+    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleFindNearbyResponse);
   });
 
 });
