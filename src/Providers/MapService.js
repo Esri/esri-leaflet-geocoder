@@ -47,7 +47,7 @@ EsriLeafletGeocoding.Controls.Geosearch.Providers.MapService = L.esri.Services.M
     }
 
     if(this._idField){
-      request.fields([this.options.searchFields, this.options._idField]);
+      request.fields(this.options.searchFields);
     }
 
     return request.run(function(error, features){
