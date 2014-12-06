@@ -10,7 +10,8 @@ EsriLeafletGeocoding.Controls.Geosearch = L.Control.extend({
     allowMultipleResults: true,
     useArcgisWorldGeocoder: true,
     providers: [],
-    placeholder: 'Search for places or addresses'
+    placeholder: 'Search for places or addresses',
+    title: 'Location Search'
   },
 
   initialize: function (options) {
@@ -228,6 +229,7 @@ EsriLeafletGeocoding.Controls.Geosearch = L.Control.extend({
 
     this._wrapper = L.DomUtil.create('div', 'geocoder-control ' + ((this.options.expanded) ? ' ' + 'geocoder-control-expanded'  : ''));
     this._input = L.DomUtil.create('input', 'geocoder-control-input leaflet-bar', this._wrapper);
+    this._input.title = this.options.title;
 
     this._suggestions = L.DomUtil.create('div', 'geocoder-control-suggestions leaflet-bar', this._wrapper);
 
