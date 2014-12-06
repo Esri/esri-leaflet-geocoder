@@ -109,9 +109,9 @@ EsriLeafletGeocoding.Controls.Geosearch = L.Control.extend({
 
         if(suggestions.length && this._input.value === text) {
           if(provider.nodes){
-            for (var j = 0; j < provider.nodes.length; j++) {
-              if(provider.nodes[j].parentElement){
-                this._suggestions.removeChild(provider.nodes[j]);
+            for (var k = 0; k < provider.nodes.length; k++) {
+              if(provider.nodes[k].parentElement){
+                this._suggestions.removeChild(provider.nodes[k]);
               }
             }
           }
