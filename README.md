@@ -4,9 +4,9 @@ The Esri Leaflet Geocoder is a small series of API helpers and UI controls to in
 
 ![Travis CI](https://travis-ci.org/Esri/esri-leaflet-geocoder.svg)
 
-**Currently Esri Leaflet Geocoder is in development and should be thoguht of as a beta or preview**
+**Currently Esri Leaflet Geocoder is in development and should be thought of as a beta or preview**
 
-Esri Leaflet Geocoder relies on the minimal Esri Leaflet Core which handles abstraction for requests and authentication when neccessary. You can fine out more about the Esri Leaflet Core on the [Esri Leaflet downloads page](http://esri.github.com/esri-leaflet/downloads).
+Esri Leaflet Geocoder relies on the minimal Esri Leaflet Core which handles abstraction for requests and authentication when neccessary. You can find out more about the Esri Leaflet Core on the [Esri Leaflet downloads page](http://esri.github.com/esri-leaflet/downloads).
 
 ## Example
 
@@ -91,6 +91,7 @@ Option | Type | Default | Description
 `useArcgisWorldGeocoder` | `Boolean` | `true` | Use the ArcGIS Online World Geocoder by default in the array of providers.
 `providers` | `Array` | See Description | An array of `EsriLeafletGeocoding.Controls.Geosearch.Providers` objects. These additional providers will also be searched for possible results and added to the suggestion list.
 `placeholder` | `String` | `'Search for places or addresses'` | Placeholder text for the search input.
+`title` | `String` | `Location Search` | Title text for the search input. Shows as tool tip on hover.
 
 ### Methods
 
@@ -123,7 +124,7 @@ For reference here is the internal structure of the geocoder...
 
 ### Providers
 
-The `Geosearch` control can also search for results from a varity of sources includeing Feature Layers and Map Services. This is done with plain text matching and is not "real" geocoding. But it allows you to mix custom results into search box.
+The `Geosearch` control can also search for results from a varity of sources including Feature Layers and Map Services. This is done with plain text matching and is not "real" geocoding. But it allows you to mix custom results into search box.
 
 ```js
 var gisDay = new L.esri.Geocoding.Controls.Geosearch.Providers.FeatureLayer('https://services.arcgis.com/uCXeTVveQzP4IIcx/arcgis/rest/services/GIS_Day_Final/FeatureServer/0', {
