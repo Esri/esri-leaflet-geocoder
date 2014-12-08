@@ -152,17 +152,17 @@ L.esri.Geocoding.Controls.geosearch({
 Option | Type | Default | Description
 --- | --- | --- | ---
 `searchFields` | `Array[Strings]` | None | An array of fields to search for text. Not valid for the `ArcGISOnline` and `GeocodeService` providers.
-`layer` | `Integer` | `0` | Only valid for `MapService` providers, the layer to find text matchs on.
+`layer` | `Integer` | `0` | Only valid for `MapService` providers, the layer to find text matches on.
 `label` | `String` | Provider Type | Text that will be used to group suggestions under.
-`maxResults` | `Integer` | 5 | Maxiumum number of results to show for this provider.
-`bufferRadius`, | `Integer` | If a service or layer contains points buffer points by this radius to create bounds. Not valid for the `ArcGISOnline` and `GeocodeService` providers
-`formatSuggestion`| `Function` | See Description | Formating function for the suggestion text. Recives a feature and returns a string.
+`maxResults` | `Integer` | 5 | Maximum number of results to show for this provider.
+`bufferRadius`, | `Integer` | If a service or layer contains points, buffer points by this radius to create bounds. Not valid for the `ArcGISOnline` and `GeocodeService` providers
+`formatSuggestion`| `Function` | See Description | Formating function for the suggestion text. Receives a feature and returns a string.
 
 #### Results Event
 
 Property | Type | Description
 --- | --- | ---
-`bounds` | [`L.LatLngBounds`](http://leafletjs.com/reference.html#latlngbounds)| The bounds arround this suggestion. Good for zooming to results like cities and states.
+`bounds` | [`L.LatLngBounds`](http://leafletjs.com/reference.html#latlngbounds)| The bounds around this suggestion. Good for zooming to results like cities and states.
 `latlng` | [`L.LatLng`](http://leafletjs.com/reference.html#latlng)| The center of the result.
 `results` | [`[<ResultObject>]`](#result-object) | An array of [result objects](#result-object).
 
@@ -173,7 +173,7 @@ A single result from the geocoder. You should not rely on all these properties b
 Property | Type | Description
 --- | --- | ---
 `text` | `String` | The text that was passed to the geocoder.
-`bounds` | [`L.LatLngBounds`](http://leafletjs.com/reference.html#latlngbounds)| The bounds arround this suggestion. Good for zooming to results like cities and states.
+`bounds` | [`L.LatLngBounds`](http://leafletjs.com/reference.html#latlngbounds)| The bounds around this suggestion. Good for zooming to results like cities and states.
 `latlng` | [`L.LatLng`](http://leafletjs.com/reference.html#latlng)| The center of the result.
 
 The result object will also contain any additional properties from the provider. So when geocoding you will also get address breakdowns and when text matching features you will get the additional fields from that feature.
@@ -185,7 +185,7 @@ A basic wrapper for ArcGIS Online geocoding services. Used internally by `L.esri
 
 Constructor | Description
 --- | ---
-`new L.esri.Geocoding.Geocoding(url, options)`<br>`L.esri.Controls.geosearch(url, options)`<br>`new L.esri.Services.Geocoding(options)`<br>`L.esri.Controls.geosearch(options)` | Creates a new Geosearch control you can pass the url as the first parameter or as `url` in the options to a custom geocoding enpoint if you do no want to use the ArcGIS Online World Geocoding service.
+`new L.esri.Geocoding.Geocoding(url, options)`<br>`L.esri.Controls.geosearch(url, options)`<br>`new L.esri.Services.Geocoding(options)`<br>`L.esri.Controls.geosearch(options)` | Creates a new Geosearch control. You can pass the url as the first parameter or as `url` in the options to a custom geocoding endpoint if you do not want to use the ArcGIS Online World Geocoding service.
 
 ### Options
 
@@ -227,7 +227,7 @@ Method | Returns | Description
 `region(text <String>)` | Specify the region to be geocoded. Typically a state or province
 `postal(text <String>)` | Specify the postal code to be geocoded.
 `country(text <String>)` | Specify the country to be geocoded.
-`category(category <String>)` | The category to search for suggestions. By default no categogy. A list of categories can be found here https://developers.arcgis.com/rest/geocode/api-reference/geocoding-category-filtering.htm#ESRI_SECTION1_502B3FE2028145D7B189C25B1A00E17B
+`category(category <String>)` | The category to search for suggestions. By default no category. A list of categories can be found here https://developers.arcgis.com/rest/geocode/api-reference/geocoding-category-filtering.htm#ESRI_SECTION1_502B3FE2028145D7B189C25B1A00E17B
 `within(bounds <L.LatLngBounds>)` | A bounding box to search for suggestions in.
 `nearby(latlng <L.LatLng>, distance <Integer>)` | Searches for suggestions only inside an area around the LatLng. `distance` is in meters.
 `run(callback <Function>, context <Object>)` | `XMLHttpRequest` | Executes this request chain and accepts the response callback.
@@ -352,13 +352,13 @@ L.esri.Geocoding.Tasks.reverseGeocode().latlng([48.8583,  2.2945]).run(function(
 
 1. [Fork and clone Esri Leaflet Geocoder](https://help.github.com/articles/fork-a-repo)
 2. `cd` into the `esri-leaflet-geocoder` folder
-5. Instal the dependancies with `npm install`
+5. Install the dependencies with `npm install`
 5. The example at `/index.html` should work
 6. Make your changes and create a [pull request](https://help.github.com/articles/creating-a-pull-request)
 
 ## Dependencies
 
-Esri Leaflet Geocoder relies on the minimal Esri Leaflet Core which handles abstraction for requests and authentication when neccessary. You can fine out more about teh Esri Leaflet Core on the [Esri Leaflet downloads page](http://esri.github.com/esri-leaflet/downloads).
+Esri Leaflet Geocoder relies on the minimal Esri Leaflet Core which handles abstraction for requests and authentication when neccessary. You can find out more about the Esri Leaflet Core on the [Esri Leaflet downloads page](http://esri.github.com/esri-leaflet/downloads).
 
 ## Resources
 
