@@ -131,8 +131,6 @@ EsriLeafletGeocoding.Controls.Geosearch = L.Control.extend({
 
     for (var i = 0; i < this.options.providers.length; i++) {
       var provider = this.options.providers[i];
-      console.log(!!provider);
-      console.log(provider.options.label);
       var request = provider.suggestions(text, this._searchBounds(), createCallback(text, provider));
       this._pendingSuggestions.push(request);
     }
@@ -182,7 +180,6 @@ EsriLeafletGeocoding.Controls.Geosearch = L.Control.extend({
     }
 
     nodes.push(list);
-    console.log(nodes.length);
     return nodes;
   },
 
