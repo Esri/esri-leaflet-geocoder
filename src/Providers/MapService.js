@@ -1,38 +1,42 @@
 EsriLeafletGeocoding.Controls.Geosearch.Providers.MapService = L.esri.Services.MapService.extend({
   options: {
-    layer: 0,
+    layers: [0],
     label: 'Map Service',
     bufferRadius: 1000,
     maxResults: 5,
     formatSuggestion: function(feature){
-      return feature.properties[this.options.searchFields[0]];
+      return feature.properties[feature.displayFieldName] + ' <small>' + feature.layerName + '</small>';
     }
   },
   initialize: function(url, options){
     L.esri.Services.MapService.prototype.initialize.call(this, url, options);
-    this._getIdField();
+    this._getIdFields();
   },
   suggestions: function(text, bounds, callback){
-    var request = this.find().text(text).returnGeometry(false).layers(this.options.layer);
+    var request = this.find().text(text).returnGeometry(false).layers(this.options.layers);
 
-    if (this._idField) {
-      request.fields(this.options.searchFields);
-    }
-
-    return request.run(function(error, results){
+    return request.run(function(error, results, raw){
       var suggestions = [];
-
-      if(this._idField && !error){
+      if(!error){
         var count = Math.min(this.options.maxResults, results.features.length);
+        raw.results = raw.results.reverse();
         for (var i = 0; i < count; i++) {
           var feature = results.features[i];
-          suggestions.push({
-            text: this.options.formatSuggestion.call(this, feature),
-            magicKey: feature.properties[this._idField]
-          });
+          var result = raw.results[i];
+          var layer = result.layerId;
+          var idField = this._idFields[layer];
+          feature.layerId = layer;
+          feature.layerName = result.layerName;
+          feature.foundFieldName = result.foundFieldName;
+          feature.displayFieldName = result.displayFieldName;
+          if(idField && layer){
+            suggestions.push({
+              text: this.options.formatSuggestion.call(this, feature),
+              magicKey: result.attributes[idField] + ':' + layer
+            });
+          }
         }
       }
-
       callback(error, suggestions.reverse());
     }, this);
   },
@@ -41,17 +45,15 @@ EsriLeafletGeocoding.Controls.Geosearch.Providers.MapService = L.esri.Services.M
     var request;
 
     if(key){
-      request = this.query().layer(this.options.layer).featureIds(key);
+      var featureId = key.split(':')[0];
+      var layer = key.split(':')[1];
+      request = this.query().layer(layer).featureIds(featureId);
     } else {
-      request = this.find().text(text).contains(false).layers(this.options.layer);
-    }
-
-    if(this._idField){
-      request.fields([this.options.searchFields, this.options._idField]);
+      request = this.find().text(text).contains(false).layers(this.options.layers);
     }
 
     return request.run(function(error, features){
-      if(this._idField && !error){
+      if(!error){
         for (var i = 0; i < features.features.length; i++) {
           var feature = features.features[i];
           if(feature){
@@ -78,16 +80,22 @@ EsriLeafletGeocoding.Controls.Geosearch.Providers.MapService = L.esri.Services.M
       return geojson.getBounds();
     }
   },
-  _getIdField: function(){
-    this.get(this.options.layer, {}, function(error, metadata){
+  _layerMetadataCallback: function(layerid){
+    return L.Util.bind(function(error, metadata){
       for (var i = 0; i < metadata.fields.length; i++) {
         var field = metadata.fields[i];
         if(field.type === 'esriFieldTypeOID'){
-          this._idField = field.name;
-          this.options.searchFields.push(field.name);
+          this._idFields[layerid] = field.name;
           break;
         }
       }
     }, this);
+  },
+  _getIdFields: function(){
+    this._idFields = {};
+    for (var i = 0; i < this.options.layers.length; i++) {
+      var layer = this.options.layers[i];
+      this.get(layer, {}, this._layerMetadataCallback(layer));
+    }
   }
 });

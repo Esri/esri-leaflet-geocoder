@@ -67,7 +67,7 @@ only screen and (min-device-pixel-ratio: 2) {
   top: 26px;
   left: 0;
   margin-top: 10px;
-  overflow: hidden;
+  overflow: auto;
   display: none;
 }
 .geocoder-control-list + .geocoder-control-header {
@@ -82,9 +82,8 @@ only screen and (min-device-pixel-ratio: 2) {
   color: #444;
   background: #F2F2F2;
   border-bottom: 1px solid #d5d5d5;
-  display: inline-block;
+  display: block;
   padding: .5em;
-  width: 100%;
 }
 
 .geocoder-control-list {

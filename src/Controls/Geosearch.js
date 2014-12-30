@@ -132,8 +132,6 @@ EsriLeafletGeocoding.Controls.Geosearch = L.Control.extend({
 
     for (var i = 0; i < this.options.providers.length; i++) {
       var provider = this.options.providers[i];
-      console.log(!!provider);
-      console.log(provider.options.label);
       var request = provider.suggestions(text, this._searchBounds(), createCallback(text, provider));
       this._pendingSuggestions.push(request);
     }
@@ -158,6 +156,14 @@ EsriLeafletGeocoding.Controls.Geosearch = L.Control.extend({
   _renderSuggestions: function(suggestions){
     var currentGroup;
     this._suggestions.style.display = 'block';
+
+    // set the maxHeight of the suggestions box to
+    // map height
+    // - suggestions offset (distance from top of suggestions to top of control)
+    // - control offset (distance from top of control to top of map)
+    // - 10 (extra padding)
+    this._suggestions.style.maxHeight = (this._map.getSize().y - this._suggestions.offsetTop - this._wrapper.offsetTop - 10) + 'px';
+
     var nodes = [];
     var list;
     var header;
@@ -183,7 +189,6 @@ EsriLeafletGeocoding.Controls.Geosearch = L.Control.extend({
     }
 
     nodes.push(list);
-    console.log(nodes.length);
     return nodes;
   },
 
@@ -218,6 +223,10 @@ EsriLeafletGeocoding.Controls.Geosearch = L.Control.extend({
     if(this.options.collapseAfterResult){
       this._input.placeholder = '';
       L.DomUtil.removeClass(this._wrapper, 'geocoder-control-expanded');
+    }
+
+    if(!map.scrollWheelZoom.enabled() && map.options.scrollWheelZoom){
+      map.scrollWheelZoom.enable();
     }
   },
 
@@ -352,6 +361,18 @@ EsriLeafletGeocoding.Controls.Geosearch = L.Control.extend({
     }, 50, this), this);
 
     L.DomEvent.disableClickPropagation(this._wrapper);
+
+    // when mouse moves over suggestions disable scroll wheel zoom if its enabled
+    L.DomEvent.addListener(this._suggestions, 'mouseover', function(e){
+      if(map.scrollWheelZoom.enabled() && map.options.scrollWheelZoom){
+        map.scrollWheelZoom.disable();
+      }
+    });
+
+    // when mouse moves leaves suggestions enable scroll wheel zoom if its disabled
+    L.DomEvent.addListener(this._suggestions, 'mouseout', function(e){
+
+    });
 
     return this._wrapper;
   },

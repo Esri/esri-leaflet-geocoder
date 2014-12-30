@@ -51,10 +51,7 @@
     <script>
       var map = L.map('map').setView([37.74, -121.62], 9);
 
-      // var tiles = L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
-      var tiles = L.esri.basemapLayer('Topographic').addTo(map);
-
-      var geocodeService = new L.esri.Geocoding.Services.Geocoding();
+      var tiles = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
       var searchControl = new L.esri.Geocoding.Controls.Geosearch({
         providers: [
