@@ -8,6 +8,21 @@ EsriLeafletGeocoding.Tasks.Suggest = Esri.Tasks.Task.extend({
     category: 'category'
   },
 
+  initialize: function(url, options){
+    //need to handle both direct instantiations and those coming from controls
+    if ( url && url.hasOwnProperty('url') ){
+      url = url.url;
+      options = url.options;
+    } else {
+      url = (typeof url === 'string') ? url : EsriLeafletGeocoding.WorldGeocodingService;
+      options = (typeof url === 'object') ? url : (options || {});
+      this.url = Esri.Util.cleanUrl(url);
+      L.Util.setOptions(this, options);
+    }
+    //don't replace parent initialize
+    L.esri.Tasks.Task.prototype.initialize.call(this, url, options);
+  },
+
   within: function(bounds){
     bounds = L.latLngBounds(bounds);
     bounds = bounds.pad(0.5);

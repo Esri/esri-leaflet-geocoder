@@ -50,7 +50,7 @@ Take a look at the [live demo](http://esri.github.com/esri-leaflet/examples/geoc
       var tiles = L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
 
       // create the geocoding control and add it to the map
-      var searchControl = new L.esri.Controls.Geosearch().addTo(map);
+      var searchControl = new L.esri.Geocoding.Controls.Geosearch().addTo(map);
 
       // create an empty layer group to store the results and add it to the map
       var results = new L.LayerGroup().addTo(map);
@@ -209,7 +209,7 @@ L.esri.Services.FeatureLayer fires all L.esri.Services.service events.
 
 Constructor | Description
 --- | ---
-`new L.esri.Geocoding.Tasks.Geocode(url, options)`<br>`L.esri.Geocoding.Tasks.geocode(url, options)` | Creates a new Geocode task. `L.esri.Geocoding.WorldGeocodingService` can be used as a reference to the ArcGIS Online World Geocoder.
+`new L.esri.Geocoding.Tasks.Geocode(url, options)`<br>`L.esri.Geocoding.Tasks.geocode(url, options)` | Creates a new Geocode task. The ArcGIS Online World Geocoder will be leveraged if nothing is provided in the Task constructor.
 
 ### Options
 
@@ -235,13 +235,13 @@ Method | Returns | Description
 ### Examples
 
 ```js
-L.esri.Geocoding.Tasks.geocode(L.esri.Geocoding.WorldGeocodingService).text('380 New York St, Redlands, California, 92373').run(function(err, results, response){
+L.esri.Geocoding.Tasks.geocode().text('380 New York St, Redlands, California, 92373').run(function(err, results, response){
   console.log(results);
 });
 ```
 
 ```js
-L.esri.Geocoding.Tasks.geocode(L.esri.Geocoding.WorldGeocodingService).address('380 New York St').city('Redlands').region('California').postal(92373).run(function(err, results, response){
+L.esri.Geocoding.Tasks.geocode().address('380 New York St').city('Redlands').region('California').postal(92373).run(function(err, results, response){
   console.log(results);
 });
 ```
@@ -252,7 +252,7 @@ var southWest = L.latLng(37.712, -108.227),
     northEast = L.latLng(41.774, -102.125),
     bounds = L.latLngBounds(southWest, northEast); // Colorado
 
-L.esri.Geocoding.Tasks.geocode(L.esri.Geocoding.WorldGeocodingService).text("Denver").within(bounds).run(function(err, response){
+L.esri.Geocoding.Tasks.geocode().text("Denver").within(bounds).run(function(err, response){
   console.log(response);
 });
 ```
@@ -261,7 +261,7 @@ L.esri.Geocoding.Tasks.geocode(L.esri.Geocoding.WorldGeocodingService).text("Den
 //Using .nearby()
 var denver = L.latLng(37.712, -108.227);
 
-L.esri.Geocoding.Tasks.geocode(L.esri.Geocoding.WorldGeocodingService).text("Highlands Ranch").nearby(denver, 20000).run(function(err, response){
+L.esri.Geocoding.Tasks.geocode().text("Highlands Ranch").nearby(denver, 20000).run(function(err, response){
   console.log(response);
 });
 ```
@@ -293,7 +293,7 @@ In the above examples the `results` object will look like this.
 
 Constructor | Description
 --- | ---
-`new L.esri.Geocoding.Tasks.Suggest(url, options)`<br>`L.esri.Geocoding.Tasks.suggest(url, options)` | Creates a new Suggest task. `L.esri.Geocoding.WorldGeocodingService` can be used as a reference to the ArcGIS Online World Geocoder.
+`new L.esri.Geocoding.Tasks.Suggest(url, options)`<br>`L.esri.Geocoding.Tasks.suggest(url, options)` | Creates a new Suggest task. The ArcGIS Online World Geocoder will be leveraged if nothing is provided in the Task constructor.
 
 ### Options
 
@@ -323,7 +323,7 @@ L.esri.Geocoding.Tasks.suggest().text('trea').nearby([45,-121], 5000).run(functi
 
 Constructor | Description
 --- | ---
-`new L.esri.Geocoding.Tasks.ReverseGeocode(url, options)`<br>`L.esri.Geocoding.Tasks.reverseGeocode(url, options)` | Creates a new ReverseGeocode task. `L.esri.Geocoding.WorldGeocodingService` can be used as a reference to the ArcGIS Online World Geocoder.
+`new L.esri.Geocoding.Tasks.ReverseGeocode(url, options)`<br>`L.esri.Geocoding.Tasks.reverseGeocode(url, options)` | Creates a new ReverseGeocode task. The ArcGIS Online World Geocoder will be leveraged if nothing is provided in the Task constructor.
 
 ### Options
 

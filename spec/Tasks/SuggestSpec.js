@@ -52,8 +52,8 @@ describe('L.esri.Tasks.Suggest', function () {
     request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleResponse);
   });
 
-  it('should make a suggest request with a nearby filter', function(done){
-    var request = L.esri.Geocoding.Tasks.suggest(L.esri.Geocoding.WorldGeocodingService).text('trea').nearby([45,-121], 5000).run(function(error, response){
+  it('should make a suggest request with a nearby filter, empty constructor', function(done){
+    var request = L.esri.Geocoding.Tasks.suggest().text('trea').nearby([45,-121], 5000).run(function(error, response){
       expect(response.suggestions.length).to.equal(5);
       done();
     });
