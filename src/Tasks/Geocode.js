@@ -27,14 +27,15 @@ EsriLeafletGeocoding.Tasks.Geocode = Esri.Tasks.Task.extend({
 
   within: function(bounds){
     bounds = L.latLngBounds(bounds);
-    console.log(bounds);
     this.params.bbox = Esri.Util.boundsToExtent(bounds);
+    return this;
   },
 
   nearby: function(latlng, radius){
     latlng = L.latLng(latlng);
     this.params.location = latlng.lng + ',' + latlng.lat;
     this.params.distance = Math.min(Math.max(radius, 2000), 50000);
+    return this;
   },
 
   run: function(callback, context){

@@ -43,14 +43,14 @@ describe('L.esri.Controls.Geosearch.Providers.MapService', function () {
 
   var sampleQueryResponse = JSON.stringify({
     'fieldAliases': {
-      'ObjectID': 'ObjectID',
+      'OBJECTID': 'OBJECTID',
       'Name': 'Name'
     },
     'fields': [
       {
-        'name': 'ObjectID',
+        'name': 'OBJECTID',
         'type': 'esriFieldTypeOID',
-        'alias': 'ObjectID'
+        'alias': 'OBJECTID'
       },
       {
         'name': 'Name',
@@ -61,7 +61,7 @@ describe('L.esri.Controls.Geosearch.Providers.MapService', function () {
     'features': [
       {
         'attributes': {
-          'ObjectID': 1,
+          'OBJECTID': 1,
           'Name': 'Place 1'
         },
         'geometry': {
@@ -78,7 +78,8 @@ describe('L.esri.Controls.Geosearch.Providers.MapService', function () {
   beforeEach(function(){
     xhr = sinon.useFakeXMLHttpRequest();
     provider = new L.esri.Geocoding.Controls.Geosearch.Providers.MapService('http://example.com/arcgis/arcgis/rest/services/MockService', {
-      searchFields: ['Name']
+      layer: 0,
+      searchFields: ['Name', 'OBJECTID']
     });
     provider._idField = 'OBJECTID';
   });
@@ -96,14 +97,14 @@ describe('L.esri.Controls.Geosearch.Providers.MapService', function () {
     });
 
     expect(request.url).to.contain('http://example.com/arcgis/arcgis/rest/services/MockService/find');
-    expect(request.url).to.contain("searchText=Pla");
-    expect(request.url).to.contain("searchFields=Name");
-    expect(request.url).to.contain("layers=0");
+    expect(request.url).to.contain("searchText=Pla&");
+    expect(request.url).to.contain("searchFields=Name%2COBJECTID&");
+    expect(request.url).to.contain("layers=0&");
 
     request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleFindResponse);
   });
 
-  it('should geocode with a magic key', function(done){
+  it('should query for geometry with a magic key', function(done){
     var request = provider.results('Place 1', '1', null, function(error, results){
       expect(results[0].latlng.lat).to.equal(45.48);
       expect(results[0].latlng.lng).to.equal(-122.81);
@@ -111,24 +112,25 @@ describe('L.esri.Controls.Geosearch.Providers.MapService', function () {
       done();
     });
 
-    expect(request.url).to.contain('objectIds=1');
+    expect(request.url).to.contain('objectIds=1&');
+    expect(request.url).to.contain('outFields=Name%2COBJECTID&')
 
     request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleQueryResponse);
   });
 
   it('should geocode for partial text', function(done){
     var request = provider.results('Pla', null, null, function(error, results){
-      expect(results.length).to.equal(2);
+      expect(results.length).to.equal(1);
       expect(results[0].text).to.equal('Place 1');
       done();
     });
 
     expect(request.url).to.contain('http://example.com/arcgis/arcgis/rest/services/MockService/find');
-    expect(request.url).to.contain("searchText=Pla");
-    expect(request.url).to.contain("searchFields=Name");
-    expect(request.url).to.contain("layers=0");
+    expect(request.url).to.contain("searchText=Pla&");
+    expect(request.url).to.contain("searchFields=Name%2COBJECTID&");
+    expect(request.url).to.contain("layers=0&");
 
-    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleFindResponse);
+    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleQueryResponse);
   });
 
 });

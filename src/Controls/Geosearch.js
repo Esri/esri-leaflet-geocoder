@@ -10,7 +10,8 @@ EsriLeafletGeocoding.Controls.Geosearch = L.Control.extend({
     allowMultipleResults: true,
     useArcgisWorldGeocoder: true,
     providers: [],
-    placeholder: 'Search for places or addresses'
+    placeholder: 'Search for places or addresses',
+    title: 'Location Search'
   },
 
   initialize: function (options) {
@@ -111,9 +112,9 @@ EsriLeafletGeocoding.Controls.Geosearch = L.Control.extend({
 
         if(suggestions.length && this._input.value === text) {
           if(provider.nodes){
-            for (i = 0; i < provider.nodes.length; i++) {
-              if(provider.nodes[i].parentElement){
-                this._suggestions.removeChild(provider.nodes[i]);
+            for (var k = 0; k < provider.nodes.length; k++) {
+              if(provider.nodes[k].parentElement){
+                this._suggestions.removeChild(provider.nodes[k]);
               }
             }
           }
@@ -225,8 +226,8 @@ EsriLeafletGeocoding.Controls.Geosearch = L.Control.extend({
       L.DomUtil.removeClass(this._wrapper, 'geocoder-control-expanded');
     }
 
-    if(!map.scrollWheelZoom.enabled() && map.options.scrollWheelZoom){
-      map.scrollWheelZoom.enable();
+    if(!this._map.scrollWheelZoom.enabled() && this._map.options.scrollWheelZoom){
+      this._map.scrollWheelZoom.enable();
     }
   },
 
@@ -239,6 +240,7 @@ EsriLeafletGeocoding.Controls.Geosearch = L.Control.extend({
 
     this._wrapper = L.DomUtil.create('div', 'geocoder-control ' + ((this.options.expanded) ? ' ' + 'geocoder-control-expanded'  : ''));
     this._input = L.DomUtil.create('input', 'geocoder-control-input leaflet-bar', this._wrapper);
+    this._input.title = this.options.title;
 
     this._suggestions = L.DomUtil.create('div', 'geocoder-control-suggestions leaflet-bar', this._wrapper);
 
@@ -371,7 +373,9 @@ EsriLeafletGeocoding.Controls.Geosearch = L.Control.extend({
 
     // when mouse moves leaves suggestions enable scroll wheel zoom if its disabled
     L.DomEvent.addListener(this._suggestions, 'mouseout', function(e){
-
+      if(!map.scrollWheelZoom.enabled() && map.options.scrollWheelZoom){
+        map.scrollWheelZoom.enable();
+      }
     });
 
     return this._wrapper;
