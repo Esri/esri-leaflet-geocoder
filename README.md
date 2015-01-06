@@ -127,7 +127,8 @@ For reference here is the internal structure of the geocoder...
 The `Geosearch` control can also search for results from a varity of sources including Feature Layers and Map Services. This is done with plain text matching and is not "real" geocoding. But it allows you to mix custom results into search box.
 
 ```js
-var gisDay = new L.esri.Geocoding.Controls.Geosearch.Providers.FeatureLayer('https://services.arcgis.com/uCXeTVveQzP4IIcx/arcgis/rest/services/GIS_Day_Final/FeatureServer/0', {
+var gisDay = new L.esri.Geocoding.Controls.Geosearch.Providers.FeatureLayer({
+  url: 'https://services.arcgis.com/uCXeTVveQzP4IIcx/arcgis/rest/services/GIS_Day_Final/FeatureServer/0',
   searchFields: ['Name', 'Organization'], // Search these fields for text matches
   label: 'GIS Day Events', // Group suggestions under this header
   formatSuggestion: function(feature){
@@ -151,6 +152,7 @@ L.esri.Geocoding.Controls.geosearch({
 
 Option | Type | Default | Description
 --- | --- | --- | ---
+`url` | `String` | Depends | The URL for the service that will be used to search. Varys by provider, usally a service or layer URL or a geocoding service URL.
 `searchFields` | `Array[Strings]` | None | An array of fields to search for text. Not valid for the `ArcGISOnline` and `GeocodeService` providers.
 `layer` | `Integer` | `0` | Only valid for `MapService` providers, the layer to find text matches on.
 `label` | `String` | Provider Type | Text that will be used to group suggestions under.
@@ -185,11 +187,11 @@ A basic wrapper for ArcGIS Online geocoding services. Used internally by `L.esri
 
 Constructor | Description
 --- | ---
-`new L.esri.Geocoding.Geocoding(url, options)`<br>`L.esri.Controls.geosearch(url, options)`<br>`new L.esri.Services.Geocoding(options)`<br>`L.esri.Controls.geosearch(options)` | Creates a new Geosearch control. You can pass the url as the first parameter or as `url` in the options to a custom geocoding endpoint if you do not want to use the ArcGIS Online World Geocoding service.
+`new L.esri.Geocoding.Geocoding(options)`<br>`L.esri.Controls.geosearch(options)`<br>`new L.esri.Services.Geocoding(options)`<br>`L.esri.Controls.geosearch(options)` | Creates a new Geosearch control. You can pass the url as the first parameter or as `url` in the options to a custom geocoding endpoint if you do not want to use the ArcGIS Online World Geocoding service.
 
 ### Options
 
-You can pass any options you can pass to L.esri.Services.Service.
+You can pass any options you can pass to L.esri.Services.Service. `url` will be the ArcGIS World Geocoder by default but a custom geocoding service can also be used.
 
 ### Methods
 
@@ -209,11 +211,11 @@ L.esri.Services.FeatureLayer fires all L.esri.Services.service events.
 
 Constructor | Description
 --- | ---
-`new L.esri.Geocoding.Tasks.Geocode(url, options)`<br>`L.esri.Geocoding.Tasks.geocode(url, options)` | Creates a new Geocode task. `L.esri.Geocoding.WorldGeocodingService` can be used as a reference to the ArcGIS Online World Geocoder.
+`new L.esri.Geocoding.Tasks.Geocode(options)`<br>`L.esri.Geocoding.Tasks.geocode(options)` | Creates a new Geocode task.
 
 ### Options
 
-You can pass any options you can pass to L.esri.Tasks.Task.
+You can pass any options you can pass to L.esri.Tasks.Task. `url` will be the ArcGIS World Geocoder by default but a custom geocoding service can also be used.
 
 ### Methods
 
@@ -235,13 +237,13 @@ Method | Returns | Description
 ### Examples
 
 ```js
-L.esri.Geocoding.Tasks.geocode(L.esri.Geocoding.WorldGeocodingService).text('380 New York St, Redlands, California, 92373').run(function(err, results, response){
+L.esri.Geocoding.Tasks.geocode().text('380 New York St, Redlands, California, 92373').run(function(err, results, response){
   console.log(results);
 });
 ```
 
 ```js
-L.esri.Geocoding.Tasks.geocode(L.esri.Geocoding.WorldGeocodingService).address('380 New York St').city('Redlands').region('California').postal(92373).run(function(err, results, response){
+L.esri.Geocoding.Tasks.geocode().address('380 New York St').city('Redlands').region('California').postal(92373).run(function(err, results, response){
   console.log(results);
 });
 ```
@@ -252,7 +254,7 @@ var southWest = L.latLng(37.712, -108.227),
     northEast = L.latLng(41.774, -102.125),
     bounds = L.latLngBounds(southWest, northEast); // Colorado
 
-L.esri.Geocoding.Tasks.geocode(L.esri.Geocoding.WorldGeocodingService).text("Denver").within(bounds).run(function(err, response){
+L.esri.Geocoding.Tasks.geocode().text("Denver").within(bounds).run(function(err, response){
   console.log(response);
 });
 ```
@@ -261,7 +263,7 @@ L.esri.Geocoding.Tasks.geocode(L.esri.Geocoding.WorldGeocodingService).text("Den
 //Using .nearby()
 var denver = L.latLng(37.712, -108.227);
 
-L.esri.Geocoding.Tasks.geocode(L.esri.Geocoding.WorldGeocodingService).text("Highlands Ranch").nearby(denver, 20000).run(function(err, response){
+L.esri.Geocoding.Tasks.geocode().text("Highlands Ranch").nearby(denver, 20000).run(function(err, response){
   console.log(response);
 });
 ```
@@ -293,11 +295,11 @@ In the above examples the `results` object will look like this.
 
 Constructor | Description
 --- | ---
-`new L.esri.Geocoding.Tasks.Suggest(url, options)`<br>`L.esri.Geocoding.Tasks.suggest(url, options)` | Creates a new Suggest task. `L.esri.Geocoding.WorldGeocodingService` can be used as a reference to the ArcGIS Online World Geocoder.
+`new L.esri.Geocoding.Tasks.Suggest(options)`<br>`L.esri.Geocoding.Tasks.suggest(options)` | Creates a new Suggest task using the ArcGIS World Geocoder.
 
 ### Options
 
-You can pass any options you can pass to L.esri.Tasks.Task.
+You can pass any options you can pass to L.esri.Tasks.Task. `url` will be the ArcGIS World Geocoder by default but a custom geocoding service can also be used.
 
 ### Methods
 
@@ -323,11 +325,11 @@ L.esri.Geocoding.Tasks.suggest().text('trea').nearby([45,-121], 5000).run(functi
 
 Constructor | Description
 --- | ---
-`new L.esri.Geocoding.Tasks.ReverseGeocode(url, options)`<br>`L.esri.Geocoding.Tasks.reverseGeocode(url, options)` | Creates a new ReverseGeocode task. `L.esri.Geocoding.WorldGeocodingService` can be used as a reference to the ArcGIS Online World Geocoder.
+`new L.esri.Geocoding.Tasks.ReverseGeocode(options)`<br>`L.esri.Geocoding.Tasks.reverseGeocode(options)` | Creates a new ReverseGeocode task. `L.esri.Geocoding.WorldGeocodingService` can be used as a reference to the ArcGIS Online World Geocoder.
 
 ### Options
 
-You can pass any options you can pass to L.esri.Tasks.Task.
+You can pass any options you can pass to L.esri.Tasks.Task. `url` will be the ArcGIS World Geocoder by default but a custom geocoding service can also be used.
 
 ### Methods
 
