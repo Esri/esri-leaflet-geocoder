@@ -1,5 +1,26 @@
 # Changelog
 
+## Release Candidate 3
+
+#### Breaking Changes
+
+* Providers should now supply their `url` with the `url` key inside of `options` as opposed to a separate parameter.
+
+#### Changes
+
+* `MapService` provider now supports being passed an array of layers to search. https://github.com/Esri/esri-leaflet-geocoder/issues/48
+* `title` option will now set the title on the input to `'Location Search'` by default. https://github.com/Esri/esri-leaflet-geocoder/pull/51
+* When using many providers or when a provider returns lots of results with a high limit, the suggestions div will now scroll. https://github.com/Esri/esri-leaflet-geocoder/issues/55
+* `within()` and `nearby()` now return the task and can be changed. https://github.com/Esri/esri-leaflet-geocoder/pull/49
+* Bugfix for `MapService` provider https://github.com/Esri/esri-leaflet-geocoder/issues/46
+
+## Release Candidate 2
+
+#### Changes
+
+* Bower support `bower install esri-leaflet-geocoder`
+* Update Esri Leaflet dependency to RC 3
+
 ## Release Candidate 1
 
 Please read through the docs and changes list carefully. There has been a major refactoring.
