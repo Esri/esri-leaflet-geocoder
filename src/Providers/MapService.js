@@ -13,7 +13,7 @@ EsriLeafletGeocoding.Controls.Geosearch.Providers.MapService = L.esri.Services.M
     this._getIdFields();
   },
   suggestions: function(text, bounds, callback){
-    var request = this.find().text(text).returnGeometry(false).layers(this.options.layers);
+    var request = this.find().text(text).fields(this.options.searchFields).returnGeometry(false).layers(this.options.layers);
 
     return request.run(function(error, results, raw){
       var suggestions = [];
@@ -26,10 +26,9 @@ EsriLeafletGeocoding.Controls.Geosearch.Providers.MapService = L.esri.Services.M
           var layer = result.layerId;
           var idField = this._idFields[layer];
           feature.layerId = layer;
-          feature.layerName = result.layerName;
-          feature.foundFieldName = result.foundFieldName;
-          feature.displayFieldName = result.displayFieldName;
-          if(idField && layer){
+          feature.layerName = this._layerNames[layer];
+          feature.displayFieldName = this._displayFields[layer];
+          if(idField){
             suggestions.push({
               text: this.options.formatSuggestion.call(this, feature),
               magicKey: result.attributes[idField] + ':' + layer
@@ -49,15 +48,23 @@ EsriLeafletGeocoding.Controls.Geosearch.Providers.MapService = L.esri.Services.M
       var layer = key.split(':')[1];
       request = this.query().layer(layer).featureIds(featureId);
     } else {
-      request = this.find().text(text).contains(false).layers(this.options.layers);
+      request = this.find().text(text).fields(this.options.searchFields).contains(false).layers(this.options.layers);
     }
 
-    return request.run(function(error, features){
+    return request.run(function(error, features, response){
       if(!error){
+        if(response.results){
+          response.results = response.results.reverse();
+        }
         for (var i = 0; i < features.features.length; i++) {
           var feature = features.features[i];
-          if(feature){
+          layer = (layer) ? layer : response.results[i].layerId;
+          if(feature && layer !== undefined) {
             var bounds = this._featureBounds(feature);
+            var idField = this._idFields[layer];
+            feature.layerId = layer;
+            feature.layerName = this._layerNames[layer];
+            feature.displayFieldName = this._displayFields[layer];
             var result = {
               latlng: bounds.getCenter(),
               bounds: bounds,
@@ -82,6 +89,8 @@ EsriLeafletGeocoding.Controls.Geosearch.Providers.MapService = L.esri.Services.M
   },
   _layerMetadataCallback: function(layerid){
     return L.Util.bind(function(error, metadata){
+      this._displayFields[layerid] = metadata.displayField;
+      this._layerNames[layerid] = metadata.name;
       for (var i = 0; i < metadata.fields.length; i++) {
         var field = metadata.fields[i];
         if(field.type === 'esriFieldTypeOID'){
@@ -93,6 +102,8 @@ EsriLeafletGeocoding.Controls.Geosearch.Providers.MapService = L.esri.Services.M
   },
   _getIdFields: function(){
     this._idFields = {};
+    this._displayFields = {};
+    this._layerNames = {};
     for (var i = 0; i < this.options.layers.length; i++) {
       var layer = this.options.layers[i];
       this.get(layer, {}, this._layerMetadataCallback(layer));

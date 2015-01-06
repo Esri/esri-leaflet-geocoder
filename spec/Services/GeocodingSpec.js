@@ -6,7 +6,7 @@ describe('L.esri.Geocoding.Services.Geocoding', function () {
   });
 
   it('should initalize with the ArcGIS Online Geocoder URL by default', function(){
-    expect(geocoder.url).to.equal('//geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/');
+    expect(geocoder.options.url).to.contain('//geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/');
   });
 
   it('should return a new instance of L.esri.Geocoding.Tasks.Geocode', function(){

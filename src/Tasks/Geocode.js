@@ -25,6 +25,12 @@ EsriLeafletGeocoding.Tasks.Geocode = Esri.Tasks.Task.extend({
     'maxLocations': 'maxLocations'
   },
 
+  initialize: function(options){
+    options = options || {};
+    options.url = options.url || EsriLeafletGeocoding.WorldGeocodingService;
+    Esri.Tasks.Task.prototype.initialize.call(this, options);
+  },
+
   within: function(bounds){
     bounds = L.latLngBounds(bounds);
     this.params.bbox = Esri.Util.boundsToExtent(bounds);
@@ -93,6 +99,6 @@ EsriLeafletGeocoding.Tasks.Geocode = Esri.Tasks.Task.extend({
 
 });
 
-EsriLeafletGeocoding.Tasks.geocode = function(url, options){
-  return new EsriLeafletGeocoding.Tasks.Geocode(url, options);
+EsriLeafletGeocoding.Tasks.geocode = function(options){
+  return new EsriLeafletGeocoding.Tasks.Geocode(options);
 };

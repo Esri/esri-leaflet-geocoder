@@ -1,8 +1,9 @@
 EsriLeafletGeocoding.Controls.Geosearch.Providers.ArcGISOnline = EsriLeafletGeocoding.Services.Geocoding.extend({
   options: {
-    label: "Places and Addresses",
+    label: 'Places and Addresses',
     maxResults: 5
   },
+
   suggestions: function(text, bounds, callback){
     var request = this.suggest().text(text);
 

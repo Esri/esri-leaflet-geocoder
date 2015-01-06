@@ -8,6 +8,13 @@ EsriLeafletGeocoding.Tasks.Suggest = Esri.Tasks.Task.extend({
     category: 'category'
   },
 
+  initialize: function(options){
+    options = options || {};
+
+    options.url = options.url || EsriLeafletGeocoding.WorldGeocodingService;
+    Esri.Tasks.Task.prototype.initialize.call(this, options);
+  },
+
   within: function(bounds){
     bounds = L.latLngBounds(bounds);
     bounds = bounds.pad(0.5);
@@ -33,6 +40,6 @@ EsriLeafletGeocoding.Tasks.Suggest = Esri.Tasks.Task.extend({
 
 });
 
-EsriLeafletGeocoding.Tasks.suggest = function(url, options){
-  return new EsriLeafletGeocoding.Tasks.Suggest(url, options);
+EsriLeafletGeocoding.Tasks.suggest = function(options){
+  return new EsriLeafletGeocoding.Tasks.Suggest(options);
 };

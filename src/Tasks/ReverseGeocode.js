@@ -4,9 +4,16 @@ EsriLeafletGeocoding.Tasks.ReverseGeocode = Esri.Tasks.Task.extend({
   params : {
     outSR: 4326
   },
+
   setters: {
     'distance': 'distance',
     'language': 'language'
+  },
+
+  initialize: function(options){
+    options = options || {};
+    options.url = options.url || EsriLeafletGeocoding.WorldGeocodingService;
+    Esri.Tasks.Task.prototype.initialize.call(this, options);
   },
 
   latlng: function (latlng) {
@@ -33,6 +40,6 @@ EsriLeafletGeocoding.Tasks.ReverseGeocode = Esri.Tasks.Task.extend({
   }
 });
 
-EsriLeafletGeocoding.Tasks.reverseGeocode = function(url, options){
-  return new EsriLeafletGeocoding.Tasks.ReverseGeocode(url, options);
+EsriLeafletGeocoding.Tasks.reverseGeocode = function(options){
+  return new EsriLeafletGeocoding.Tasks.ReverseGeocode(options);
 };

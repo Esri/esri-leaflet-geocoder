@@ -1,5 +1,7 @@
+var protocol = window.location.protocol === 'https:' ? 'https:' : 'http:';
+
 var EsriLeafletGeocoding = {
-  WorldGeocodingService: '//geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/',
+  WorldGeocodingService: protocol + '//geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/',
   Tasks: {},
   Services: {},
   Controls: {}

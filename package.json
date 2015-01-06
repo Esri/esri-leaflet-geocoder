@@ -1,6 +1,6 @@
 {
   "name": "esri-leaflet-geocoder",
-  "version": "1.0.0-rc.2",
+  "version": "1.0.0-rc.3",
   "description": "Esri Geocoding utilities and search plguin for Leaflet.",
   "homepage": "https://github.com/Esri/esri-leaflet-geocoder",
   "main": "dist/esri-leaflet-geocoder.js",
@@ -41,6 +41,6 @@
   "readmeFilename": "README.md",
   "dependencies": {
     "leaflet": "^0.7.0",
-    "esri-leaflet": "1.0.0-rc.3"
+    "esri-leaflet": "1.0.0-rc.5"
   }
 }
