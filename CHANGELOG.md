@@ -5,6 +5,7 @@
 #### Breaking Changes
 
 * Providers should now supply their `url` with the `url` key inside of `options` as opposed to a separate parameter.
+* Namespace has been reorganized. everything now sits under `L.esri.Geocoding`. So `L.esri.Tasks.Geocode` is now `L.esri.Geocoding.Tasks.Geocode`.
 
 #### Changes
 
