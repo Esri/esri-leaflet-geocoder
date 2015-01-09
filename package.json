@@ -1,6 +1,6 @@
 {
   "name": "esri-leaflet-geocoder",
-  "version": "1.0.0-rc.3",
+  "version": "1.0.0-rc.4",
   "description": "Esri Geocoding utilities and search plguin for Leaflet.",
   "homepage": "https://github.com/Esri/esri-leaflet-geocoder",
   "main": "dist/esri-leaflet-geocoder.js",
@@ -21,7 +21,7 @@
     "grunt-contrib-uglify": "^0.6.0",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-karma": "^0.9.0",
-    "grunt-releaseable": "0.0.12",
+    "grunt-releaseable": "0.0.14",
     "grunt-s3": "^0.2.0-alpha.3",
     "karma": "^0.12.24",
     "karma-chai-sinon": "^0.1.3",
