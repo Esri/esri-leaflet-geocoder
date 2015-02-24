@@ -360,7 +360,7 @@ L.esri.Geocoding.Tasks.reverseGeocode().latlng([48.8583,  2.2945]).run(function(
 
 ## Dependencies
 
-Esri Leaflet Geocoder relies on the minimal Esri Leaflet Core which handles abstraction for requests and authentication when neccessary. You can find out more about the Esri Leaflet Core on the [Esri Leaflet downloads page](http://esri.github.com/esri-leaflet/downloads).
+Esri Leaflet Geocoder relies on the minimal Esri Leaflet Core which handles abstraction for requests and authentication when neccessary. You can find out more about the Esri Leaflet Core from the [Esri Leaflet Quickstart](http://esri.github.io/esri-leaflet/examples/).
 
 ## Resources
 
