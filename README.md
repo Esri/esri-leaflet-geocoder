@@ -124,7 +124,7 @@ For reference here is the internal structure of the geocoder...
 
 ### Providers
 
-The `Geosearch` control can also search for results from a varity of sources including Feature Layers and Map Services. This is done with plain text matching and is not "real" geocoding. But it allows you to mix custom results into search box.
+The `Geosearch` control can also search for results from a variety of sources including Feature Layers and Map Services. This is done with plain text matching and is not "real" geocoding. But it allows you to mix custom results into a search box.
 
 ```js
 var gisDay = new L.esri.Geocoding.Controls.Geosearch.Providers.FeatureLayer({
@@ -187,7 +187,7 @@ A basic wrapper for ArcGIS Online geocoding services. Used internally by `L.esri
 
 Constructor | Description
 --- | ---
-`new L.esri.Geocoding.Geocoding(options)`<br>`L.esri.Controls.geosearch(options)`<br>`new L.esri.Services.Geocoding(options)`<br>`L.esri.Controls.geosearch(options)` | Creates a new Geosearch control. You can pass the url as the first parameter or as `url` in the options to a custom geocoding endpoint if you do not want to use the ArcGIS Online World Geocoding service.
+`new L.esri.Geocoding.Services.Geocoding(options)`<br>`L.esri.Geocoding.Services.geocoding(options)` | Creates a new Geocoding service. You can pass the `url` in the options to reference a custom geocoding endpoint if you do not want to use the ArcGIS Online World Geocoding service.
 
 ### Options
 
@@ -360,7 +360,7 @@ L.esri.Geocoding.Tasks.reverseGeocode().latlng([48.8583,  2.2945]).run(function(
 
 ## Dependencies
 
-Esri Leaflet Geocoder relies on the minimal Esri Leaflet Core which handles abstraction for requests and authentication when neccessary. You can find out more about the Esri Leaflet Core on the [Esri Leaflet downloads page](http://esri.github.com/esri-leaflet/downloads).
+Esri Leaflet Geocoder relies on the minimal Esri Leaflet Core which handles abstraction for requests and authentication when neccessary. You can find out more about the Esri Leaflet Core from the [Esri Leaflet Quickstart](http://esri.github.io/esri-leaflet/examples/).
 
 ## Resources
 
