@@ -7,7 +7,7 @@ EsriLeafletGeocoding.Controls.Geosearch.Providers.FeatureLayer = L.esri.Services
       return feature.properties[this.options.searchFields[0]];
     }
   },
-  intialize: function(url, options){
+  initialize: function(url, options){
     L.esri.Services.FeatureLayer.prototype.call(this, url, options);
     L.Util.setOptions(this, options);
     if(typeof this.options.searchFields === 'string'){
