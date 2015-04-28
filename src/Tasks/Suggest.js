@@ -22,6 +22,7 @@ EsriLeafletGeocoding.Tasks.Suggest = Esri.Tasks.Task.extend({
     var ne = bounds.getNorthWest();
     this.params.location = center.lng + ',' + center.lat;
     this.params.distance = Math.min(Math.max(center.distanceTo(ne), 2000), 50000);
+    this.params.searchExtent = L.esri.Util.boundsToExtent(bounds);
     return this;
   },
 
