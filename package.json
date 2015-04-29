@@ -41,6 +41,6 @@
   "readmeFilename": "README.md",
   "dependencies": {
     "leaflet": "^0.7.0",
-    "esri-leaflet": "^1.0.0-rc.5"
+    "esri-leaflet": "^1.0.0-rc.6"
   }
 }

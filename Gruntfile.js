@@ -83,7 +83,6 @@ module.exports = function(grunt) {
           except: ['L']
         },
         preserveComments: 'some',
-        report: 'gzip',
         banner: copyright + umdHeader,
         footer: umdFooter,
         sourceMap: true,
@@ -111,8 +110,7 @@ module.exports = function(grunt) {
       main: {
         options: {
           wrap: false,
-          preserveComments: 'some',
-          report: 'gzip'
+          preserveComments: 'some'
         },
         files: {
           'dist/esri-leaflet-geocoder.css': [
