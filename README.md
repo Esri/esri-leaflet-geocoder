@@ -153,7 +153,7 @@ L.esri.Geocoding.Controls.geosearch({
 
 Option | Type | Default | Description
 --- | --- | --- | ---
-`url` | `String` | Depends | The URL for the service that will be used to search. Varys by provider, usally a service or layer URL or a geocoding service URL.
+`url` | `String` | Depends | The URL for the service that will be used to search. Varys by provider, usually a service or layer URL or a geocoding service URL.
 `searchFields` | `Array[Strings]` | None | An array of fields to search for text. Not valid for the `ArcGISOnline` and `GeocodeService` providers.
 `layer` | `Integer` | `0` | Only valid for `MapService` providers, the layer to find text matches on.
 `label` | `String` | Provider Type | Text that will be used to group suggestions under.
@@ -230,7 +230,7 @@ Method | Returns | Description
 `region(text <String>)` | Specify the region to be geocoded. Typically a state or province
 `postal(text <String>)` | Specify the postal code to be geocoded.
 `country(text <String>)` | Specify the country to be geocoded.
-`category(category <String>)` | The category to search for suggestions. By default no category. A list of categories can be found here https://developers.arcgis.com/rest/geocode/api-reference/geocoding-category-filtering.htm#ESRI_SECTION1_502B3FE2028145D7B189C25B1A00E17B
+`category(category <String>)` | The category to search for suggestions. By default no category. A list of categories can be found [here](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-category-filtering.htm#ESRI_SECTION1_502B3FE2028145D7B189C25B1A00E17B)
 `within(bounds <L.LatLngBounds>)` | A bounding box to search for suggestions in.
 `nearby(latlng <L.LatLng>, distance <Integer>)` | Searches for suggestions only inside an area around the LatLng. `distance` is in meters.
 `run(callback <Function>, context <Object>)` | `XMLHttpRequest` | Executes this request chain and accepts the response callback.
@@ -307,7 +307,7 @@ You can pass any options you can pass to L.esri.Tasks.Task. `url` will be the Ar
 Method | Returns | Description
 --- | --- | ---
 `text(text <String>)` | `this` | The text to recive suggestions for.
-`category(category <String>)` | The category to search for suggestions. By default no categogy. A list of categories can be found here https://developers.arcgis.com/rest/geocode/api-reference/geocoding-category-filtering.htm#ESRI_SECTION1_502B3FE2028145D7B189C25B1A00E17B
+`category(category <String>)` | The category to search for suggestions. By default no categogy. A list of categories can be found [here](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-category-filtering.htm#ESRI_SECTION1_502B3FE2028145D7B189C25B1A00E17B)
 `within(bounds <L.LatLngBounds>)` | A bounding box to search for suggestions in.
 `nearby(latlng <L.LatLng>, distance <Integer>)` | Searches for suggestions only inside an area around the LatLng. `distance` is in meters.
 `run(callback <Function>, context<Object>)` | `XMLHttpRequest` | Executes this request chain and accepts the response callback.
