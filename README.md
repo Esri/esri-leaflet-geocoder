@@ -159,7 +159,7 @@ Option | Type | Default | Description
 `label` | `String` | Provider Type | Text that will be used to group suggestions under.
 `maxResults` | `Integer` | 5 | Maximum number of results to show for this provider.
 `bufferRadius`, | `Integer` | If a service or layer contains points, buffer points by this radius to create bounds. Not valid for the `ArcGISOnline` and `GeocodeService` providers
-`formatSuggestion`| `Function` | See Description | Formating function for the suggestion text. Receives a feature and returns a string.
+`formatSuggestion`| `Function` | See Description | Formating function for the suggestion text from `FeatureLayer` provider. Receives a feature and returns a string.
 
 #### Results Event
 
