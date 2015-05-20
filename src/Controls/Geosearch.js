@@ -206,7 +206,7 @@ EsriLeafletGeocoding.Controls.Geosearch = L.Control.extend({
       var result = results[i];
 
       // make sure bounds are valid and not 0,0. sometimes bounds are incorrect or not present
-      if(result.bounds.isValid() && !result.bounds.equals(nullIsland)){
+      if(result.bounds && result.bounds.isValid() && !result.bounds.equals(nullIsland)){
         bounds.extend(result.bounds);
       }
 
