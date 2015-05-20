@@ -147,7 +147,7 @@ L.esri.Geocoding.Controls.geosearch({
 * `L.esri.Geocoding.Controls.Geosearch.Providers.ArcGISOnline` - Included by default unless the `useArcgisWorldGeocoder` option is set to false.
 * `L.esri.Geocoding.Controls.Geosearch.Providers.FeatureLayer` - Gets results by querying the Feature Layer for text matches.
 * `L.esri.Geocoding.Controls.Geosearch.Providers.MapService` - Uses the find and query methods on the Map Service to get text matches.
-* `L.esri.Geocoding.Controls.Geosearch.Providers.GeocodeService` - Use a ArcGIS Server Geocode Service. This option does not support suggestions.
+* `L.esri.Geocoding.Controls.Geosearch.Providers.GeocodeService` - Use a ArcGIS Server Geocode Service.
 
 #### Provider Options
 
@@ -156,7 +156,7 @@ Option | Type | Default | Description
 `url` | `String` | Depends | The URL for the service that will be used to search. Varys by provider, usually a service or layer URL or a geocoding service URL.
 `searchFields` | `Array[Strings]` | None | An array of fields to search for text. Not valid for the `ArcGISOnline` and `GeocodeService` providers.
 `layer` | `Integer` | `0` | Only valid for `MapService` providers, the layer to find text matches on.
-`label` | `String` | Provider Type | Text that will be used to group suggestions under.
+`label` | `String` | Provider Type | Text that will be used to group suggestions under when more than one provider is being used.
 `maxResults` | `Integer` | 5 | Maximum number of results to show for this provider.
 `bufferRadius`, | `Integer` | If a service or layer contains points, buffer points by this radius to create bounds. Not valid for the `ArcGISOnline` and `GeocodeService` providers
 `formatSuggestion`| `Function` | See Description | Formating function for the suggestion text from `FeatureLayer` provider. Receives a feature and returns a string.
@@ -216,7 +216,7 @@ Constructor | Description
 
 ### Options
 
-You can pass any options you can pass to L.esri.Tasks.Task. `url` will be the ArcGIS World Geocoder by default but a custom geocoding service can also be used.
+You can pass any options you can pass to L.esri.Tasks.Task. `url` will be the [ArcGIS World Geocoder](https://developers.arcgis.com/rest/geocode/api-reference/overview-world-geocoding-service.htm) by default but a custom geocoding service can also be used.
 
 ### Methods
 
@@ -300,7 +300,7 @@ Constructor | Description
 
 ### Options
 
-You can pass any options you can pass to L.esri.Tasks.Task. `url` will be the ArcGIS World Geocoder by default but a custom geocoding service can also be used.
+You can pass any options you can pass to L.esri.Tasks.Task. `url` will be the [ArcGIS World Geocoder](https://developers.arcgis.com/rest/geocode/api-reference/overview-world-geocoding-service.htm) by default but a custom geocoding service can also be used.
 
 ### Methods
 
@@ -326,7 +326,7 @@ L.esri.Geocoding.Tasks.suggest().text('trea').nearby([45,-121], 5000).run(functi
 
 Constructor | Description
 --- | ---
-`new L.esri.Geocoding.Tasks.ReverseGeocode(options)`<br>`L.esri.Geocoding.Tasks.reverseGeocode(options)` | Creates a new ReverseGeocode task. `L.esri.Geocoding.WorldGeocodingService` can be used as a reference to the ArcGIS Online World Geocoder.
+`new L.esri.Geocoding.Tasks.ReverseGeocode(options)`<br>`L.esri.Geocoding.Tasks.reverseGeocode(options)` | Creates a new ReverseGeocode task. `L.esri.Geocoding.WorldGeocodingService` can be used as a reference to the [ArcGIS World Geocoder](https://developers.arcgis.com/rest/geocode/api-reference/overview-world-geocoding-service.htm).
 
 ### Options
 
@@ -390,7 +390,7 @@ In order the use the ArcGIS Online Geocoding Service you should signup for an [A
 This information is from the [ArcGIS for Developers Terms of Use FAQ](https://developers.arcgis.com/en/terms/faq/) and the [ArcGIS Online World Geocoder documentation](http://resources.arcgis.com/en/help/arcgis-rest-api/#/Single_input_field_geocoding/02r300000015000000/)
 
 ## Licensing
-Copyright 2013 Esri
+Copyright 2015 Esri
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
