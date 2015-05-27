@@ -11,7 +11,8 @@ EsriLeafletGeocoding.Controls.Geosearch = L.Control.extend({
     useArcgisWorldGeocoder: true,
     providers: [],
     placeholder: 'Search for places or addresses',
-    title: 'Location Search'
+    title: 'Location Search',
+    mapAttribution: 'Geocoding by Esri'
   },
 
   initialize: function (options) {
@@ -235,7 +236,7 @@ EsriLeafletGeocoding.Controls.Geosearch = L.Control.extend({
     this._map = map;
 
     if (map.attributionControl) {
-      map.attributionControl.addAttribution('Geocoding by Esri');
+      map.attributionControl.addAttribution(this.options.mapAttribution);
     }
 
     this._wrapper = L.DomUtil.create('div', 'geocoder-control ' + ((this.options.expanded) ? ' ' + 'geocoder-control-expanded'  : ''));
