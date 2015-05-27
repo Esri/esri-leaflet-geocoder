@@ -235,8 +235,13 @@ EsriLeafletGeocoding.Controls.Geosearch = L.Control.extend({
   onAdd: function (map) {
     this._map = map;
 
+    // Add geocoding attribution to map. Using World Geocode Service requires default attribution.
     if (map.attributionControl) {
-      map.attributionControl.addAttribution(this.options.mapAttribution);
+      if (this.options.useArcgisWorldGeocoder) {
+        map.attributionControl.addAttribution('Geocoding by Esri');
+      } else {
+        map.attributionControl.addAttribution(this.options.mapAttribution);
+      }
     }
 
     this._wrapper = L.DomUtil.create('div', 'geocoder-control ' + ((this.options.expanded) ? ' ' + 'geocoder-control-expanded'  : ''));

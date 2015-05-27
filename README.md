@@ -92,7 +92,7 @@ Option | Type | Default | Description
 `providers` | `Array` | See Description | An array of `EsriLeafletGeocoding.Controls.Geosearch.Providers` objects. These additional providers will also be searched for possible results and added to the suggestion list.
 `placeholder` | `String` | `'Search for places or addresses'` | Placeholder text for the search input.
 `title` | `String` | `Location Search` | Title text for the search input. Shows as tool tip on hover.
-`mapAttribution` | `String` | `Geocoding by Esri` | Geocoding attribution text for the map.
+`mapAttribution` | `String` | `Geocoding by Esri` | Custom geocoding attribution to be added to map. This setting is ignored and the default attribution is used if `useArcgisworldgeocoder` is `true`.
 
 ### Methods
 
