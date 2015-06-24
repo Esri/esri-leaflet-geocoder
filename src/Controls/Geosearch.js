@@ -1,4 +1,18 @@
-EsriLeafletGeocoding.Controls.Geosearch = L.Control.extend({
+/*
+to do:
+remove the map instantiation entirely
+make height and width configurable?
+add back original css for element positions
+(and override when there is no map)
+make it so that you dont have to call onAdd (and maybe not even initialize)
+adapt the sample to zoom the map to the geocoded location automatically
+
+show all this to pat and ask him
+ 1. whether its okay that i extended L.Class instead
+ 2. whether i need to decouple the css which provides style
+*/
+
+EsriLeafletGeocoding.Controls.Geosearch = L.Class.extend({
   includes: L.Mixin.Events,
   options: {
     position: 'topleft',
@@ -27,6 +41,10 @@ EsriLeafletGeocoding.Controls.Geosearch = L.Control.extend({
       for (var i = 0; i < this.options.providers.length; i++) {
         this.options.providers[i].options.maxResults = this.options.maxResults;
       }
+    }
+
+    if (this.options.inputTag){
+      this._attachToMap = false;
     }
 
     this._pendingSuggestions = [];
@@ -159,12 +177,21 @@ EsriLeafletGeocoding.Controls.Geosearch = L.Control.extend({
     var currentGroup;
     this._suggestions.style.display = 'block';
 
+
+
     // set the maxHeight of the suggestions box to
     // map height
     // - suggestions offset (distance from top of suggestions to top of control)
     // - control offset (distance from top of control to top of map)
     // - 10 (extra padding)
-    this._suggestions.style.maxHeight = (this._map.getSize().y - this._suggestions.offsetTop - this._wrapper.offsetTop - 10) + 'px';
+    if (this._attachToMap){
+      this._suggestions.style.maxHeight = (this._map.getSize().y - this._suggestions.offsetTop - this._wrapper.offsetTop - 10) + 'px';
+    }
+    else {
+      // need to figure out how to make all this configurable
+      this._suggestions.style.maxHeight = '20%';
+      this._suggestions.style.maxWidth = '30%';
+    }
 
     var nodes = [];
     var list;
@@ -244,9 +271,18 @@ EsriLeafletGeocoding.Controls.Geosearch = L.Control.extend({
       }
     }
 
-    this._wrapper = L.DomUtil.create('div', 'geocoder-control ' + ((this.options.expanded) ? ' ' + 'geocoder-control-expanded'  : ''));
-    this._input = L.DomUtil.create('input', 'geocoder-control-input leaflet-bar', this._wrapper);
-    this._input.title = this.options.title;
+    if (this._attachToMap){
+      this._wrapper = L.DomUtil.create('div', 'geocoder-control ' + ((this.options.expanded) ? ' ' + 'geocoder-control-expanded' : ''));
+      this._input = L.DomUtil.create('input', 'geocoder-control-input leaflet-bar', this._wrapper);
+      this._input.title = this.options.title;
+    }
+    else {
+      this._wrapper = document.getElementById('wholegroup');
+      this._wrapper.className = 'geocoder-control ' + ((this.options.expanded) ? ' ' + 'geocoder-control-expanded' : '');
+      this._input = document.getElementById('address');
+      this._input.className += ' geocoder-control-input leaflet-bar';
+      this._input.title = this.options.title;
+    }
 
     this._suggestions = L.DomUtil.create('div', 'geocoder-control-suggestions leaflet-bar', this._wrapper);
 
