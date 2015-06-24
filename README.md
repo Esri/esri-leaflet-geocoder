@@ -39,7 +39,7 @@ Take a look at the [live demo](http://esri.github.com/esri-leaflet/examples/geoc
     <script src="http://cdn-geoweb.s3.amazonaws.com/esri-leaflet/0.0.1-beta.5/esri-leaflet-core.js"></script>
 
     <!-- Esri Leaflet Geocoder -->
-    <script src="http://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.3/esri-leaflet-geocoder.js"></script>
+    <script src="http://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.4/esri-leaflet-geocoder.js"></script>
     <link rel="stylesheet" type="text/css" href="http://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.3/esri-leaflet-geocoder.css">
   </head>
   <body>
@@ -85,7 +85,7 @@ Option | Type | Default | Description
 `zoomToResult` | `Boolean` | `true` | If `true` the map will zoom the result after geocoding is complete.
 `useMapBounds` | `Boolean` or <br> `Integer` | `12` | Determines if and when the geocoder should begin using the bounds of the map to enchance search results. If `true` the geocoder will always return results in the current map bounds. If `false` it will always search the world. If an integer like `11` is passed in the geocoder will use the bounds of the map for searching if the map is at a zoom level equal to or greater than the integer. This mean the geocoder will prefer local results when the map is zoomed in.
 `collapseAfterResult` | `Boolean` | `true` | If the geocoder is expanded after a result this will collapse it.
-`expanded` | `Boolean` | `true` | Start the control in an expanded state.
+`expanded` | `Boolean` | `false` | Start the control in an expanded state.
 `maxResults` | `Integer` | `25` | The maximum number of results to return from a geocoding request. Max is 50.
 `allowMultipleResults` | `Boolean` | `true` | If set to `true` and the user submits the form without a suggestion selected geocodes the current text in the input and zooms the user to view all the results.
 `useArcgisWorldGeocoder` | `Boolean` | `true` | Use the ArcGIS Online World Geocoder by default in the array of providers.
