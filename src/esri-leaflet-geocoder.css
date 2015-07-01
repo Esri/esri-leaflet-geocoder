@@ -1,4 +1,7 @@
 .geocoder-control-input {
+  position: absolute;
+  left: 0;
+  top: 0;
   background-color: white;
   background-repeat: no-repeat;
   background-image: url("img/search.png");
@@ -61,6 +64,8 @@ only screen and (min-device-pixel-ratio: 2) {
 .geocoder-control-suggestions {
   width: 100%;
   position: absolute;
+  top: 26px;
+  left: 0;
   margin-top: 10px;
   overflow: auto;
   display: none;

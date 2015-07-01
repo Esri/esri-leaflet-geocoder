@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>geocode bareback</title>
+    <title>mapless geocoding</title>
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
 
     <!-- Load Leaflet from CDN-->
@@ -9,21 +9,15 @@
 
     <link rel="stylesheet" href="../src/esri-leaflet-geocoder.css" />
 
-    <!--script src="../node_modules/leaflet/dist/leaflet-src.js"></script-->
     <script src="//cdn.jsdelivr.net/leaflet/0.7.3/leaflet.js"></script>
-
     <script src="../node_modules/esri-leaflet/dist/esri-leaflet.js"></script>
 
     <script src="../src/EsriLeafletGeocoding.js"></script>
     <script src="../src/Tasks/Geocode.js"></script>
-    <!--script src="../src/Tasks/ReverseGeocode.js"></script-->
     <script src="../src/Tasks/Suggest.js"></script>
     <script src="../src/Services/Geocoding.js"></script>
     <script src="../src/Controls/Geosearch.js"></script>
     <script src="../src/Providers/ArcgisOnlineGeocoder.js"></script>
-    <!--script src="../src/Providers/FeatureLayer.js"></script>
-    <script src="../src/Providers/GeocodeService.js"></script>
-    <script src="../src/Providers/MapService.js"></script-->
 
     <!-- Make the map fill the entire page -->
     <style>
@@ -35,36 +29,55 @@
         right: 0;
         display: none;
       }
+
+      /* currently not respected, and overrides suggestion text placement
+      #wholegroup {
+        text-align: center !important;
+      }-->
+      */
+
       .text-bar {
         width: 400px;
+      }
+
+      .geocoder-control-input {
+        top: 80px;
+        left: 50px;
+      }
+
+      .geocoder-control-suggestions {
+        top: 106px; /* input + 26px */
+        left: 50px;
+        max-height: 50%;
+        max-width: 400px;
       }
     </style>
   </head>
   <body>
 
-    <h1>geocode with no map!</h1>
+    <h1>who needs a map</h1>
     <form>
       <div id='wholegroup'>
-        <!--label for="address">find a location:</label-->
+        <!--label for="address">something funny:</label-->
         <input class="text-bar" type="text" id="address">
-        <!--input type="button">search-->
       </div>
     </form>
     <br><div id="results"></div>
     <div id="map"></div>
     <script>
       var map = L.map('map').setView([37.74, -121.62], 9);
+      L.esri.basemapLayer('Topographic').addTo(map);
       var search = L.esri.Geocoding.Controls.geosearch({
         inputTag: 'address',
-        expanded: false,
         placeholder: '123 main st'
-      });
-      search.initialize();
+      })// .addTo(map);
       search.onAdd(map);
 
       search.on('results', function(evt){
-        document.getElementById('results').innerHTML = 'location of matched address is: ' + evt.results[0].latlng.lat + ', ' + evt.results[0].latlng.lng;
-      })
+        document.getElementById('map').style.display = 'block';
+        // http://leafletjs.com/reference.html#map-invalidatesize
+        map.invalidateSize();
+      });
     </script>
   </body>
 </html>

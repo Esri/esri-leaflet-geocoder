@@ -1,15 +1,14 @@
 /*
 to do:
-remove the map instantiation entirely
-make height and width configurable?
-add back original css for element positions
-(and override when there is no map)
-make it so that you dont have to call onAdd (and maybe not even initialize)
-adapt the sample to zoom the map to the geocoded location automatically
+try to revert to use L.control and figure out how to override what Leaflet does to re-nest the divs in leaflet-control-container
+why isn't the font for suggestions in the css being picked up?
+how could you center align the input parent div?
+figure out why <label>s associated with the input tag are squished
+make it so youre not *forced* to declare input tag width manually
+why is the 'expanded' constructor option being ignored? (probably bound to leaflet-control-container css)
 
-show all this to pat and ask him
- 1. whether its okay that i extended L.Class instead
- 2. whether i need to decouple the css which provides style
+bigger picture
+ if/how might this benefit from a more substantial reorganization
 */
 
 EsriLeafletGeocoding.Controls.Geosearch = L.Class.extend({
@@ -187,11 +186,6 @@ EsriLeafletGeocoding.Controls.Geosearch = L.Class.extend({
     if (this._attachToMap){
       this._suggestions.style.maxHeight = (this._map.getSize().y - this._suggestions.offsetTop - this._wrapper.offsetTop - 10) + 'px';
     }
-    else {
-      // need to figure out how to make all this configurable
-      this._suggestions.style.maxHeight = '20%';
-      this._suggestions.style.maxWidth = '30%';
-    }
 
     var nodes = [];
     var list;
@@ -277,9 +271,16 @@ EsriLeafletGeocoding.Controls.Geosearch = L.Class.extend({
       this._input.title = this.options.title;
     }
     else {
-      this._wrapper = document.getElementById('wholegroup');
+      this._input = document.getElementById(this.options.inputTag);
+
+      if (this._input.parentNode){
+        this._wrapper = this._input.parentNode;
+      }
+      // else {
+      //   // something like http://stackoverflow.com/questions/11601028/create-a-parent-div-for-the-selected-element
+      // }
+
       this._wrapper.className = 'geocoder-control ' + ((this.options.expanded) ? ' ' + 'geocoder-control-expanded' : '');
-      this._input = document.getElementById('address');
       this._input.className += ' geocoder-control-input leaflet-bar';
       this._input.title = this.options.title;
     }
