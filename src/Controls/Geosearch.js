@@ -1,16 +1,3 @@
-/*
-to do:
-try to revert to use L.control and figure out how to override what Leaflet does to re-nest the divs in leaflet-control-container
-why isn't the font for suggestions in the css being picked up?
-how could you center align the input parent div?
-figure out why <label>s associated with the input tag are squished
-make it so youre not *forced* to declare input tag width manually
-why is the 'expanded' constructor option being ignored? (probably bound to leaflet-control-container css)
-
-bigger picture
- if/how might this benefit from a more substantial reorganization
-*/
-
 EsriLeafletGeocoding.Controls.Geosearch = L.Class.extend({
   includes: L.Mixin.Events,
   options: {
