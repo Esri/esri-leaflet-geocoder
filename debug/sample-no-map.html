@@ -27,54 +27,57 @@
         bottom: 0;
         left: 0;
         right: 0;
+      }
+
+      #page2 {
         display: none;
       }
 
-      /* currently not respected, and overrides suggestion text placement
       #wholegroup {
-        text-align: center !important;
-      }-->
-      */
-
-      .text-bar {
-        width: 400px;
+        display: inline-block;
+        width: 100%;
+        text-align: center;
       }
 
       .geocoder-control-input {
         position: relative;
+        width: 30%;
       }
 
       .geocoder-control-suggestions {
         position: relative;
         top: 0;
         max-height: 400px;
-        max-width: 400px;
+        max-width: 30%;
         font: 12px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
       }
     </style>
   </head>
   <body>
-
-    <h1>where would you like to go today?</h1>
     <form>
       <div id='wholegroup'>
+        <h1>where to?</h1>
         <!--label for="address">something funny:</label-->
-        <input class="text-bar" type="text" id="address" placeholder='ex. LAX'>
+        <input class="text-bar" type="text" id="address" placeholder="ex. LAX">
       </div>
     </form>
     <br><div id="results"></div>
-    <div id="map"></div>
+    <div id="page2">
+      <!--input type="button" id="again" value='again?'-->
+      <div id="map"></div>
+    </div>
     <script>
       var map = L.map('map').setView([37.74, -121.62], 9);
       L.esri.basemapLayer('Topographic').addTo(map);
       var search = L.esri.Geocoding.Controls.geosearch({
         inputTag: 'address',
-        placeholder: 'ex. LAX'
+        placeholder: 'ex. LAX',
+        expanded: true
       })// .addTo(map);
       search.onAdd(map);
 
-      search.on('results', function(evt){
-        document.getElementById('map').style.display = 'block';
+      search.on('results', function(){
+        document.getElementById('page2').style.display = 'block';
         // http://leafletjs.com/reference.html#map-invalidatesize
         map.invalidateSize();
       });
