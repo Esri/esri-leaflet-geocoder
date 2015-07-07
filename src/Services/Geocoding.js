@@ -18,10 +18,7 @@ EsriLeafletGeocoding.Services.Geocoding = Esri.Services.Service.extend({
   },
 
   suggest: function(){
-    if(this.options.url !== EsriLeafletGeocoding.WorldGeocodingService && !this.options.supportsSuggest && console && console.warn){
-      console.warn('Only the ArcGIS Online World Geocoder supports suggestions');
-      return;
-    }
+    // requires either the Esri World Geocoding Service or a 10.3 ArcGIS Server Geocoding Service that supports suggest.
     return new EsriLeafletGeocoding.Tasks.Suggest(this);
   },
 
