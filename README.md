@@ -147,19 +147,19 @@ L.esri.Geocoding.Controls.geosearch({
 * `L.esri.Geocoding.Controls.Geosearch.Providers.ArcGISOnline` - Included by default unless the `useArcgisWorldGeocoder` option is set to false.
 * `L.esri.Geocoding.Controls.Geosearch.Providers.FeatureLayer` - Gets results by querying the Feature Layer for text matches.
 * `L.esri.Geocoding.Controls.Geosearch.Providers.MapService` - Uses the find and query methods on the Map Service to get text matches.
-* `L.esri.Geocoding.Controls.Geosearch.Providers.GeocodeService` - Use a ArcGIS Server Geocode Service. This option does not support suggestions.
+* `L.esri.Geocoding.Controls.Geosearch.Providers.GeocodeService` - Use a ArcGIS Server Geocode Service.
 
 #### Provider Options
 
 Option | Type | Default | Description
 --- | --- | --- | ---
-`url` | `String` | Depends | The URL for the service that will be used to search. Varys by provider, usally a service or layer URL or a geocoding service URL.
+`url` | `String` | Depends | The URL for the service that will be used to search. Varys by provider, usually a service or layer URL or a geocoding service URL.
 `searchFields` | `Array[Strings]` | None | An array of fields to search for text. Not valid for the `ArcGISOnline` and `GeocodeService` providers.
 `layer` | `Integer` | `0` | Only valid for `MapService` providers, the layer to find text matches on.
-`label` | `String` | Provider Type | Text that will be used to group suggestions under.
+`label` | `String` | Provider Type | Text that will be used to group suggestions under when more than one provider is being used.
 `maxResults` | `Integer` | 5 | Maximum number of results to show for this provider.
 `bufferRadius`, | `Integer` | If a service or layer contains points, buffer points by this radius to create bounds. Not valid for the `ArcGISOnline` and `GeocodeService` providers
-`formatSuggestion`| `Function` | See Description | Formating function for the suggestion text. Receives a feature and returns a string.
+`formatSuggestion`| `Function` | See Description | Formating function for the suggestion text from `FeatureLayer` provider. Receives a feature and returns a string.
 
 #### Results Event
 
@@ -216,7 +216,7 @@ Constructor | Description
 
 ### Options
 
-You can pass any options you can pass to L.esri.Tasks.Task. `url` will be the ArcGIS World Geocoder by default but a custom geocoding service can also be used.
+You can pass any options you can pass to L.esri.Tasks.Task. `url` will be the [ArcGIS World Geocoder](https://developers.arcgis.com/rest/geocode/api-reference/overview-world-geocoding-service.htm) by default but a custom geocoding service can also be used.
 
 ### Methods
 
@@ -230,7 +230,7 @@ Method | Returns | Description
 `region(text <String>)` | Specify the region to be geocoded. Typically a state or province
 `postal(text <String>)` | Specify the postal code to be geocoded.
 `country(text <String>)` | Specify the country to be geocoded.
-`category(category <String>)` | The category to search for suggestions. By default no category. A list of categories can be found here https://developers.arcgis.com/rest/geocode/api-reference/geocoding-category-filtering.htm#ESRI_SECTION1_502B3FE2028145D7B189C25B1A00E17B
+`category(category <String>)` | The category to search for suggestions. By default no category. A list of categories can be found [here](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-category-filtering.htm#ESRI_SECTION1_502B3FE2028145D7B189C25B1A00E17B)
 `within(bounds <L.LatLngBounds>)` | A bounding box to search for suggestions in.
 `nearby(latlng <L.LatLng>, distance <Integer>)` | Searches for suggestions only inside an area around the LatLng. `distance` is in meters.
 `run(callback <Function>, context <Object>)` | `XMLHttpRequest` | Executes this request chain and accepts the response callback.
@@ -300,14 +300,14 @@ Constructor | Description
 
 ### Options
 
-You can pass any options you can pass to L.esri.Tasks.Task. `url` will be the ArcGIS World Geocoder by default but a custom geocoding service can also be used.
+You can pass any options you can pass to L.esri.Tasks.Task. `url` will be the [ArcGIS World Geocoder](https://developers.arcgis.com/rest/geocode/api-reference/overview-world-geocoding-service.htm) by default but a custom geocoding service can also be used.
 
 ### Methods
 
 Method | Returns | Description
 --- | --- | ---
 `text(text <String>)` | `this` | The text to recive suggestions for.
-`category(category <String>)` | The category to search for suggestions. By default no categogy. A list of categories can be found here https://developers.arcgis.com/rest/geocode/api-reference/geocoding-category-filtering.htm#ESRI_SECTION1_502B3FE2028145D7B189C25B1A00E17B
+`category(category <String>)` | The category to search for suggestions. By default no categogy. A list of categories can be found [here](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-category-filtering.htm#ESRI_SECTION1_502B3FE2028145D7B189C25B1A00E17B)
 `within(bounds <L.LatLngBounds>)` | A bounding box to search for suggestions in.
 `nearby(latlng <L.LatLng>, distance <Integer>)` | Searches for suggestions only inside an area around the LatLng. `distance` is in meters.
 `run(callback <Function>, context<Object>)` | `XMLHttpRequest` | Executes this request chain and accepts the response callback.
@@ -326,7 +326,7 @@ L.esri.Geocoding.Tasks.suggest().text('trea').nearby([45,-121], 5000).run(functi
 
 Constructor | Description
 --- | ---
-`new L.esri.Geocoding.Tasks.ReverseGeocode(options)`<br>`L.esri.Geocoding.Tasks.reverseGeocode(options)` | Creates a new ReverseGeocode task. `L.esri.Geocoding.WorldGeocodingService` can be used as a reference to the ArcGIS Online World Geocoder.
+`new L.esri.Geocoding.Tasks.ReverseGeocode(options)`<br>`L.esri.Geocoding.Tasks.reverseGeocode(options)` | Creates a new ReverseGeocode task. `L.esri.Geocoding.WorldGeocodingService` can be used as a reference to the [ArcGIS World Geocoder](https://developers.arcgis.com/rest/geocode/api-reference/overview-world-geocoding-service.htm).
 
 ### Options
 
@@ -390,7 +390,7 @@ In order the use the ArcGIS Online Geocoding Service you should signup for an [A
 This information is from the [ArcGIS for Developers Terms of Use FAQ](https://developers.arcgis.com/en/terms/faq/) and the [ArcGIS Online World Geocoder documentation](http://resources.arcgis.com/en/help/arcgis-rest-api/#/Single_input_field_geocoding/02r300000015000000/)
 
 ## Licensing
-Copyright 2013 Esri
+Copyright 2015 Esri
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

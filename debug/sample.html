@@ -44,7 +44,8 @@
 
       L.esri.Geocoding.Controls.geosearch({
         providers: [
-          new L.esri.Geocoding.Controls.Geosearch.Providers.FeatureLayer('https://services.arcgis.com/uCXeTVveQzP4IIcx/arcgis/rest/services/GIS_Day/FeatureServer/0', {
+          new L.esri.Geocoding.Controls.Geosearch.Providers.FeatureLayer({
+            url: 'https://services.arcgis.com/uCXeTVveQzP4IIcx/arcgis/rest/services/GIS_Day/FeatureServer/0',
             searchFields: ['EventName', 'Organizati'],
             label: 'GIS Day Events',
             formatSuggestion: function(feature){
