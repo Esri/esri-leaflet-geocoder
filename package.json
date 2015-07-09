@@ -9,8 +9,8 @@
     "url": "git@github.com:Esri/esri-leaflet-geocoder.git"
   },
   "scripts": {
-    "prepublish": "node -e \"require('grunt').tasks(['prepublish']);\"",
-    "test": "node -e \"require('grunt').tasks(['test']);\""
+    "prepublish": "grunt prepublish",
+    "test": "grunt test"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
@@ -41,7 +41,7 @@
   "license": "Apache 2.0",
   "readmeFilename": "README.md",
   "dependencies": {
-    "leaflet": "0.7.3",
+    "leaflet": "^0.7.3",
     "esri-leaflet": "^1.0.0"
   }
 }
