@@ -8,8 +8,8 @@ EsriLeafletGeocoding.Controls.Geosearch.Providers.MapService = L.esri.Services.M
       return feature.properties[feature.displayFieldName] + ' <small>' + feature.layerName + '</small>';
     }
   },
-  initialize: function(url, options){
-    L.esri.Services.MapService.prototype.initialize.call(this, url, options);
+  initialize: function(options){
+    L.esri.Services.MapService.prototype.initialize.call(this, options);
     this._getIdFields();
   },
   suggestions: function(text, bounds, callback){

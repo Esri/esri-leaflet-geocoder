@@ -1,4 +1,4 @@
-EsriLeafletGeocoding.Controls.Geosearch.Providers.FeatureLayer = L.esri.Services.FeatureLayer.extend({
+EsriLeafletGeocoding.Controls.Geosearch.Providers.FeatureLayer = L.esri.Services.FeatureLayerService.extend({
   options: {
     label: 'Feature Layer',
     maxResults: 5,
@@ -7,8 +7,9 @@ EsriLeafletGeocoding.Controls.Geosearch.Providers.FeatureLayer = L.esri.Services
       return feature.properties[this.options.searchFields[0]];
     }
   },
-  initialize: function(url, options){
-    L.esri.Services.FeatureLayer.prototype.initialize.call(this, url, options);
+  initialize: function(options){
+    options.url = L.esri.Util.cleanUrl(options.url);
+    L.esri.Services.FeatureLayerService.prototype.initialize.call(this, options);
     L.Util.setOptions(this, options);
     if(typeof this.options.searchFields === 'string'){
       this.options.searchFields = [this.options.searchFields];
