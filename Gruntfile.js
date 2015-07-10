@@ -120,32 +120,6 @@ module.exports = function(grunt) {
       }
     },
 
-    s3: {
-      options: {
-        key: '<%= aws.key %>',
-        secret: '<%= aws.secret %>',
-        bucket: '<%= aws.bucket %>',
-        access: 'public-read',
-        headers: {
-          // 1 Year cache policy (1000 * 60 * 60 * 24 * 365)
-          "Cache-Control": "max-age=630720000, public",
-          "Expires": new Date(Date.now() + 63072000000).toUTCString()
-        }
-      },
-      dev: {
-        upload: [
-          {
-            src: 'dist/*',
-            dest: 'esri-leaflet-geocoder/<%= pkg.version %>/'
-          },
-          {
-            src: 'dist/img/*',
-            dest: 'esri-leaflet-geocoder/<%= pkg.version %>/img'
-          }
-        ]
-      }
-    },
-
     karma: {
       options: {
         configFile: 'karma.conf.js'
@@ -180,17 +154,11 @@ module.exports = function(grunt) {
     }
   });
 
-  var awsExists = fs.existsSync(process.env.HOME + '/esri-leaflet-s3.json');
-
-  if (awsExists) {
-    grunt.config.set('aws', grunt.file.readJSON(process.env.HOME + '/esri-leaflet-s3.json'));
-  }
-
   grunt.registerTask('test', 'karma:run');
   grunt.registerTask('default', ['build']);
   grunt.registerTask('build', ['jshint', 'test', 'concat', 'uglify', 'imagemin', 'cssmin']);
   grunt.registerTask('prepublish', ['concat', 'uglify', 'imagemin', 'cssmin']);
-  grunt.registerTask('release', ['releaseable', 's3']);
+  grunt.registerTask('release', ['releaseable']);
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -199,7 +167,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-imagemin');
   grunt.loadNpmTasks('grunt-karma');
-  grunt.loadNpmTasks('grunt-s3');
   grunt.loadNpmTasks('grunt-releaseable');
 
 };
