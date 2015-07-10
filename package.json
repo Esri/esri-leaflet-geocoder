@@ -9,8 +9,8 @@
     "url": "git@github.com:Esri/esri-leaflet-geocoder.git"
   },
   "scripts": {
-    "prepublish": "node -e \"require('grunt').tasks(['prepublish']);\"",
-    "test": "node -e \"require('grunt').tasks(['test']);\""
+    "prepublish": "grunt prepublish",
+    "test": "grunt test"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
@@ -34,7 +34,8 @@
   },
   "author": "Patrick Arlt <parlt@esri.com> (http://patrickarlt.com)",
   "contributors": [
-    "Patrick Arlt <parlt@esri.com> (http://patrickarlt.com)"
+    "Patrick Arlt <parlt@esri.com> (http://patrickarlt.com)",
+    "John Gravois <jgravois@esri.com> (http://johngravois.com)"
   ],
   "license": "Apache 2.0",
   "readmeFilename": "README.md",

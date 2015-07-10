@@ -5,8 +5,34 @@ EsriLeafletGeocoding.Controls.Geosearch.Providers.GeocodeService = EsriLeafletGe
   },
 
   suggestions: function(text, bounds, callback){
-    callback(undefined, []);
-    return false;
+
+    if (this.options.supportsSuggest) {
+      var request = this.suggest().text(text);
+      if(bounds){
+        request.within(bounds);
+      }
+
+      return request.run(function(error, results, response){
+        var suggestions = [];
+        if(!error){
+          while(response.suggestions.length && suggestions.length <= (this.options.maxResults - 1)){
+            var suggestion = response.suggestions.shift();
+            if(!suggestion.isCollection){
+              suggestions.push({
+                text: suggestion.text,
+                magicKey: suggestion.magicKey
+              });
+            }
+          }
+        }
+        callback(error, suggestions);
+      }, this);
+    }
+
+    else {
+      callback(undefined, []);
+      return false;
+    }
   },
 
   results: function(text, key, bounds, callback){

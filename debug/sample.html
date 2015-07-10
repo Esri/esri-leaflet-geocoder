@@ -44,11 +44,12 @@
 
       L.esri.Geocoding.Controls.geosearch({
         providers: [
-          new L.esri.Geocoding.Controls.Geosearch.Providers.FeatureLayer('https://services.arcgis.com/uCXeTVveQzP4IIcx/arcgis/rest/services/GIS_Day/FeatureServer/0', {
-            searchFields: ['EventName', 'Organizati'],
-            label: 'GIS Day Events',
+          new L.esri.Geocoding.Controls.Geosearch.Providers.FeatureLayer({
+            url: 'http://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/2',
+            searchFields: ['NAME', 'STATE_NAME'],
+            label: 'US Counties',
             formatSuggestion: function(feature){
-              return feature.properties.EventName + ' - ' + feature.properties.Organizati;
+              return feature.properties.NAME;
             }
           })
         ]

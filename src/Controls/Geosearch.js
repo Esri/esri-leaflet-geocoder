@@ -11,7 +11,8 @@ EsriLeafletGeocoding.Controls.Geosearch = L.Control.extend({
     useArcgisWorldGeocoder: true,
     providers: [],
     placeholder: 'Search for places or addresses',
-    title: 'Location Search'
+    title: 'Location Search',
+    mapAttribution: 'Geocoding by Esri'
   },
 
   initialize: function (options) {
@@ -205,7 +206,7 @@ EsriLeafletGeocoding.Controls.Geosearch = L.Control.extend({
       var result = results[i];
 
       // make sure bounds are valid and not 0,0. sometimes bounds are incorrect or not present
-      if(result.bounds.isValid() && !result.bounds.equals(nullIsland)){
+      if(result.bounds && result.bounds.isValid() && !result.bounds.equals(nullIsland)){
         bounds.extend(result.bounds);
       }
 
@@ -234,8 +235,13 @@ EsriLeafletGeocoding.Controls.Geosearch = L.Control.extend({
   onAdd: function (map) {
     this._map = map;
 
+    // Add geocoding attribution to map. Using World Geocode Service requires default attribution.
     if (map.attributionControl) {
-      map.attributionControl.addAttribution('Geocoding by Esri');
+      if (this.options.useArcgisWorldGeocoder) {
+        map.attributionControl.addAttribution('Geocoding by Esri');
+      } else {
+        map.attributionControl.addAttribution(this.options.mapAttribution);
+      }
     }
 
     this._wrapper = L.DomUtil.create('div', 'geocoder-control ' + ((this.options.expanded) ? ' ' + 'geocoder-control-expanded'  : ''));

@@ -6,6 +6,7 @@ EsriLeafletGeocoding.Services.Geocoding = Esri.Services.Service.extend({
     options = options || {};
     options.url = options.url || EsriLeafletGeocoding.WorldGeocodingService;
     Esri.Services.Service.prototype.initialize.call(this, options);
+    this._confirmSuggestSupport();
   },
 
   geocode: function(){
@@ -17,11 +18,19 @@ EsriLeafletGeocoding.Services.Geocoding = Esri.Services.Service.extend({
   },
 
   suggest: function(){
-    if(this.options.url !== EsriLeafletGeocoding.WorldGeocodingService && console && console.warn){
-      console.warn('Only the ArcGIS Online World Geocoder supports suggestions');
-      return;
-    }
+    // requires either the Esri World Geocoding Service or a 10.3 ArcGIS Server Geocoding Service that supports suggest.
     return new EsriLeafletGeocoding.Tasks.Suggest(this);
+  },
+
+  _confirmSuggestSupport: function(){
+    this.metadata(function(error, response) {
+      if (response.capabilities.includes('Suggest')) {
+        this.options.supportsSuggest = true;
+      }
+      else {
+        this.options.supportsSuggest = false;
+      }
+    }, this);
   }
 });
 
