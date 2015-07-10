@@ -1,6 +1,6 @@
 {
   "name": "esri-leaflet-geocoder",
-  "version": "1.0.0-rc.3",
+  "version": "1.0.0",
   "description": "Esri Geocoding utilities and search plguin for Leaflet.",
   "homepage": "https://github.com/Esri/esri-leaflet-geocoder",
   "main": "dist/esri-leaflet-geocoder.js",
@@ -9,8 +9,8 @@
     "url": "git@github.com:Esri/esri-leaflet-geocoder.git"
   },
   "scripts": {
-    "prepublish": "node -e \"require('grunt').tasks(['prepublish']);\"",
-    "test": "node -e \"require('grunt').tasks(['test']);\""
+    "prepublish": "grunt prepublish",
+    "test": "grunt test"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
@@ -35,12 +35,13 @@
   },
   "author": "Patrick Arlt <parlt@esri.com> (http://patrickarlt.com)",
   "contributors": [
-    "Patrick Arlt <parlt@esri.com> (http://patrickarlt.com)"
+    "Patrick Arlt <parlt@esri.com> (http://patrickarlt.com)",
+    "John Gravois <jgravois@esri.com> (http://johngravois.com)"
   ],
   "license": "Apache 2.0",
   "readmeFilename": "README.md",
   "dependencies": {
-    "leaflet": "^0.7.0",
-    "esri-leaflet": "^1.0.0-rc.5"
+    "leaflet": "^0.7.3",
+    "esri-leaflet": "^1.0.0"
   }
 }

@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.0.0
+
+This represents the stable release of Esri Leaflet Geocoder compatible with Leaflet 0.7.3. All future 1.0.X releases will be compatible with Leaflet 0.7.3 and contain only bug fixes. New features will only be added in Esri Leaflet Geocoder 2.0.0 which will require Leaflet 1.0.0.
+
+#### Changes
+
+* Introduced support for dynamic suggestions from custom geocoding services. #65
+* Refactored code to account for changes introduced in Esri Leaflet `1.0.0`. #75
+* Fixed problem in `initialize` #63 (thanks @timwis!)
+* Plugin now dynamically sets a hard search extent when `useMapBounds` is set to true. #58
+
 ## Release Candidate 3
 
 #### Breaking Changes
@@ -70,7 +81,7 @@ Please read through the docs and changes list carefully. There has been a major 
 ## Beta 2
 
 * Fix bug in IE 10 and 11 on Windows 8 touch devices
- 
+
 ## Beta 1
 
 This is now ready for beta! This release helps finalize the API and includes lots of cross browser support.
