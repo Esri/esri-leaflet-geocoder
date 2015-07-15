@@ -20,6 +20,7 @@ coverage
 # Debugging Files
 debug/*
 !debug/sample.html
+!debug/sample-no-map.html
 
 # Built Files
 dist/**/*.js

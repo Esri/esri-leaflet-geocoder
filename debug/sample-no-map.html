@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>mapless geocoding</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+
+    <!-- Load Leaflet from CDN-->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/leaflet/0.7.3/leaflet.css" />
+
+    <link rel="stylesheet" href="../src/esri-leaflet-geocoder.css" />
+
+    <script src="//cdn.jsdelivr.net/leaflet/0.7.3/leaflet.js"></script>
+    <script src="../node_modules/esri-leaflet/dist/esri-leaflet.js"></script>
+
+    <script src="../src/EsriLeafletGeocoding.js"></script>
+    <script src="../src/Tasks/Geocode.js"></script>
+    <script src="../src/Tasks/Suggest.js"></script>
+    <script src="../src/Services/Geocoding.js"></script>
+    <script src="../src/Controls/Geosearch.js"></script>
+    <script src="../src/Providers/ArcgisOnlineGeocoder.js"></script>
+
+    <!-- Make the map fill the entire page -->
+    <style>
+      #map {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+      }
+
+      #page2 {
+        display: none;
+      }
+
+      #wholegroup {
+        display: inline-block;
+        width: 100%;
+        text-align: center;
+      }
+
+      .geocoder-control-input {
+        position: relative;
+        width: 30%;
+      }
+
+      .geocoder-control-suggestions {
+        position: relative;
+        top: 0;
+        max-height: 400px;
+        max-width: 30%;
+        font: 12px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <form>
+      <div id='wholegroup'>
+        <h1>where to?</h1>
+        <!--label for="address">something funny:</label-->
+        <input class="text-bar" type="text" id="address" placeholder="ex. LAX">
+      </div>
+    </form>
+    <br><div id="results"></div>
+    <div id="page2">
+      <!--input type="button" id="again" value='again?'-->
+      <div id="map"></div>
+    </div>
+    <script>
+      var map = L.map('map').setView([37.74, -121.62], 9);
+      L.esri.basemapLayer('Topographic').addTo(map);
+      var search = L.esri.Geocoding.Controls.geosearch({
+        inputTag: 'address',
+        placeholder: 'ex. LAX',
+        expanded: true
+      })// .addTo(map);
+      search.onAdd(map);
+
+      search.on('results', function(){
+        document.getElementById('page2').style.display = 'block';
+        // http://leafletjs.com/reference.html#map-invalidatesize
+        map.invalidateSize();
+      });
+    </script>
+  </body>
+</html>
