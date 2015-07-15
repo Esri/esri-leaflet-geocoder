@@ -24,7 +24,7 @@ EsriLeafletGeocoding.Services.Geocoding = Esri.Services.Service.extend({
 
   _confirmSuggestSupport: function(){
     this.metadata(function(error, response) {
-      if (response.capabilities.includes('Suggest')) {
+      if (response.capabilities && response.capabilities.includes('Suggest')) {
         this.options.supportsSuggest = true;
       }
       else {
