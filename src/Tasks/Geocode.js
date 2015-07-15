@@ -64,8 +64,9 @@ EsriLeafletGeocoding.Tasks.Geocode = Esri.Tasks.Task.extend({
 
     for (var i = 0; i < response.locations.length; i++) {
       var location = response.locations[i];
+      var bounds;
       if (location.extent) {
-        var bounds = Esri.Util.extentToBounds(location.extent);
+        bounds = Esri.Util.extentToBounds(location.extent);
       }
 
       results.push({
