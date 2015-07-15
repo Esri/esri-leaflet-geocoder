@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.2
+
+* Fix bug in Suggest logic affecting older versions of ArcGIS Server (#77)
+
+## 1.0.1
+
+* Fix incorrect version number in built files.
+
 ## 1.0.0
 
 This represents the stable release of Esri Leaflet Geocoder compatible with Leaflet 0.7.3. All future 1.0.X releases will be compatible with Leaflet 0.7.3 and contain only bug fixes. New features will only be added in Esri Leaflet Geocoder 2.0.0 which will require Leaflet 1.0.0.
