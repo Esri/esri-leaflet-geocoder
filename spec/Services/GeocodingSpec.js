@@ -2,7 +2,7 @@ describe('L.esri.Geocoding.Services.Geocoding', function () {
   var geocoder;
 
   beforeEach(function(){
-    geocoder = new L.esri.Geocoding.Services.Geocoding();
+    geocoder = new L.esri.Geocoding.Services.GeocodeService();
   });
 
   it('should initalize with the ArcGIS Online Geocoder URL by default', function(){

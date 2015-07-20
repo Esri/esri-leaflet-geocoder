@@ -77,7 +77,7 @@ describe('L.esri.Controls.Geosearch.Providers.MapService', function () {
 
   beforeEach(function(){
     xhr = sinon.useFakeXMLHttpRequest();
-    provider = new L.esri.Geocoding.Controls.Geosearch.Providers.MapService({
+    provider = new L.esri.Geocoding.Providers.MapServiceProvider({
       url: 'http://example.com/arcgis/arcgis/rest/services/MockService',
       layer: 0,
       searchFields: ['Name', 'OBJECTID']

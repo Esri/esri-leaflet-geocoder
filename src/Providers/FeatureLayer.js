@@ -1,34 +1,39 @@
-EsriLeafletGeocoding.Controls.Geosearch.Providers.FeatureLayer = L.esri.Services.FeatureLayerService.extend({
+import L from 'leaflet';
+import { FeatureLayerService } from 'esri-leaflet';
+
+var _FeatureLayerService = (typeof FeatureLayerService === 'undefined') ? L.esri.Services.FeatureLayerService : FeatureLayerService;
+
+export var FeatureLayerProvider = _FeatureLayerService.extend({
   options: {
     label: 'Feature Layer',
     maxResults: 5,
     bufferRadius: 1000,
-    formatSuggestion: function(feature){
+    formatSuggestion: function (feature) {
       return feature.properties[this.options.searchFields[0]];
     }
   },
-  initialize: function(options){
-    options.url = L.esri.Util.cleanUrl(options.url);
-    L.esri.Services.FeatureLayerService.prototype.initialize.call(this, options);
-    L.Util.setOptions(this, options);
-    if(typeof this.options.searchFields === 'string'){
+
+  initialize: function (options) {
+    _FeatureLayerService.prototype.initialize.call(this, options);
+    if (typeof this.options.searchFields === 'string') {
       this.options.searchFields = [this.options.searchFields];
     }
   },
-  suggestions: function(text, bounds, callback){
+
+  suggestions: function (text, bounds, callback) {
     var query = this.query().where(this._buildQuery(text))
                             .returnGeometry(false);
 
-    if(bounds){
+    if (bounds) {
       query.intersects(bounds);
     }
 
-    if(this.options.idField){
+    if (this.options.idField) {
       query.fields([this.options.idField].concat(this.options.searchFields));
     }
 
-    var request = query.run(function(error, results, raw){
-      if(error){
+    var request = query.run(function (error, results, raw) {
+      if (error) {
         callback(error, []);
       } else {
         this.options.idField = raw.objectIdFieldName;
@@ -47,24 +52,25 @@ EsriLeafletGeocoding.Controls.Geosearch.Providers.FeatureLayer = L.esri.Services
 
     return request;
   },
-  results: function(text, key, bounds, callback){
+
+  results: function (text, key, bounds, callback) {
     var query = this.query();
 
-    if(key){
+    if (key) {
       query.featureIds([key]);
     } else {
       query.where(this._buildQuery(text));
     }
 
-    if(bounds){
+    if (bounds) {
       query.within(bounds);
     }
 
-    return query.run(L.Util.bind(function(error, features){
+    return query.run(L.Util.bind(function (error, features) {
       var results = [];
       for (var i = 0; i < features.features.length; i++) {
         var feature = features.features[i];
-        if(feature){
+        if (feature) {
           var bounds = this._featureBounds(feature);
 
           var result = {
@@ -80,7 +86,8 @@ EsriLeafletGeocoding.Controls.Geosearch.Providers.FeatureLayer = L.esri.Services
       callback(error, results);
     }, this));
   },
-  _buildQuery: function(text){
+
+  _buildQuery: function (text) {
     var queryString = [];
 
     for (var i = this.options.searchFields.length - 1; i >= 0; i--) {
@@ -90,13 +97,22 @@ EsriLeafletGeocoding.Controls.Geosearch.Providers.FeatureLayer = L.esri.Services
 
     return queryString.join(' OR ');
   },
-  _featureBounds: function(feature){
+
+  _featureBounds: function (feature) {
     var geojson = L.geoJson(feature);
-    if(feature.geometry.type === 'Point'){
+    if (feature.geometry.type === 'Point') {
       var center = geojson.getBounds().getCenter();
-      return new L. Circle(center, this.options.bufferRadius).getBounds();
+      var lngRadius = ((this.options.bufferRadius / 40075017) * 360) / Math.cos((180 / Math.PI) * center.lat);
+      var latRadius = (this.options.bufferRadius / 40075017) * 360;
+      return new L.LatLngBounds([center.lat - latRadius, center.lng - lngRadius], [center.lat + latRadius, center.lng + lngRadius]);
     } else {
       return geojson.getBounds();
     }
   }
 });
+
+export function featureLayerProvider (options) {
+  return new FeatureLayerProvider(options);
+}
+
+export default featureLayerProvider;

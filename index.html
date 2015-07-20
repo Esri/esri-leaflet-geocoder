@@ -5,11 +5,10 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
 
     <!-- Load Leaflet from their CDN -->
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
-    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet-src.js"></script>
+    <link rel="stylesheet" href="node_modules/leaflet/dist/leaflet.css" />
+    <script src="/node_modules/leaflet/dist/leaflet-src.js"></script>
 
-    <!-- <script src="http://cdn-geoweb.s3.amazonaws.com/esri-leaflet/1.0.0-rc.2/esri-leaflet.js"></script> -->
-  <script src="node_modules/esri-leaflet/dist/esri-leaflet-src.js"></script>
+    <script src="/node_modules/esri-leaflet/dist/esri-leaflet.js"></script>
     <!-- Make the map fill the entire page -->
     <style>
       #map {
@@ -21,18 +20,8 @@
       }
     </style>
 
-    <script src="src/EsriLeafletGeocoding.js"></script>
-    <script src="src/Tasks/Geocode.js"></script>
-    <script src="src/Tasks/ReverseGeocode.js"></script>
-    <script src="src/Tasks/Suggest.js"></script>
-    <script src="src/Services/Geocoding.js"></script>
-    <script src="src/Controls/Geosearch.js"></script>
-    <script src="src/Providers/ArcgisOnlineGeocoder.js"></script>
-    <script src="src/Providers/FeatureLayer.js"></script>
-    <script src="src/Providers/GeocodeService.js"></script>
-    <script src="src/Providers/MapService.js"></script>
-
-    <link rel="stylesheet" href="src/esri-leaflet-geocoder.css" />
+    <script src="/dist/esri-leaflet-geocoder-src.js"></script>
+    <link rel="stylesheet" href="/dist/esri-leaflet-geocoder.css" />
 
     <style>
     #test {
@@ -53,20 +42,16 @@
 
       var tiles = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-      var searchControl = new L.esri.Geocoding.Controls.Geosearch({
+      var searchControl = L.esri.Geocoding.Controls.geosearch({
         providers: [
-          new L.esri.Geocoding.Controls.Geosearch.Providers.MapService({
-            url: 'http://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer',
-            layers: [2,3],
-            searchFields: ['NAME', 'STATE_NAME']
-          }),
-          new L.esri.Geocoding.Controls.Geosearch.Providers.FeatureLayer({
-            url: 'http://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer/0/',
-            searchFields: ['CITY_NAME'],
-            label: 'World Cities',
-            bufferRadius: 5000,
+          L.esri.Geocoding.Providers.geocodeServiceProvider(),
+          L.esri.Geocoding.Providers.featureLayerProvider({
+            url: '//services.arcgis.com/uCXeTVveQzP4IIcx/arcgis/rest/services/gisday/FeatureServer/0/',
+            searchFields: ['Name', 'Organization'],
+            label: 'GIS Day Events',
+            bufferRadius: 20000,
             formatSuggestion: function(feature){
-              return feature.properties.CITY_NAME + ' - Population: ' + feature.properties.POP;
+              return feature.properties.Name + ' - ' + feature.properties.Organization;
             }
           })
         ]

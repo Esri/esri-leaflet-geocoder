@@ -1,7 +1,14 @@
-EsriLeafletGeocoding.Tasks.Geocode = Esri.Tasks.Task.extend({
+import L from 'leaflet';
+import { Task, Util } from 'esri-leaflet';
+import { WorldGeocodingServiceUrl } from '../EsriLeafletGeocoding.js';
+
+var _Task = (typeof Task === 'undefined') ? L.esri.Tasks.Task : Task;
+var _Util = (typeof Util === 'undefined') ? L.esri.Util : Util;
+
+export var Geocode = _Task.extend({
   path: 'find',
 
-  params : {
+  params: {
     outSr: 4326,
     forStorage: false,
     outFields: '*',
@@ -17,55 +24,55 @@ EsriLeafletGeocoding.Tasks.Geocode = Esri.Tasks.Task.extend({
     'postal': 'postal',
     'country': 'country',
     'text': 'text',
-    'category': 'category[]',
-    'token' : 'token',
+    'category': 'category',
+    'token': 'token',
     'key': 'magicKey',
-    'fields': 'outFields[]',
+    'fields': 'outFields',
     'forStorage': 'forStorage',
     'maxLocations': 'maxLocations'
   },
 
-  initialize: function(options){
+  initialize: function (options) {
     options = options || {};
-    options.url = options.url || EsriLeafletGeocoding.WorldGeocodingService;
-    Esri.Tasks.Task.prototype.initialize.call(this, options);
+    options.url = options.url || WorldGeocodingServiceUrl;
+    _Task.prototype.initialize.call(this, options);
   },
 
-  within: function(bounds){
+  within: function (bounds) {
     bounds = L.latLngBounds(bounds);
-    this.params.bbox = Esri.Util.boundsToExtent(bounds);
+    this.params.bbox = _Util.boundsToExtent(bounds);
     return this;
   },
 
-  nearby: function(latlng, radius){
+  nearby: function (latlng, radius) {
     latlng = L.latLng(latlng);
     this.params.location = latlng.lng + ',' + latlng.lat;
     this.params.distance = Math.min(Math.max(radius, 2000), 50000);
     return this;
   },
 
-  run: function(callback, context){
+  run: function (callback, context) {
     this.path = (this.params.text) ? 'find' : 'findAddressCandidates';
 
-    if(this.path === 'findAddressCandidates' && this.params.bbox) {
+    if (this.path === 'findAddressCandidates' && this.params.bbox) {
       this.params.searchExtent = this.params.bbox;
       delete this.params.bbox;
     }
 
-    return this.request(function(error, response){
+    return this.request(function (error, response) {
       var processor = (this.path === 'find') ? this._processFindResponse : this._processFindAddressCandidatesResponse;
       var results = (!error) ? processor(response) : undefined;
       callback.call(context, error, { results: results }, response);
     }, this);
   },
 
-  _processFindResponse: function(response){
+  _processFindResponse: function (response) {
     var results = [];
 
     for (var i = 0; i < response.locations.length; i++) {
       var location = response.locations[i];
       if (location.extent) {
-        var bounds = Esri.Util.extentToBounds(location.extent);
+        var bounds = _Util.extentToBounds(location.extent);
       }
 
       results.push({
@@ -80,12 +87,12 @@ EsriLeafletGeocoding.Tasks.Geocode = Esri.Tasks.Task.extend({
     return results;
   },
 
-  _processFindAddressCandidatesResponse: function(response){
+  _processFindAddressCandidatesResponse: function (response) {
     var results = [];
 
     for (var i = 0; i < response.candidates.length; i++) {
       var candidate = response.candidates[i];
-      var bounds = Esri.Util.extentToBounds(candidate.extent);
+      var bounds = _Util.extentToBounds(candidate.extent);
 
       results.push({
         text: candidate.address,
@@ -101,6 +108,8 @@ EsriLeafletGeocoding.Tasks.Geocode = Esri.Tasks.Task.extend({
 
 });
 
-EsriLeafletGeocoding.Tasks.geocode = function(options){
-  return new EsriLeafletGeocoding.Tasks.Geocode(options);
-};
+export function geocode (options) {
+  return new Geocode(options);
+}
+
+export default geocode;

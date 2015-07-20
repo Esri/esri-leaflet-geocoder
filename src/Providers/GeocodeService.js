@@ -1,23 +1,25 @@
-EsriLeafletGeocoding.Controls.Geosearch.Providers.GeocodeService = EsriLeafletGeocoding.Services.Geocoding.extend({
+import { GeocodeService } from '../Services/Geocode.js';
+
+export var GeocodeServiceProvider = GeocodeService.extend({
   options: {
     label: 'Geocode Server',
     maxResults: 5
   },
 
-  suggestions: function(text, bounds, callback){
+  suggestions: function (text, bounds, callback) {
 
     if (this.options.supportsSuggest) {
       var request = this.suggest().text(text);
-      if(bounds){
+      if (bounds) {
         request.within(bounds);
       }
 
-      return request.run(function(error, results, response){
+      return request.run(function (error, results, response) {
         var suggestions = [];
-        if(!error){
-          while(response.suggestions.length && suggestions.length <= (this.options.maxResults - 1)){
+        if (!error) {
+          while (response.suggestions.length && suggestions.length <= (this.options.maxResults - 1)) {
             var suggestion = response.suggestions.shift();
-            if(!suggestion.isCollection){
+            if (!suggestion.isCollection) {
               suggestions.push({
                 text: suggestion.text,
                 magicKey: suggestion.magicKey
@@ -27,25 +29,29 @@ EsriLeafletGeocoding.Controls.Geosearch.Providers.GeocodeService = EsriLeafletGe
         }
         callback(error, suggestions);
       }, this);
-    }
-
-    else {
+    } else {
       callback(undefined, []);
       return false;
     }
   },
 
-  results: function(text, key, bounds, callback){
+  results: function (text, key, bounds, callback) {
     var request = this.geocode().text(text);
 
     request.maxLocations(this.options.maxResults);
 
-    if(bounds){
+    if (bounds) {
       request.within(bounds);
     }
 
-    return request.run(function(error, response){
+    return request.run(function (error, response) {
       callback(error, response.results);
     }, this);
   }
 });
+
+export function geocodeServiceProvider (options) {
+  return new GeocodeServiceProvider(options);
+}
+
+export default geocodeServiceProvider;

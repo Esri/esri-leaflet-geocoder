@@ -8,7 +8,7 @@ describe('L.esri.Controls.Geosearch.Providers.FeatureLayer', function () {
 
   beforeEach(function(){
     xhr = sinon.useFakeXMLHttpRequest();
-    provider = new L.esri.Geocoding.Controls.Geosearch.Providers.FeatureLayer({
+    provider = new L.esri.Geocoding.Providers.FeatureLayerProvider({
       url: 'http://example.com/arcgis/arcgis/rest/services/MockService/0',
       searchFields: ['Name']
     });

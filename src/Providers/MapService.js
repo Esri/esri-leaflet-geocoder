@@ -1,23 +1,30 @@
-EsriLeafletGeocoding.Controls.Geosearch.Providers.MapService = L.esri.Services.MapService.extend({
+import L from 'leaflet';
+import { MapService } from 'esri-leaflet';
+
+var _MapService = (typeof MapService === 'undefined') ? L.esri.Services.MapService : MapService;
+
+export var MapServiceProvider = _MapService.extend({
   options: {
     layers: [0],
     label: 'Map Service',
     bufferRadius: 1000,
     maxResults: 5,
-    formatSuggestion: function(feature){
+    formatSuggestion: function (feature) {
       return feature.properties[feature.displayFieldName] + ' <small>' + feature.layerName + '</small>';
     }
   },
-  initialize: function(options){
-    L.esri.Services.MapService.prototype.initialize.call(this, options);
+
+  initialize: function (options) {
+    _MapService.prototype.initialize.call(this, options);
     this._getIdFields();
   },
-  suggestions: function(text, bounds, callback){
+
+  suggestions: function (text, bounds, callback) {
     var request = this.find().text(text).fields(this.options.searchFields).returnGeometry(false).layers(this.options.layers);
 
-    return request.run(function(error, results, raw){
+    return request.run(function (error, results, raw) {
       var suggestions = [];
-      if(!error){
+      if (!error) {
         var count = Math.min(this.options.maxResults, results.features.length);
         raw.results = raw.results.reverse();
         for (var i = 0; i < count; i++) {
@@ -28,7 +35,7 @@ EsriLeafletGeocoding.Controls.Geosearch.Providers.MapService = L.esri.Services.M
           feature.layerId = layer;
           feature.layerName = this._layerNames[layer];
           feature.displayFieldName = this._displayFields[layer];
-          if(idField){
+          if (idField) {
             suggestions.push({
               text: this.options.formatSuggestion.call(this, feature),
               magicKey: result.attributes[idField] + ':' + layer
@@ -39,11 +46,12 @@ EsriLeafletGeocoding.Controls.Geosearch.Providers.MapService = L.esri.Services.M
       callback(error, suggestions.reverse());
     }, this);
   },
-  results: function(text, key, bounds, callback){
+
+  results: function (text, key, bounds, callback) {
     var results = [];
     var request;
 
-    if(key){
+    if (key) {
       var featureId = key.split(':')[0];
       var layer = key.split(':')[1];
       request = this.query().layer(layer).featureIds(featureId);
@@ -51,17 +59,16 @@ EsriLeafletGeocoding.Controls.Geosearch.Providers.MapService = L.esri.Services.M
       request = this.find().text(text).fields(this.options.searchFields).contains(false).layers(this.options.layers);
     }
 
-    return request.run(function(error, features, response){
-      if(!error){
-        if(response.results){
+    return request.run(function (error, features, response) {
+      if (!error) {
+        if (response.results) {
           response.results = response.results.reverse();
         }
         for (var i = 0; i < features.features.length; i++) {
           var feature = features.features[i];
           layer = (layer) ? layer : response.results[i].layerId;
-          if(feature && layer !== undefined) {
+          if (feature && layer !== undefined) {
             var bounds = this._featureBounds(feature);
-            var idField = this._idFields[layer];
             feature.layerId = layer;
             feature.layerName = this._layerNames[layer];
             feature.displayFieldName = this._displayFields[layer];
@@ -78,29 +85,35 @@ EsriLeafletGeocoding.Controls.Geosearch.Providers.MapService = L.esri.Services.M
       callback(error, results.reverse());
     }, this);
   },
-  _featureBounds: function(feature){
+
+  _featureBounds: function (feature) {
     var geojson = L.geoJson(feature);
-    if(feature.geometry.type === 'Point'){
+    if (feature.geometry.type === 'Point') {
       var center = geojson.getBounds().getCenter();
-      return new L. Circle(center, this.options.bufferRadius).getBounds();
+      var lngRadius = ((this.options.bufferRadius / 40075017) * 360) / Math.cos((180 / Math.PI) * center.lat);
+      var latRadius = (this.options.bufferRadius / 40075017) * 360;
+      return new L.LatLngBounds([center.lat - latRadius, center.lng - lngRadius], [center.lat + latRadius, center.lng + lngRadius]);
     } else {
       return geojson.getBounds();
     }
   },
-  _layerMetadataCallback: function(layerid){
-    return L.Util.bind(function(error, metadata){
+
+  _layerMetadataCallback: function (layerid) {
+    return L.Util.bind(function (error, metadata) {
+      if (error) { return; }
       this._displayFields[layerid] = metadata.displayField;
       this._layerNames[layerid] = metadata.name;
       for (var i = 0; i < metadata.fields.length; i++) {
         var field = metadata.fields[i];
-        if(field.type === 'esriFieldTypeOID'){
+        if (field.type === 'esriFieldTypeOID') {
           this._idFields[layerid] = field.name;
           break;
         }
       }
     }, this);
   },
-  _getIdFields: function(){
+
+  _getIdFields: function () {
     this._idFields = {};
     this._displayFields = {};
     this._layerNames = {};
@@ -110,3 +123,9 @@ EsriLeafletGeocoding.Controls.Geosearch.Providers.MapService = L.esri.Services.M
     }
   }
 });
+
+export function mapServiceProvider (options) {
+  return new MapServiceProvider(options);
+}
+
+export default mapServiceProvider;

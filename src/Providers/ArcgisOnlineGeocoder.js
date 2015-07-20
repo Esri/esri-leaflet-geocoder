@@ -1,22 +1,25 @@
-EsriLeafletGeocoding.Controls.Geosearch.Providers.ArcGISOnline = EsriLeafletGeocoding.Services.Geocoding.extend({
+import { GeocodeService } from '../Services/Geocode.js';
+
+export var ArcgisOnlineProvider = GeocodeService.extend({
   options: {
     label: 'Places and Addresses',
-    maxResults: 5
+    maxResults: 5,
+    attribution: '<a href="https://developers.arcgis.com/en/features/geocoding/">Geocoding by Esri</a>'
   },
 
-  suggestions: function(text, bounds, callback){
+  suggestions: function (text, bounds, callback) {
     var request = this.suggest().text(text);
 
-    if(bounds){
+    if (bounds) {
       request.within(bounds);
     }
 
-    return request.run(function(error, results, response){
+    return request.run(function (error, results, response) {
       var suggestions = [];
-      if(!error){
-        while(response.suggestions.length && suggestions.length <= (this.options.maxResults - 1)){
+      if (!error) {
+        while (response.suggestions.length && suggestions.length <= (this.options.maxResults - 1)) {
           var suggestion = response.suggestions.shift();
-          if(!suggestion.isCollection){
+          if (!suggestion.isCollection) {
             suggestions.push({
               text: suggestion.text,
               magicKey: suggestion.magicKey
@@ -28,25 +31,31 @@ EsriLeafletGeocoding.Controls.Geosearch.Providers.ArcGISOnline = EsriLeafletGeoc
     }, this);
   },
 
-  results: function(text, key, bounds, callback){
+  results: function (text, key, bounds, callback) {
     var request = this.geocode().text(text);
 
-    if(key){
+    if (key) {
       request.key(key);
     } else {
       request.maxLocations(this.options.maxResults);
     }
 
-    if(bounds){
+    if (bounds) {
       request.within(bounds);
     }
 
-    if(this.options.forStorage){
+    if (this.options.forStorage) {
       request.forStorage(true);
     }
 
-    return request.run(function(error, response){
+    return request.run(function (error, response) {
       callback(error, response.results);
     }, this);
   }
 });
+
+export function arcgisOnlineProvider (options) {
+  return new ArcgisOnlineProvider(options);
+}
+
+export default arcgisOnlineProvider;

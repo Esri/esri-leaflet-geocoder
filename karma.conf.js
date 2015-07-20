@@ -1,6 +1,6 @@
 // Generated on Fri May 30 2014 15:44:45 GMT-0400 (EDT)
 
-module.exports = function(config) {
+module.exports = function (config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -14,13 +14,9 @@ module.exports = function(config) {
     files: [
       'node_modules/leaflet/dist/leaflet.css',
       'node_modules/leaflet/dist/leaflet.js',
-      'node_modules/esri-leaflet/dist/esri-leaflet-src.js',
-      'spec/**/*Spec.js',
-      'src/EsriLeafletGeocoding.js',
-      'src/Tasks/**/*.js',
-      'src/Services/**/*.js',
-      'src/Controls/**/*.js',
-      'src/Providers/**/*.js'
+      'node_modules/esri-leaflet/dist/esri-leaflet.js',
+      './dist/esri-leaflet-geocoder-src.js',
+      'spec/**/*Spec.js'
     ],
 
     // list of files to exclude
@@ -28,12 +24,14 @@ module.exports = function(config) {
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: {},
+    preprocessors: {
+      'dist/**/*.js': ['sourcemap', 'coverage']
+    },
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['mocha', 'coverage'],
 
     // web server port
     port: 9876,
@@ -64,9 +62,19 @@ module.exports = function(config) {
 
     // Configure the coverage reporters
     coverageReporter: {
-      reporters:[
-        {type: 'html', dir:'coverage/'},
-        {type: 'text'}
+      instrumenters: {
+        isparta: require('isparta')
+      },
+      instrumenter: {
+        'src/**/*.js': 'isparta'
+      },
+      reporters: [
+        {
+          type: 'html',
+          dir: 'coverage/'
+        }, {
+          type: 'text'
+        }
       ]
     }
   });

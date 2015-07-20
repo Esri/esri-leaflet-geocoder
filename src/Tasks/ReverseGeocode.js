@@ -1,7 +1,13 @@
-EsriLeafletGeocoding.Tasks.ReverseGeocode = Esri.Tasks.Task.extend({
+import L from 'leaflet';
+import { Task } from 'esri-leaflet';
+import { WorldGeocodingServiceUrl } from '../EsriLeafletGeocoding.js';
+
+var _Task = (typeof Task === 'undefined') ? L.esri.Tasks.Task : Task;
+
+export var ReverseGeocode = _Task.extend({
   path: 'reverseGeocode',
 
-  params : {
+  params: {
     outSR: 4326
   },
 
@@ -10,10 +16,10 @@ EsriLeafletGeocoding.Tasks.ReverseGeocode = Esri.Tasks.Task.extend({
     'language': 'language'
   },
 
-  initialize: function(options){
+  initialize: function (options) {
     options = options || {};
-    options.url = options.url || EsriLeafletGeocoding.WorldGeocodingService;
-    Esri.Tasks.Task.prototype.initialize.call(this, options);
+    options.url = options.url || WorldGeocodingServiceUrl;
+    _Task.prototype.initialize.call(this, options);
   },
 
   latlng: function (latlng) {
@@ -22,11 +28,11 @@ EsriLeafletGeocoding.Tasks.ReverseGeocode = Esri.Tasks.Task.extend({
     return this;
   },
 
-  run: function(callback, context){
-    return this.request(function(error, response){
+  run: function (callback, context) {
+    return this.request(function (error, response) {
       var result;
 
-      if(!error){
+      if (!error) {
         result = {
           latlng: new L.LatLng(response.location.y, response.location.x),
           address: response.address
@@ -40,6 +46,8 @@ EsriLeafletGeocoding.Tasks.ReverseGeocode = Esri.Tasks.Task.extend({
   }
 });
 
-EsriLeafletGeocoding.Tasks.reverseGeocode = function(options){
-  return new EsriLeafletGeocoding.Tasks.ReverseGeocode(options);
-};
+export function reverseGeocode (options) {
+  return new ReverseGeocode(options);
+}
+
+export default reverseGeocode;
