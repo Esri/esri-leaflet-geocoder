@@ -18,18 +18,18 @@ esperanto.bundle({
   var transpiled = bundle.toUmd({
     strict: true,
     sourceMap: true,
-    sourceMapFile: './esri-leaflet-geocoding-src.js',
+    sourceMapFile: './esri-leaflet-geocoder-src.js',
     name: 'L.esri.Geocoding'
   });
 
   var compressed = minify(transpiled.code, {
     fromString: true,
     inSourceMap: JSON.parse(transpiled.map),
-    outSourceMap: './esri-leaflet-geocoding.js.map'
+    outSourceMap: './esri-leaflet-geocoder.js.map'
   });
 
-  fs.writeFileSync(path.join('dist', 'esri-leaflet-geocoding.js'), copyright + compressed.code);
-  fs.writeFileSync(path.join('dist', 'esri-leaflet-geocoding.js.map'), compressed.map);
+  fs.writeFileSync(path.join('dist', 'esri-leaflet-geocoder.js'), copyright + compressed.code);
+  fs.writeFileSync(path.join('dist', 'esri-leaflet-geocoder.js.map'), compressed.map);
   process.exit(0);
 
 }).catch(function (error) {
