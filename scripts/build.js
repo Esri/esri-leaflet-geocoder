@@ -1,37 +1,45 @@
 #!/usr/bin/env node
 
-var esperanto = require('esperanto');
 var path = require('path');
-var minify = require('uglify-js').minify;
 var fs = require('fs');
+var rollup = require('rollup').rollup;
+var UglifyJS = require('uglify-js');
 var pkg = require('../package.json');
 
-var copyright = '/*! ' + pkg.name + ' - v' + pkg.version + ' - ' + new Date().toDateString() + '\n' +
-                '*   Copyright (c) ' + new Date().getFullYear() + ' Environmental Systems Research Institute, Inc.\n' +
-                '*   ' + pkg.license + ' ' +
-                '*/\n';
+var copyright = '/* ' + pkg.name + ' - v' + pkg.version + ' - ' + new Date().toDateString() + '\n' +
+                ' * Copyright (c) ' + new Date().getFullYear() + ' Environmental Systems Research Institute, Inc.\n' +
+                ' * ' + pkg.license + ' */';
 
-esperanto.bundle({
-  entry: path.resolve('src/EsriLeafletGeocoding.js'),
-  skip: ['leaflet', 'esri-leaflet']
+rollup({
+  entry: path.resolve('src/EsriLeafletGeocoder.js'),
+  external: ['leaflet', 'esri-leaflet']
 }).then(function (bundle) {
-  var transpiled = bundle.toUmd({
-    strict: true,
+  var transpiled = bundle.generate({
+    format: 'umd',
     sourceMap: true,
-    sourceMapFile: './esri-leaflet-geocoder-src.js',
-    name: 'L.esri.Geocoding'
+    sourceMapFile: 'esri-leaflet-geocoder.js',
+    moduleName: 'L.esri.geocoding'
   });
 
-  var compressed = minify(transpiled.code, {
-    fromString: true,
-    inSourceMap: JSON.parse(transpiled.map),
-    outSourceMap: './esri-leaflet-geocoder.js.map'
+  var source_map = UglifyJS.SourceMap({
+    file: 'esri-leaflet-geocoder.js',
+    root: process.cwd(),
+    orig: JSON.parse(transpiled.map)
   });
 
-  fs.writeFileSync(path.join('dist', 'esri-leaflet-geocoder.js'), copyright + compressed.code);
-  fs.writeFileSync(path.join('dist', 'esri-leaflet-geocoder.js.map'), compressed.map);
+  var stream = UglifyJS.OutputStream({
+    preamble: copyright,
+    source_map: source_map
+  });
+
+  UglifyJS.parse(transpiled.code).print(stream);
+
+  var code = stream.toString();
+  var map = source_map.toString().replace(new RegExp(path.join(process.cwd(), 'src'), 'g'), '../src');
+
+  fs.writeFileSync(path.join('dist', 'esri-leaflet-geocoder.js'), code + '\n//# sourceMappingURL=./esri-leaflet-geocoder.js.map');
+  fs.writeFileSync(path.join('dist', 'esri-leaflet-geocoder.js.map'), map);
   process.exit(0);
-
 }).catch(function (error) {
   console.log(error);
   process.exit(1);

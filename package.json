@@ -13,15 +13,14 @@
     "lint": "semistandard src/**/*.js",
     "css": "node-sass ./src/esri-leaflet-geocoder.css ./dist/esri-leaflet-geocoder.css --output-style compressed",
     "img": "imagemin ./src/img ./dist/img",
-    "prepublish": "./scripts/build.js && npm run css && npm run img",
-    "pretest": "esperanto -i src/EsriLeafletGeocoding.js -o ./dist/esri-leaflet-geocoder-src.js --skip=leaflet,esri-leaflet --t umd --strict --name L.esri.Geocoding --bundle -m inline",
+    "prepublish": "npm run build",
+    "build": "./scripts/build.js && npm run css && npm run img",
+    "pretest": "npm run build",
     "test": "npm run lint && karma start",
-    "posttest": "rm ./dist/esri-leaflet-geocoder-src.js",
     "release": "./scripts/release.sh"
   },
   "devDependencies": {
     "chai": "2.3.0",
-    "esperanto": "^0.7.3",
     "gh-release": "^2.0.0",
     "imagemin": "^3.2.0",
     "isparta": "^3.0.3",
@@ -56,14 +55,5 @@
     "dist/esri-leaflet-geocoder.js",
     "dist/esri-leaflet-geocoder.css",
     "dist/img"
-  ],
-  "jspm": {
-    "main": "./index.js",
-    "directories": {
-      "lib": "./lib"
-    },
-    "registry": "npm",
-    "format": "es6"
-  },
-  "jsnext:main": "./index.js"
+  ]
 }

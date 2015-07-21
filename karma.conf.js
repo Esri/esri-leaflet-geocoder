@@ -15,7 +15,7 @@ module.exports = function (config) {
       'node_modules/leaflet/dist/leaflet.css',
       'node_modules/leaflet/dist/leaflet.js',
       'node_modules/esri-leaflet/dist/esri-leaflet.js',
-      './dist/esri-leaflet-geocoder-src.js',
+      './dist/esri-leaflet-geocoder.js',
       'spec/**/*Spec.js'
     ],
 
