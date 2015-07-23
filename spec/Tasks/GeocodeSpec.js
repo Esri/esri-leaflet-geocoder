@@ -1,4 +1,4 @@
-describe('L.esri.Tasks.Geocode', function () {
+describe('L.esri.Geocode', function () {
   var sampleFindResponse = JSON.stringify({
     'spatialReference': {
       'wkid': 4326,
@@ -231,7 +231,7 @@ describe('L.esri.Tasks.Geocode', function () {
   });
 
   it('should make a basic geocode request to ArcGIS Online', function(done){
-    var request = new L.esri.Geocoding.Tasks.geocode().text('380 New York St, Redlands, California, 92373').run(function(err, response){
+    var request = new L.esri.Geocoding.geocode().text('380 New York St, Redlands, California, 92373').run(function(err, response){
       expect(response.results[0].latlng.lat).to.equal(34.056490727765947);
       expect(response.results[0].latlng.lng).to.equal(-117.19566584280369);
       expect(response.results[0].text).to.equal('380 New York St, Redlands, California, 92373');
@@ -247,7 +247,7 @@ describe('L.esri.Tasks.Geocode', function () {
   });
 
   it('should make a basic find request to a Geocode Service', function(done){
-    var request = new L.esri.Geocoding.Tasks.geocode({
+    var request = new L.esri.Geocoding.geocode({
       url: 'http://gis.example.com/arcgis/rest/services/Geocoder'
     }).text('380 New York St, Redlands, California, 92373').run(function(err, response){
       expect(response.results[0].latlng.lat).to.equal(34.056490727765947);
@@ -265,7 +265,7 @@ describe('L.esri.Tasks.Geocode', function () {
   });
 
   it('should make a findAddressCanidates request to ArcGIS Online', function(done){
-    var request = new L.esri.Geocoding.Tasks.geocode().address('380 New York St').city('Redlands').region('California').postal(92373).run(function(err, response){
+    var request = new L.esri.Geocoding.geocode().address('380 New York St').city('Redlands').region('California').postal(92373).run(function(err, response){
       expect(response.results[0].latlng.lat).to.equal(34.056490727765947);
       expect(response.results[0].latlng.lng).to.equal(-117.19566584280369);
       expect(response.results[0].text).to.equal('380 New York St, Redlands, California, 92373');
@@ -284,7 +284,7 @@ describe('L.esri.Tasks.Geocode', function () {
   });
 
   it('should make a findAddressCanidates request to a Geocode Service', function(done){
-    var request = new L.esri.Geocoding.Tasks.geocode({
+    var request = new L.esri.Geocoding.geocode({
       url:'http://gis.example.com/arcgis/rest/services/Geocoder'
     }).address('380 New York St').city('Redlands').region('California').postal(92373).run(function(err, response){
       expect(response.results[0].latlng.lat).to.equal(34.056490727765947);
@@ -309,7 +309,7 @@ describe('L.esri.Tasks.Geocode', function () {
         northEast = L.latLng(34.0600, -117.1900),
         bounds = L.latLngBounds(southWest, northEast);
 
-    var request = new L.esri.Geocoding.Tasks.geocode().text('380 New York St').within(bounds).run(function(err, response){
+    var request = new L.esri.Geocoding.geocode().text('380 New York St').within(bounds).run(function(err, response){
       expect(response.results[0].latlng.lat).to.equal(34.056490511029324);
       expect(response.results[0].latlng.lng).to.equal(-117.19566602536605);
       expect(response.results[0].text).to.equal('380 New York St, Redlands, California, 92373');
@@ -329,7 +329,7 @@ describe('L.esri.Tasks.Geocode', function () {
   it('should make a `nearby` request to ArcGIS Online', function(done){
     var denver = L.latLng(37.712, -108.227);
 
-    var request = new L.esri.Geocoding.Tasks.geocode().text('Highlands Ranch').nearby(denver, 10000).run(function(err, response){
+    var request = new L.esri.Geocoding.geocode().text('Highlands Ranch').nearby(denver, 10000).run(function(err, response){
       expect(response.results[0].latlng.lat).to.equal(39.55387558400048);
       expect(response.results[0].latlng.lng).to.equal(-104.96942569799967);
       expect(response.results[0].text).to.equal('Highlands Ranch, Colorado, United States');

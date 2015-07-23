@@ -2,9 +2,7 @@ import L from 'leaflet';
 import { Task } from 'esri-leaflet';
 import { WorldGeocodingServiceUrl } from '../EsriLeafletGeocoding.js';
 
-var _Task = (typeof Task === 'undefined') ? L.esri.Tasks.Task : Task;
-
-export var ReverseGeocode = _Task.extend({
+export var ReverseGeocode = Task.extend({
   path: 'reverseGeocode',
 
   params: {
@@ -19,7 +17,7 @@ export var ReverseGeocode = _Task.extend({
   initialize: function (options) {
     options = options || {};
     options.url = options.url || WorldGeocodingServiceUrl;
-    _Task.prototype.initialize.call(this, options);
+    Task.prototype.initialize.call(this, options);
   },
 
   latlng: function (latlng) {

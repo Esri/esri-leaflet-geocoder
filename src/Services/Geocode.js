@@ -1,17 +1,14 @@
-import L from 'leaflet';
 import { Service } from 'esri-leaflet';
 import { WorldGeocodingServiceUrl } from '../EsriLeafletGeocoding.js';
 import geocode from '../Tasks/Geocode.js';
 import reverseGeocode from '../Tasks/ReverseGeocode.js';
 import suggest from '../Tasks/Suggest.js';
 
-var _Service = (typeof Service === 'undefined') ? L.esri.Services.Service : Service;
-
-export var GeocodeService = _Service.extend({
+export var GeocodeService = Service.extend({
   initialize: function (options) {
     options = options || {};
     options.url = options.url || WorldGeocodingServiceUrl;
-    _Service.prototype.initialize.call(this, options);
+    Service.prototype.initialize.call(this, options);
     this._confirmSuggestSupport();
   },
 

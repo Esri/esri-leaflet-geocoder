@@ -1,4 +1,4 @@
-describe('L.esri.Tasks.Suggest', function () {
+describe('L.esri.Suggest', function () {
 
   var sampleResponse = JSON.stringify({
     'suggestions': [
@@ -41,7 +41,7 @@ describe('L.esri.Tasks.Suggest', function () {
   });
 
   it('should make a suggest request to ArcGIS Online', function(done){
-    var request = L.esri.Geocoding.Tasks.suggest().text('trea').run(function(error, response){
+    var request = L.esri.Geocoding.suggest().text('trea').run(function(error, response){
       expect(response.suggestions.length).to.equal(5);
       done();
     });
@@ -53,7 +53,7 @@ describe('L.esri.Tasks.Suggest', function () {
   });
 
   it('should make a suggest request with a nearby filter', function(done){
-    var request = L.esri.Geocoding.Tasks.suggest().text('trea').nearby([45,-121], 5000).run(function(error, response){
+    var request = L.esri.Geocoding.suggest().text('trea').nearby([45,-121], 5000).run(function(error, response){
       expect(response.suggestions.length).to.equal(5);
       done();
     });
@@ -65,7 +65,7 @@ describe('L.esri.Tasks.Suggest', function () {
   });
 
   it('should make a suggest request with a bounds filter', function(done){
-    var request = L.esri.Geocoding.Tasks.suggest().text('trea').within([[0,0],[100,100]]).run(function(error, response){
+    var request = L.esri.Geocoding.suggest().text('trea').within([[0,0],[100,100]]).run(function(error, response){
       expect(response.suggestions.length).to.equal(5);
       done();
     });

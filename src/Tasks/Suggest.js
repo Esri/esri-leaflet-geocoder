@@ -2,13 +2,7 @@ import L from 'leaflet';
 import { Task, Util } from 'esri-leaflet';
 import { WorldGeocodingServiceUrl } from '../EsriLeafletGeocoding.js';
 
-// becuse esri-leaflet was ignored from the build AND we want
-// to support custom builds remap the imports from esri-leaflet
-// if they are undefined to the globals
-var _Task = (typeof Task === 'undefined') ? L.esri.Tasks.Task : Task;
-var _Util = (typeof Util === 'undefined') ? L.esri.Util : Util;
-
-export var Suggest = _Task.extend({
+export var Suggest = Task.extend({
   path: 'suggest',
 
   params: {},
@@ -21,7 +15,7 @@ export var Suggest = _Task.extend({
   initialize: function (options) {
     options = options || {};
     options.url = options.url || WorldGeocodingServiceUrl;
-    _Task.prototype.initialize.call(this, options);
+    Task.prototype.initialize.call(this, options);
   },
 
   within: function (bounds) {
@@ -31,7 +25,7 @@ export var Suggest = _Task.extend({
     var ne = bounds.getNorthWest();
     this.params.location = center.lng + ',' + center.lat;
     this.params.distance = Math.min(Math.max(center.distanceTo(ne), 2000), 50000);
-    this.params.searchExtent = _Util.boundsToExtent(bounds);
+    this.params.searchExtent = Util.boundsToExtent(bounds);
     return this;
   },
 

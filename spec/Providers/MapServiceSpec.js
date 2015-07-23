@@ -1,4 +1,4 @@
-describe('L.esri.Controls.Geosearch.Providers.MapService', function () {
+describe('L.esri.Controls.Geosearch.MapService', function () {
 
   var sampleFindResponse = JSON.stringify({
     'results': [
@@ -77,7 +77,7 @@ describe('L.esri.Controls.Geosearch.Providers.MapService', function () {
 
   beforeEach(function(){
     xhr = sinon.useFakeXMLHttpRequest();
-    provider = new L.esri.Geocoding.Providers.MapServiceProvider({
+    provider = new L.esri.Geocoding.MapServiceProvider({
       url: 'http://example.com/arcgis/arcgis/rest/services/MockService',
       layer: 0,
       searchFields: ['Name', 'OBJECTID']

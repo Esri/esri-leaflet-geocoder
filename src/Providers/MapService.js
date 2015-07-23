@@ -1,9 +1,7 @@
 import L from 'leaflet';
 import { MapService } from 'esri-leaflet';
 
-var _MapService = (typeof MapService === 'undefined') ? L.esri.Services.MapService : MapService;
-
-export var MapServiceProvider = _MapService.extend({
+export var MapServiceProvider = MapService.extend({
   options: {
     layers: [0],
     label: 'Map Service',
@@ -15,7 +13,7 @@ export var MapServiceProvider = _MapService.extend({
   },
 
   initialize: function (options) {
-    _MapService.prototype.initialize.call(this, options);
+    MapService.prototype.initialize.call(this, options);
     this._getIdFields();
   },
 

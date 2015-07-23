@@ -1,9 +1,7 @@
 import L from 'leaflet';
 import { FeatureLayerService } from 'esri-leaflet';
 
-var _FeatureLayerService = (typeof FeatureLayerService === 'undefined') ? L.esri.Services.FeatureLayerService : FeatureLayerService;
-
-export var FeatureLayerProvider = _FeatureLayerService.extend({
+export var FeatureLayerProvider = FeatureLayerService.extend({
   options: {
     label: 'Feature Layer',
     maxResults: 5,
@@ -14,7 +12,7 @@ export var FeatureLayerProvider = _FeatureLayerService.extend({
   },
 
   initialize: function (options) {
-    _FeatureLayerService.prototype.initialize.call(this, options);
+    FeatureLayerService.prototype.initialize.call(this, options);
     if (typeof this.options.searchFields === 'string') {
       this.options.searchFields = [this.options.searchFields];
     }

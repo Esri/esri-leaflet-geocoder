@@ -4,7 +4,7 @@ describe('Providers.ArcgisOnline', function () {
 
   beforeEach(function(){
     xhr = sinon.useFakeXMLHttpRequest();
-    provider = new L.esri.Geocoding.Providers.ArcgisOnlineProvider();
+    provider = new L.esri.Geocoding.ArcgisOnlineProvider();
   });
 
   afterEach(function(){

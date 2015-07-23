@@ -1,4 +1,4 @@
-describe('L.esri.Tasks.ReverseGeocode', function () {
+describe('L.esri.ReverseGeocode', function () {
 
   var sampleResponse = JSON.stringify({
     'address': {
@@ -55,7 +55,7 @@ describe('L.esri.Tasks.ReverseGeocode', function () {
   });
 
   it('should make a reverse geocode request to ArcGIS Online', function(done){
-    var request = L.esri.Geocoding.Tasks.reverseGeocode().latlng([48.8583,  2.2945]).run(function(error, result, response){
+    var request = L.esri.Geocoding.reverseGeocode().latlng([48.8583,  2.2945]).run(function(error, result, response){
       expect(result.latlng.lat).to.equal(48.857489996304814);
       expect(result.latlng.lng).to.equal(2.2946500041892821);
       expect(result.address.Address).to.equal('6 Avenue Gustave Eiffel');
@@ -69,7 +69,7 @@ describe('L.esri.Tasks.ReverseGeocode', function () {
   });
 
   it('should make a reverse geocode request to a Geocode service', function(done){
-    var request = L.esri.Geocoding.Tasks.reverseGeocode({
+    var request = L.esri.Geocoding.reverseGeocode({
       url: 'http://gis.example.com/arcgis/rest/services/Geocoder'
     }).latlng([48.8583,  2.2945]).run(function(error, result, response){
       expect(result.latlng.lat).to.equal(48.857489996304814);
@@ -85,7 +85,7 @@ describe('L.esri.Tasks.ReverseGeocode', function () {
   });
 
   it('should make a reverse geocode request with a distance param', function(done){
-    var request = L.esri.Geocoding.Tasks.reverseGeocode().latlng([48.8583,  2.2945]).distance(200).run(function(error, result, response){
+    var request = L.esri.Geocoding.reverseGeocode().latlng([48.8583,  2.2945]).distance(200).run(function(error, result, response){
       done();
     });
 
@@ -95,7 +95,7 @@ describe('L.esri.Tasks.ReverseGeocode', function () {
   });
 
   it('should make a reverse geocode request with a language param', function(done){
-    var request = L.esri.Geocoding.Tasks.reverseGeocode().latlng([48.8583,  2.2945]).language('fr').distance(200).run(function(error, result, response){
+    var request = L.esri.Geocoding.reverseGeocode().latlng([48.8583,  2.2945]).language('fr').distance(200).run(function(error, result, response){
       expect(result.address.Address).to.equal('Rue de la Sablonnière 16');
       done();
     });

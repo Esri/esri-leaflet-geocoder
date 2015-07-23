@@ -2,10 +2,7 @@ import L from 'leaflet';
 import { Task, Util } from 'esri-leaflet';
 import { WorldGeocodingServiceUrl } from '../EsriLeafletGeocoding.js';
 
-var _Task = (typeof Task === 'undefined') ? L.esri.Tasks.Task : Task;
-var _Util = (typeof Util === 'undefined') ? L.esri.Util : Util;
-
-export var Geocode = _Task.extend({
+export var Geocode = Task.extend({
   path: 'find',
 
   params: {
@@ -35,12 +32,12 @@ export var Geocode = _Task.extend({
   initialize: function (options) {
     options = options || {};
     options.url = options.url || WorldGeocodingServiceUrl;
-    _Task.prototype.initialize.call(this, options);
+    Task.prototype.initialize.call(this, options);
   },
 
   within: function (bounds) {
     bounds = L.latLngBounds(bounds);
-    this.params.bbox = _Util.boundsToExtent(bounds);
+    this.params.bbox = Util.boundsToExtent(bounds);
     return this;
   },
 
@@ -72,7 +69,7 @@ export var Geocode = _Task.extend({
     for (var i = 0; i < response.locations.length; i++) {
       var location = response.locations[i];
       if (location.extent) {
-        var bounds = _Util.extentToBounds(location.extent);
+        var bounds = Util.extentToBounds(location.extent);
       }
 
       results.push({
@@ -92,7 +89,7 @@ export var Geocode = _Task.extend({
 
     for (var i = 0; i < response.candidates.length; i++) {
       var candidate = response.candidates[i];
-      var bounds = _Util.extentToBounds(candidate.extent);
+      var bounds = Util.extentToBounds(candidate.extent);
 
       results.push({
         text: candidate.address,

@@ -4,7 +4,7 @@ describe('Providers.GeocodeService', function () {
 
   beforeEach(function(){
     xhr = sinon.useFakeXMLHttpRequest();
-    provider = new L.esri.Geocoding.Providers.GeocodeServiceProvider({
+    provider = new L.esri.Geocoding.GeocodeServiceProvider({
       url: 'http://example.com/arcgis/arcgis/rest/services/MockGeocodeService'
     });
   });
