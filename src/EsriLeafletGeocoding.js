@@ -1,4 +1,4 @@
-export var VERSION = "2.0.0-beta.1";
+export var VERSION = '2.0.0-beta.2';
 export var WorldGeocodingServiceUrl = (window.location.protocol === 'https:' ? 'https:' : 'http:') + '//geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/';
 
 // import tasks

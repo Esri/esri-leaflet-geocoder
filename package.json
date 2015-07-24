@@ -1,7 +1,7 @@
 {
   "name": "esri-leaflet-geocoder",
   "description": "Esri Geocoding utilities and search plguin for Leaflet.",
-  "version": "2.0.0-beta.1",
+  "version": "2.0.0-beta.2",
   "author": "Patrick Arlt <parlt@esri.com> (http://patrickarlt.com)",
   "browserify": {
     "transform": [
