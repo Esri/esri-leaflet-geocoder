@@ -27,7 +27,7 @@ git push upstream gh-release
 zip -r dist/$NAME-v$VERSION.zip $FILES
 
 # run gh-release to create the tag and push release to github
-gh-release --assets $NAME-v$VERSION.zip
+gh-release --assets dist/$NAME-v$VERSION.zip
 
 # publish release on NPM
 npm publish
