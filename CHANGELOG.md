@@ -1,10 +1,25 @@
 # Changelog
 
+## 2.0.0-beta.1
+
+### Breaking
+
+* Requires the 2.0.0-beta.4 release of Esri Leaflet.
+* Require the 1.0.0-beta.1 release of Leaflet.
+* Namespaces have changed all exports now sit directly under the `L.esri.Geocoding` namespace. This mean that things like `L.esri.Geocoding.Controls.Geosearch.Providers.FeatureLayer` can now be accessed like `L.esri.Geocoding.FeatureLayerProvider`.
+* `useArcgisWorldGeocoder` has been removed. Now you must pass `L.esri.Geocoding.arcGisOnlineProvider()` in the `providers` array. This will facilitate easily passing options to the ArcGIS Online geocoder.
+
+### Added
+
+* Better build/test/release automation.
+* Support for JSPM in package.json. Now you can `import geocode from 'esri-leaflet-geocoder/src/Tasks/Geocoder';` for more compact builds but, be aware of [caveats](http://blog.izs.me/post/44149270867/why-no-directories-lib-in-node-the-less-snarky)
+* Support for browserify in the package.json. Now you can `var geocode = require('esri-leaflet-geocoder/src/Tasks/Geocoder');` for more compact builds, but be aware of [caveats](http://blog.izs.me/post/44149270867/why-no-directories-lib-in-node-the-less-snarky)
+
 ## 1.0.0
 
 This represents the stable release of Esri Leaflet Geocoder compatible with Leaflet 0.7.3. All future 1.0.X releases will be compatible with Leaflet 0.7.3 and contain only bug fixes. New features will only be added in Esri Leaflet Geocoder 2.0.0 which will require Leaflet 1.0.0.
 
-#### Changes
+### Changes
 
 * Introduced support for dynamic suggestions from custom geocoding services. #65
 * Refactored code to account for changes introduced in Esri Leaflet `1.0.0`. #75
@@ -13,12 +28,12 @@ This represents the stable release of Esri Leaflet Geocoder compatible with Leaf
 
 ## Release Candidate 3
 
-#### Breaking Changes
+### Breaking Changes
 
 * Providers should now supply their `url` with the `url` key inside of `options` as opposed to a separate parameter.
 * Namespace has been reorganized. everything now sits under `L.esri.Geocoding`. So `L.esri.Tasks.Geocode` is now `L.esri.Geocoding.Tasks.Geocode`.
 
-#### Changes
+### Changes
 
 * `MapService` provider now supports being passed an array of layers to search. https://github.com/Esri/esri-leaflet-geocoder/issues/48
 * `title` option will now set the title on the input to `'Location Search'` by default. https://github.com/Esri/esri-leaflet-geocoder/pull/51
@@ -28,7 +43,7 @@ This represents the stable release of Esri Leaflet Geocoder compatible with Leaf
 
 ## Release Candidate 2
 
-#### Changes
+### Changes
 
 * Bower support `bower install esri-leaflet-geocoder`
 * Update Esri Leaflet dependency to RC 3
@@ -71,11 +86,11 @@ Please read through the docs and changes list carefully. There has been a major 
 
 **Changes**
 * Fix a display issues where the form would close but would not expand again. https://github.com/Esri/esri-leaflet-geocoder/issues/33
-* Now that `L.esri.Services.Geocoder` extends on `L.esri.Services.Service` you can pass teh `forStorage` flag with any call and authenticate. Listen for the `authenticationrequired` event and provide a token or pass a `token` option.
+* Now that `L.esri.Services.Geocoder` extends on `L.esri.Services.Service` you can pass the `forStorage` flag with any call and authenticate. Listen for the `authenticationrequired` event and provide a token or pass a `token` option.
 
 ## Beta 3
 
-* Fix style to accomodate `topright` position
+* Fix style to accommodate `topright` position
 * Fix some leaflet-touch style issues
 
 ## Beta 2
@@ -102,4 +117,4 @@ This is now ready for beta! This release helps finalize the API and includes lot
 
 # Alpha
 
-* Inital alpha release
+* Initial alpha release

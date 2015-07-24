@@ -23,8 +23,7 @@
     "John Gravois <jgravois@esri.com> (http://johngravois.com)"
   ],
   "dependencies": {
-    "browserify": "^11.0.0",
-    "esri-leaflet": "^2.0.0-beta.1",
+    "esri-leaflet": "^2.0.0-beta.4",
     "leaflet": "1.0.0-beta.1",
     "tsify": "^0.11.4"
   },
