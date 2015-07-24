@@ -25,7 +25,6 @@
   "dependencies": {
     "esri-leaflet": "^2.0.0-beta.4",
     "leaflet": "1.0.0-beta.1",
-    "tsify": "^0.11.4"
   },
   "devDependencies": {
     "babelify": "^6.1.3",
