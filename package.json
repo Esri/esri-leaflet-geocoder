@@ -51,6 +51,7 @@
   },
   "files": [
     "dist/esri-leaflet-geocoder.js",
+    "dist/esri-leaflet-geocoder.js.map",
     "dist/esri-leaflet-geocoder.css",
     "dist/img"
   ],
