@@ -1,5 +1,6 @@
 # Changelog
 
+<<<<<<< HEAD
 ## 2.0.0-beta.1
 
 ### Breaking
@@ -14,6 +15,15 @@
 * Better build/test/release automation.
 * Support for JSPM in package.json. Now you can `import geocode from 'esri-leaflet-geocoder/src/Tasks/Geocoder';` for more compact builds but, be aware of [caveats](http://blog.izs.me/post/44149270867/why-no-directories-lib-in-node-the-less-snarky)
 * Support for browserify in the package.json. Now you can `var geocode = require('esri-leaflet-geocoder/src/Tasks/Geocoder');` for more compact builds, but be aware of [caveats](http://blog.izs.me/post/44149270867/why-no-directories-lib-in-node-the-less-snarky)
+=======
+## 1.0.2
+
+* Fix bug in Suggest logic affecting older versions of ArcGIS Server (#77)
+
+## 1.0.1
+
+* Fix incorrect version number in built files.
+>>>>>>> 3bda3e54425b9017064d464bc722f6be5bf3f6c5
 
 ## 1.0.0
 

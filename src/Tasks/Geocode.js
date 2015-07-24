@@ -68,8 +68,10 @@ export var Geocode = Task.extend({
 
     for (var i = 0; i < response.locations.length; i++) {
       var location = response.locations[i];
+      var bounds;
+
       if (location.extent) {
-        var bounds = Util.extentToBounds(location.extent);
+        bounds = Util.extentToBounds(location.extent);
       }
 
       results.push({
