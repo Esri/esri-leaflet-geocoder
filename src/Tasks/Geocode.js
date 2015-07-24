@@ -1,6 +1,6 @@
 import L from 'leaflet';
 import { Task, Util } from 'esri-leaflet';
-import { WorldGeocodingServiceUrl } from '../EsriLeafletGeocoding.js';
+import { WorldGeocodingServiceUrl } from '../EsriLeafletGeocoding';
 
 export var Geocode = Task.extend({
   path: 'find',
@@ -76,7 +76,7 @@ export var Geocode = Task.extend({
         text: location.name,
         bounds: bounds,
         score: location.feature.attributes.Score,
-        latlng: new L.LatLng(location.feature.geometry.y, location.feature.geometry.x),
+        latlng: L.latLng(location.feature.geometry.y, location.feature.geometry.x),
         properties: location.feature.attributes
       });
     }
@@ -95,7 +95,7 @@ export var Geocode = Task.extend({
         text: candidate.address,
         bounds: bounds,
         score: candidate.score,
-        latlng: new L.LatLng(candidate.location.y, candidate.location.x),
+        latlng: L.latLng(candidate.location.y, candidate.location.x),
         properties: candidate.attributes
       });
     }

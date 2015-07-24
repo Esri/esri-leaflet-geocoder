@@ -1,6 +1,6 @@
 import L from 'leaflet';
 import { Task } from 'esri-leaflet';
-import { WorldGeocodingServiceUrl } from '../EsriLeafletGeocoding.js';
+import { WorldGeocodingServiceUrl } from '../EsriLeafletGeocoding';
 
 export var ReverseGeocode = Task.extend({
   path: 'reverseGeocode',
@@ -32,7 +32,7 @@ export var ReverseGeocode = Task.extend({
 
       if (!error) {
         result = {
-          latlng: new L.LatLng(response.location.y, response.location.x),
+          latlng: L.latLng(response.location.y, response.location.x),
           address: response.address
         };
       } else {

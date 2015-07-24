@@ -59,7 +59,8 @@
   "jsnext:main": "src/EsriLeafletGeocoding.js",
   "jspm": {
     "files": [
-      "src/**/*.js"
+      "src/**/*.js",
+      "dist/**/*"
     ],
     "registry": "npm",
     "format": "es6"

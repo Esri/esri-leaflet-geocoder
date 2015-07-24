@@ -1,8 +1,8 @@
 import { Service } from 'esri-leaflet';
-import { WorldGeocodingServiceUrl } from '../EsriLeafletGeocoding.js';
-import geocode from '../Tasks/Geocode.js';
-import reverseGeocode from '../Tasks/ReverseGeocode.js';
-import suggest from '../Tasks/Suggest.js';
+import { WorldGeocodingServiceUrl } from '../EsriLeafletGeocoding';
+import geocode from '../Tasks/Geocode';
+import reverseGeocode from '../Tasks/ReverseGeocode';
+import suggest from '../Tasks/Suggest';
 
 export var GeocodeService = Service.extend({
   initialize: function (options) {

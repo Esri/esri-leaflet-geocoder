@@ -1,6 +1,6 @@
 import L from 'leaflet';
 import { Task, Util } from 'esri-leaflet';
-import { WorldGeocodingServiceUrl } from '../EsriLeafletGeocoding.js';
+import { WorldGeocodingServiceUrl } from '../EsriLeafletGeocoding';
 
 export var Suggest = Task.extend({
   path: 'suggest',

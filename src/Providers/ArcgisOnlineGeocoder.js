@@ -1,4 +1,4 @@
-import { GeocodeService } from '../Services/Geocode.js';
+import { GeocodeService } from '../Services/Geocode';
 
 export var ArcgisOnlineProvider = GeocodeService.extend({
   options: {

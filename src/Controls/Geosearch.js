@@ -206,8 +206,8 @@ export var Geosearch = L.Control.extend({
       return;
     }
 
-    var nullIsland = new L.LatLngBounds([0, 0], [0, 0]);
-    var bounds = new L.LatLngBounds();
+    var nullIsland = L.latLngBounds([0, 0], [0, 0]);
+    var bounds = L.latLngBounds();
 
     for (var i = results.length - 1; i >= 0; i--) {
       var result = results[i];
