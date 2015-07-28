@@ -3,6 +3,7 @@ EsriLeafletGeocoding.Controls.Geosearch.Providers.FeatureLayer = L.esri.Services
     label: 'Feature Layer',
     maxResults: 5,
     bufferRadius: 1000,
+    caseSensitive: false,
     formatSuggestion: function(feature){
       return feature.properties[this.options.searchFields[0]];
     }
