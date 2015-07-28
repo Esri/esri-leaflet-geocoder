@@ -3,7 +3,7 @@ EsriLeafletGeocoding.Controls.Geosearch.Providers.FeatureLayer = L.esri.Services
     label: 'Feature Layer',
     maxResults: 5,
     bufferRadius: 1000,
-    caseSensitive: false,
+    caseSensitive: true,
     formatSuggestion: function(feature){
       return feature.properties[this.options.searchFields[0]];
     }
@@ -87,7 +87,7 @@ EsriLeafletGeocoding.Controls.Geosearch.Providers.FeatureLayer = L.esri.Services
     for (var i = this.options.searchFields.length - 1; i >= 0; i--) {
       var field = this.options.searchFields[i];
       
-      if(this.options.caseSensitive){
+      if(!this.options.caseSensitive){
         text = text.toUpperCase();
         field = 'upper('+field+')';
       }
