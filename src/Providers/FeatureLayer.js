@@ -87,7 +87,7 @@ EsriLeafletGeocoding.Controls.Geosearch.Providers.FeatureLayer = L.esri.Services
     for (var i = this.options.searchFields.length - 1; i >= 0; i--) {
       var field = this.options.searchFields[i];
       
-      if(!this.options.caseSensitive){
+      if (!this.options.caseSensitive) {
         text = text.toUpperCase();
         field = 'upper('+field+')';
       }
