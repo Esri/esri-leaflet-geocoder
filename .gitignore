@@ -22,9 +22,4 @@ debug/*
 !debug/sample.html
 
 # Built Files
-dist/**/*.js
-dist/**/*.map
-dist/**/*.css
-dist/**/*.gif
-dist/**/*.png
-dist/**/*.jpg
+dist

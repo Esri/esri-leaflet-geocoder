@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.0-beta.3
+
+### Fixed
+
+* Missing files in NPM release.
+
 ## 2.0.0-beta.2
 
 ### Fixed
