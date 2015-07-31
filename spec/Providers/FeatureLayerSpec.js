@@ -110,7 +110,7 @@ describe('L.esri.Controls.Geosearch.FeatureLayer', function () {
     });
 
     expect(request.url).to.contain('http://example.com/arcgis/arcgis/rest/services/MockService/0/query');
-    expect(request.url).to.contain("where=Name%20LIKE%20\'%25Pla%25\'");
+    expect(request.url).to.contain("where=upper(%22Name%22)%20LIKE%20upper(\'%25Pla%25\')");
 
     request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleQueryResponse);
   });
@@ -152,7 +152,7 @@ describe('L.esri.Controls.Geosearch.FeatureLayer', function () {
     });
 
     expect(request.url).to.contain('http://example.com/arcgis/arcgis/rest/services/MockService/0/query');
-    expect(request.url).to.contain("where=Name%20LIKE%20\'%25Pla%25\'");
+    expect(request.url).to.contain("where=upper(%22Name%22)%20LIKE%20upper(\'%25Pla%25\')");
 
     request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleQueryResponse);
   });

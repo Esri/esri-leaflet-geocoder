@@ -89,8 +89,9 @@ export var FeatureLayerProvider = FeatureLayerService.extend({
     var queryString = [];
 
     for (var i = this.options.searchFields.length - 1; i >= 0; i--) {
-      var field = this.options.searchFields[i];
-      queryString.push(field + ' LIKE \'%' + text + '%\'');
+      var field = 'upper("' + this.options.searchFields[i] + '")';
+
+      queryString.push(field + ' LIKE upper(\'%' + text + '%\')');
     }
 
     return queryString.join(' OR ');
