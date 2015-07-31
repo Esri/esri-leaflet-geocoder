@@ -16,9 +16,16 @@ Take a look at the [live demo](http://esri.github.com/esri-leaflet/examples/geoc
   <head>
     <title>Esri Leaflet Geocoder</title>
 
-    <!-- Load Leaflet from their CDN -->
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
-    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet-src.js"></script>
+    <!-- Load Leaflet from CDN-->
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-1.0.0-b1/leaflet.css" />
+    <script src="http://cdn.leafletjs.com/leaflet-1.0.0-b1/leaflet.js"></script>
+
+    <!-- Esri Leaflet -->
+    <script src="http://cdn.jsdelivr.net/leaflet.esri/2.0.0-beta.5/esri-leaflet.js"></script>
+
+    <!-- Esri Leaflet Geocoder -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/leaflet.esri.geocoder/2.0.0-beta.3/esri-leaflet-geocoder.css">
+    <script src="//cdn.jsdelivr.net/leaflet.esri.geocoder/2.0.0-beta.3/esri-leaflet-geocoder.js"></script>
 
     <!-- Make the map fill the entire page -->
     <style>
@@ -30,13 +37,6 @@ Take a look at the [live demo](http://esri.github.com/esri-leaflet/examples/geoc
         right: 0;
       }
     </style>
-
-    <!-- Esri Leaflet Core -->
-    <script src="//cdn.jsdelivr.net/leaflet.esri/1.0.0/builds/core/esri-leaflet-core.js"></script>
-
-    <!-- Esri Leaflet Geocoder -->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/leaflet.esri.geocoder/1.0.1/esri-leaflet-geocoder.css">
-    <script src="//cdn.jsdelivr.net/leaflet.esri.geocoder/1.0.1/esri-leaflet-geocoder.js"></script>
   </head>
   <body>
     <div id="map"></div>
@@ -46,7 +46,7 @@ Take a look at the [live demo](http://esri.github.com/esri-leaflet/examples/geoc
       var tiles = L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
 
       // create the geocoding control and add it to the map
-      var searchControl = L.esri.Controls.geosearch().addTo(map);
+      var searchControl = L.esri.Geocoding.geosearch().addTo(map);
 
       // create an empty layer group to store the results and add it to the map
       var results = L.layerGroup().addTo(map);

@@ -35,7 +35,7 @@
 
       L.esri.Geocoding.geosearch({
         providers: [
-          new L.esri.Geocoding.FeatureLayerProvider({
+          L.esri.Geocoding.featureLayerProvider({
             url: 'http://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/2',
             searchFields: ['NAME', 'STATE_NAME'],
             label: 'US Counties',
