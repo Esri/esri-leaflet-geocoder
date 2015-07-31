@@ -10,18 +10,9 @@
 
     <script src="../node_modules/esri-leaflet/dist/esri-leaflet.js"></script>
 
-    <link rel="stylesheet" href="../src/esri-leaflet-geocoder.css" />
+    <link rel="stylesheet" href="../dist/esri-leaflet-geocoder.css" />
 
-    <script src="../src/EsriLeafletGeocoding.js"></script>
-    <script src="../src/Tasks/Geocode.js"></script>
-    <script src="../src/Tasks/ReverseGeocode.js"></script>
-    <script src="../src/Tasks/Suggest.js"></script>
-    <script src="../src/Services/Geocoding.js"></script>
-    <script src="../src/Controls/Geosearch.js"></script>
-    <script src="../src/Providers/ArcgisOnlineGeocoder.js"></script>
-    <script src="../src/Providers/FeatureLayer.js"></script>
-    <script src="../src/Providers/GeocodeService.js"></script>
-    <script src="../src/Providers/MapService.js"></script>
+    <script src="../dist/esri-leaflet-geocoder.js"></script>
 
     <!-- Make the map fill the entire page -->
     <style>
@@ -42,9 +33,9 @@
 
       var tiles = L.esri.basemapLayer('Topographic').addTo(map);
 
-      L.esri.Geocoding.Controls.geosearch({
+      L.esri.Geocoding.geosearch({
         providers: [
-          new L.esri.Geocoding.Controls.Geosearch.Providers.FeatureLayer({
+          new L.esri.Geocoding.FeatureLayerProvider({
             url: 'http://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/2',
             searchFields: ['NAME', 'STATE_NAME'],
             label: 'US Counties',
