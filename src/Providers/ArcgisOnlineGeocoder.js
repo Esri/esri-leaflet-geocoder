@@ -4,7 +4,12 @@ export var ArcgisOnlineProvider = GeocodeService.extend({
   options: {
     label: 'Places and Addresses',
     maxResults: 5,
-    attribution: '<a href="https://developers.arcgis.com/en/features/geocoding/">Geocoding by Esri</a>'
+    attribution: '<a href="https://developers.arcgis.com/en/features/geocoding/">Geocoding by Esri</a>',
+
+    /*
+    countries: ['USA']
+    categories: ['Pizza']
+    */
   },
 
   suggestions: function (text, bounds, callback) {
@@ -12,6 +17,14 @@ export var ArcgisOnlineProvider = GeocodeService.extend({
 
     if (bounds) {
       request.within(bounds);
+    }
+
+    if (this.options.countries) {
+      request.countries(this.options.countries);
+    }
+
+    if (this.options.categories) {
+      request.category(this.options.categories);
     }
 
     return request.run(function (error, results, response) {
