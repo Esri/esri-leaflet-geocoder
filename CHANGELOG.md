@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### Fixed
+
+* included additional logic to ensure that queries are case insensitive #83 (thanks @rntdrts)
+
 ## 2.0.0-beta.3
 
 ### Fixed
