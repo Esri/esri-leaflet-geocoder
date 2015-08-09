@@ -70,12 +70,15 @@ export var MapServiceProvider = MapService.extend({
             feature.layerId = layer;
             feature.layerName = this._layerNames[layer];
             feature.displayFieldName = this._displayFields[layer];
+
             var result = {
               latlng: bounds.getCenter(),
               bounds: bounds,
               text: this.options.formatSuggestion.call(this, feature),
-              properties: feature.properties
+              properties: feature.properties,
+              geojson: feature
             };
+            
             results.push(result);
           }
         }
