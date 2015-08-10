@@ -207,18 +207,27 @@ export var Geosearch = L.Control.extend({
     }
 
     var nullIsland = L.latLngBounds([0, 0], [0, 0]);
-    var bounds = new L.LatLngBounds();
+    var resultBounds = [];
+    var resultLatlngs = [];
 
+    // collect the bounds and center of each result
     for (var i = results.length - 1; i >= 0; i--) {
       var result = results[i];
 
+      resultLatlngs.push(result.latlng);
+
       // make sure bounds are valid and not 0,0. sometimes bounds are incorrect or not present
       if (result.bounds && result.bounds.isValid() && !result.bounds.equals(nullIsland)) {
-        bounds.extend(result.bounds);
+        resultBounds.push(result.bounds);
       }
+    }
 
-      // ensure that the bounds include the results center point
-      bounds.extend(result.latlng);
+    // form a bounds object containing all center points
+    var bounds = L.latLngBounds(resultLatlngs);
+
+    // and extend it to contain all bounds objects
+    for (var j = 0; j < resultBounds.length; j++) {
+      bounds.extend(resultBounds[i]);
     }
 
     return bounds;

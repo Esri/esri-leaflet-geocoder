@@ -14,6 +14,14 @@ export var ArcgisOnlineProvider = GeocodeService.extend({
       request.within(bounds);
     }
 
+    if (this.options.countries) {
+      request.countries(this.options.countries);
+    }
+
+    if (this.options.categories) {
+      request.category(this.options.categories);
+    }
+
     return request.run(function (error, results, response) {
       var suggestions = [];
       if (!error) {

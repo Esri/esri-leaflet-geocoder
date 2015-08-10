@@ -75,7 +75,8 @@ export var FeatureLayerProvider = FeatureLayerService.extend({
             latlng: bounds.getCenter(),
             bounds: bounds,
             text: this.options.formatSuggestion.call(this, feature),
-            properties: feature.properties
+            properties: feature.properties,
+            geojson: feature
           };
 
           results.push(result);
