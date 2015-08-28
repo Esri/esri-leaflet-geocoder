@@ -1,24 +1,32 @@
 # Changelog
 
-## Unreleased
+## [Unreleased]
+
+### Added
+
+* implemented a new 'countries' parameter for the `arcgisOnlineProvider` based on new capabilities of the [World Geocoding Service](https://developers.arcgis.com/rest/geocode/api-reference/overview-world-geocoding-service.htm) #38
+* implemented a new 'categories' parameter for the `arcgisOnlineProvider` based on new capabilities of the [World Geocoding Service](https://developers.arcgis.com/rest/geocode/api-reference/overview-world-geocoding-service.htm)
+* added the ability to include 'categories' in requests using `L.esri.Geocoding.suggest`
+* updated result objects across providers to include the actual GeoJSON of candidates #81
 
 ### Fixed
 
 * included additional logic to ensure that queries are case insensitive #83 (thanks @rntdrts)
+* refactored the calculation of result bounds calculation to avoid uncaught exceptions and usage of `new` #84
 
-## 2.0.0-beta.3
+## [2.0.0-beta.3]
 
 ### Fixed
 
 * Missing files in NPM release.
 
-## 2.0.0-beta.2
+## [2.0.0-beta.2]
 
 ### Fixed
 
 * Missing sourcemap in build.
 
-## 2.0.0-beta.1
+## [2.0.0-beta.1]
 
 ### Breaking
 
@@ -33,15 +41,15 @@
 * Support for JSPM in package.json. Now you can `import geocode from 'esri-leaflet-geocoder/src/Tasks/Geocoder';` for more compact builds but, be aware of [caveats](http://blog.izs.me/post/44149270867/why-no-directories-lib-in-node-the-less-snarky)
 * Support for browserify in the package.json. Now you can `var geocode = require('esri-leaflet-geocoder/src/Tasks/Geocoder');` for more compact builds, but be aware of [caveats](http://blog.izs.me/post/44149270867/why-no-directories-lib-in-node-the-less-snarky)
 
-## 1.0.2
+## [1.0.2]
 
 * Fix bug in Suggest logic affecting older versions of ArcGIS Server (#77)
 
-## 1.0.1
+## [1.0.1]
 
 * Fix incorrect version number in built files.
 
-## 1.0.0
+## [1.0.0]
 
 This represents the stable release of Esri Leaflet Geocoder compatible with Leaflet 0.7.3. All future 1.0.X releases will be compatible with Leaflet 0.7.3 and contain only bug fixes. New features will only be added in Esri Leaflet Geocoder 2.0.0 which will require Leaflet 1.0.0.
 
@@ -144,3 +152,11 @@ This is now ready for beta! This release helps finalize the API and includes lot
 # Alpha
 
 * Initial alpha release
+
+[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.0.0-beta.3...HEAD
+[2.0.0-beta.3]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.0.0-beta.2...v2.0.0-beta.3
+[2.0.0-beta.2]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.0.0-beta.2...v2.0.0-beta.3
+[2.0.0-beta.1]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.0.0-beta.2...v2.0.0-beta.3
+[1.0.2]: https://github.com/Esri/esri-leaflet-geocoder/compare/v1.0.1...v1.0.2
+[1.0.1]: https://github.com/Esri/esri-leaflet-geocoder/compare/v1.0.1...v1.0.2
+[1.0.0]: https://github.com/Esri/esri-leaflet-geocoder/compare/v1.0.0...v1.0.2

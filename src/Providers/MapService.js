@@ -78,7 +78,7 @@ export var MapServiceProvider = MapService.extend({
               properties: feature.properties,
               geojson: feature
             };
-            
+
             results.push(result);
           }
         }

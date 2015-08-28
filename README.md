@@ -121,7 +121,7 @@ For reference here is the internal structure of the geocoder...
 
 ### Providers
 
-The `Geosearch` control can also search for results from a variety of sources including Feature Layers and Map Services. This is done with plain text matching and is not "real" geocoding. But it allows you to mix custom results into a search box.
+The `Geosearch` control can also search for results from a variety of sources including Feature Layers and Map Services. This is done with plain text matching and is not "real" geocoding, but it allows you to mix in custom search results.
 
 ```js
 var arcgisOnline = L.esri.Geocoding.arcgisOnlineProvider();
@@ -148,7 +148,7 @@ L.esri.Geocoding.Controls.geosearch({
 
 #### Providers
 
-All providers share following options:
+All providers share the following options:
 
 Option | Type | Default | Description
 --- | --- | --- | ---
@@ -160,8 +160,8 @@ Option | Type | Default | Description
 
 Option | Type | Default | Description
 --- | --- | --- | ---
-`countries` | `String` `Array[Strings]` | false | Limit results to one or more countries. Any ISO 3166 2 or 3 digit [country code supported by the ArcGIS World Geocode service](https://developers.arcgis.com/rest/geocode/api-reference/geocode-coverage.htm) is allowed. *Note* using an array of country codes may not result in inaccurate results even when a specific suggestion is supplied.
-`categories` | `String` `Array[Strings]` | false | Limit results to one or more categories. See the [list of valid categories](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-category-filtering.htm#ESRI_SECTION1_502B3FE2028145D7B189C25B1A00E17B) for possible values.
+`countries` | `String` `Array[Strings]` | null | Limit results to one or more countries. Any ISO 3166 2 or 3 digit [country code supported by the ArcGIS World Geocode service](https://developers.arcgis.com/rest/geocode/api-reference/geocode-coverage.htm) is allowed. *Note* using an array of country codes may result in inaccurate results even when a specific suggestion is supplied.
+`categories` | `String` `Array[Strings]` | null | Limit results to one or more categories. See the [list of valid categories](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-category-filtering.htm#ESRI_SECTION1_502B3FE2028145D7B189C25B1A00E17B) for possible values.
 
 Results from the `arcgisOnlineProvider` will have an additional `properties` key which will correspond with [all available fields on the ArcGIS Online World Geocode service](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-service-output.htm#ESRI_SECTION1_42D7D3D0231241E9B656C01438209440)
 
@@ -342,9 +342,10 @@ You can pass any options you can pass to L.esri.Tasks.Task. `url` will be the [A
 Method | Returns | Description
 --- | --- | ---
 `text(text <String>)` | `this` | The text to receive suggestions for.
-`category(category <String>)` | The category to search for suggestions. By default no categogy. A list of categories can be found [here](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-category-filtering.htm#ESRI_SECTION1_502B3FE2028145D7B189C25B1A00E17B)
+`category(category Array[Strings])` | The category to search for suggestions. By default no category. A list of categories can be found [here](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-category-filtering.htm#ESRI_SECTION1_502B3FE2028145D7B189C25B1A00E17B)
+`countries(category Array[Strings])` | Limit results to one or more countries. Any ISO 3166 2 or 3 digit [country code](https://developers.arcgis.com/rest/geocode/api-reference/geocode-coverage.htm) supported by the ArcGIS World Geocode service is allowed. *Note* using an array of country codes may result in inaccurate results even when a specific suggestion is supplied.
 `within(bounds <L.LatLngBounds>)` | A bounding box to search for suggestions in.
-`nearby(latlng <L.LatLng>, distance <Integer>)` | Searches for suggestions only inside an area around the LatLng. `distance` is in meters.
+`nearby(latlng <L.LatLng>, distance <Integer>)` | Improves the rank of suggestions near a known location. The unit of measure for `distance` is meters.
 `run(callback <Function>, context<Object>)` | `XMLHttpRequest` | Executes this request chain and accepts the response callback.
 
 ### Example

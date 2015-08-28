@@ -76,4 +76,26 @@ describe('L.esri.Suggest', function () {
     request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleResponse);
   });
 
+  it('should pass along a country in requests correctly', function(done){
+    var request = L.esri.Geocoding.suggest().text('trea').countries('GUM').run(function(error, response){
+      expect(response.suggestions.length).to.equal(5);
+      done();
+    });
+
+    expect(request.url).to.contain('countryCode=GUM');
+
+    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleResponse);
+  });
+
+  it('should pass along more than one country from an array correctly too', function(done){
+    var request = L.esri.Geocoding.suggest().text('trea').countries(['USA', 'GUM']).run(function(error, response){
+      expect(response.suggestions.length).to.equal(5);
+      done();
+    });
+
+    expect(request.url).to.contain('countryCode=USA%2CGUM');
+
+    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleResponse);
+  });
+
 });
