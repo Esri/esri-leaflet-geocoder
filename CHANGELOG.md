@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [2.0.0]
+
 ### Added
 
 * implemented a new 'countries' parameter for the `arcgisOnlineProvider` based on new capabilities of the [World Geocoding Service](https://developers.arcgis.com/rest/geocode/api-reference/overview-world-geocoding-service.htm) #38
@@ -153,7 +155,8 @@ This is now ready for beta! This release helps finalize the API and includes lot
 
 * Initial alpha release
 
-[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.0.0-beta.3...HEAD
+[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.0.0-beta.3...v2.0.0
 [2.0.0-beta.3]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.0.0-beta.2...v2.0.0-beta.3
 [2.0.0-beta.2]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.0.0-beta.2...v2.0.0-beta.3
 [2.0.0-beta.1]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.0.0-beta.2...v2.0.0-beta.3
