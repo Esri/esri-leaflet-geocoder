@@ -11,7 +11,6 @@
     <script src="../node_modules/esri-leaflet/dist/esri-leaflet.js"></script>
 
     <link rel="stylesheet" href="../dist/esri-leaflet-geocoder.css" />
-
     <script src="../dist/esri-leaflet-geocoder.js"></script>
 
     <!-- Make the map fill the entire page -->
@@ -35,13 +34,9 @@
 
       L.esri.Geocoding.geosearch({
         providers: [
-          L.esri.Geocoding.featureLayerProvider({
-            url: 'http://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/2',
-            searchFields: ['NAME', 'STATE_NAME'],
-            label: 'US Counties',
-            formatSuggestion: function(feature){
-              return feature.properties.NAME;
-            }
+          L.esri.Geocoding.arcgisOnlineProvider({
+            countries: ['USA', 'GUM', 'VIR', 'PRI'],
+            categories: ['Address', 'Postal', 'Populated Place', ]
           })
         ]
       }).addTo(map);

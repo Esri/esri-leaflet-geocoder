@@ -121,7 +121,7 @@ For reference here is the internal structure of the geocoder...
 
 ### Providers
 
-The `Geosearch` control can also search for results from a variety of sources including Feature Layers and Map Services. This is done with plain text matching and is not "real" geocoding. But it allows you to mix custom results into a search box.
+The `Geosearch` control can also search for results from a variety of sources including Feature Layers and Map Services. This is done with plain text matching and is not "real" geocoding, but it allows you to mix in custom search results.
 
 ```js
 var arcgisOnline = L.esri.Geocoding.arcgisOnlineProvider();
@@ -146,37 +146,77 @@ L.esri.Geocoding.Controls.geosearch({
 * `L.esri.Geocoding.mapServiceProvider(options)` - Uses the find and query methods on the Map Service to get text matches.
 * `L.esri.Geocoding.geocodeServiceProvider` - Use an ArcGIS Server Geocode Service, supports suggestions if available with ARcGIS Server 10.3 and up.
 
-#### Provider Options
+#### Providers
+
+All providers share the following options:
 
 Option | Type | Default | Description
 --- | --- | --- | ---
-`url` | `String` | Depends | The URL for the service that will be used to search. Varies by provider, usually a service or layer URL or a geocoding service URL. Not needed with the `arcgisOnlineProvider`.
-`searchFields` | `Array[Strings]` | None | An array of fields to search for text. Not valid for the `arcgisOnlineProvider` and `geocodeServiceProvider` providers.
-`layer` | `Integer` | `0` | Only valid for `mapServiceProvider` providers, the layer to find text matches on.
-`label` | `String` | Provider Type | Text that will be used to group suggestions under when more than one provider is being used.
+`label` | `String` | Varies by Provider | Text that will be used to group suggestions under when more than one provider is being used.
 `maxResults` | `Integer` | 5 | Maximum number of results to show for this provider.
-`bufferRadius`, | `Integer` | If a service or layer contains points, buffer points by this radius to create bounds. Not valid for the `arcgisOnlineProvider` and `geocodeServiceProvider`.
+`attribution` | `String` | Varies by Provider | Adds an attribution to the map.
+
+##### `arcgisOnlineProvider`
+
+Option | Type | Default | Description
+--- | --- | --- | ---
+`countries` | `String` `Array[Strings]` | null | Limit results to one or more countries. Any ISO 3166 2 or 3 digit [country code supported by the ArcGIS World Geocode service](https://developers.arcgis.com/rest/geocode/api-reference/geocode-coverage.htm) is allowed. *Note* using an array of country codes may result in inaccurate results even when a specific suggestion is supplied.
+`categories` | `String` `Array[Strings]` | null | Limit results to one or more categories. See the [list of valid categories](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-category-filtering.htm#ESRI_SECTION1_502B3FE2028145D7B189C25B1A00E17B) for possible values.
+
+Results from the `arcgisOnlineProvider` will have an additional `properties` key which will correspond with [all available fields on the ArcGIS Online World Geocode service](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-service-output.htm#ESRI_SECTION1_42D7D3D0231241E9B656C01438209440)
+
+##### `geocodeServiceProvider`
+
+Option | Type | Default | Description
+--- | --- | --- | ---
+`url` | `String` | *Required* | The URL for the service that will be searched.
+`label` | `String` | `'Geocode Service'` | Text that will be used to group suggestions under when more than one provider is being used.
+`maxResults` | `Integer` | 5 | Maximum number of results to show for this provider.
+
+Results from the `geocodeServiceProvider` will have an additional `properties` key which will correspond with all the available fields in the service.
+
+##### `featureLayerProvider`
+
+Option | Type | Default | Description
+--- | --- | --- | ---
+`url` | `String` | *Required* | The URL for the service that will be searched.
+`searchFields` | `String` `Array[Strings]` | None | An array of fields to search for text.
 `formatSuggestion`| `Function` | See Description | Formatting function for the suggestion text. Receives feature information and returns a string.
+`bufferRadius`, | `Integer` | If a service or layer contains points, buffer points by this radius to create bounds.
+
+Results from the `featureLayerProvider` will have an additional `properties` key which will contain all the information for the feature and a `geojson` key that will contain a [GeoJSON](http://geojson.org/) representation of the feature.
+
+##### `mapServiceProvider`
+
+Option | Type | Default | Description
+--- | --- | --- | ---
+`url` | `String` | *Required* | The URL for the service that will be searched.
+`searchFields` | `String` `Array[Strings]` | None | An array of fields to search for text.
+`layer` | `Integer` | `0` | The layer to find text matches on. Can also be an array of layer identifiers.
+`formatSuggestion`| `Function` | See Description | Formatting function for the suggestion text. Receives feature information and returns a string.
+`bufferRadius`, | `Integer` `Array[Integers]`| Buffer point results by this radius to create bounds.
+
+Results from the `mapServiceProvider` will have an additional `properties` key which will contain all the information for the feature and a `geojson` key that will contain a [GeoJSON](http://geojson.org/) representation of the feature.
 
 #### Results Event
 
 Property | Type | Description
 --- | --- | ---
 `bounds` | [`L.LatLngBounds`](http://leafletjs.com/reference.html#latlngbounds)| The bounds around this suggestion. Good for zooming to results like cities and states.
-`latlng` | [`L.LatLng`](http://leafletjs.com/reference.html#latlng)| The center of the result.
+`latlng` | [`L.LatLng`](http://leafletjs.com/reference.html#latlng)| The center of the results.
 `results` | [`[<ResultObject>]`](#result-object) | An array of [result objects](#result-object).
 
 #### Result Object
 
-A single result from the geocoder. You should not rely on all these properties being present in every result object.
+A single result from a provider. You should not rely on all these properties being present in every result object and some providers may add additional properties.
 
 Property | Type | Description
 --- | --- | ---
-`text` | `String` | The text that was passed to the geocoder.
-`bounds` | [`L.LatLngBounds`](http://leafletjs.com/reference.html#latlngbounds)| The bounds around this suggestion. Good for zooming to results like cities and states.
+`text` | `String` | The text that was passed to the provider.
+`bounds` | [`L.LatLngBounds`](http://leafletjs.com/reference.html#latlngbounds)| The bounds around this result. Good for zooming to results like cities and states.
 `latlng` | [`L.LatLng`](http://leafletjs.com/reference.html#latlng)| The center of the result.
 
-The result object will also contain any additional properties from the provider. So when geocoding you will also get address breakdowns and when text matching features you will get the additional fields from that feature.
+The result object will also contain any additional properties from the provider. See the [available providers](#available-providers) for which additional fields may be present.
 
 ## L.esri.Geocoding.geocodeService
 A basic wrapper for ArcGIS Online geocoding services. Used internally by `L.esri.Geocoding.geosearch`.
@@ -302,9 +342,10 @@ You can pass any options you can pass to L.esri.Tasks.Task. `url` will be the [A
 Method | Returns | Description
 --- | --- | ---
 `text(text <String>)` | `this` | The text to receive suggestions for.
-`category(category <String>)` | The category to search for suggestions. By default no categogy. A list of categories can be found [here](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-category-filtering.htm#ESRI_SECTION1_502B3FE2028145D7B189C25B1A00E17B)
+`category(category Array[Strings])` | The category to search for suggestions. By default no category. A list of categories can be found [here](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-category-filtering.htm#ESRI_SECTION1_502B3FE2028145D7B189C25B1A00E17B)
+`countries(category Array[Strings])` | Limit results to one or more countries. Any ISO 3166 2 or 3 digit [country code](https://developers.arcgis.com/rest/geocode/api-reference/geocode-coverage.htm) supported by the ArcGIS World Geocode service is allowed. *Note* using an array of country codes may result in inaccurate results even when a specific suggestion is supplied.
 `within(bounds <L.LatLngBounds>)` | A bounding box to search for suggestions in.
-`nearby(latlng <L.LatLng>, distance <Integer>)` | Searches for suggestions only inside an area around the LatLng. `distance` is in meters.
+`nearby(latlng <L.LatLng>, distance <Integer>)` | Improves the rank of suggestions near a known location. The unit of measure for `distance` is meters.
 `run(callback <Function>, context<Object>)` | `XMLHttpRequest` | Executes this request chain and accepts the response callback.
 
 ### Example

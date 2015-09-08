@@ -9,7 +9,8 @@ export var Suggest = Task.extend({
 
   setters: {
     text: 'text',
-    category: 'category'
+    category: 'category',
+    countries: 'countryCode'
   },
 
   initialize: function (options) {
