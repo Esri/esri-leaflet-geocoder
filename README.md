@@ -134,7 +134,7 @@ var gisDay = L.esri.Geocoding.featureLayerProvider({
   }
 });
 
-L.esri.Geocoding.Controls.geosearch({
+L.esri.Geocoding.geosearch({
   providers: [arcgisOnline, gisDay] // will geocode via ArcGIS Online and search the GIS Day feature service.
 }).addTo(map);
 ```
