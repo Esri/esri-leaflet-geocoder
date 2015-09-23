@@ -44,7 +44,7 @@
     "node-sass": "^3.2.0",
     "phantomjs": "^1.9.17",
     "rollup": "^0.10.0",
-    "semistandard": "^6.1.2",
+    "semistandard": "^7.0.2",
     "sinon": "^1.11.1",
     "sinon-chai": "2.7.0",
     "uglify-js": "^2.4.23"

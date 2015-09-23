@@ -8,8 +8,8 @@ var pkg = require('../package.json');
 var entryFile = 'src/EsriLeafletGeocoding.js';
 
 var copyright = '/* ' + pkg.name + ' - v' + pkg.version + ' - ' + new Date().toString() + '\n' +
-                ' * Copyright (c) ' + new Date().getFullYear() + ' Environmental Systems Research Institute, Inc.\n' +
-                ' * ' + pkg.license + ' */';
+  ' * Copyright (c) ' + new Date().getFullYear() + ' Environmental Systems Research Institute, Inc.\n' +
+  ' * ' + pkg.license + ' */';
 
 rollup({
   entry: path.resolve(entryFile),
@@ -21,7 +21,7 @@ rollup({
     sourceMapFile: pkg.name + '.js',
     moduleName: 'L.esri.Geocoding',
     globals: {
-      "esri-leaflet": "L.esri"
+      'esri-leaflet': 'L.esri'
     }
   });
 

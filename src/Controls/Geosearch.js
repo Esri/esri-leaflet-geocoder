@@ -301,55 +301,55 @@ export var Geosearch = L.Control.extend({
       }
 
       switch (e.keyCode) {
-      case 13:
-        if (selected) {
-          this._geocode(selected.innerHTML, selected['data-magic-key'], selected.provider);
-          this.clear();
-        } else if (this.options.allowMultipleResults) {
-          this._geocode(this._input.value, undefined);
-          this.clear();
-        } else {
-          L.DomUtil.addClass(list[0], 'geocoder-control-selected');
-        }
-        L.DomEvent.preventDefault(e);
-        break;
-      case 38:
-        if (selected) {
-          L.DomUtil.removeClass(selected, 'geocoder-control-selected');
-        }
-
-        var previousItem = list[selectedPosition - 1];
-
-        if (selected && previousItem) {
-          L.DomUtil.addClass(previousItem, 'geocoder-control-selected');
-        } else {
-          L.DomUtil.addClass(list[list.length - 1], 'geocoder-control-selected');
-        }
-        L.DomEvent.preventDefault(e);
-        break;
-      case 40:
-        if (selected) {
-          L.DomUtil.removeClass(selected, 'geocoder-control-selected');
-        }
-
-        var nextItem = list[selectedPosition + 1];
-
-        if (selected && nextItem) {
-          L.DomUtil.addClass(nextItem, 'geocoder-control-selected');
-        } else {
-          L.DomUtil.addClass(list[0], 'geocoder-control-selected');
-        }
-        L.DomEvent.preventDefault(e);
-        break;
-      default:
-        // when the input changes we should cancel all pending suggestion requests if possible to avoid result collisions
-        for (var x = 0; x < this._pendingSuggestions.length; x++) {
-          var request = this._pendingSuggestions[x];
-          if (request && request.abort && !request.id) {
-            request.abort();
+        case 13:
+          if (selected) {
+            this._geocode(selected.innerHTML, selected['data-magic-key'], selected.provider);
+            this.clear();
+          } else if (this.options.allowMultipleResults) {
+            this._geocode(this._input.value, undefined);
+            this.clear();
+          } else {
+            L.DomUtil.addClass(list[0], 'geocoder-control-selected');
           }
-        }
-        break;
+          L.DomEvent.preventDefault(e);
+          break;
+        case 38:
+          if (selected) {
+            L.DomUtil.removeClass(selected, 'geocoder-control-selected');
+          }
+
+          var previousItem = list[selectedPosition - 1];
+
+          if (selected && previousItem) {
+            L.DomUtil.addClass(previousItem, 'geocoder-control-selected');
+          } else {
+            L.DomUtil.addClass(list[list.length - 1], 'geocoder-control-selected');
+          }
+          L.DomEvent.preventDefault(e);
+          break;
+        case 40:
+          if (selected) {
+            L.DomUtil.removeClass(selected, 'geocoder-control-selected');
+          }
+
+          var nextItem = list[selectedPosition + 1];
+
+          if (selected && nextItem) {
+            L.DomUtil.addClass(nextItem, 'geocoder-control-selected');
+          } else {
+            L.DomUtil.addClass(list[0], 'geocoder-control-selected');
+          }
+          L.DomEvent.preventDefault(e);
+          break;
+        default:
+          // when the input changes we should cancel all pending suggestion requests if possible to avoid result collisions
+          for (var x = 0; x < this._pendingSuggestions.length; x++) {
+            var request = this._pendingSuggestions[x];
+            if (request && request.abort && !request.id) {
+              request.abort();
+            }
+          }
+          break;
       }
     }, this);
 
