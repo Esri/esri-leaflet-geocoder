@@ -20,7 +20,7 @@ export var FeatureLayerProvider = FeatureLayerService.extend({
 
   suggestions: function (text, bounds, callback) {
     var query = this.query().where(this._buildQuery(text))
-                            .returnGeometry(false);
+      .returnGeometry(false);
 
     if (bounds) {
       query.intersects(bounds);
@@ -92,7 +92,7 @@ export var FeatureLayerProvider = FeatureLayerService.extend({
     for (var i = this.options.searchFields.length - 1; i >= 0; i--) {
       var field = 'upper("' + this.options.searchFields[i] + '")';
 
-      queryString.push(field + ' LIKE upper(\'%' + text + '%\')');
+      queryString.push(field + " LIKE upper('%" + text + "%')");
     }
 
     return queryString.join(' OR ');

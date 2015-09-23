@@ -2,12 +2,12 @@ describe('Providers.ArcgisOnline', function () {
   var xhr;
   var provider;
 
-  beforeEach(function(){
+  beforeEach(function () {
     xhr = sinon.useFakeXMLHttpRequest();
     provider = new L.esri.Geocoding.ArcgisOnlineProvider();
   });
 
-  afterEach(function(){
+  afterEach(function () {
     xhr.restore();
   });
 
@@ -69,8 +69,8 @@ describe('Providers.ArcgisOnline', function () {
     ]
   });
 
-  it('should get suggestions based on text', function(done){
-    var request = provider.suggestions('trea', null, function(error, results){
+  it('should get suggestions based on text', function (done) {
+    var request = provider.suggestions('trea', null, function (error, results) {
       expect(results.length).to.equal(5);
       expect(results[0].text).to.equal('Treasure Island (Casino), 3300 Las Vegas Blvd S Las Vegas, NV 89109');
       expect(results[0].magicKey).to.equal('JS91CYhQDS5vDPhvSMyGZby0YFbaMsxIQsNOQNbJCcpaOg8F');
@@ -80,8 +80,8 @@ describe('Providers.ArcgisOnline', function () {
     request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleSuggestResponse);
   });
 
-  it('should use bounds to get suggestions', function(done){
-    var request = provider.suggestions('trea', [[0,0],[100,100]], function(error, results){
+  it('should use bounds to get suggestions', function (done) {
+    var request = provider.suggestions('trea', [[0, 0], [100, 100]], function (error, results) {
       done();
     });
 
@@ -91,8 +91,8 @@ describe('Providers.ArcgisOnline', function () {
     request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleSuggestResponse);
   });
 
-  it('should geocode with a magic key', function(done){
-    var request = provider.results('380 New York St, Redlands, California, 92373', 'foo', null, function(error, results){
+  it('should geocode with a magic key', function (done) {
+    var request = provider.results('380 New York St, Redlands, California, 92373', 'foo', null, function (error, results) {
       expect(results[0].latlng.lat).to.equal(34.056490727765947);
       expect(results[0].latlng.lng).to.equal(-117.19566584280369);
       expect(results[0].text).to.equal('380 New York St, Redlands, California, 92373');
@@ -107,8 +107,8 @@ describe('Providers.ArcgisOnline', function () {
     request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleFindResponse);
   });
 
-  it('should geocode for partial text', function(done){
-    var request = provider.results('380 New York St, Redlands, California, 92373', 'foo', null,  function(error, results){
+  it('should geocode for partial text', function (done) {
+    var request = provider.results('380 New York St, Redlands, California, 92373', 'foo', null, function (error, results) {
       expect(results[0].latlng.lat).to.equal(34.056490727765947);
       expect(results[0].latlng.lng).to.equal(-117.19566584280369);
       expect(results[0].text).to.equal('380 New York St, Redlands, California, 92373');

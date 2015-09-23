@@ -1,3 +1,1 @@
-describe('L.esri.Geosearch', function () {
-
-});
+describe('L.esri.Geosearch', function () {});
