@@ -1,4 +1,4 @@
-describe('L.esri.Controls.Geosearch.MapService', function () {
+describe('L.esri.Geosearch.MapService', function () {
   var sampleFindResponse = JSON.stringify({
     'results': [
       {

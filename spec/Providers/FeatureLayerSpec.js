@@ -1,4 +1,4 @@
-describe('L.esri.Controls.Geosearch.FeatureLayer', function () {
+describe('L.esri.Geosearch.FeatureLayer', function () {
   var xhr;
   var provider;
 
