@@ -64,7 +64,8 @@ export var MapServiceProvider = MapService.extend({
         }
         for (var i = 0; i < features.features.length; i++) {
           var feature = features.features[i];
-          layer = (layer) ? layer : response.results[i].layerId;
+          layer = layer || response.results[i].layerId;
+
           if (feature && layer !== undefined) {
             var bounds = this._featureBounds(feature);
             feature.layerId = layer;
