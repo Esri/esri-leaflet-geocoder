@@ -1,6 +1,10 @@
 # Changelog
 
-## [Unreleased]
+### [Unreleased]
+
+### Fixed
+
+* ensured that options from Geosearch constructor are mixed in correctly.
 
 ## [2.0.0]
 

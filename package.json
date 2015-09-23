@@ -59,7 +59,7 @@
     "registry": "npm",
     "format": "es6"
   },
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "main": "src/EsriLeafletGeocoding.js",
   "readmeFilename": "README.md",
   "repository": {
