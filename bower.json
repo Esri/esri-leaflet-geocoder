@@ -1,7 +1,7 @@
 
 {
   "name": "esri-leaflet-geocoder",
-  "version": "v2.0.0-beta.3",
+  "version": "v2.0.1",
   "main": "dist/esri-leaflet-geocoder.js",
   "ignore": [
     "**/.*",

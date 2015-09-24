@@ -16,6 +16,8 @@ export var Geosearch = L.Control.extend({
   },
 
   initialize: function (options) {
+    L.Util.setOptions(this, options);
+
     if (!options || !options.providers || !options.providers.length) {
       throw new Error('You must specificy at least one provider');
     }

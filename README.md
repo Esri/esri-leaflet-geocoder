@@ -13,53 +13,54 @@ Take a look at the [live demo](http://esri.github.com/esri-leaflet/examples/geoc
 ```html
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title>Esri Leaflet Geocoder</title>
-
     <!-- Load Leaflet from CDN-->
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-1.0.0-b1/leaflet.css" />
     <script src="http://cdn.leafletjs.com/leaflet-1.0.0-b1/leaflet.js"></script>
-
     <!-- Esri Leaflet -->
-    <script src="http://cdn.jsdelivr.net/leaflet.esri/2.0.0-beta.5/esri-leaflet.js"></script>
-
+    <script src="//cdn.jsdelivr.net/leaflet.esri/2.0.0-beta.6/esri-leaflet.js"></script>
     <!-- Esri Leaflet Geocoder -->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/leaflet.esri.geocoder/2.0.0-beta.3/esri-leaflet-geocoder.css">
-    <script src="//cdn.jsdelivr.net/leaflet.esri.geocoder/2.0.0-beta.3/esri-leaflet-geocoder.js"></script>
-
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/leaflet.esri.geocoder/2.0.0/esri-leaflet-geocoder.css">
+    <script src="//cdn.jsdelivr.net/leaflet.esri.geocoder/2.0.0/esri-leaflet-geocoder.js"></script>
     <!-- Make the map fill the entire page -->
     <style>
-      #map {
+    #map {
         position: fixed;
         top: 0;
         bottom: 0;
         left: 0;
         right: 0;
-      }
+    }
     </style>
-  </head>
-  <body>
+</head>
+
+<body>
     <div id="map"></div>
     <script>
-      var map = L.map('map').setView([45.5165, -122.6764], 12);
+    var map = L.map('map').setView([45.5165, -122.6764], 12);
 
-      var tiles = L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+    var tiles = L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
 
-      // create the geocoding control and add it to the map
-      var searchControl = L.esri.Geocoding.geosearch().addTo(map);
+    var arcgisOnline = L.esri.Geocoding.arcgisOnlineProvider();
 
-      // create an empty layer group to store the results and add it to the map
-      var results = L.layerGroup().addTo(map);
+    // create the geocoding control and add it to the map
+    var searchControl = L.esri.Geocoding.geosearch({
+        providers: [arcgisOnline]
+    }).addTo(map);
 
-      // listen for the results event and add every result to the map
-      searchControl.on("results", function(data){
+    // create an empty layer group to store the results and add it to the map
+    var results = L.layerGroup().addTo(map);
+
+    // listen for the results event and add every result to the map
+    searchControl.on("results", function(data) {
         results.clearLayers();
         for (var i = data.results.length - 1; i >= 0; i--) {
-          results.addLayer(L.marker(data.results[i].latlng));
+            results.addLayer(L.marker(data.results[i].latlng));
         };
-      });
+    });
     </script>
-  </body>
+</body>
 </html>
 ```
 

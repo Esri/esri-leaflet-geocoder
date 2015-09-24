@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased]
+### [Unreleased]
+
+## [2.0.1]
+
+### Fixed
+
+* ensured that options from Geosearch constructor are mixed in correctly.
 
 ## [2.0.0]
 
@@ -155,7 +161,8 @@ This is now ready for beta! This release helps finalize the API and includes lot
 
 * Initial alpha release
 
-[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.0.0...HEAD
+[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.0.1...HEAD
+[2.0.1]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.0.0-beta.3...v2.0.0
 [2.0.0-beta.3]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.0.0-beta.2...v2.0.0-beta.3
 [2.0.0-beta.2]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.0.0-beta.2...v2.0.0-beta.3
