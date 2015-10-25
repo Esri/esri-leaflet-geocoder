@@ -162,6 +162,7 @@ Option | Type | Default | Description
 --- | --- | --- | ---
 `countries` | `String` `Array[Strings]` | null | Limit results to one or more countries. Any ISO 3166 2 or 3 digit [country code supported by the ArcGIS World Geocode service](https://developers.arcgis.com/rest/geocode/api-reference/geocode-coverage.htm) is allowed. *Note* using an array of country codes may result in inaccurate results even when a specific suggestion is supplied.
 `categories` | `String` `Array[Strings]` | null | Limit results to one or more categories. See the [list of valid categories](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-category-filtering.htm#ESRI_SECTION1_502B3FE2028145D7B189C25B1A00E17B) for possible values.
+`forStorage` | `Boolean` | false | Indicates whether results will be stored permanently (more information can be found [here](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-free-vs-paid.htm).
 
 Results from the `arcgisOnlineProvider` will have an additional `properties` key which will correspond with [all available fields on the ArcGIS Online World Geocode service](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-service-output.htm#ESRI_SECTION1_42D7D3D0231241E9B656C01438209440)
 

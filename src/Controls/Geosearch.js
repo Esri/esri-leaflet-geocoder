@@ -9,7 +9,6 @@ export var Geosearch = L.Control.extend({
     useMapBounds: 12,
     collapseAfterResult: true,
     expanded: false,
-    forStorage: false,
     allowMultipleResults: true,
     placeholder: 'Search for places or addresses',
     title: 'Location Search'
