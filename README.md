@@ -83,7 +83,6 @@ Option | Type | Default | Description
 `useMapBounds` | `Boolean` or <br> `Integer` | `12` | Determines if and when the geocoder should begin using the bounds of the map to enchance search results. If `true` the geocoder will always return results in the current map bounds. If `false` it will always search the world. If an integer like `11` is passed in the geocoder will use the bounds of the map for searching if the map is at a zoom level equal to or greater than the integer. This mean the geocoder will prefer local results when the map is zoomed in.
 `collapseAfterResult` | `Boolean` | `true` | If the geocoder is expanded after a result this will collapse it.
 `expanded` | `Boolean` | `false` | Start the control in an expanded state.
-`maxResults` | `Integer` | `25` | The maximum number of results to return from a geocoding request. Max is 50.
 `allowMultipleResults` | `Boolean` | `true` | If set to `true` and the user submits the form without a suggestion selected geocodes the current text in the input and zooms the user to view all the results.
 `providers` | `Array` | See Description | An array of [providers](#providers) to search.
 `placeholder` | `String` | `'Search for places or addresses'` | Placeholder text for the search input.
