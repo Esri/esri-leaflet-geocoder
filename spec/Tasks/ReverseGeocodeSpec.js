@@ -99,7 +99,7 @@ describe('L.esri.ReverseGeocode', function () {
       done();
     });
 
-    expect(request.url).to.contain('language=fr');
+    expect(request.url).to.contain('langCode=fr');
 
     request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleFrenchResponse);
   });
