@@ -375,13 +375,14 @@ Method | Returns | Description
 --- | --- | ---
 `latlng(latlng <L.LatLng>)` | The L.LatLng object for which the address will be looked up.
 `distance(distance <Integer>)` | The distance (in meters) around the point for which addresses will be looked up.
-`language(language <String>)` | `this` | The language to return the address in.
+`language(langCode <String>)` | `this` | The language to return the address in. More information can be found [here](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-reverse-geocode.htm#ESRI_SECTION1_ABD1AD449DF54FFEB9527A606341714C).
+`intersection(returnIntersection <Boolean>)` | `this` | Set this value to `true` if you'd like the nearest intersection to be returned (Default value is `false`).
 `run(callback <Function>, context <Object>)` | `XMLHttpRequest` | Executes this request chain and accepts the response callback.
 
 ### Example
 
 ```js
-L.esri.Geocoding.reverseGeocode().latlng([48.8583,  2.2945]).run(function(error, result, response){
+L.esri.Geocoding.reverseGeocode().intersection(true).latlng([48.8583,  2.2945]).run(function(error, result, response){
   // callback is called with error, result, and response.
   // result.latlng contains the latlng of the located address
   // result.address contains the address information
