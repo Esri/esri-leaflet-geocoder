@@ -1,6 +1,14 @@
 # Changelog
 
-### [Unreleased]
+## [Unreleased]
+
+### Added
+
+* exposed a parameter in `reverseGeocode` requests to fetch intersections.
+
+### Fixed
+
+* appropriate l18n input parameter is now passed in `reverseGeocode` requests
 
 ## [2.0.1]
 
