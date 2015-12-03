@@ -250,13 +250,15 @@ export var Geosearch = L.Control.extend({
   },
 
   getAttribution: function () {
-    var attribution = this.options.attribution;
+    var attribs = [];
 
     for (var i = 0; i < this._providers.length; i++) {
-      attribution += (' ' + this._providers[i].options.attribution);
+      if (this._providers[i].options.attribution) {
+        attribs.push(this._providers[i].options.attribution);
+      }
     }
 
-    return attribution;
+    return attribs.join(', ');
   },
 
   onAdd: function (map) {
@@ -266,6 +268,9 @@ export var Geosearch = L.Control.extend({
     this._input.title = this.options.title;
 
     this._suggestions = L.DomUtil.create('div', 'geocoder-control-suggestions leaflet-bar', this._wrapper);
+
+    var credits = this.getAttribution();
+    map.attributionControl.addAttribution(credits);
 
     L.DomEvent.addListener(this._input, 'focus', function (e) {
       this._input.placeholder = this.options.placeholder;
