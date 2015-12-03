@@ -76,7 +76,7 @@
     "lint": "semistandard src/**/*.js",
     "prepublish": "npm run build",
     "pretest": "npm run build",
-    "release": "node ./scripts/release.sh",
+    "release": "./scripts/release.sh",
     "serve": "nodemon --watch src --exec 'npm run build' & http-server -p 5678 -c-1 -o",
     "test": "npm run lint && karma start"
   },

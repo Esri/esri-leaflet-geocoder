@@ -11,6 +11,7 @@
 ### Fixed
 
 * appropriate l18n input parameter is now passed in `reverseGeocode` requests
+* made sure appropriate provider attribution is added to the map
 
 ## [2.0.1]
 
