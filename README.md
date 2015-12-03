@@ -2,7 +2,7 @@
 
 The Esri Leaflet Geocoder is a small series of API helpers and UI controls to interact with the ArcGIS Online geocoding services.
 
-![Travis CI](https://travis-ci.org/Esri/esri-leaflet-geocoder.svg)
+[![Build Status](https://travis-ci.org/Esri/esri-leaflet-geocoder.svg?branch=master)](https://travis-ci.org/Esri/esri-leaflet-geocoder)
 
 ## Example
 
