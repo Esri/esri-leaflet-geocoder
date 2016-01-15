@@ -6,6 +6,7 @@ export var Geosearch = L.Control.extend({
   options: {
     position: 'topleft',
     zoomToResult: true,
+    searchBounds: null,
     useMapBounds: 12,
     collapseAfterResult: true,
     expanded: false,
@@ -146,6 +147,10 @@ export var Geosearch = L.Control.extend({
   },
 
   _searchBounds: function () {
+    if (this.options.searchBounds !== null) {
+      return this.options.searchBounds;
+    }
+
     if (this.options.useMapBounds === false) {
       return null;
     }
