@@ -8,6 +8,8 @@
 
 * new `searchBounds` parameter for `L.esri.Geocoding.geosearch` for filtering using a static bounding box. (#115 thanks to @nathanhilbert!)
 
+## [2.0.2]
+
 ### Fixed
 
 * appropriate l18n input parameter is now passed in `reverseGeocode` requests
