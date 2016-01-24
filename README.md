@@ -21,8 +21,8 @@ Take a look at the [live demo](http://esri.github.com/esri-leaflet/examples/geoc
     <!-- Esri Leaflet -->
     <script src="//cdn.jsdelivr.net/leaflet.esri/2.0.0-beta.7/esri-leaflet.js"></script>
     <!-- Esri Leaflet Geocoder -->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/leaflet.esri.geocoder/2.0.2/esri-leaflet-geocoder.css">
-    <script src="//cdn.jsdelivr.net/leaflet.esri.geocoder/2.0.2/esri-leaflet-geocoder.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/leaflet.esri.geocoder/2.0.3/esri-leaflet-geocoder.css">
+    <script src="//cdn.jsdelivr.net/leaflet.esri.geocoder/2.0.3/esri-leaflet-geocoder.js"></script>
     <!-- Make the map fill the entire page -->
     <style>
     #map {
