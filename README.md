@@ -57,7 +57,7 @@ Take a look at the [live demo](http://esri.github.com/esri-leaflet/examples/geoc
         results.clearLayers();
         for (var i = data.results.length - 1; i >= 0; i--) {
             results.addLayer(L.marker(data.results[i].latlng));
-        };
+        }
     });
     </script>
 </body>
