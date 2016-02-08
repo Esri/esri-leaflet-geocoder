@@ -20,6 +20,11 @@
   box-sizing: border-box;
 }
 
+.geocoder-control-input-disabled {
+  background-color: #f4f4f4;
+  background-image: url("img/search-disabled.png");
+}
+
 .geocoder-control {
   width: 26px;
   height: 26px;
@@ -46,6 +51,9 @@ only screen and (-webkit-min-device-pixel-ratio: 2),
 only screen and (min-device-pixel-ratio: 2) {
   .geocoder-control-input {
     background-image: url("img/search@2x.png");
+  }
+  .geocoder-control-input-disabled {
+    background-image: url("img/search@2x-disabled.png");
   }
   .geocoder-control-input.geocoder-control-loading {
     background-image: url("img/loading@2x.gif");
