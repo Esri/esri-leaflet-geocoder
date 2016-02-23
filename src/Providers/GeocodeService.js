@@ -7,7 +7,6 @@ export var GeocodeServiceProvider = GeocodeService.extend({
   },
 
   suggestions: function (text, bounds, callback) {
-
     if (this.options.supportsSuggest) {
       var request = this.suggest().text(text);
       if (bounds) {

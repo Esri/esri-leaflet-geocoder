@@ -41,9 +41,13 @@
     "karma-phantomjs-launcher": "^0.1.4",
     "karma-sourcemap-loader": "^0.3.5",
     "mkdirp": "^0.5.1",
+    "mocha": "^2.3.4",
     "node-sass": "^3.2.0",
     "phantomjs": "^1.9.17",
-    "rollup": "^0.10.0",
+    "rollup": "^0.25.4",
+    "rollup-plugin-json": "^2.0.0",
+    "rollup-plugin-node-resolve": "^1.4.0",
+    "rollup-plugin-uglify": "^0.2.0",
     "semistandard": "^6.1.2",
     "sinon": "^1.11.1",
     "sinon-chai": "2.7.0",
@@ -59,7 +63,7 @@
     "registry": "npm",
     "format": "es6"
   },
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "main": "src/EsriLeafletGeocoding.js",
   "readmeFilename": "README.md",
   "repository": {
@@ -68,7 +72,7 @@
   },
   "scripts": {
     "prebuild": "mkdirp dist",
-    "build": "./scripts/build.js && npm run css && npm run img",
+    "build": "rollup -c profiles/debug.js & rollup -c profiles/production.js & npm run css & npm run img",
     "css": "node-sass ./src/esri-leaflet-geocoder.css ./dist/esri-leaflet-geocoder.css --output-style compressed",
     "img": "imagemin ./src/img ./dist/img",
     "lint": "semistandard src/**/*.js",
