@@ -1,23 +1,8 @@
 {
   "name": "esri-leaflet-geocoder",
   "description": "Esri Geocoding utilities and search plguin for Leaflet.",
-  "version": "2.0.0-beta.3",
+  "version": "2.0.0-beta.4",
   "author": "Patrick Arlt <parlt@esri.com> (http://patrickarlt.com)",
-  "browserify": {
-    "transform": [
-      [
-        "babelify",
-        {
-          "whitelist": [
-            "es6.modules"
-          ],
-          "loose": [
-            "es6.modules"
-          ]
-        }
-      ]
-    ]
-  },
   "contributors": [
     "Patrick Arlt <parlt@esri.com> (http://patrickarlt.com)",
     "John Gravois <jgravois@esri.com> (http://johngravois.com)"
@@ -56,15 +41,13 @@
   "homepage": "https://github.com/Esri/esri-leaflet-geocoder",
   "jsnext:main": "src/EsriLeafletGeocoding.js",
   "jspm": {
-    "files": [
-      "src/**/*.js",
-      "dist/**/*"
-    ],
     "registry": "npm",
-    "format": "es6"
+    "format": "es6",
+    "main": "src/EsriLeafletGeocoding.js"
   },
   "license": "Apache-2.0",
-  "main": "src/EsriLeafletGeocoding.js",
+  "main": "dist/esri-leaflet-geocoder-debug.js",
+  "browser": "dist/esri-leaflet-geocoder-debug.js",
   "readmeFilename": "README.md",
   "repository": {
     "type": "git",
