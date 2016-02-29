@@ -6,16 +6,18 @@ export var Geosearch = L.Control.extend({
   options: {
     position: 'topleft',
     zoomToResult: true,
+    searchBounds: null,
     useMapBounds: 12,
     collapseAfterResult: true,
     expanded: false,
-    forStorage: false,
     allowMultipleResults: true,
     placeholder: 'Search for places or addresses',
     title: 'Location Search'
   },
 
   initialize: function (options) {
+    L.Util.setOptions(this, options);
+
     if (!options || !options.providers || !options.providers.length) {
       throw new Error('You must specificy at least one provider');
     }
@@ -145,6 +147,10 @@ export var Geosearch = L.Control.extend({
   },
 
   _searchBounds: function () {
+    if (this.options.searchBounds !== null) {
+      return this.options.searchBounds;
+    }
+
     if (this.options.useMapBounds === false) {
       return null;
     }
@@ -249,13 +255,15 @@ export var Geosearch = L.Control.extend({
   },
 
   getAttribution: function () {
-    var attribution = this.options.attribution;
+    var attribs = [];
 
     for (var i = 0; i < this._providers.length; i++) {
-      attribution += (' ' + this._providers[i].options.attribution);
+      if (this._providers[i].options.attribution) {
+        attribs.push(this._providers[i].options.attribution);
+      }
     }
 
-    return attribution;
+    return attribs.join(', ');
   },
 
   onAdd: function (map) {
@@ -265,6 +273,9 @@ export var Geosearch = L.Control.extend({
     this._input.title = this.options.title;
 
     this._suggestions = L.DomUtil.create('div', 'geocoder-control-suggestions leaflet-bar', this._wrapper);
+
+    var credits = this.getAttribution();
+    map.attributionControl.addAttribution(credits);
 
     L.DomEvent.addListener(this._input, 'focus', function (e) {
       this._input.placeholder = this.options.placeholder;

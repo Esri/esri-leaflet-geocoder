@@ -6,12 +6,14 @@ export var ReverseGeocode = Task.extend({
   path: 'reverseGeocode',
 
   params: {
-    outSR: 4326
+    outSR: 4326,
+    returnIntersection: false
   },
 
   setters: {
     'distance': 'distance',
-    'language': 'language'
+    'language': 'langCode',
+    'intersection': 'returnIntersection'
   },
 
   initialize: function (options) {

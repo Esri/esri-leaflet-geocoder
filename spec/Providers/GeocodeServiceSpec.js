@@ -2,14 +2,14 @@ describe('Providers.GeocodeService', function () {
   var xhr;
   var provider;
 
-  beforeEach(function(){
+  beforeEach(function () {
     xhr = sinon.useFakeXMLHttpRequest();
     provider = new L.esri.Geocoding.GeocodeServiceProvider({
       url: 'http://example.com/arcgis/arcgis/rest/services/MockGeocodeService'
     });
   });
 
-  afterEach(function(){
+  afterEach(function () {
     xhr.restore();
   });
 
@@ -41,9 +41,8 @@ describe('Providers.GeocodeService', function () {
     ]
   });
 
-
-  it('should geocode for partial text', function(done){
-    var request = provider.results('380 New York St, Redlands', null, null,  function(error, results){
+  it('should geocode for partial text', function (done) {
+    var request = provider.results('380 New York St, Redlands', null, null, function (error, results) {
       expect(results[0].latlng.lat).to.equal(34.056490727765947);
       expect(results[0].latlng.lng).to.equal(-117.19566584280369);
       expect(results[0].text).to.equal('380 New York St, Redlands, California, 92373');

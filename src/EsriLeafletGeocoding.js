@@ -14,6 +14,6 @@ export { Geosearch, geosearch } from './Controls/Geosearch';
 
 // import providers
 export { ArcgisOnlineProvider, arcgisOnlineProvider } from './Providers/ArcgisOnlineGeocoder';
-export { FeatureLayerProvider, featureLayerProvider} from './Providers/FeatureLayer';
-export { MapServiceProvider, mapServiceProvider} from './Providers/MapService';
-export { GeocodeServiceProvider, geocodeServiceProvider} from './Providers/GeocodeService';
+export { FeatureLayerProvider, featureLayerProvider } from './Providers/FeatureLayer';
+export { MapServiceProvider, mapServiceProvider } from './Providers/MapService';
+export { GeocodeServiceProvider, geocodeServiceProvider } from './Providers/GeocodeService';
