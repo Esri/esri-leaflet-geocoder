@@ -12,9 +12,9 @@ module.exports = function (config) {
     // list of files / patterns to load in the browser
     files: [
       'node_modules/leaflet/dist/leaflet.css',
-      'node_modules/leaflet/dist/leaflet.js',
-      'node_modules/esri-leaflet/dist/esri-leaflet.js',
-      'dist/esri-leaflet-geocoder.js',
+      'node_modules/leaflet/dist/leaflet-src.js',
+      'node_modules/esri-leaflet/dist/esri-leaflet-debug.js',
+      'dist/esri-leaflet-geocoder-debug.js',
       'spec/**/*Spec.js'
     ],
 

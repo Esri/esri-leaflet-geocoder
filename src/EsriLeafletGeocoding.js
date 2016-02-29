@@ -1,4 +1,4 @@
-export var VERSION = '2.0.3';
+export { version as VERSION } from '../package.json';
 export var WorldGeocodingServiceUrl = (window.location.protocol === 'https:' ? 'https:' : 'http:') + '//geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/';
 
 // import tasks
