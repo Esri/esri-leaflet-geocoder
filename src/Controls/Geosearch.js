@@ -254,6 +254,23 @@ export var Geosearch = L.Control.extend({
     }
   },
 
+  _setupClick: function () {
+    L.DomUtil.addClass(this._wrapper, 'geocoder-control-expanded');
+    this._input.focus();
+  },
+
+  disable: function () {
+    this._input.disabled = true;
+    L.DomUtil.addClass(this._input, 'geocoder-control-input-disabled');
+    L.DomEvent.removeListener(this._wrapper, 'click', this._setupClick, this);
+  },
+
+  enable: function () {
+    this._input.disabled = false;
+    L.DomUtil.removeClass(this._input, 'geocoder-control-input-disabled');
+    L.DomEvent.addListener(this._wrapper, 'click', this._setupClick, this);
+  },
+
   getAttribution: function () {
     var attribs = [];
 
@@ -282,10 +299,7 @@ export var Geosearch = L.Control.extend({
       L.DomUtil.addClass(this._wrapper, 'geocoder-control-expanded');
     }, this);
 
-    L.DomEvent.addListener(this._wrapper, 'click', function (e) {
-      L.DomUtil.addClass(this._wrapper, 'geocoder-control-expanded');
-      this._input.focus();
-    }, this);
+    L.DomEvent.addListener(this._wrapper, 'click', this._setupClick, this);
 
     L.DomEvent.addListener(this._suggestions, 'mousedown', function (e) {
       var suggestionItem = e.target || e.srcElement;

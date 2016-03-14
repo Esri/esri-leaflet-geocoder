@@ -32,7 +32,7 @@
 
       var tiles = L.esri.basemapLayer('Topographic').addTo(map);
 
-      L.esri.Geocoding.geosearch({
+      var searchControl = L.esri.Geocoding.geosearch({
         providers: [
           L.esri.Geocoding.arcgisOnlineProvider({
             countries: ['USA', 'GUM', 'VIR', 'PRI'],
