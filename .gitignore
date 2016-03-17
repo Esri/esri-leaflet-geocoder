@@ -20,6 +20,8 @@ coverage
 # Debugging Files
 debug/*
 !debug/sample.html
+!debug/sample-calcite.html
+!debug/sample-input.html
 
 # Built Files and watch cache
 dist

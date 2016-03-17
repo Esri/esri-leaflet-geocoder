@@ -12,6 +12,12 @@ export { GeocodeService, geocodeService } from './Services/Geocode';
 // import control
 export { Geosearch, geosearch } from './Controls/Geosearch';
 
+// import class
+export { GeosearchInput, geosearchInput } from './Classes/GeosearchInput';
+
+// import supporting class
+export { GeosearchCore, geosearchCore } from './Classes/GeosearchCore';
+
 // import providers
 export { ArcgisOnlineProvider, arcgisOnlineProvider } from './Providers/ArcgisOnlineGeocoder';
 export { FeatureLayerProvider, featureLayerProvider } from './Providers/FeatureLayer';

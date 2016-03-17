@@ -36,7 +36,15 @@
         providers: [
           L.esri.Geocoding.arcgisOnlineProvider({
             countries: ['USA', 'GUM', 'VIR', 'PRI'],
-            categories: ['Address', 'Postal', 'Populated Place', ]
+            // points of interest wont be included...
+            categories: ['Address', 'Postal', 'Populated Place', ],
+            maxResults: 3
+          }),
+          L.esri.Geocoding.mapServiceProvider({
+            label: 'States and Counties',
+            url: 'http://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer',
+            layers: [2, 3],
+            searchFields: ['NAME', 'STATE_NAME']
           })
         ]
       }).addTo(map);

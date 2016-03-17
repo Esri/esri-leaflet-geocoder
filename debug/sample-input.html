@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>styleless geosearch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Load Leaflet from their CDN -->
+    <link rel="stylesheet" href="../node_modules/leaflet/dist/leaflet.css" />
+    <script src="../node_modules/leaflet/dist/leaflet-src.js"></script>
+
+    <script src="../node_modules/esri-leaflet/dist/esri-leaflet.js"></script>
+    <script src="../dist/esri-leaflet-geocoder-debug.js"></script>
+
+    <!--link rel="stylesheet" href="../dist/esri-leaflet-geocoder.css" /-->
+
+    <style type="text/css">
+      html, body {
+        height: 100%;
+        width: 100%;
+        margin: 0px;
+      }
+      #map {
+        width: 100%;
+        height:500px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id= "map"></div>
+    <div id="where">
+      <p>where to?</p>
+      <input type="text" id="address"  autocomplete="off" autofocus>
+    </div>
+    <div id= "map"></div>
+  <script>
+      var map = L.map('map').setView([45.5165, -122.6764], 3);
+      L.esri.basemapLayer('Topographic').addTo(map);
+
+      var search = L.esri.Geocoding.geosearchInput({
+        map: map,
+        inputTag: 'address',
+        title: 'type an address, point of interest...',
+        placeholder: 'ex. LAX',
+        useMapBounds: false,
+        providers: [
+          L.esri.Geocoding.arcgisOnlineProvider(),
+          L.esri.Geocoding.mapServiceProvider({
+            label: 'States and Counties',
+            url: 'http://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer',
+            layers: [2, 3],
+            searchFields: ['NAME', 'STATE_NAME']
+          })
+        ]
+      });
+    </script>
+
+  </body>
+</html>
