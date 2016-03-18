@@ -1,6 +1,4 @@
-
 describe('L.esri.Geosearch', function () {
-
   function createMap(){
     // create container
     var container = document.createElement('div');
@@ -8,7 +6,7 @@ describe('L.esri.Geosearch', function () {
     // give container a width/height
     container.setAttribute('style', 'width:500px; height: 500px;');
 
-    // add contianer to body
+    // add container to body
     document.body.appendChild(container);
 
     return L.map(container, {
@@ -89,6 +87,39 @@ describe('L.esri.Geosearch', function () {
                                  JSON.stringify({"suggestions":[]}));
 
     expect(geosearch._pendingSuggestions[0].url).to.equal('http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/suggest?text=Mayoworth%2C%20WY&location=-97.64%2C30.32&distance=50000&searchExtent=%7B%22xmin%22%3A-101.78%2C%22ymin%22%3A28.28%2C%22xmax%22%3A-93.5%2C%22ymax%22%3A32.36%2C%22spatialReference%22%3A%7B%22wkid%22%3A4326%7D%7D&f=json');
+    done();
+
+  });
+
+  it('should correctly construct a bounds object around all inputs using each extent', function (done) {
+    var geosearch = L.esri.Geocoding.geosearch({
+        providers: [
+          L.esri.Geocoding.arcgisOnlineProvider()
+        ]
+    }).addTo(map);
+
+    var sampleTexasResults = [{
+      bounds: L.latLngBounds([37.200439, -93.300607], [25.300439, -105.200607]),
+      latlng: {
+        lat: 31.250439204000486,
+        lng: -99.25060627399967
+      },
+      properties: {
+        "Loc_name": "Gaz.WorldGazetteer.POI1",
+        "Score": 100,
+        "Match_addr": "Texas, United States",
+        "Addr_type": "POI",
+        "Type": "State or Province",
+        "PlaceName": "Texas"
+      },
+      score: 100,
+      text: 'Texas, United States'
+    }]
+    var aggBounds = geosearch._boundsFromResults(sampleTexasResults);
+    expect(aggBounds._northEast.lat).to.equal(37.200439);
+    expect(aggBounds._northEast.lng).to.equal(-93.300607);
+    expect(aggBounds._southWest.lat).to.equal(25.300439);
+    expect(aggBounds._southWest.lng).to.equal(-105.200607);
     done();
 
   });
