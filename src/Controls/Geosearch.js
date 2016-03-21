@@ -1,5 +1,5 @@
 import L from 'leaflet';
-import { GeosearchCore } from '../Classes/GeosearchCore';
+import { geosearchCore } from '../Classes/GeosearchCore';
 
 export var Geosearch = L.Control.extend({
   includes: L.Mixin.Events,
@@ -21,8 +21,7 @@ export var Geosearch = L.Control.extend({
     }
 
     // instantiate the underlying class and pass along options
-    this._geosearchCore = new GeosearchCore(this, options);
-
+    this._geosearchCore = geosearchCore(this, options);
     this._geosearchCore._providers = options.providers;
 
     // bubble each providers events to the control
@@ -53,7 +52,6 @@ export var Geosearch = L.Control.extend({
 
     for (var i = 0; i < suggestions.length; i++) {
       var suggestion = suggestions[i];
-
       if (!header && this._geosearchCore._providers.length > 1 && currentGroup !== suggestion.provider.options.label) {
         header = L.DomUtil.create('span', 'geocoder-control-header', this._suggestions);
         header.textContent = suggestion.provider.options.label;
@@ -310,7 +308,7 @@ export var Geosearch = L.Control.extend({
       L.DomUtil.removeClass(this._input, 'geocoder-control-loading');
       this.clear();
       this._input.blur();
-    });
+    }, this);
 
     return this._wrapper;
   },
