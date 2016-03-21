@@ -233,7 +233,7 @@ export var Geosearch = L.Control.extend({
 
     // and extend it to contain all bounds objects
     for (var j = 0; j < resultBounds.length; j++) {
-      bounds.extend(resultBounds[i]);
+      bounds.extend(resultBounds[j]);
     }
 
     return bounds;
