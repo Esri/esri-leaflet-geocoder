@@ -10,12 +10,13 @@ export var Suggest = Task.extend({
   setters: {
     text: 'text',
     category: 'category',
-    countries: 'countryCode'
+    countries: 'countryCode',
+    maxSuggestions: 'maxSuggestions'
   },
 
-  initialize: function (options) {
-    options = options || {};
-    options.url = options.url || WorldGeocodingServiceUrl;
+  initialize: function (provider) {
+    var options = provider.options || {};
+    options.url = provider.options.url || WorldGeocodingServiceUrl;
     Task.prototype.initialize.call(this, options);
   },
 
