@@ -14,15 +14,18 @@ Take a look at the [live demo](http://esri.github.com/esri-leaflet/examples/geoc
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset=utf-8 />
     <title>Esri Leaflet Geocoder</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
     <!-- Load Leaflet from CDN-->
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v1.0.0-beta.2/leaflet.css" />
-    <script src="http://cdn.leafletjs.com/leaflet/v1.0.0-beta.2/leaflet.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/leaflet/1.0.0-beta.2/leaflet.css" />
+    <script src="https://cdn.jsdelivr.net/leaflet/1.0.0-beta.2/leaflet.js"></script>
     <!-- Esri Leaflet -->
-    <script src="//cdn.jsdelivr.net/leaflet.esri/2.0.0-beta.7/esri-leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/leaflet.esri/2.0.0-beta.8/esri-leaflet.js"></script>
     <!-- Esri Leaflet Geocoder -->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/leaflet.esri.geocoder/2.0.3/esri-leaflet-geocoder.css">
-    <script src="//cdn.jsdelivr.net/leaflet.esri.geocoder/2.0.3/esri-leaflet-geocoder.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.0.3/esri-leaflet-geocoder.css">
+    <script src="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.0.3/esri-leaflet-geocoder.js"></script>
     <!-- Make the map fill the entire page -->
     <style>
     #map {
@@ -90,10 +93,10 @@ An abstraction for submitting requests for address candidates associated with a 
 ## Development Instructions
 
 1. [Fork and clone Esri Leaflet Geocoder](https://help.github.com/articles/fork-a-repo)
-2. `cd` into the `esri-leaflet-geocoder` folder
-5. Install the dependencies with `npm install`
-5. The example at `/index.html` *should* 'just work'
-6. Make your changes and create a [pull request](https://help.github.com/articles/creating-a-pull-request)
+2. `cd` into the `esri-leaflet-geocoder` folder and install the dependencies with `npm install`
+3. Run `npm start` from the command line. This will compile minified source in a brand new `dist` directory, launch a tiny webserver and begin watching the raw source for changes.
+4. The example at `debug/sample.html` *should* 'just work'
+5. Make your changes and create a [pull request](https://help.github.com/articles/creating-a-pull-request)
 
 ## Resources
 
@@ -122,7 +125,7 @@ In order the use the ArcGIS Online Geocoding Service you should signup for an [A
 This information is from the [ArcGIS for Developers Terms of Use FAQ](https://developers.arcgis.com/en/terms/faq/) and the [ArcGIS Online World Geocoder documentation](http://resources.arcgis.com/en/help/arcgis-rest-api/#/Single_input_field_geocoding/02r300000015000000/)
 
 ## Licensing
-Copyright 2015 Esri
+Copyright 2016 Esri
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

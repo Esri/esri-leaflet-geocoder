@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../node_modules/leaflet/dist/leaflet.css" />
     <script src="../node_modules/leaflet/dist/leaflet-src.js"></script>
 
-    <script src="../node_modules/esri-leaflet/dist/esri-leaflet.js"></script>
+    <script src="../node_modules/esri-leaflet/dist/esri-leaflet-debug.js"></script>
 
     <link rel="stylesheet" href="../dist/esri-leaflet-geocoder.css" />
     <script src="../dist/esri-leaflet-geocoder-debug.js"></script>
@@ -29,14 +29,20 @@
 
     <script>
       var map = L.map('map').setView([37.74, -121.62], 9);
-
       var tiles = L.esri.basemapLayer('Topographic').addTo(map);
 
       var searchControl = L.esri.Geocoding.geosearch({
         providers: [
           L.esri.Geocoding.arcgisOnlineProvider({
-            countries: ['USA', 'GUM', 'VIR', 'PRI'],
-            categories: ['Address', 'Postal', 'Populated Place', ]
+            // countries: ['USA', 'GUM', 'VIR', 'PRI'],
+            // categories: ['Address', 'Postal', 'Populated Place', ],
+            maxResults: 3
+          }),
+          L.esri.Geocoding.mapServiceProvider({
+            label: 'States and Counties',
+            url: 'http://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer',
+            layers: [2, 3],
+            searchFields: ['NAME', 'STATE_NAME']
           })
         ]
       }).addTo(map);
