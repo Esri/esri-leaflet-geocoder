@@ -1,5 +1,5 @@
 export { version as VERSION } from '../package.json';
-export var WorldGeocodingServiceUrl = (window.location.protocol === 'https:' ? 'https:' : 'http:') + '//geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/';
+export var WorldGeocodingServiceUrl = 'https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/';
 
 // import tasks
 export { Geocode, geocode } from './Tasks/Geocode';

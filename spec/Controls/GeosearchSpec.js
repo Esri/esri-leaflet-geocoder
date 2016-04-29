@@ -86,7 +86,7 @@ describe('L.esri.Geosearch', function () {
     this.requests[0].respond(200, { "Content-Type": "application/json" },
                                  JSON.stringify({"suggestions":[]}));
 
-    expect(geosearch._geosearchCore._pendingSuggestions[0].url).to.equal('http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/suggest?text=Mayoworth%2C%20WY&location=-97.64%2C30.32&distance=50000&searchExtent=%7B%22xmin%22%3A-101.78%2C%22ymin%22%3A28.28%2C%22xmax%22%3A-93.5%2C%22ymax%22%3A32.36%2C%22spatialReference%22%3A%7B%22wkid%22%3A4326%7D%7D&f=json');
+    expect(geosearch._geosearchCore._pendingSuggestions[0].url).to.equal('https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/suggest?text=Mayoworth%2C%20WY&location=-97.64%2C30.32&distance=50000&searchExtent=%7B%22xmin%22%3A-101.78%2C%22ymin%22%3A28.28%2C%22xmax%22%3A-93.5%2C%22ymax%22%3A32.36%2C%22spatialReference%22%3A%7B%22wkid%22%3A4326%7D%7D&f=json');
     done();
 
   });
