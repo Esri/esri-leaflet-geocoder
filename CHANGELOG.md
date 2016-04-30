@@ -6,17 +6,18 @@
 
 ### Added
 
-* new `enable()` and `disable()` methods to programmatically control `geosearch`.
+* new `enable()` and `disable()` methods to programmatically control `geosearch`. [./pull/121](https://github.com/Esri/esri-leaflet-geocoder/pull/121)
 
 ### Fixed
 
-* ensure that the map is zoomed to the bounding box of matches, not street level.
-* made sure Esri's copyright text is included in the concatenated, minified build of the library.
+* ensure that the map is zoomed to the bounding box of matches, not street level. [./pull/123](https://github.com/Esri/esri-leaflet-geocoder/pull/123)
+* made sure Esri's copyright text is included in the concatenated, minified build of the library. ae9dea4
+* changed a string introspection to make grumpy old IE happy. [pull/127](https://github.com/Esri/esri-leaflet-geocoder/pull/127)
 
 ### changed
 
-* refactored `geosearch` into a base class and inherited control to lay the groundwork for other UI components that live outside the map.
-* use `https` consistently when making requests to the World Geocoding services instead of inheriting protocol from the parent application.
+* refactored `geosearch` into a base class and inherited control to lay the groundwork for other UI components that live outside the map. [pull/102](https://github.com/Esri/esri-leaflet-geocoder/pull/102)
+* use `https` consistently when making requests to the World Geocoding services instead of inheriting protocol from the parent application. 388ba04
 
 ## [2.0.3]
 
