@@ -28,7 +28,7 @@ export var GeocodeService = Service.extend({
   _confirmSuggestSupport: function () {
     this.metadata(function (error, response) {
       if (error) { return; }
-      if (response.capabilities.includes('Suggest')) {
+      if (response.capabilities.indexOf('Suggest') > -1) {
         this.options.supportsSuggest = true;
       } else {
         this.options.supportsSuggest = false;
