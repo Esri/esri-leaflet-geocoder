@@ -2,6 +2,22 @@
 
 ## [Upcoming changes][Unreleased]
 
+## [2.1.0]
+
+### Added
+
+* new `enable()` and `disable()` methods to programmatically control `geosearch`.
+
+### Fixed
+
+* ensure that the map is zoomed to the bounding box of matches, not street level.
+* made sure Esri's copyright text is included in the concatenated, minified build of the library.
+
+### changed
+
+* refactored `geosearch` into a base class and inherited control to lay the groundwork for other UI components that live outside the map.
+* use `https` consistently when making requests to the World Geocoding services instead of inheriting protocol from the parent application.
+
 ## [2.0.3]
 
 ### Added
@@ -174,7 +190,8 @@ This is now ready for beta! This release helps finalize the API and includes lot
 
 * Initial alpha release
 
-[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.0.3...HEAD
+[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.1.0...HEAD
+[2.1.0]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.0.3...v2.1.0
 [2.0.3]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.0.2...v2.0.3
 [2.0.2]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.0.1...v2.0.2
 [2.0.1]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.0.0...v2.0.1
