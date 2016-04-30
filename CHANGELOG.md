@@ -14,8 +14,12 @@
 * made sure Esri's copyright text is included in the concatenated, minified build of the library. ae9dea4
 * changed a string introspection to make grumpy old IE happy. [pull/127](https://github.com/Esri/esri-leaflet-geocoder/pull/127)
 
-### changed
+### Changed
 
+* Build system refactored to use latest Rollup and Rollup plugins.
+* Reworked bundling directives for various modules systems to resolve and simplify various issues
+  * WebPack users no longer have to use the Babel loader.
+  * Babelify with Babel 6 now works
 * refactored `geosearch` into a base class and inherited control to lay the groundwork for other UI components that live outside the map. [pull/102](https://github.com/Esri/esri-leaflet-geocoder/pull/102)
 * use `https` consistently when making requests to the World Geocoding services instead of inheriting protocol from the parent application. 388ba04
 
