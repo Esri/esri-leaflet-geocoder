@@ -14,9 +14,9 @@ export var Suggest = Task.extend({
     maxSuggestions: 'maxSuggestions'
   },
 
-  initialize: function (provider) {
-    var options = provider.options || {};
-    options.url = provider.options.url || WorldGeocodingServiceUrl;
+  initialize: function (options) {
+    options = options || {};
+    options.url = options.url || WorldGeocodingServiceUrl;
     Task.prototype.initialize.call(this, options);
   },
 
