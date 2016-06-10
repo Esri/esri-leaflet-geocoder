@@ -16,7 +16,10 @@ export var Suggest = Task.extend({
 
   initialize: function (options) {
     options = options || {};
-    options.url = options.url || WorldGeocodingServiceUrl;
+    if (!options.url) {
+      options.url = WorldGeocodingServiceUrl;
+      options.supportsSuggest = true;
+    }
     Task.prototype.initialize.call(this, options);
   },
 
@@ -39,9 +42,13 @@ export var Suggest = Task.extend({
   },
 
   run: function (callback, context) {
-    return this.request(function (error, response) {
-      callback.call(context, error, response, response);
-    }, this);
+    if (this.options.supportsSuggest) {
+      return this.request(function (error, response) {
+        callback.call(context, error, response, response);
+      }, this);
+    } else {
+      console.warn('this geocoding service does not support asking for suggestions');
+    }
   }
 
 });

@@ -30,12 +30,14 @@ export var Geocode = Task.extend({
   },
 
   initialize: function (options) {
-    if (typeof options !== 'undefined' && options.options) {
-      options = options.options;
+    if (typeof options !== 'undefined') {
       this.path = 'findAddressCandidates';
+      if (options.options) {
+        options = options.options;
+      }
     } else {
       options = options || {};
-      options.url || WorldGeocodingServiceUrl;
+      options.url = options.url || WorldGeocodingServiceUrl;
     }
     Task.prototype.initialize.call(this, options);
   },

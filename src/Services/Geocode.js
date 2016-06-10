@@ -7,9 +7,14 @@ import suggest from '../Tasks/Suggest';
 export var GeocodeService = Service.extend({
   initialize: function (options) {
     options = options || {};
-    options.url = options.url || WorldGeocodingServiceUrl;
-    Service.prototype.initialize.call(this, options);
-    this._confirmSuggestSupport();
+    if (options.url) {
+      Service.prototype.initialize.call(this, options);
+      this._confirmSuggestSupport();
+    } else {
+      options.url = WorldGeocodingServiceUrl;
+      options.supportsSuggest = true;
+      Service.prototype.initialize.call(this, options);
+    }
   },
 
   geocode: function () {
