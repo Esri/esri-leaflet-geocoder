@@ -21,14 +21,19 @@ export var GeocodeService = Service.extend({
   },
 
   suggest: function () {
-    // requires either the Esri World Geocoding Service or a 10.3 ArcGIS Server Geocoding Service that supports suggest.
+    // requires either the Esri World Geocoding Service or a <10.3 ArcGIS Server Geocoding Service that supports suggest.
     return suggest(this);
   },
 
   _confirmSuggestSupport: function () {
     this.metadata(function (error, response) {
       if (error) { return; }
-      if (response.capabilities.indexOf('Suggest') > -1) {
+      // pre 10.3 geocoding services dont list capabilities (and dont support maxLocations)
+      // since, only SOME individual services have been configured to support asking for suggestions
+      if (!response.capabilities) {
+        this.options.supportsSuggest = false;
+        this.options.singleLineParam = response.singleLineAddressField.name;
+      } else if (response.capabilities.indexOf('Suggest') > -1) {
         this.options.supportsSuggest = true;
       } else {
         this.options.supportsSuggest = false;

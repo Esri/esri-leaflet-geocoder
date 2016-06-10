@@ -30,8 +30,13 @@ export var Geocode = Task.extend({
   },
 
   initialize: function (options) {
-    options = options || {};
-    options.url = options.url || WorldGeocodingServiceUrl;
+    if (typeof options !== 'undefined' && options.options) {
+      options = options.options;
+      this.path = 'findAddressCandidates';
+    } else {
+      options = options || {};
+      options.url || WorldGeocodingServiceUrl;
+    }
     Task.prototype.initialize.call(this, options);
   },
 
@@ -49,7 +54,12 @@ export var Geocode = Task.extend({
   },
 
   run: function (callback, context) {
-    this.path = (this.params.text) ? 'find' : 'findAddressCandidates';
+    if (this.options.singleLineParam) {
+      this.params[this.options.singleLineParam] = this.params.text;
+      delete this.params.text;
+    } else {
+      this.path = (this.params.text) ? 'find' : 'findAddressCandidates';
+    }
 
     if (this.path === 'findAddressCandidates' && this.params.bbox) {
       this.params.searchExtent = this.params.bbox;
@@ -91,7 +101,9 @@ export var Geocode = Task.extend({
 
     for (var i = 0; i < response.candidates.length; i++) {
       var candidate = response.candidates[i];
-      var bounds = Util.extentToBounds(candidate.extent);
+      if (candidate.extent) {
+        var bounds = Util.extentToBounds(candidate.extent);
+      }
 
       results.push({
         text: candidate.address,
