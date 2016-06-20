@@ -22,6 +22,11 @@ export var ArcgisOnlineProvider = GeocodeService.extend({
       request.category(this.options.categories);
     }
 
+    // 15 is the maximum number of suggestions that can be returned
+    if (this.options.maxResults) {
+      request.maxSuggestions(this.options.maxResults);
+    }
+
     return request.run(function (error, results, response) {
       var suggestions = [];
       if (!error) {

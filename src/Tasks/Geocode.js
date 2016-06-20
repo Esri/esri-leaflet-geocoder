@@ -49,7 +49,13 @@ export var Geocode = Task.extend({
   },
 
   run: function (callback, context) {
-    this.path = (this.params.text) ? 'find' : 'findAddressCandidates';
+    if (this.options.customParam) {
+      this.path = 'findAddressCandidates';
+      this.params[this.options.customParam] = this.params.text;
+      delete this.params.text;
+    } else {
+      this.path = (this.params.text) ? 'find' : 'findAddressCandidates';
+    }
 
     if (this.path === 'findAddressCandidates' && this.params.bbox) {
       this.params.searchExtent = this.params.bbox;
@@ -91,7 +97,9 @@ export var Geocode = Task.extend({
 
     for (var i = 0; i < response.candidates.length; i++) {
       var candidate = response.candidates[i];
-      var bounds = Util.extentToBounds(candidate.extent);
+      if (candidate.extent) {
+        var bounds = Util.extentToBounds(candidate.extent);
+      }
 
       results.push({
         text: candidate.address,
