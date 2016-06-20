@@ -37,7 +37,7 @@ export var GeocodeService = Service.extend({
       // since, only SOME individual services have been configured to support asking for suggestions
       if (!response.capabilities) {
         this.options.supportsSuggest = false;
-        this.options.singleLineParam = response.singleLineAddressField.name;
+        this.options.customParam = response.singleLineAddressField.name;
       } else if (response.capabilities.indexOf('Suggest') > -1) {
         this.options.supportsSuggest = true;
       } else {

@@ -30,15 +30,8 @@ export var Geocode = Task.extend({
   },
 
   initialize: function (options) {
-    if (typeof options !== 'undefined') {
-      this.path = 'findAddressCandidates';
-      if (options.options) {
-        options = options.options;
-      }
-    } else {
-      options = options || {};
-      options.url = options.url || WorldGeocodingServiceUrl;
-    }
+    options = options || {};
+    options.url = options.url || WorldGeocodingServiceUrl;
     Task.prototype.initialize.call(this, options);
   },
 
@@ -56,8 +49,9 @@ export var Geocode = Task.extend({
   },
 
   run: function (callback, context) {
-    if (this.options.singleLineParam) {
-      this.params[this.options.singleLineParam] = this.params.text;
+    if (this.options.customParam) {
+      this.path = 'findAddressCandidates';
+      this.params[this.options.customParam] = this.params.text;
       delete this.params.text;
     } else {
       this.path = (this.params.text) ? 'find' : 'findAddressCandidates';

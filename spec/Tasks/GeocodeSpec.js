@@ -348,4 +348,18 @@ describe('L.esri.Geocode', function () {
     request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleFindNearbyResponse);
   });
 
+  it('should send the correct params to the right operation for custom geocoding services', function (done) {
+    var request = L.esri.Geocoding.geocode({
+      url: 'http://tasks.arcgisonline.com/ArcGIS/rest/services/Locators/TA_Address_NA_10/GeocodeServer',
+      customParam: 'SingleLine'
+    }).text('Highlands Ranch').run(function (err, response) {
+      done();
+    });
+
+    expect(request.url).to.contain('//tasks.arcgisonline.com/ArcGIS/rest/services/Locators/TA_Address_NA_10/GeocodeServer/findAddressCandidates');
+    expect(request.url).to.contain('SingleLine=Highlands%20Ranch');
+
+    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, samplefindAddressCandidatesResponse);
+  });
+
 });
