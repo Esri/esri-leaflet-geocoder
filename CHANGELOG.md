@@ -2,6 +2,14 @@
 
 ## [Upcoming changes][Unreleased]
 
+## [2.1.1]
+
+### Fixed
+
+* ensured that setting `maxResults` limits the number of suggestions provided by `L.esri.Geocoding.geosearch`, not just final results [#124](https://github.com/Esri/esri-leaflet-geocoder/pull/124)
+
+* improved support for custom Esri geocoding services in `geosearch` [#121](https://github.com/Esri/esri-leaflet-geocoder/pull/121)
+
 ## [2.1.0]
 
 ### Added
@@ -195,7 +203,8 @@ This is now ready for beta! This release helps finalize the API and includes lot
 
 * Initial alpha release
 
-[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.1.0...HEAD
+[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.1.1...HEAD
+[2.1.1]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.1.0...v2.1.1
 [2.1.0]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.0.3...v2.1.0
 [2.0.3]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.0.2...v2.0.3
 [2.0.2]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.0.1...v2.0.2
