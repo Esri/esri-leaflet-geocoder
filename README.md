@@ -2,7 +2,14 @@
 
 The Esri Leaflet Geocoder is a small series of API helpers and UI controls to interact with the ArcGIS Online geocoding services.
 
-[![Build Status](https://travis-ci.org/Esri/esri-leaflet-geocoder.svg?branch=master)](https://travis-ci.org/Esri/esri-leaflet-geocoder)
+[![npm version][npm-img]][npm-url]
+[![build status][travis-img]][travis-url]
+[![apache licensed](https://img.shields.io/badge/license-Apache-green.svg?style=flat-square)](https://raw.githubusercontent.com/Esri/esri-leaflet-geocoder/master/LICENSE)
+
+[npm-img]: https://img.shields.io/npm/v/esri-leaflet-geocoder.svg?style=flat-square
+[npm-url]: https://www.npmjs.com/package/esri-leaflet-geocoder
+[travis-img]: https://img.shields.io/travis/Esri/esri-leaflet-geocoder/master.svg?style=flat-square
+[travis-url]: https://travis-ci.org/Esri/esri-leaflet-geocoder
 
 ## Example
 
@@ -19,13 +26,14 @@ Take a look at the [live demo](http://esri.github.com/esri-leaflet/examples/geoc
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 
     <!-- Load Leaflet from CDN-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/leaflet/1.0.0-beta.2/leaflet.css" />
-    <script src="https://cdn.jsdelivr.net/leaflet/1.0.0-beta.2/leaflet.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/leaflet/1.0.0-rc.1/leaflet.css" />
+    <script src="https://cdn.jsdelivr.net/leaflet/1.0.0-rc.1/leaflet.js"></script>
+
     <!-- Esri Leaflet -->
-    <script src="https://cdn.jsdelivr.net/leaflet.esri/2.0.0-beta.8/esri-leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/leaflet.esri/2.0.1/esri-leaflet.js"></script>
     <!-- Esri Leaflet Geocoder -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.0.3/esri-leaflet-geocoder.css">
-    <script src="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.0.3/esri-leaflet-geocoder.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.1.1/esri-leaflet-geocoder.css">
+    <script src="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.1.1/esri-leaflet-geocoder.js"></script>
     <!-- Make the map fill the entire page -->
     <style>
     #map {
