@@ -49,7 +49,9 @@ export var ArcgisOnlineProvider = GeocodeService.extend({
 
     if (key) {
       request.key(key);
-    } else {
+    }
+    // in the future Address/StreetName geocoding requests that include a magicKey will only return one match
+    if (this.options.maxResults) {
       request.maxLocations(this.options.maxResults);
     }
 
