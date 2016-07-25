@@ -23,9 +23,7 @@ export var ArcgisOnlineProvider = GeocodeService.extend({
     }
 
     // 15 is the maximum number of suggestions that can be returned
-    if (this.options.maxResults) {
-      request.maxSuggestions(this.options.maxResults);
-    }
+    request.maxSuggestions(this.options.maxResults);
 
     return request.run(function (error, results, response) {
       var suggestions = [];
@@ -49,9 +47,9 @@ export var ArcgisOnlineProvider = GeocodeService.extend({
 
     if (key) {
       request.key(key);
-    } else {
-      request.maxLocations(this.options.maxResults);
     }
+    // in the future Address/StreetName geocoding requests that include a magicKey will only return one match
+    request.maxLocations(this.options.maxResults);
 
     if (bounds) {
       request.within(bounds);
