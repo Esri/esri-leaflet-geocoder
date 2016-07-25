@@ -6,7 +6,9 @@
 
 ### Fixed
 
-* ensured that setting `maxResults` limits the number of suggestions provided by `L.esri.Geocoding.geosearch`, not just final results [#124](https://github.com/Esri/esri-leaflet-geocoder/pull/124)
+* ensure that setting `maxResults` limits the number of suggestions provided by `L.esri.Geocoding.geosearch`, not just final results [#124](https://github.com/Esri/esri-leaflet-geocoder/pull/124)
+
+* trap situation in which geocoding service returns more than one candidate even though request includes a `magicKey` [#129](https://github.com/Esri/esri-leaflet-geocoder/pull/129)
 
 * improved support for custom Esri geocoding services in `geosearch` [#121](https://github.com/Esri/esri-leaflet-geocoder/pull/121)
 
