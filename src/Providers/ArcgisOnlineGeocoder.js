@@ -3,8 +3,7 @@ import { GeocodeService } from '../Services/Geocode';
 export var ArcgisOnlineProvider = GeocodeService.extend({
   options: {
     label: 'Places and Addresses',
-    maxResults: 5,
-    attribution: '<a href="https://developers.arcgis.com/en/features/geocoding/">Geocoding by Esri</a>'
+    maxResults: 5
   },
 
   suggestions: function (text, bounds, callback) {
