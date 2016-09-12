@@ -95,7 +95,11 @@ export var FeatureLayerProvider = FeatureLayerService.extend({
       queryString.push(field + " LIKE upper('%" + text + "%')");
     }
 
-    return queryString.join(' OR ');
+    if (this.options.where) {
+      return this.options.where + ' AND ' + queryString.join(' OR ');
+    } else {
+      return queryString.join(' OR ');
+    }
   },
 
   _featureBounds: function (feature) {
