@@ -29,7 +29,10 @@
 
     <script>
       var map = L.map('map').setView([37.74, -121.62], 9);
-      var tiles = L.esri.basemapLayer('Topographic').addTo(map);
+      // var tiles = L.esri.basemapLayer('Topographic').addTo(map);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
 
       var searchControl = L.esri.Geocoding.geosearch({
         providers: [

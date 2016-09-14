@@ -8,8 +8,8 @@
     "John Gravois <jgravois@esri.com> (http://johngravois.com)"
   ],
   "dependencies": {
-    "esri-leaflet": "^2.0.0",
-    "leaflet": "^1.0.0-rc.1"
+    "esri-leaflet": "^2.0.3",
+    "leaflet": "^1.0.0-rc.3"
   },
   "devDependencies": {
     "chai": "2.3.0",
