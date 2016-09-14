@@ -68,7 +68,7 @@ describe('L.esri.Geosearch', function () {
         ]
     }).addTo(map);
 
-    expect(map.attributionControl._container.innerHTML).to.contain('Geocoding by Esri');
+    expect(map.attributionControl._container.innerHTML).to.contain('Powered by');
   });
 
   it('should correctly build the searchExtent for the provider', function (done) {

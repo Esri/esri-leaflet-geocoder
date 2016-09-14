@@ -1,6 +1,7 @@
 import L from 'leaflet';
 import { geosearchCore } from '../Classes/GeosearchCore';
 import { arcgisOnlineProvider } from '../Providers/ArcgisOnlineGeocoder';
+import { Util } from 'esri-leaflet';
 
 export var Geosearch = L.Control.extend({
   includes: L.Mixin.Events,
@@ -167,6 +168,9 @@ export var Geosearch = L.Control.extend({
   },
 
   onAdd: function (map) {
+    // include 'Powered by Esri' in map attribution
+    Util.setEsriAttribution(map);
+
     this._map = map;
     this._wrapper = L.DomUtil.create('div', 'geocoder-control ' + ((this.options.expanded) ? ' ' + 'geocoder-control-expanded' : ''));
     this._input = L.DomUtil.create('input', 'geocoder-control-input leaflet-bar', this._wrapper);
