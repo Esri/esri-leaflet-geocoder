@@ -1,5 +1,6 @@
 import L from 'leaflet';
 import { geosearchCore } from '../Classes/GeosearchCore';
+import { arcgisOnlineProvider } from '../Providers/ArcgisOnlineGeocoder';
 import { Util } from 'esri-leaflet';
 
 export var Geosearch = L.Control.extend({
@@ -18,7 +19,8 @@ export var Geosearch = L.Control.extend({
     L.Util.setOptions(this, options);
 
     if (!options || !options.providers || !options.providers.length) {
-      throw new Error('You must specify at least one provider');
+      options = {};
+      options.providers = [ arcgisOnlineProvider() ];
     }
 
     // instantiate the underlying class and pass along options
