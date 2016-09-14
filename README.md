@@ -26,14 +26,14 @@ Take a look at the [live demo](http://esri.github.com/esri-leaflet/examples/geoc
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 
     <!-- Load Leaflet from CDN-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/leaflet/1.0.0-rc.1/leaflet.css" />
-    <script src="https://cdn.jsdelivr.net/leaflet/1.0.0-rc.1/leaflet.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/leaflet/1.0.0-rc.3/leaflet.css" />
+    <script src="https://cdn.jsdelivr.net/leaflet/1.0.0-rc.3/leaflet.js"></script>
 
     <!-- Esri Leaflet -->
-    <script src="https://cdn.jsdelivr.net/leaflet.esri/2.0.1/esri-leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/leaflet.esri/2.0.3/esri-leaflet.js"></script>
     <!-- Esri Leaflet Geocoder -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.1.1/esri-leaflet-geocoder.css">
-    <script src="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.1.1/esri-leaflet-geocoder.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.1.2/esri-leaflet-geocoder.css">
+    <script src="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.1.2/esri-leaflet-geocoder.js"></script>
     <!-- Make the map fill the entire page -->
     <style>
     #map {
@@ -50,15 +50,12 @@ Take a look at the [live demo](http://esri.github.com/esri-leaflet/examples/geoc
     <div id="map"></div>
     <script>
     var map = L.map('map').setView([45.5165, -122.6764], 12);
-
-    var tiles = L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
-
-    var arcgisOnline = L.esri.Geocoding.arcgisOnlineProvider();
+    var tiles = L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
 
     // create the geocoding control and add it to the map
-    var searchControl = L.esri.Geocoding.geosearch({
-        providers: [arcgisOnline]
-    }).addTo(map);
+    var searchControl = L.esri.Geocoding.geosearch().addTo(map);
 
     // create an empty layer group to store the results and add it to the map
     var results = L.layerGroup().addTo(map);
@@ -119,18 +116,24 @@ Find a bug or want to request a new feature?  Please let us know by submitting a
 
 ## Contributing
 
-Esri welcomes contributions from anyone and everyone. Please see our [guidelines for contributing](https://github.com/esri/contributing).
+Esri welcomes contributions from anyone and everyone. Please see our [guidelines for contributing](https://github.com/Esri/esri-leaflet/blob/master/CONTRIBUTING.md).
 
 ## Terms and Conditions
 
-In order the use the ArcGIS Online Geocoding Service you should signup for an [ArcGIS for Developers account](https://developers.arcgis.com/en/plans) or purchase an [ArcGIS Online Organizational Subscription](http://www.arcgis.com/features/plans/pricing.html).
+In order to make use of the ArcGIS Online World Geocoding Service in your web application:
 
-1. Once you have an account you are good to go. Thats it!
-2. Your users can search for as many places as they want. Esri defines this as "Geosearch" and its free. You only consume credits when you want to store the result of geocodes.
-3. You are  allowed to store the results of any geocoding you do if you pass the `forStorage` flag and a valid access token.
-4. If you use this library in a revenue generating application or for government use you must upgrade to a paid account. You are not allowed to generate revenue while on a free plan.
+1. Please sign up for an [ArcGIS for Developers account](https://developers.arcgis.com/en/plans) or purchase an [ArcGIS Online Organizational Subscription](http://www.arcgis.com/features/plans/pricing.html).
+2. Ensure that `Powered by`[`Esri`](http://esri.com) is displayed in the map attribution.
 
-This information is from the [ArcGIS for Developers Terms of Use FAQ](https://developers.arcgis.com/en/terms/faq/) and the [ArcGIS Online World Geocoder documentation](http://resources.arcgis.com/en/help/arcgis-rest-api/#/Single_input_field_geocoding/02r300000015000000/)
+## Cost
+
+1. User search for individual locations within web applications is defined by Esri as *Geosearch* and it is free. [Credits](https://developers.arcgis.com/credits/) are only consumed when you store results permanently.
+2. To store geocoding results, pass `forStorage: true` and a valid access token.
+3. You are not allowed to generate revenue while on a free ArcGIS Developer plan.
+4. If your application might generate more than 1 million searches in a month, please [contact us](http://www.esri.com/about-esri/contact).
+
+* [ArcGIS for Developers Terms of Use FAQ](https://developers.arcgis.com/en/terms/faq/)
+* [ArcGIS Online World Geocoder documentation](http://resources.arcgis.com/en/help/arcgis-rest-api/#/Single_input_field_geocoding/02r300000015000000/)
 
 ## Licensing
 Copyright 2016 Esri
