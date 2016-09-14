@@ -6,12 +6,12 @@
 
 ### Fixed
 
-* Display 'Powered by Esri' in attribution when geosearch control is added to the map instead of 'Geocoding by Esri' [#134](https://github.com/Esri/esri-leaflet-geocoder/pull/134)
+* 'Powered by Esri' is now displayed in map attribution when the ArcGIS Online World Geocoding service is used in geosearch instead of 'Geocoding by Esri' [#134](https://github.com/Esri/esri-leaflet-geocoder/pull/134)
 
 ### Added
-* expose a `where` constructor parameter for featureLayerProvider so that developers can filter features which will be matched to user searches. [#136](https://github.com/Esri/esri-leaflet-geocoder/pull/136)
+* We now expose a `where` constructor parameter for featureLayerProvider so that developers can filter features which will be matched to user searches. [#136](https://github.com/Esri/esri-leaflet-geocoder/pull/136)
 
-* made `arcgisOnlineProvider` the default if none is passed in the geosearch constructor. [#137](https://github.com/Esri/esri-leaflet-geocoder/pull/137)
+* The geosearch control now utilizes the `arcgisOnlineProvider` by default if no provider is specified in the object constructor. [#137](https://github.com/Esri/esri-leaflet-geocoder/pull/137)
 
 ## [2.1.1]
 

@@ -24,5 +24,3 @@ debug/*
 # Built Files and watch cache
 dist
 build
-.npmignore
-*.zip

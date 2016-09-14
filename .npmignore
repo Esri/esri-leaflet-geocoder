@@ -24,3 +24,5 @@ debug/
 spec/
 scripts/
 example.png
+.npmignore
+*.zip
