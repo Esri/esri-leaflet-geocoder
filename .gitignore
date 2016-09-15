@@ -22,5 +22,5 @@ debug/*
 !debug/sample.html
 
 # Built Files and watch cache
-dist
+dist/
 build
