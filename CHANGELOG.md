@@ -2,6 +2,17 @@
 
 ## [Upcoming changes][Unreleased]
 
+## [2.1.2]
+
+### Fixed
+
+* 'Powered by Esri' is now displayed in map attribution when the ArcGIS Online World Geocoding service is used in geosearch instead of 'Geocoding by Esri' [#134](https://github.com/Esri/esri-leaflet-geocoder/pull/134)
+
+### Added
+* We now expose a `where` constructor parameter for featureLayerProvider so that developers can filter features which will be matched to user searches. [#136](https://github.com/Esri/esri-leaflet-geocoder/pull/136)
+
+* The geosearch control now utilizes the `arcgisOnlineProvider` by default if no provider is specified in the object constructor. [#137](https://github.com/Esri/esri-leaflet-geocoder/pull/137)
+
 ## [2.1.1]
 
 ### Fixed
@@ -205,7 +216,8 @@ This is now ready for beta! This release helps finalize the API and includes lot
 
 * Initial alpha release
 
-[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.1.1...HEAD
+[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.1.2...HEAD
+[2.1.2]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.1.1...v2.1.2
 [2.1.1]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.1.0...v2.1.1
 [2.1.0]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.0.3...v2.1.0
 [2.0.3]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.0.2...v2.0.3

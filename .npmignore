@@ -18,3 +18,11 @@ coverage
 
 # Debugging Files
 debug.html
+
+# for a tidy, compact npm release
+debug/
+spec/
+scripts/
+example.png
+.npmignore
+*.zip
