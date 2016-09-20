@@ -80,10 +80,13 @@ export var GeosearchCore = L.Evented.extend({
           return;
         }
 
-        if (suggestions) {
+        if (suggestions.length) {
           for (i = 0; i < suggestions.length; i++) {
             suggestions[i].provider = provider;
           }
+        } else {
+          // we still need to update the UI
+          this._control._renderSuggestions(suggestions);
         }
 
         if (provider._lastRender !== text && provider.nodes) {
