@@ -63,7 +63,7 @@
     "prepublish": "npm run build",
     "pretest": "npm run build",
     "release": "./scripts/release.sh",
-    "start": "watch \"npm run build\" src | http-server -p 5678 -c-1 -o",
+    "start": "watch \"npm run build\" src & http-server -p 5678 -c-1 -o",
     "test": "npm run lint && karma start"
   },
   "style": "./dist/esri-leaflet-geocoder.css"

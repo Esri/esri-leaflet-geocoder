@@ -317,10 +317,6 @@ export var Geosearch = L.Control.extend({
     }, this);
 
     return this._wrapper;
-  },
-
-  onRemove: function (map) {
-    map.attributionControl.removeAttribution('Geocoding by Esri');
   }
 });
 
