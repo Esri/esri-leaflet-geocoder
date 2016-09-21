@@ -101,7 +101,7 @@ describe('L.esri.Geosearch.FeatureLayer', function () {
     ]
   });
 
-  it('should get suggestions based on text', function (done) {
+  it('should query based on text', function (done) {
     var request = provider.suggestions('Pla', null, function (error, results) {
       expect(results.length).to.equal(2);
       expect(results[0].text).to.equal('Place 1');
@@ -115,7 +115,7 @@ describe('L.esri.Geosearch.FeatureLayer', function () {
     request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleQueryResponse);
   });
 
-  it('should use bounds to get suggestions', function (done) {
+  it('should incorporate bounds in queries', function (done) {
     var request = provider.suggestions('Pla', L.latLngBounds([[0, 0], [100, 100]]), function (error, results) {
       expect(results.length).to.equal(2);
       expect(results[0].text).to.equal('Place 1');
@@ -130,7 +130,7 @@ describe('L.esri.Geosearch.FeatureLayer', function () {
     request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleQueryResponse);
   });
 
-  it('should geocode with a magic key', function (done) {
+  it('should query with a magic key', function (done) {
     var request = provider.results('Place 1', '1', null, function (error, results) {
       expect(results[0].latlng.lat).to.equal(45.48);
       expect(results[0].latlng.lng).to.equal(-122.81);
@@ -143,7 +143,7 @@ describe('L.esri.Geosearch.FeatureLayer', function () {
     request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleObjectQuery);
   });
 
-  it('should geocode for partial text', function (done) {
+  it('should query for partial text', function (done) {
     var request = provider.suggestions('Pla', null, function (error, results) {
       expect(results.length).to.equal(2);
       expect(results[0].text).to.equal('Place 1');
@@ -153,6 +153,21 @@ describe('L.esri.Geosearch.FeatureLayer', function () {
 
     expect(request.url).to.contain('http://example.com/arcgis/arcgis/rest/services/MockService/0/query');
     expect(request.url).to.contain("where=upper(%22Name%22)%20LIKE%20upper('%25Pla%25')");
+
+    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleQueryResponse);
+  });
+
+  it('should honor a filter on the feature layer', function (done) {
+    provider.options.where = "foo='bar'";
+    var request = provider.suggestions('Pla', null, function (error, results) {
+      expect(results.length).to.equal(2);
+      expect(results[0].text).to.equal('Place 1');
+      expect(results[0].magicKey).to.equal(1);
+      done();
+    });
+
+    expect(request.url).to.contain('http://example.com/arcgis/arcgis/rest/services/MockService/0/query');
+    expect(request.url).to.contain("where=foo%3D\'bar\'%20AND%20(upper(%22Name%22)%20LIKE%20upper('%25Pla%25'))");
 
     request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleQueryResponse);
   });
