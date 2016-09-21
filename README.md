@@ -32,8 +32,8 @@ Take a look at the [live demo](http://esri.github.com/esri-leaflet/examples/geoc
     <!-- Esri Leaflet -->
     <script src="https://cdn.jsdelivr.net/leaflet.esri/2.0.3/esri-leaflet.js"></script>
     <!-- Esri Leaflet Geocoder -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.1.3/esri-leaflet-geocoder.css">
-    <script src="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.1.3/esri-leaflet-geocoder.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.1.4/esri-leaflet-geocoder.css">
+    <script src="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.1.4/esri-leaflet-geocoder.js"></script>
     <!-- Make the map fill the entire page -->
     <style>
     #map {
@@ -50,9 +50,7 @@ Take a look at the [live demo](http://esri.github.com/esri-leaflet/examples/geoc
     <div id="map"></div>
     <script>
     var map = L.map('map').setView([45.5165, -122.6764], 12);
-    var tiles = L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
+    var tiles = L.esri.basemapLayer("Streets").addTo(map);
 
     // create the geocoding control and add it to the map
     var searchControl = L.esri.Geocoding.geosearch().addTo(map);
