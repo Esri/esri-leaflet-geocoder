@@ -96,7 +96,7 @@ export var FeatureLayerProvider = FeatureLayerService.extend({
     }
 
     if (this.options.where) {
-      return this.options.where + ' AND ' + queryString.join(' OR ');
+      return this.options.where + ' AND (' + queryString.join(' OR ') + ')';
     } else {
       return queryString.join(' OR ');
     }
