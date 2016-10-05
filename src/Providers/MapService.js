@@ -54,7 +54,7 @@ export var MapServiceProvider = MapService.extend({
       var layer = key.split(':')[1];
       request = this.query().layer(layer).featureIds(featureId);
     } else {
-      request = this.find().text(text).fields(this.options.searchFields).contains(false).layers(this.options.layers);
+      request = this.find().text(text).fields(this.options.searchFields).layers(this.options.layers);
     }
 
     return request.run(function (error, features, response) {
