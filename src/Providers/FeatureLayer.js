@@ -16,10 +16,12 @@ export var FeatureLayerProvider = FeatureLayerService.extend({
     if (typeof this.options.searchFields === 'string') {
       this.options.searchFields = [this.options.searchFields];
     }
+    this._suggestionsQuery = this.query();
+    this._resultsQuery = this.query();
   },
 
   suggestions: function (text, bounds, callback) {
-    var query = this.query().where(this._buildQuery(text))
+    var query = this._suggestionsQuery.where(this._buildQuery(text))
       .returnGeometry(false);
 
     if (bounds) {
@@ -36,15 +38,14 @@ export var FeatureLayerProvider = FeatureLayerService.extend({
       } else {
         this.options.idField = raw.objectIdFieldName;
         var suggestions = [];
-        var count = Math.min(results.features.length, this.options.maxResults);
-        for (var i = 0; i < count; i++) {
+        for (var i = results.features.length - 1; i >= 0; i--) {
           var feature = results.features[i];
           suggestions.push({
             text: this.options.formatSuggestion.call(this, feature),
             magicKey: feature.id
           });
         }
-        callback(error, suggestions.slice(0, this.options.maxResults).reverse());
+        callback(error, suggestions.slice(0, this.options.maxResults));
       }
     }, this);
 
@@ -52,7 +53,7 @@ export var FeatureLayerProvider = FeatureLayerService.extend({
   },
 
   results: function (text, key, bounds, callback) {
-    var query = this.query();
+    var query = this._resultsQuery;
 
     if (key) {
       query.featureIds([key]);
@@ -84,6 +85,10 @@ export var FeatureLayerProvider = FeatureLayerService.extend({
       }
       callback(error, results);
     }, this));
+  },
+
+  orderBy: function (fieldName, order) {
+    this._suggestionsQuery.orderBy(fieldName, order);
   },
 
   _buildQuery: function (text) {
