@@ -2,10 +2,6 @@ describe('L.esri.Geosearch.FeatureLayer', function () {
   var xhr;
   var provider;
 
-  var sampleQueryResponse = {
-
-  };
-
   beforeEach(function () {
     xhr = sinon.useFakeXMLHttpRequest();
     provider = new L.esri.Geocoding.FeatureLayerProvider({
@@ -18,7 +14,7 @@ describe('L.esri.Geosearch.FeatureLayer', function () {
     xhr.restore();
   });
 
-  var sampleQueryResponse = JSON.stringify({
+  var rawSuggestQueryResponse = {
     'objectIdFieldName': 'FID',
     'fields': [{
       'name': 'Name',
@@ -41,32 +37,21 @@ describe('L.esri.Geosearch.FeatureLayer', function () {
         'attributes': {
           'FID': 1,
           'Name': 'Place 1'
-        },
-        'geometry': {
-          'x': -122.81,
-          'y': 45.48,
-          'spatialReference': {
-            'wkid': 4326
-          }
         }
       },
       {
         'attributes': {
           'FID': 2,
           'Name': 'Place 2'
-        },
-        'geometry': {
-          'x': -122.81,
-          'y': 45.48,
-          'spatialReference': {
-            'wkid': 4326
-          }
         }
       }
     ]
-  });
+  };
+  var suggestQueryResponse = JSON.stringify(rawSuggestQueryResponse);
+  rawSuggestQueryResponse.features.reverse();
+  var suggestQueryResponseSorted = JSON.stringify(rawSuggestQueryResponse);
 
-  var sampleObjectQuery = JSON.stringify({
+  var resultQueryResponse = JSON.stringify({
     'objectIdFieldName': 'FID',
     'fields': [{
       'name': 'Name',
@@ -111,8 +96,9 @@ describe('L.esri.Geosearch.FeatureLayer', function () {
 
     expect(request.url).to.contain('http://example.com/arcgis/arcgis/rest/services/MockService/0/query');
     expect(request.url).to.contain("where=upper(%22Name%22)%20LIKE%20upper('%25Pla%25')");
+    expect(request.url).to.contain("returnGeometry=false");
 
-    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleQueryResponse);
+    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, suggestQueryResponse);
   });
 
   it('should incorporate bounds in queries', function (done) {
@@ -127,7 +113,7 @@ describe('L.esri.Geosearch.FeatureLayer', function () {
     expect(request.url).to.contain('geometryType=esriGeometryEnvelope');
     expect(request.url).to.contain('spatialRel=esriSpatialRelIntersects');
 
-    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleQueryResponse);
+    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, suggestQueryResponse);
   });
 
   it('should query with a magic key', function (done) {
@@ -140,7 +126,7 @@ describe('L.esri.Geosearch.FeatureLayer', function () {
 
     expect(request.url).to.contain('objectIds=1');
 
-    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleObjectQuery);
+    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, resultQueryResponse);
   });
 
   it('should query for partial text', function (done) {
@@ -154,7 +140,7 @@ describe('L.esri.Geosearch.FeatureLayer', function () {
     expect(request.url).to.contain('http://example.com/arcgis/arcgis/rest/services/MockService/0/query');
     expect(request.url).to.contain("where=upper(%22Name%22)%20LIKE%20upper('%25Pla%25')");
 
-    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleQueryResponse);
+    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, suggestQueryResponse);
   });
 
   it('should honor a filter on the feature layer', function (done) {
@@ -169,7 +155,24 @@ describe('L.esri.Geosearch.FeatureLayer', function () {
     expect(request.url).to.contain('http://example.com/arcgis/arcgis/rest/services/MockService/0/query');
     expect(request.url).to.contain("where=foo%3D\'bar\'%20AND%20(upper(%22Name%22)%20LIKE%20upper('%25Pla%25'))");
 
-    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleQueryResponse);
+    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, suggestQueryResponse);
+  });
+
+  it('should be able to specify sort order of results', function (done) {
+    provider.orderBy('FID', 'DESC');
+    var request = provider.suggestions('Pla', null, function (error, results) {
+      console.log(results);
+      expect(results.length).to.equal(2);
+      expect(results[0].text).to.equal('Place 2');
+      expect(results[0].magicKey).to.equal(2);
+      done();
+    });
+
+    expect(request.url).to.contain('http://example.com/arcgis/arcgis/rest/services/MockService/0/query');
+    expect(request.url).to.contain("upper(%22Name%22)%20LIKE%20upper('%25Pla%25')");
+    expect(request.url).to.contain("orderByFields=FID%20DESC");
+
+    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, suggestQueryResponseSorted);
   });
 
 });
