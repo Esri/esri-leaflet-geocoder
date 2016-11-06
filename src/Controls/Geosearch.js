@@ -172,9 +172,14 @@ export var Geosearch = L.Control.extend({
     Util.setEsriAttribution(map);
 
     this._map = map;
-    this._wrapper = L.DomUtil.create('div', 'geocoder-control ' + ((this.options.expanded) ? ' ' + 'geocoder-control-expanded' : ''));
+    this._wrapper = L.DomUtil.create('div', 'geocoder-control');
     this._input = L.DomUtil.create('input', 'geocoder-control-input leaflet-bar', this._wrapper);
     this._input.title = this.options.title;
+
+    if (this.options.expanded) {
+      L.DomUtil.addClass(this._wrapper, 'geocoder-control-expanded');
+      this._input.placeholder = this.options.placeholder;
+    }
 
     this._suggestions = L.DomUtil.create('div', 'geocoder-control-suggestions leaflet-bar', this._wrapper);
 
