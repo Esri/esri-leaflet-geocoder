@@ -26,14 +26,16 @@ Take a look at the [live demo](http://esri.github.com/esri-leaflet/examples/geoc
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 
     <!-- Load Leaflet from CDN-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/leaflet/1.0.0-rc.3/leaflet.css" />
-    <script src="https://cdn.jsdelivr.net/leaflet/1.0.0-rc.3/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet-src.js"></script>
 
-    <!-- Esri Leaflet -->
-    <script src="https://cdn.jsdelivr.net/leaflet.esri/2.0.3/esri-leaflet.js"></script>
+    <!-- Load Esri Leaflet from CDN -->
+    <script src="https://unpkg.com/esri-leaflet@2.0.4"></script>
+
     <!-- Esri Leaflet Geocoder -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.1.4/esri-leaflet-geocoder.css">
-    <script src="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.1.4/esri-leaflet-geocoder.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder@2.2.0/dist/esri-leaflet-geocoder.css">
+    <script src="https://unpkg.com/esri-leaflet-geocoder@2.2.0"></script>
+
     <!-- Make the map fill the entire page -->
     <style>
     #map {

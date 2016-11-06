@@ -4,7 +4,7 @@
   "main": "dist/esri-leaflet-geocoder.js",
   "dependencies": {
     "esri-leaflet": "^2.0.3",
-    "leaflet": "^1.0.0-rc.3"
+    "leaflet": "^1.0.0"
   },
   "ignore": [
     "**/.*",
