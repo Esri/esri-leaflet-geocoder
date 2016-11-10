@@ -52,6 +52,7 @@ export var Geosearch = L.Control.extend({
     var nodes = [];
     var list;
     var header;
+    var suggestionTextArray = [];
 
     for (var i = 0; i < suggestions.length; i++) {
       var suggestion = suggestions[i];
@@ -67,11 +68,21 @@ export var Geosearch = L.Control.extend({
         list = L.DomUtil.create('ul', 'geocoder-control-list', this._suggestions);
       }
 
-      var suggestionItem = L.DomUtil.create('li', 'geocoder-control-suggestion', list);
+      if (suggestionTextArray.indexOf(suggestion.text) === -1) {
+        var suggestionItem = L.DomUtil.create('li', 'geocoder-control-suggestion', list);
 
-      suggestionItem.innerHTML = suggestion.text;
-      suggestionItem.provider = suggestion.provider;
-      suggestionItem['data-magic-key'] = suggestion.magicKey;
+        suggestionItem.innerHTML = suggestion.text;
+        suggestionItem.provider = suggestion.provider;
+        suggestionItem['data-magic-key'] = suggestion.magicKey;
+      } else {
+        for (var j = 0; j < list.childNodes.length; j++) {
+          // if the same text already appears in the list of suggestions, append an additional ObjectID to its magicKey instead
+          if (list.childNodes[j].innerHTML === suggestion.text) {
+            list.childNodes[j]['data-magic-key'] += ',' + suggestion.magicKey;
+          }
+        }
+      }
+      suggestionTextArray.push(suggestion.text);
     }
 
     L.DomUtil.removeClass(this._input, 'geocoder-control-loading');
