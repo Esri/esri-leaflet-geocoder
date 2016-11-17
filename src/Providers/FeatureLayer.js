@@ -81,6 +81,9 @@ export var FeatureLayerProvider = FeatureLayerService.extend({
           };
 
           results.push(result);
+
+          // clear query parameters for the next search
+          delete this._resultsQuery.params['objectIds'];
         }
       }
       callback(error, results);
