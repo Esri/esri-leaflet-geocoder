@@ -2,6 +2,13 @@
 
 ## [Upcoming changes][Unreleased]
 
+## [2.2.1]
+
+### Fixed
+* Duplicate `featureLayerProvider` suggestions with identical display text are no longer displayed.  When more than one feature with identical suggestion text is returned, all are now available in the callback.
+
+* Correct results are now returned when a `featureLayerProvider` search is instantiated by hitting `enter` *after* a previous search result was selected from the list.
+
 ## [2.2.0]
 
 ### Added
@@ -254,7 +261,8 @@ This is now ready for beta! This release helps finalize the API and includes lot
 
 * Initial alpha release
 
-[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.0...HEAD
+[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.1...HEAD
+[2.2.1]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.1...v2.2.0
 [2.2.0]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.0...v2.1.4
 [2.1.4]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.1.3...v2.1.4
 [2.1.3]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.1.2...v2.1.3
