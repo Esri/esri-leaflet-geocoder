@@ -19,7 +19,9 @@ export var Geosearch = L.Control.extend({
     L.Util.setOptions(this, options);
 
     if (!options || !options.providers || !options.providers.length) {
-      options = {};
+      if (!options) {
+        options = {};
+      }
       options.providers = [ arcgisOnlineProvider() ];
     }
 

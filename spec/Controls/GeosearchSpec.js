@@ -60,6 +60,22 @@ describe('L.esri.Geosearch', function () {
     expect(geosearch.options.searchBounds).to.equal(mapbounds);
   });
 
+  it('even if no provider is passed', function() {
+    var geosearch = L.esri.Geocoding.geosearch({
+        useMapBounds: false,
+        zoomToResult: false,
+        collapseAfterResult: false,
+        expanded: true,
+        allowMultipleResults: false,
+        placeholder: 'something clever',
+        title: 'something not so clever',
+        searchBounds: mapbounds
+    });
+
+    expect(geosearch._geosearchCore.options.useMapBounds).to.equal(false);
+    expect(geosearch._geosearchCore.options.searchBounds).to.equal(mapbounds);
+  });
+
 
   it('should update map attribution when the World Geocoding Service is used', function() {
     var geosearch = L.esri.Geocoding.geosearch({
