@@ -1,3 +1,5 @@
+/* eslint-env mocha */
+/* eslint-disable handle-callback-err */
 describe('L.esri.Geocoding.Geocoding', function () {
   var geocoder;
 
@@ -24,3 +26,4 @@ describe('L.esri.Geocoding.Geocoding', function () {
     expect(request).to.be.instanceof(L.esri.Geocoding.Suggest);
   });
 });
+/* eslint-disable handle-callback-err */

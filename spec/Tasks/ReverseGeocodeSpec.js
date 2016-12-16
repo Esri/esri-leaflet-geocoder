@@ -1,3 +1,5 @@
+/* eslint-env mocha */
+/* eslint-disable handle-callback-err */
 describe('L.esri.ReverseGeocode', function () {
   var sampleResponse = JSON.stringify({
     'address': {
@@ -103,5 +105,5 @@ describe('L.esri.ReverseGeocode', function () {
 
     request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleFrenchResponse);
   });
-
 });
+/* eslint-disable handle-callback-err */

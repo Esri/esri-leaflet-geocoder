@@ -1,3 +1,5 @@
+/* eslint-env mocha */
+/* eslint-disable handle-callback-err */
 describe('L.esri.Geosearch.FeatureLayer', function () {
   var xhr;
   var provider;
@@ -96,7 +98,7 @@ describe('L.esri.Geosearch.FeatureLayer', function () {
 
     expect(request.url).to.contain('http://example.com/arcgis/arcgis/rest/services/MockService/0/query');
     expect(request.url).to.contain("where=upper(%22Name%22)%20LIKE%20upper('%25Pla%25')");
-    expect(request.url).to.contain("returnGeometry=false");
+    expect(request.url).to.contain('returnGeometry=false');
 
     request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, suggestQueryResponse);
   });
@@ -153,7 +155,7 @@ describe('L.esri.Geosearch.FeatureLayer', function () {
     });
 
     expect(request.url).to.contain('http://example.com/arcgis/arcgis/rest/services/MockService/0/query');
-    expect(request.url).to.contain("where=foo%3D\'bar\'%20AND%20(upper(%22Name%22)%20LIKE%20upper('%25Pla%25'))");
+    expect(request.url).to.contain("where=foo%3D'bar'%20AND%20(upper(%22Name%22)%20LIKE%20upper('%25Pla%25'))");
 
     request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, suggestQueryResponse);
   });
@@ -170,9 +172,9 @@ describe('L.esri.Geosearch.FeatureLayer', function () {
 
     expect(request.url).to.contain('http://example.com/arcgis/arcgis/rest/services/MockService/0/query');
     expect(request.url).to.contain("upper(%22Name%22)%20LIKE%20upper('%25Pla%25')");
-    expect(request.url).to.contain("orderByFields=FID%20DESC");
+    expect(request.url).to.contain('orderByFields=FID%20DESC');
 
     request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, suggestQueryResponseSorted);
   });
-
 });
+/* eslint-disable handle-callback-err */

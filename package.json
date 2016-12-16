@@ -34,9 +34,10 @@
     "rollup-plugin-json": "^2.0.0",
     "rollup-plugin-node-resolve": "^1.4.0",
     "rollup-plugin-uglify": "^0.3.1",
-    "semistandard": "^7.0.5",
+    "semistandard": "^9.0.0",
     "sinon": "^1.11.1",
     "sinon-chai": "2.7.0",
+    "snazzy": "^5.0.0",
     "uglify-js": "^2.6.1",
     "watch": "^0.17.1"
   },
@@ -60,13 +61,16 @@
     "build": "rollup -c profiles/debug.js & rollup -c profiles/production.js & npm run css & npm run img",
     "css": "node-sass ./src/esri-leaflet-geocoder.css ./dist/esri-leaflet-geocoder.css --output-style compressed",
     "img": "imagemin ./src/img ./dist/img",
-    "lint": "semistandard src/**/*.js",
+    "lint": "semistandard | snazzy",
     "prepublish": "npm run build",
     "pretest": "npm run build",
     "release": "./scripts/release.sh",
     "start-watch": "watch \"npm run build\" src",
     "start": "parallelshell \"npm run start-watch\" \"http-server -p 5678 -c-1 -o\"",
     "test": "npm run lint && karma start"
+  },
+  "semistandard": {
+    "globals": [ "expect", "L", "XMLHttpRequest", "sinon", "xhr" ]
   },
   "style": "./dist/esri-leaflet-geocoder.css"
 }

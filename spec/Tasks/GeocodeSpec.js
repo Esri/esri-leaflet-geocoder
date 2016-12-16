@@ -1,3 +1,5 @@
+/* eslint-env mocha */
+/* eslint-disable handle-callback-err */
 describe('L.esri.Geocode', function () {
   var sampleFindResponse = JSON.stringify({
     'spatialReference': {
@@ -231,7 +233,7 @@ describe('L.esri.Geocode', function () {
   });
 
   it('should make a basic geocode request to ArcGIS Online', function (done) {
-    var request = new L.esri.Geocoding.geocode().text('380 New York St, Redlands, California, 92373').run(function (err, response) {
+    var request = L.esri.Geocoding.geocode().text('380 New York St, Redlands, California, 92373').run(function (err, response) {
       expect(response.results[0].latlng.lat).to.equal(34.056490727765947);
       expect(response.results[0].latlng.lng).to.equal(-117.19566584280369);
       expect(response.results[0].text).to.equal('380 New York St, Redlands, California, 92373');
@@ -247,7 +249,7 @@ describe('L.esri.Geocode', function () {
   });
 
   it('should make a basic find request to a Geocode Service', function (done) {
-    var request = new L.esri.Geocoding.geocode({
+    var request = L.esri.Geocoding.geocode({
       url: 'http://gis.example.com/arcgis/rest/services/Geocoder'
     }).text('380 New York St, Redlands, California, 92373').run(function (err, response) {
       expect(response.results[0].latlng.lat).to.equal(34.056490727765947);
@@ -265,7 +267,7 @@ describe('L.esri.Geocode', function () {
   });
 
   it('should make a findAddressCandidates request to ArcGIS Online', function (done) {
-    var request = new L.esri.Geocoding.geocode().address('380 New York St').city('Redlands').region('California').postal(92373).run(function (err, response) {
+    var request = L.esri.Geocoding.geocode().address('380 New York St').city('Redlands').region('California').postal(92373).run(function (err, response) {
       expect(response.results[0].latlng.lat).to.equal(34.056490727765947);
       expect(response.results[0].latlng.lng).to.equal(-117.19566584280369);
       expect(response.results[0].text).to.equal('380 New York St, Redlands, California, 92373');
@@ -284,7 +286,7 @@ describe('L.esri.Geocode', function () {
   });
 
   it('should make a findAddressCandidates request to a Geocode Service', function (done) {
-    var request = new L.esri.Geocoding.geocode({
+    var request = L.esri.Geocoding.geocode({
       url: 'http://gis.example.com/arcgis/rest/services/Geocoder'
     }).address('380 New York St').city('Redlands').region('California').postal(92373).run(function (err, response) {
       expect(response.results[0].latlng.lat).to.equal(34.056490727765947);
@@ -305,11 +307,11 @@ describe('L.esri.Geocode', function () {
   });
 
   it('should make a `within` request to ArcGIS Online', function (done) {
-    var southWest = L.latLng(34.0500, -117.2000),
-      northEast = L.latLng(34.0600, -117.1900),
-      bounds = L.latLngBounds(southWest, northEast);
+    var southWest = L.latLng(34.0500, -117.2000);
+    var northEast = L.latLng(34.0600, -117.1900);
+    var bounds = L.latLngBounds(southWest, northEast);
 
-    var request = new L.esri.Geocoding.geocode().text('380 New York St').within(bounds).run(function (err, response) {
+    var request = L.esri.Geocoding.geocode().text('380 New York St').within(bounds).run(function (err, response) {
       expect(response.results[0].latlng.lat).to.equal(34.056490511029324);
       expect(response.results[0].latlng.lng).to.equal(-117.19566602536605);
       expect(response.results[0].text).to.equal('380 New York St, Redlands, California, 92373');
@@ -329,7 +331,7 @@ describe('L.esri.Geocode', function () {
   it('should make a `nearby` request to ArcGIS Online', function (done) {
     var denver = L.latLng(37.712, -108.227);
 
-    var request = new L.esri.Geocoding.geocode().text('Highlands Ranch').nearby(denver, 10000).run(function (err, response) {
+    var request = L.esri.Geocoding.geocode().text('Highlands Ranch').nearby(denver, 10000).run(function (err, response) {
       expect(response.results[0].latlng.lat).to.equal(39.55387558400048);
       expect(response.results[0].latlng.lng).to.equal(-104.96942569799967);
       expect(response.results[0].text).to.equal('Highlands Ranch, Colorado, United States');
@@ -361,5 +363,5 @@ describe('L.esri.Geocode', function () {
 
     request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, samplefindAddressCandidatesResponse);
   });
-
 });
+/* eslint-disable handle-callback-err */
