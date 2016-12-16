@@ -1,3 +1,5 @@
+/* eslint-env mocha */
+/* eslint-disable handle-callback-err */
 describe('Providers.GeocodeService', function () {
   var xhr;
   var provider;
@@ -56,5 +58,5 @@ describe('Providers.GeocodeService', function () {
 
     request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleFindResponse);
   });
-
 });
+/* eslint-disable handle-callback-err */

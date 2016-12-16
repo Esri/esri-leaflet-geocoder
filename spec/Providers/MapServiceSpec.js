@@ -1,4 +1,9 @@
+/* eslint-env mocha */
+/* eslint-disable handle-callback-err */
 describe('L.esri.Geosearch.MapService', function () {
+  var provider;
+  var xhr;
+
   var sampleFindResponse = JSON.stringify({
     'results': [
       {
@@ -55,7 +60,7 @@ describe('L.esri.Geosearch.MapService', function () {
         'name': 'Name',
         'type': 'esriFieldTypeString',
         'alias': 'Name'
-      },
+      }
     ],
     'features': [
       {
@@ -133,5 +138,5 @@ describe('L.esri.Geosearch.MapService', function () {
 
     request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleFindResponse);
   });
-
 });
+/* eslint-disable handle-callback-err */

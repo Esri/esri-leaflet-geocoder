@@ -1,3 +1,5 @@
+/* eslint-env mocha */
+/* eslint-disable handle-callback-err */
 describe('Providers.ArcgisOnline', function () {
   var xhr;
   var provider;
@@ -121,5 +123,5 @@ describe('Providers.ArcgisOnline', function () {
 
     request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleFindResponse);
   });
-
 });
+/* eslint-disable handle-callback-err */

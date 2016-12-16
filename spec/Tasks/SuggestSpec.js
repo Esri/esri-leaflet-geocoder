@@ -1,3 +1,5 @@
+/* eslint-env mocha */
+/* eslint-disable handle-callback-err */
 describe('L.esri.Suggest', function () {
   var sampleResponse = JSON.stringify({
     'suggestions': [
@@ -96,5 +98,5 @@ describe('L.esri.Suggest', function () {
 
     request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleResponse);
   });
-
 });
+/* eslint-disable handle-callback-err */
