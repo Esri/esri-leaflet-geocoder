@@ -2,6 +2,11 @@
 
 ## [Upcoming changes][Unreleased]
 
+## [2.2.2]
+
+### Fixed
+* Now all user supplied geosearch constructor options are applied correctly when the default provider is used.
+
 ## [2.2.1]
 
 ### Fixed
@@ -261,7 +266,8 @@ This is now ready for beta! This release helps finalize the API and includes lot
 
 * Initial alpha release
 
-[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.1...HEAD
+[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.2...HEAD
+[2.2.2]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.2...v2.2.1
 [2.2.1]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.1...v2.2.0
 [2.2.0]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.0...v2.1.4
 [2.1.4]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.1.3...v2.1.4
