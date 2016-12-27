@@ -42,8 +42,10 @@ export var Geosearch = L.Control.extend({
 
   _renderSuggestions: function (suggestions) {
     var currentGroup;
-    this._suggestions.style.display = 'block';
 
+    if (suggestions.length > 0) {
+      this._suggestions.style.display = 'block';
+    }
     // set the maxHeight of the suggestions box to
     // map height
     // - suggestions offset (distance from top of suggestions to top of control)
