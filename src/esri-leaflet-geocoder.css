@@ -136,7 +136,7 @@ only screen and (min-device-pixel-ratio: 2) {
 /* styles when on a touch device */
 
 .leaflet-touch .geocoder-control {
-  width: 30px;
+  width: 34px;
   height: 30px;
 }
 
@@ -152,6 +152,7 @@ only screen and (min-device-pixel-ratio: 2) {
 
 .leaflet-touch .geocoder-control-suggestions {
   top: 30px;
+  width: 271px;
 }
 
 /* styles when browser is old and busted */
