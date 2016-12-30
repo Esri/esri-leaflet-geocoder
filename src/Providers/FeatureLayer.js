@@ -56,6 +56,7 @@ export var FeatureLayerProvider = FeatureLayerService.extend({
     var query = this._resultsQuery;
 
     if (key) {
+      delete query.params.where;
       query.featureIds([key]);
     } else {
       query.where(this._buildQuery(text));
