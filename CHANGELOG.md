@@ -2,6 +2,15 @@
 
 ## [Upcoming changes][Unreleased]
 
+## [2.2.3]
+
+### Fixed
+
+* geosearch control display size is now appropriate in browsers that support touch input (like Chrome 55+ and IE11/Edge)
+* Correct results are now returned when a `featureLayerProvider` search is instantiated *after* executing a previous search that failed to return a single candidate.
+* a solid gray line is no longer displayed underneath the geosearch control when no candidates were returned by a service.
+* display text is now aligned correctly on devices that support touch input
+
 ## [2.2.2]
 
 ### Fixed
@@ -266,7 +275,8 @@ This is now ready for beta! This release helps finalize the API and includes lot
 
 * Initial alpha release
 
-[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.2...HEAD
+[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.3...HEAD
+[2.2.3]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.3...v2.2.2
 [2.2.2]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.2...v2.2.1
 [2.2.1]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.1...v2.2.0
 [2.2.0]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.0...v2.1.4

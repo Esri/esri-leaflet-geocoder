@@ -1,6 +1,7 @@
 
 {
   "name": "esri-leaflet-geocoder",
+  "license": "Apache-2.0",
   "main": "dist/esri-leaflet-geocoder.js",
   "dependencies": {
     "esri-leaflet": "^2.0.3",
