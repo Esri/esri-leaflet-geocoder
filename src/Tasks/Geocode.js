@@ -3,7 +3,7 @@ import { Task, Util } from 'esri-leaflet';
 import { WorldGeocodingServiceUrl } from '../EsriLeafletGeocoding';
 
 export var Geocode = Task.extend({
-  path: 'find',
+  path: 'findAddressCandidates',
 
   params: {
     outSr: 4326,
@@ -20,7 +20,7 @@ export var Geocode = Task.extend({
     'region': 'region',
     'postal': 'postal',
     'country': 'country',
-    'text': 'text',
+    'text': 'singleLine',
     'category': 'category',
     'token': 'token',
     'key': 'magicKey',
@@ -37,7 +37,7 @@ export var Geocode = Task.extend({
 
   within: function (bounds) {
     bounds = L.latLngBounds(bounds);
-    this.params.bbox = Util.boundsToExtent(bounds);
+    this.params.searchExtent = Util.boundsToExtent(bounds);
     return this;
   },
 
@@ -50,49 +50,18 @@ export var Geocode = Task.extend({
 
   run: function (callback, context) {
     if (this.options.customParam) {
-      this.path = 'findAddressCandidates';
-      this.params[this.options.customParam] = this.params.text;
-      delete this.params.text;
-    } else {
-      this.path = (this.params.text) ? 'find' : 'findAddressCandidates';
-    }
-
-    if (this.path === 'findAddressCandidates' && this.params.bbox) {
-      this.params.searchExtent = this.params.bbox;
-      delete this.params.bbox;
+      this.params[this.options.customParam] = this.params.singleLine;
+      delete this.params.singleLine;
     }
 
     return this.request(function (error, response) {
-      var processor = (this.path === 'find') ? this._processFindResponse : this._processFindAddressCandidatesResponse;
+      var processor = this._processGeocoderResponse;
       var results = (!error) ? processor(response) : undefined;
       callback.call(context, error, { results: results }, response);
     }, this);
   },
 
-  _processFindResponse: function (response) {
-    var results = [];
-
-    for (var i = 0; i < response.locations.length; i++) {
-      var location = response.locations[i];
-      var bounds;
-
-      if (location.extent) {
-        bounds = Util.extentToBounds(location.extent);
-      }
-
-      results.push({
-        text: location.name,
-        bounds: bounds,
-        score: location.feature.attributes.Score,
-        latlng: L.latLng(location.feature.geometry.y, location.feature.geometry.x),
-        properties: location.feature.attributes
-      });
-    }
-
-    return results;
-  },
-
-  _processFindAddressCandidatesResponse: function (response) {
+  _processGeocoderResponse: function (response) {
     var results = [];
 
     for (var i = 0; i < response.candidates.length; i++) {
@@ -109,10 +78,8 @@ export var Geocode = Task.extend({
         properties: candidate.attributes
       });
     }
-
     return results;
   }
-
 });
 
 export function geocode (options) {

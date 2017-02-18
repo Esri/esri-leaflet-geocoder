@@ -34,7 +34,7 @@ export var GeocodeService = Service.extend({
     this.metadata(function (error, response) {
       if (error) { return; }
       // pre 10.3 geocoding services dont list capabilities (and dont support maxLocations)
-      // since, only SOME individual services have been configured to support asking for suggestions
+      // only SOME individual services have been configured to support asking for suggestions
       if (!response.capabilities) {
         this.options.supportsSuggest = false;
         this.options.customParam = response.singleLineAddressField.name;

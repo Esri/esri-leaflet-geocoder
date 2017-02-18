@@ -137,7 +137,6 @@ only screen and (min-device-pixel-ratio: 2) {
 
 .leaflet-touch .geocoder-control {
   width: 34px;
-  height: 30px;
 }
 
 .leaflet-touch .geocoder-control.geocoder-control-expanded {
@@ -145,7 +144,7 @@ only screen and (min-device-pixel-ratio: 2) {
 }
 
 .leaflet-touch .geocoder-control-input {
-  height: 30px;
+  height: 34px;
   line-height: 30px;
   background-size: 30px;
 }
