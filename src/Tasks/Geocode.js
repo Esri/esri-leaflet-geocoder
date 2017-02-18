@@ -37,7 +37,7 @@ export var Geocode = Task.extend({
 
   within: function (bounds) {
     bounds = L.latLngBounds(bounds);
-    this.params.bbox = Util.boundsToExtent(bounds);
+    this.params.searchExtent = Util.boundsToExtent(bounds);
     return this;
   },
 
@@ -54,19 +54,14 @@ export var Geocode = Task.extend({
       delete this.params.singleLine;
     }
 
-    if (this.params.bbox) {
-      this.params.searchExtent = this.params.bbox;
-      delete this.params.bbox;
-    }
-
     return this.request(function (error, response) {
-      var processor = this._processFindAddressCandidatesResponse;
+      var processor = this._processGeocoderResponse;
       var results = (!error) ? processor(response) : undefined;
       callback.call(context, error, { results: results }, response);
     }, this);
   },
 
-  _processFindAddressCandidatesResponse: function (response) {
+  _processGeocoderResponse: function (response) {
     var results = [];
 
     for (var i = 0; i < response.candidates.length; i++) {
