@@ -1,35 +1,7 @@
 /* eslint-env mocha */
 /* eslint-disable handle-callback-err */
 describe('L.esri.Geocode', function () {
-  var sampleFindResponse = JSON.stringify({
-    'spatialReference': {
-      'wkid': 4326,
-      'latestWkid': 4326
-    },
-    'locations': [
-      {
-        'name': '380 New York St, Redlands, California, 92373',
-        'extent': {
-          'xmin': -117.196701,
-          'ymin': 34.055489999999999,
-          'xmax': -117.19470099999999,
-          'ymax': 34.057490000000001
-        },
-        'feature': {
-          'geometry': {
-            'x': -117.19566584280369,
-            'y': 34.056490727765947
-          },
-          'attributes': {
-            'Score': 100,
-            'Addr_Type': 'PointAddress'
-          }
-        }
-      }
-    ]
-  });
-
-  var samplefindAddressCandidatesResponse = JSON.stringify({
+  var sampleFindAddressCandidatesResponse = JSON.stringify({
     'spatialReference': {
       'wkid': 4326,
       'latestWkid': 4326
@@ -94,129 +66,127 @@ describe('L.esri.Geocode', function () {
     ]
   });
 
-  var sampleFindWithinResponse = JSON.stringify({
+  var sampleFindAddressCandidatesWithinResponse = JSON.stringify({
     'spatialReference': {
       'wkid': 4326,
       'latestWkid': 4326
     },
-    'locations': [
+    'candidates': [
       {
-        'name': '380 New York St, Redlands, California, 92373',
+        'address': '380 New York St, Redlands, California, 92373',
+        'score': 100,
         'extent': {
           'xmin': -117.196667,
           'ymin': 34.055491,
           'xmax': -117.194667,
           'ymax': 34.057491
         },
-        'feature': {
-          'geometry': {
-            'x': -117.19566602536605,
-            'y': 34.056490511029324
-          },
-          'attributes': {
-            'Loc_name': 'USA.PointAddress',
-            'Score': 100,
-            'Match_addr': '380 New York St, Redlands, California, 92373',
-            'Addr_type': 'PointAddress',
-            'Type': '',
-            'PlaceName': '',
-            'Place_addr': '',
-            'Phone': '',
-            'URL': '',
-            'Rank': '',
-            'AddBldg': '',
-            'AddNum': '380',
-            'AddNumFrom': '',
-            'AddNumTo': '',
-            'Side': 'R',
-            'StPreDir': '',
-            'StPreType': '',
-            'StName': 'New York',
-            'StType': 'St',
-            'StDir': '',
-            'StAddr': '',
-            'Nbrhd': '',
-            'City': 'Redlands',
-            'Subregion': '',
-            'Region': 'California',
-            'Postal': '92373',
-            'PostalExt': '',
-            'Country': 'USA',
-            'LangCode': 'ENG',
-            'Distance': 0,
-            'X': -117.195667,
-            'Y': 34.056491,
-            'DisplayX': -117.195311,
-            'DisplayY': 34.05611,
-            'Xmin': -117.196667,
-            'Xmax': -117.194667,
-            'Ymin': 34.055491,
-            'Ymax': 34.057491
-          }
+        'location': {
+          'x': -117.19566602536605,
+          'y': 34.056490511029324
+        },
+        'attributes': {
+          'Loc_name': 'USA.PointAddress',
+          'Score': 100,
+          'Match_addr': '380 New York St, Redlands, California, 92373',
+          'Addr_type': 'PointAddress',
+          'Type': '',
+          'PlaceName': '',
+          'Place_addr': '',
+          'Phone': '',
+          'URL': '',
+          'Rank': '',
+          'AddBldg': '',
+          'AddNum': '380',
+          'AddNumFrom': '',
+          'AddNumTo': '',
+          'Side': 'R',
+          'StPreDir': '',
+          'StPreType': '',
+          'StName': 'New York',
+          'StType': 'St',
+          'StDir': '',
+          'StAddr': '',
+          'Nbrhd': '',
+          'City': 'Redlands',
+          'Subregion': '',
+          'Region': 'California',
+          'Postal': '92373',
+          'PostalExt': '',
+          'Country': 'USA',
+          'LangCode': 'ENG',
+          'Distance': 0,
+          'X': -117.195667,
+          'Y': 34.056491,
+          'DisplayX': -117.195311,
+          'DisplayY': 34.05611,
+          'Xmin': -117.196667,
+          'Xmax': -117.194667,
+          'Ymin': 34.055491,
+          'Ymax': 34.057491
         }
       }
     ]
   });
 
-  var sampleFindNearbyResponse = JSON.stringify({
+  var sampleFindAddressCandidatesNearbyResponse = JSON.stringify({
     'spatialReference': {
       'wkid': 4326,
       'latestWkid': 4326
     },
-    'locations': [
+    'candidates': [
       {
-        'name': 'Highlands Ranch, Colorado, United States',
+        'address': 'Highlands Ranch, Colorado, United States',
+        'score': 100,
         'extent': {
           'xmin': -105.053427,
           'ymin': 39.469876,
           'xmax': -104.885427,
           'ymax': 39.637876
         },
-        'feature': {
-          'geometry': {
-            'x': -104.96942569799967,
-            'y': 39.55387558400048
-          },
-          'attributes': {
-            'Loc_name': 'Gaz.WorldGazetteer.POI1',
-            'Score': 100,
-            'Match_addr': 'Highlands Ranch, Colorado, United States',
-            'Addr_type': 'POI',
-            'Type': 'City',
-            'PlaceName': 'Highlands Ranch',
-            'Place_addr': '',
-            'Phone': '',
-            'URL': '',
-            'Rank': '8.04',
-            'AddBldg': '',
-            'AddNum': '',
-            'AddNumFrom': '',
-            'AddNumTo': '',
-            'Side': '',
-            'StPreDir': '',
-            'StPreType': '',
-            'StName': '',
-            'StType': '',
-            'StDir': '',
-            'StAddr': '',
-            'Nbrhd': '',
-            'City': '',
-            'Subregion': 'Douglas',
-            'Region': 'Colorado',
-            'Postal': '',
-            'PostalExt': '',
-            'Country': 'USA',
-            'LangCode': '',
-            'Distance': 349299.97,
-            'X': -104.969427,
-            'Y': 39.553876,
-            'DisplayX': -104.969427,
-            'DisplayY': 39.553876,
-            'Xmin': -105.053427,
-            'Xmax': -104.885427,
-            'Ymin': 39.469876,
-            'Ymax': 39.637876
-          }
+        'location': {
+          'x': -104.96942569799967,
+          'y': 39.55387558400048
+        },
+        'attributes': {
+          'Loc_name': 'Gaz.WorldGazetteer.POI1',
+          'Score': 100,
+          'Match_addr': 'Highlands Ranch, Colorado, United States',
+          'Addr_type': 'POI',
+          'Type': 'City',
+          'PlaceName': 'Highlands Ranch',
+          'Place_addr': '',
+          'Phone': '',
+          'URL': '',
+          'Rank': '8.04',
+          'AddBldg': '',
+          'AddNum': '',
+          'AddNumFrom': '',
+          'AddNumTo': '',
+          'Side': '',
+          'StPreDir': '',
+          'StPreType': '',
+          'StName': '',
+          'StType': '',
+          'StDir': '',
+          'StAddr': '',
+          'Nbrhd': '',
+          'City': '',
+          'Subregion': 'Douglas',
+          'Region': 'Colorado',
+          'Postal': '',
+          'PostalExt': '',
+          'Country': 'USA',
+          'LangCode': '',
+          'Distance': 349299.97,
+          'X': -104.969427,
+          'Y': 39.553876,
+          'DisplayX': -104.969427,
+          'DisplayY': 39.553876,
+          'Xmin': -105.053427,
+          'Xmax': -104.885427,
+          'Ymin': 39.469876,
+          'Ymax': 39.637876
         }
       }
     ]
@@ -238,14 +208,14 @@ describe('L.esri.Geocode', function () {
       expect(response.results[0].latlng.lng).to.equal(-117.19566584280369);
       expect(response.results[0].text).to.equal('380 New York St, Redlands, California, 92373');
       expect(response.results[0].score).to.equal(100);
-      expect(response.results[0].properties.Addr_Type).to.equal('PointAddress');
+      expect(response.results[0].properties.Addr_type).to.equal('PointAddress');
       done();
     });
 
-    expect(request.url).to.contain('//geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/find');
-    expect(request.url).to.contain('text=380%20New%20York%20St%2C%20Redlands%2C%20California%2C%2092373');
+    expect(request.url).to.contain('//geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates');
+    expect(request.url).to.contain('singleLine=380%20New%20York%20St%2C%20Redlands%2C%20California%2C%2092373');
 
-    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleFindResponse);
+    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleFindAddressCandidatesResponse);
   });
 
   it('should make a basic find request to a Geocode Service', function (done) {
@@ -256,17 +226,17 @@ describe('L.esri.Geocode', function () {
       expect(response.results[0].latlng.lng).to.equal(-117.19566584280369);
       expect(response.results[0].text).to.equal('380 New York St, Redlands, California, 92373');
       expect(response.results[0].score).to.equal(100);
-      expect(response.results[0].properties.Addr_Type).to.equal('PointAddress');
+      expect(response.results[0].properties.Addr_type).to.equal('PointAddress');
       done();
     });
 
-    expect(request.url).to.contain('http://gis.example.com/arcgis/rest/services/Geocoder/find');
-    expect(request.url).to.contain('text=380%20New%20York%20St%2C%20Redlands%2C%20California%2C%2092373');
+    expect(request.url).to.contain('http://gis.example.com/arcgis/rest/services/Geocoder/findAddressCandidates');
+    expect(request.url).to.contain('singleLine=380%20New%20York%20St%2C%20Redlands%2C%20California%2C%2092373');
 
-    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleFindResponse);
+    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleFindAddressCandidatesResponse);
   });
 
-  it('should make a findAddressCandidates request to ArcGIS Online', function (done) {
+  it('should make a multi parameter findAddressCandidates request to ArcGIS Online', function (done) {
     var request = L.esri.Geocoding.geocode().address('380 New York St').city('Redlands').region('California').postal(92373).run(function (err, response) {
       expect(response.results[0].latlng.lat).to.equal(34.056490727765947);
       expect(response.results[0].latlng.lng).to.equal(-117.19566584280369);
@@ -282,7 +252,7 @@ describe('L.esri.Geocode', function () {
     expect(request.url).to.contain('region=California');
     expect(request.url).to.contain('postal=92373');
 
-    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, samplefindAddressCandidatesResponse);
+    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleFindAddressCandidatesResponse);
   });
 
   it('should make a findAddressCandidates request to a Geocode Service', function (done) {
@@ -303,7 +273,7 @@ describe('L.esri.Geocode', function () {
     expect(request.url).to.contain('region=California');
     expect(request.url).to.contain('postal=92373');
 
-    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, samplefindAddressCandidatesResponse);
+    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleFindAddressCandidatesResponse);
   });
 
   it('should make a `within` request to ArcGIS Online', function (done) {
@@ -321,11 +291,11 @@ describe('L.esri.Geocode', function () {
       done();
     });
 
-    expect(request.url).to.contain('//geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/find');
-    expect(request.url).to.contain('text=380%20New%20York%20St');
-    expect(request.url).to.contain('bbox=%7B%22xmin%22%3A-117.2%2C%22ymin%22%3A34.05%2C%22xmax%22%3A-117.19%2C%22ymax%22%3A34.06%2C%22spatialReference%22%3A%7B%22wkid%22%3A4326%7D%7D');
+    expect(request.url).to.contain('//geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates');
+    expect(request.url).to.contain('singleLine=380%20New%20York%20St');
+    expect(request.url).to.contain('searchExtent=%7B%22xmin%22%3A-117.2%2C%22ymin%22%3A34.05%2C%22xmax%22%3A-117.19%2C%22ymax%22%3A34.06%2C%22spatialReference%22%3A%7B%22wkid%22%3A4326%7D%7D');
 
-    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleFindWithinResponse);
+    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleFindAddressCandidatesWithinResponse);
   });
 
   it('should make a `nearby` request to ArcGIS Online', function (done) {
@@ -343,25 +313,25 @@ describe('L.esri.Geocode', function () {
     });
 
     expect(request.url).to.contain('//geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/find');
-    expect(request.url).to.contain('text=Highlands%20Ranch');
+    expect(request.url).to.contain('singleLine=Highlands%20Ranch');
     expect(request.url).to.contain('location=-108.227%2C37.712');
     expect(request.url).to.contain('distance=10000');
 
-    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleFindNearbyResponse);
+    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleFindAddressCandidatesNearbyResponse);
   });
 
   it('should send the correct params to the right operation for custom geocoding services', function (done) {
     var request = L.esri.Geocoding.geocode({
       url: 'http://tasks.arcgisonline.com/ArcGIS/rest/services/Locators/TA_Address_NA_10/GeocodeServer',
-      customParam: 'SingleLine'
+      customParam: 'custom'
     }).text('Highlands Ranch').run(function (err, response) {
       done();
     });
 
     expect(request.url).to.contain('//tasks.arcgisonline.com/ArcGIS/rest/services/Locators/TA_Address_NA_10/GeocodeServer/findAddressCandidates');
-    expect(request.url).to.contain('SingleLine=Highlands%20Ranch');
+    expect(request.url).to.contain('custom=Highlands%20Ranch');
 
-    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, samplefindAddressCandidatesResponse);
+    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleFindAddressCandidatesResponse);
   });
 });
 /* eslint-disable handle-callback-err */

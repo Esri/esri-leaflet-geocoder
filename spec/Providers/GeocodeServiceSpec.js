@@ -15,29 +15,66 @@ describe('Providers.GeocodeService', function () {
     xhr.restore();
   });
 
-  var sampleFindResponse = JSON.stringify({
+  var samplefindAddressCandidatesResponse = JSON.stringify({
     'spatialReference': {
       'wkid': 4326,
       'latestWkid': 4326
     },
-    'locations': [
+    'candidates': [
       {
-        'name': '380 New York St, Redlands, California, 92373',
+        'address': '380 New York St, Redlands, California, 92373',
+        'location': {
+          'x': -117.19566584280369,
+          'y': 34.056490727765947
+        },
+        'score': 100,
+        'attributes': {
+          'Loc_name': 'USA.PointAddress',
+          'Score': 100,
+          'Match_addr': '380 New York St, Redlands, California, 92373',
+          'Addr_type': 'PointAddress',
+          'Type': '',
+          'PlaceName': '',
+          'Place_addr': '',
+          'Phone': '',
+          'URL': '',
+          'Rank': '',
+          'AddBldg': '',
+          'AddNum': '380',
+          'AddNumFrom': '',
+          'AddNumTo': '',
+          'Side': 'R',
+          'StPreDir': '',
+          'StPreType': '',
+          'StName': 'New York',
+          'StType': 'St',
+          'StDir': '',
+          'StAddr': '',
+          'Nbrhd': '',
+          'City': 'Redlands',
+          'Subregion': '',
+          'Region': 'California',
+          'Postal': '92373',
+          'PostalExt': '',
+          'Country': 'USA',
+          'LangCode': 'ENG',
+          'Distance': 0,
+          'X': -117.195667,
+          'Y': 34.056491000000001,
+          'DisplayX': -117.195311,
+          'DisplayY': 34.056109999999997,
+          'Xmin': -117.196701,
+          'Xmax': -117.19470099999999,
+          'Ymin': 34.055489999999999,
+          'Ymax': 34.057490000000001,
+          'SubAdmin': '',
+          'Admin': ''
+        },
         'extent': {
           'xmin': -117.196701,
           'ymin': 34.055489999999999,
           'xmax': -117.19470099999999,
           'ymax': 34.057490000000001
-        },
-        'feature': {
-          'geometry': {
-            'x': -117.19566584280369,
-            'y': 34.056490727765947
-          },
-          'attributes': {
-            'Score': 100,
-            'Addr_Type': 'PointAddress'
-          }
         }
       }
     ]
@@ -49,14 +86,14 @@ describe('Providers.GeocodeService', function () {
       expect(results[0].latlng.lng).to.equal(-117.19566584280369);
       expect(results[0].text).to.equal('380 New York St, Redlands, California, 92373');
       expect(results[0].score).to.equal(100);
-      expect(results[0].properties.Addr_Type).to.equal('PointAddress');
+      expect(results[0].properties.Addr_type).to.equal('PointAddress');
       done();
     });
 
     expect(request.url).to.contain('http://example.com/arcgis/arcgis/rest/services/MockGeocodeService');
-    expect(request.url).to.contain('text=380%20New%20York%20St%2C%20Redlands');
+    expect(request.url).to.contain('singleLine=380%20New%20York%20St%2C%20Redlands');
 
-    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleFindResponse);
+    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, samplefindAddressCandidatesResponse);
   });
 });
 /* eslint-disable handle-callback-err */
