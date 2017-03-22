@@ -219,6 +219,8 @@ export var Geosearch = L.Control.extend({
     }, this);
 
     L.DomEvent.addListener(this._input, 'keydown', function (e) {
+      var text = (e.target || e.srcElement).value;
+
       L.DomUtil.addClass(this._wrapper, 'geocoder-control-expanded');
 
       var list = this._suggestions.querySelectorAll('.' + 'geocoder-control-suggestion');
@@ -234,14 +236,25 @@ export var Geosearch = L.Control.extend({
 
       switch (e.keyCode) {
         case 13:
+          /*
+            if an item has been selected, geocode it
+            if focus is on the input textbox, geocode only if multiple results are allowed and more than two characters are present, or if a single suggestion is displayed.
+            if less than two characters have been typed, abort the geocode
+          */
           if (selected) {
             this._geosearchCore._geocode(selected.innerHTML, selected['data-magic-key'], selected.provider);
             this.clear();
-          } else if (this.options.allowMultipleResults) {
+          } else if (this.options.allowMultipleResults && text.length >= 2) {
             this._geosearchCore._geocode(this._input.value, undefined);
             this.clear();
           } else {
-            L.DomUtil.addClass(list[0], 'geocoder-control-selected');
+            if (list.length === 1) {
+              L.DomUtil.addClass(list[0], 'geocoder-control-selected');
+              this._geosearchCore._geocode(list[0].innerHTML, list[0]['data-magic-key'], list[0].provider);
+            } else {
+              this.clear();
+              this._input.blur();
+            }
           }
           L.DomEvent.preventDefault(e);
           break;
