@@ -2,7 +2,15 @@
 
 ## [Upcoming changes][Unreleased]
 
-## [2.2.3]
+## [2.2.4] - 2017-03-22
+
+### Fixed
+
+* minor CSS issue on browsers that support touch
+* the `findAddressCandidates` operation of geocoding services is now used exclusively, rather than alternating back and forth with `find`
+* geocode and search requests are no longer fired when enter is pressed without supplying input text
+
+## [2.2.3] - 2017-01-06
 
 ### Fixed
 
@@ -11,19 +19,19 @@
 * a solid gray line is no longer displayed underneath the geosearch control when no candidates were returned by a service.
 * display text is now aligned correctly on devices that support touch input
 
-## [2.2.2]
+## [2.2.2] - 2016-12-18
 
 ### Fixed
 * Now all user supplied geosearch constructor options are applied correctly when the default provider is used.
 
-## [2.2.1]
+## [2.2.1] - 2016-11-22
 
 ### Fixed
 * Duplicate `featureLayerProvider` suggestions with identical display text are no longer displayed.  When more than one feature with identical suggestion text is returned, all are now available in the callback.
 
 * Correct results are now returned when a `featureLayerProvider` search is instantiated by hitting `enter` *after* a previous search result was selected from the list.
 
-## [2.2.0]
+## [2.2.0] - 2016-11-06
 
 ### Added
 
@@ -48,20 +56,20 @@ flProvider.orderBy('POP2007', 'ASC')
 
 * Placeholder text is now display immediately when the geosearch control is configured to be expanded on page load. [#157](https://github.com/Esri/esri-leaflet-geocoder/pull/157)
 
-## [2.1.4]
+## [2.1.4] - 2016-09-21
 
 ### Fixed
 
 * the loading icon is now cleared when a search returns no results [#142](https://github.com/Esri/esri-leaflet-geocoder/pull/142)
 * sub queries are now concatenated correctly when a filter is applied to the `FeatureLayer` being searched. [#144](https://github.com/Esri/esri-leaflet-geocoder/pull/144)
 
-## [2.1.3]
+## [2.1.3] - 2016-09-15
 
 ### Fixed
 
 * botched the last npm release
 
-## [2.1.2]
+## [2.1.2] - 2016-09-15
 
 ### Fixed
 
@@ -72,7 +80,7 @@ flProvider.orderBy('POP2007', 'ASC')
 
 * The geosearch control now utilizes the `arcgisOnlineProvider` by default if no provider is specified in the object constructor. [#137](https://github.com/Esri/esri-leaflet-geocoder/pull/137)
 
-## [2.1.1]
+## [2.1.1] - 2016-07-25
 
 ### Fixed
 
@@ -82,7 +90,7 @@ flProvider.orderBy('POP2007', 'ASC')
 
 * improved support for custom Esri geocoding services in `geosearch` [#124](https://github.com/Esri/esri-leaflet-geocoder/pull/124)
 
-## [2.1.0]
+## [2.1.0] - 2016-04-29
 
 ### Added
 
@@ -103,26 +111,26 @@ flProvider.orderBy('POP2007', 'ASC')
 * refactored `geosearch` into a base class and inherited control to lay the groundwork for other UI components that live outside the map. [pull/102](https://github.com/Esri/esri-leaflet-geocoder/pull/102)
 * use `https` consistently when making requests to the World Geocoding services instead of inheriting protocol from the parent application. 388ba04
 
-## [2.0.3]
+## [2.0.3] - 2016-01-27
 
 ### Added
 
 * new `searchBounds` parameter for `L.esri.Geocoding.geosearch` for filtering using a static bounding box. (#115 thanks to @nathanhilbert!)
 
-## [2.0.2]
+## [2.0.2] - 2015-12-03
 
 ### Fixed
 
 * appropriate l18n input parameter is now passed in `reverseGeocode` requests
 * made sure appropriate provider attribution is added to the map
 
-## [2.0.1]
+## [2.0.1] - 2015-09-24
 
 ### Fixed
 
 * ensured that options from Geosearch constructor are mixed in correctly.
 
-## [2.0.0]
+## [2.0.0] - 2015-09-08
 
 ### Added
 
@@ -275,7 +283,8 @@ This is now ready for beta! This release helps finalize the API and includes lot
 
 * Initial alpha release
 
-[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.3...HEAD
+[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.4...HEAD
+[2.2.4]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.3...v2.2.4
 [2.2.3]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.3...v2.2.2
 [2.2.2]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.2...v2.2.1
 [2.2.1]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.1...v2.2.0
