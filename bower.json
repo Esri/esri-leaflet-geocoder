@@ -13,5 +13,9 @@
     "components",
     "spec",
     "debug"
-  ]
+  ],
+  "dependencies": {
+    "leaflet": "~1.0.0",
+    "esri-leaflet": "~2.0.0"
+  }
 }
