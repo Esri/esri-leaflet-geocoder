@@ -6,7 +6,7 @@ describe('Providers.GeocodeService', function () {
 
   beforeEach(function () {
     xhr = sinon.useFakeXMLHttpRequest();
-    provider = new L.esri.Geocoding.GeocodeServiceProvider({
+    provider = L.esri.Geocoding.geocodeServiceProvider({
       url: 'http://example.com/arcgis/arcgis/rest/services/MockGeocodeService'
     });
   });
@@ -92,6 +92,19 @@ describe('Providers.GeocodeService', function () {
 
     expect(request.url).to.contain('http://example.com/arcgis/arcgis/rest/services/MockGeocodeService');
     expect(request.url).to.contain('singleLine=380%20New%20York%20St%2C%20Redlands');
+
+    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, samplefindAddressCandidatesResponse);
+  });
+
+  it('pass a token through', function (done) {
+    provider.options.token = 'abc123';
+    var request = provider.results('380 New York St, Redlands', null, null, function (error, results) {
+      done();
+    });
+
+    expect(request.url).to.contain('http://example.com/arcgis/arcgis/rest/services/MockGeocodeService');
+    expect(request.url).to.contain('singleLine=380%20New%20York%20St%2C%20Redlands');
+    expect(request.url).to.contain('token=abc123');
 
     request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, samplefindAddressCandidatesResponse);
   });

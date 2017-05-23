@@ -6,7 +6,7 @@ describe('L.esri.Geosearch.FeatureLayer', function () {
 
   beforeEach(function () {
     xhr = sinon.useFakeXMLHttpRequest();
-    provider = new L.esri.Geocoding.FeatureLayerProvider({
+    provider = L.esri.Geocoding.featureLayerProvider({
       url: 'http://example.com/arcgis/arcgis/rest/services/MockService/0',
       searchFields: ['Name']
     });
@@ -163,7 +163,6 @@ describe('L.esri.Geosearch.FeatureLayer', function () {
   it('should be able to specify sort order of results', function (done) {
     provider.orderBy('FID', 'DESC');
     var request = provider.suggestions('Pla', null, function (error, results) {
-      console.log(results);
       expect(results.length).to.equal(2);
       expect(results[0].text).to.equal('Place 2');
       expect(results[0].magicKey).to.equal(2);
@@ -173,6 +172,24 @@ describe('L.esri.Geosearch.FeatureLayer', function () {
     expect(request.url).to.contain('http://example.com/arcgis/arcgis/rest/services/MockService/0/query');
     expect(request.url).to.contain("upper(%22Name%22)%20LIKE%20upper('%25Pla%25')");
     expect(request.url).to.contain('orderByFields=FID%20DESC');
+
+    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, suggestQueryResponseSorted);
+  });
+
+  it('should pass a token through', function (done) {
+    var authenticatedProvider = L.esri.Geocoding.featureLayerProvider({
+      url: 'http://example.com/arcgis/arcgis/rest/services/MockService/0',
+      searchFields: ['Name'],
+      token: 'ipitythefool'
+    });
+
+    var request = authenticatedProvider.suggestions('Pla', null, function (error, results) {
+      done();
+    });
+
+    expect(request.url).to.contain('http://example.com/arcgis/arcgis/rest/services/MockService/0/query');
+    expect(request.url).to.contain("upper(%22Name%22)%20LIKE%20upper('%25Pla%25')");
+    expect(request.url).to.contain('token=ipitythefool');
 
     request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, suggestQueryResponseSorted);
   });
