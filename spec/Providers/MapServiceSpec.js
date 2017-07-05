@@ -138,5 +138,22 @@ describe('L.esri.Geosearch.MapService', function () {
 
     request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleFindResponse);
   });
+
+  it('pass a token through', function (done) {
+    provider.options.token = 'idunno';
+    var request = provider.results('Pla', null, null, function (error, results) {
+      expect(results.length).to.equal(2);
+      expect(results[0].text).to.contain('Place 1');
+      done();
+    });
+
+    expect(request.url).to.contain('http://example.com/arcgis/arcgis/rest/services/MockService/find');
+    expect(request.url).to.contain('searchText=Pla');
+    expect(request.url).to.contain('searchFields=Name');
+    expect(request.url).to.contain('layers=0');
+    expect(request.url).to.contain('token=idunno');
+
+    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleFindResponse);
+  });
 });
 /* eslint-disable handle-callback-err */

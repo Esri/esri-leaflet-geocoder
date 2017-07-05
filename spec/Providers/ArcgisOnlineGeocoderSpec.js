@@ -6,7 +6,7 @@ describe('Providers.ArcgisOnline', function () {
 
   beforeEach(function () {
     xhr = sinon.useFakeXMLHttpRequest();
-    provider = new L.esri.Geocoding.ArcgisOnlineProvider();
+    provider = L.esri.Geocoding.arcgisOnlineProvider();
   });
 
   afterEach(function () {
@@ -92,6 +92,19 @@ describe('Providers.ArcgisOnline', function () {
     request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleSuggestResponse);
   });
 
+  it('should pass a token through when asking for suggestions', function (done) {
+    provider.options.token = 'jsdglk';
+    var request = provider.suggestions('trea', [[0, 0], [100, 100]], function (error, results) {
+      done();
+    });
+
+    expect(request.url).to.contain('location=50%2C50');
+    expect(request.url).to.contain('distance=50000');
+    expect(request.url).to.contain('token=jsdglk');
+
+    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleSuggestResponse);
+  });
+
   it('should geocode with a magic key', function (done) {
     var request = provider.results('380 New York St, Redlands, California, 92373', 'foo', null, function (error, results) {
       expect(results[0].latlng.lat).to.equal(34.056490727765947);
@@ -119,6 +132,19 @@ describe('Providers.ArcgisOnline', function () {
     });
 
     expect(request.url).to.contain('singleLine=380%20New%20York%20St%2C%20Redlands%2C%20California%2C%2092373');
+
+    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleFindAddressCandidatesResponse);
+  });
+
+  it('should pass a token through when fetching results', function (done) {
+    var authenticatedProvider = L.esri.Geocoding.arcgisOnlineProvider({token: 'abc123'});
+
+    var request = authenticatedProvider.results('380 New York St, Redlands, California, 92373', 'foo', null, function (error, results) {
+      done();
+    });
+
+    expect(request.url).to.contain('singleLine=380%20New%20York%20St%2C%20Redlands%2C%20California%2C%2092373');
+    expect(request.url).to.contain('token=abc123');
 
     request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleFindAddressCandidatesResponse);
   });
