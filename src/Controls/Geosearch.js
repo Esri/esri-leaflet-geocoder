@@ -4,7 +4,7 @@ import { arcgisOnlineProvider } from '../Providers/ArcgisOnlineGeocoder';
 import { Util } from 'esri-leaflet';
 
 export var Geosearch = L.Control.extend({
-  includes: L.Mixin.Events,
+  includes: L.Evented.prototype,
 
   options: {
     position: 'topleft',
