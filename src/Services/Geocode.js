@@ -37,12 +37,13 @@ export var GeocodeService = Service.extend({
       // only SOME individual services have been configured to support asking for suggestions
       if (!response.capabilities) {
         this.options.supportsSuggest = false;
-        this.options.customParam = response.singleLineAddressField.name;
       } else if (response.capabilities.indexOf('Suggest') > -1) {
         this.options.supportsSuggest = true;
       } else {
         this.options.supportsSuggest = false;
       }
+      // whether the service supports suggest or not, utilize the metadata response to determine the appropriate parameter name for single line geocoding requests
+      this.options.customParam = response.singleLineAddressField.name;
     }, this);
   }
 });
