@@ -37,6 +37,10 @@ export var GeocodeServiceProvider = GeocodeService.extend({
   results: function (text, key, bounds, callback) {
     var request = this.geocode().text(text);
 
+    if (key) {
+      request.key(key);
+    }
+
     request.maxLocations(this.options.maxResults);
 
     if (bounds) {
