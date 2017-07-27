@@ -2,6 +2,12 @@
 
 ## [Upcoming changes][Unreleased]
 
+## [2.2.6] - 2017-07-27
+
+### Fixed
+
+* `esri-leaflet-geocoder.js` file was missing in last npm release
+
 ## [2.2.5] - 2017-07-27
 
 ### Changed
