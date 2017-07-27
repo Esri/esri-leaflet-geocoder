@@ -2,6 +2,18 @@
 
 ## [Upcoming changes][Unreleased]
 
+## [2.2.5] - 2017-07-27
+
+### Changed
+
+* stop including L.Mixin.Events #180
+
+### Fixed
+
+* ensure custom geocoding param names are fetched/used when suggestion support is present #182
+* ensure `magicKey`s are passed through to custom geocoding services #182
+* ensure tests don't `new` up their objects
+
 ## [2.2.4] - 2017-03-22
 
 ### Fixed
@@ -283,7 +295,8 @@ This is now ready for beta! This release helps finalize the API and includes lot
 
 * Initial alpha release
 
-[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.4...HEAD
+[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.5...HEAD
+[2.2.5]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.4...v2.2.5
 [2.2.4]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.3...v2.2.4
 [2.2.3]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.3...v2.2.2
 [2.2.2]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.2...v2.2.1
