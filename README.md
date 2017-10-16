@@ -5,6 +5,7 @@ The Esri Leaflet Geocoder is a small series of API helpers and UI controls to in
 [![npm version][npm-img]][npm-url]
 [![build status][travis-img]][travis-url]
 [![apache licensed](https://img.shields.io/badge/license-Apache-green.svg?style=flat-square)](https://raw.githubusercontent.com/Esri/esri-leaflet-geocoder/master/LICENSE)
+[![jsDelivr Hits](https://data.jsdelivr.com/v1/package/npm/esri-leaflet-geocoder/badge)](https://www.jsdelivr.com/package/npm/esri-leaflet-geocoder)
 
 [npm-img]: https://img.shields.io/npm/v/esri-leaflet-geocoder.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/esri-leaflet-geocoder
