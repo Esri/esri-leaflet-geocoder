@@ -301,7 +301,8 @@ This is now ready for beta! This release helps finalize the API and includes lot
 
 * Initial alpha release
 
-[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.5...HEAD
+[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.6...HEAD
+[2.2.6]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.5...v2.2.6
 [2.2.5]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.4...v2.2.5
 [2.2.4]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.3...v2.2.4
 [2.2.3]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.3...v2.2.2
