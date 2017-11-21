@@ -2,6 +2,13 @@
 
 ## [Upcoming changes][Unreleased]
 
+## [2.2.7] - 2017-11-21
+
+### Fixed
+
+* enable touch selection for results [#186](https://github.com/Esri/esri-leaflet-geocoder/issues/186)
+* formatted display text bug [`d5de54b`](https://github.com/Esri/esri-leaflet-geocoder/commit/d5de54b12f9b17e11c46db8d6cea767190420a2e)
+
 ## [2.2.6] - 2017-07-27
 
 ### Fixed
@@ -12,12 +19,12 @@
 
 ### Changed
 
-* stop including L.Mixin.Events #180
+* stop including L.Mixin.Events [#180](https://github.com/Esri/esri-leaflet-geocoder/issues/180)
 
 ### Fixed
 
-* ensure custom geocoding param names are fetched/used when suggestion support is present #182
-* ensure `magicKey`s are passed through to custom geocoding services #182
+* ensure custom geocoding param names are fetched/used when suggestion support is present [#182](https://github.com/Esri/esri-leaflet-geocoder/issues/182)
+* ensure `magicKey`s are passed through to custom geocoding services [#182](https://github.com/Esri/esri-leaflet-geocoder/issues/182)
 * ensure tests don't `new` up their objects
 
 ## [2.2.4] - 2017-03-22
@@ -301,7 +308,8 @@ This is now ready for beta! This release helps finalize the API and includes lot
 
 * Initial alpha release
 
-[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.6...HEAD
+[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.7...HEAD
+[2.2.7]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.6...v2.2.7
 [2.2.6]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.5...v2.2.6
 [2.2.5]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.4...v2.2.5
 [2.2.4]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.3...v2.2.4

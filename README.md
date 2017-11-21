@@ -34,8 +34,8 @@ Take a look at the [live demo](http://esri.github.com/esri-leaflet/examples/geoc
     <script src="https://unpkg.com/esri-leaflet@2.0.8"></script>
 
     <!-- Esri Leaflet Geocoder -->
-    <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder@2.2.6/dist/esri-leaflet-geocoder.css">
-    <script src="https://unpkg.com/esri-leaflet-geocoder@2.2.6"></script>
+    <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder@2.2.7/dist/esri-leaflet-geocoder.css">
+    <script src="https://unpkg.com/esri-leaflet-geocoder@2.2.7"></script>
 
     <!-- Make the map fill the entire page -->
     <style>
