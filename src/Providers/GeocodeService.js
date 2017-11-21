@@ -21,6 +21,7 @@ export var GeocodeServiceProvider = GeocodeService.extend({
             if (!suggestion.isCollection) {
               suggestions.push({
                 text: suggestion.text,
+                unformattedText: suggestion.text,
                 magicKey: suggestion.magicKey
               });
             }

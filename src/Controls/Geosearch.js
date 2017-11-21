@@ -78,6 +78,7 @@ export var Geosearch = L.Control.extend({
         suggestionItem.innerHTML = suggestion.text;
         suggestionItem.provider = suggestion.provider;
         suggestionItem['data-magic-key'] = suggestion.magicKey;
+        suggestionItem.unformattedText = suggestion.unformattedText;
       } else {
         for (var j = 0; j < list.childNodes.length; j++) {
           // if the same text already appears in the list of suggestions, append an additional ObjectID to its magicKey instead
@@ -182,6 +183,18 @@ export var Geosearch = L.Control.extend({
     return attribs.join(', ');
   },
 
+  geocodeSuggestion: function (e) {
+    var suggestionItem = e.target || e.srcElement;
+
+    // make sure and point at the actual 'geocoder-control-suggestion'
+    if (suggestionItem.classList.length < 1) {
+      suggestionItem = suggestionItem.parentNode;
+    }
+
+    this._geosearchCore._geocode(suggestionItem.unformattedText, suggestionItem['data-magic-key'], suggestionItem.provider);
+    this.clear();
+  },
+
   onAdd: function (map) {
     // include 'Powered by Esri' in map attribution
     Util.setEsriAttribution(map);
@@ -208,11 +221,9 @@ export var Geosearch = L.Control.extend({
 
     L.DomEvent.addListener(this._wrapper, 'click', this._setupClick, this);
 
-    L.DomEvent.addListener(this._suggestions, 'mousedown', function (e) {
-      var suggestionItem = e.target || e.srcElement;
-      this._geosearchCore._geocode(suggestionItem.innerHTML, suggestionItem['data-magic-key'], suggestionItem.provider);
-      this.clear();
-    }, this);
+    // make sure both click and touch spawn an address/poi search
+    L.DomEvent.addListener(this._suggestions, 'mousedown', this.geocodeSuggestion, this);
+    L.DomEvent.addListener(this._suggestions, 'touchend', this.geocodeSuggestion, this);
 
     L.DomEvent.addListener(this._input, 'blur', function (e) {
       this.clear();
@@ -242,7 +253,7 @@ export var Geosearch = L.Control.extend({
             if less than two characters have been typed, abort the geocode
           */
           if (selected) {
-            this._geosearchCore._geocode(selected.innerHTML, selected['data-magic-key'], selected.provider);
+            this._geosearchCore._geocode(selected.unformattedText, selected['data-magic-key'], selected.provider);
             this.clear();
           } else if (this.options.allowMultipleResults && text.length >= 2) {
             this._geosearchCore._geocode(this._input.value, undefined);

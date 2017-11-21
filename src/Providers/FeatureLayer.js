@@ -42,6 +42,7 @@ export var FeatureLayerProvider = FeatureLayerService.extend({
           var feature = results.features[i];
           suggestions.push({
             text: this.options.formatSuggestion.call(this, feature),
+            unformattedText: feature.properties[this.options.searchFields[0]],
             magicKey: feature.id
           });
         }
