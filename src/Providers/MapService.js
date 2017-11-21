@@ -36,6 +36,7 @@ export var MapServiceProvider = MapService.extend({
           if (idField) {
             suggestions.push({
               text: this.options.formatSuggestion.call(this, feature),
+              unformattedText: feature.properties[feature.displayFieldName],
               magicKey: result.attributes[idField] + ':' + layer
             });
           }
