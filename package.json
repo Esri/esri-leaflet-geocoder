@@ -70,7 +70,13 @@
     "test": "npm run lint && karma start"
   },
   "semistandard": {
-    "globals": [ "expect", "L", "XMLHttpRequest", "sinon", "xhr" ]
+    "globals": [
+      "expect",
+      "L",
+      "XMLHttpRequest",
+      "sinon",
+      "xhr"
+    ]
   },
   "style": "./dist/esri-leaflet-geocoder.css"
 }

@@ -5,7 +5,7 @@ VERSION=$(node --eval "console.log(require('./package.json').version);")
 NAME=$(node --eval "console.log(require('./package.json').name);")
 
 # run prepublish to build files
-npm run prepublish
+npm run prepare
 
 # build and test
 npm test || exit 1
