@@ -2,6 +2,14 @@
 
 ## [Upcoming changes][Unreleased]
 
+## [2.2.8] - 2017-11-21
+
+* `/img` folder was missing in last npm release
+* found fix to ensure we no longer have rogue missing files (hopefuly)
+
+###
+
+
 ## [2.2.7] - 2017-11-21
 
 ### Fixed
@@ -308,7 +316,8 @@ This is now ready for beta! This release helps finalize the API and includes lot
 
 * Initial alpha release
 
-[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.7...HEAD
+[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.8...HEAD
+[2.2.8]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.7...v2.2.8
 [2.2.7]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.6...v2.2.7
 [2.2.6]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.5...v2.2.6
 [2.2.5]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.4...v2.2.5

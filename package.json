@@ -1,7 +1,7 @@
 {
   "name": "esri-leaflet-geocoder",
   "description": "Esri Geocoding utility and search plugin for Leaflet.",
-  "version": "2.2.7",
+  "version": "2.2.8",
   "author": "Patrick Arlt <parlt@esri.com> (http://patrickarlt.com)",
   "contributors": [
     "Patrick Arlt <parlt@esri.com> (http://patrickarlt.com)",
@@ -62,7 +62,7 @@
     "css": "node-sass ./src/esri-leaflet-geocoder.css ./dist/esri-leaflet-geocoder.css --output-style compressed",
     "img": "imagemin ./src/img ./dist/img",
     "lint": "semistandard | snazzy",
-    "prepublish": "npm run build",
+    "prepare": "npm run build",
     "pretest": "npm run build",
     "release": "./scripts/release.sh",
     "start-watch": "watch \"npm run build\" src",
