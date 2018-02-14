@@ -1,4 +1,4 @@
-import { latLng as LlatLng } from 'leaflet';
+import { latLng } from 'leaflet';
 import { Task } from 'esri-leaflet';
 import { WorldGeocodingServiceUrl } from '../EsriLeafletGeocoding';
 
@@ -22,9 +22,9 @@ export var ReverseGeocode = Task.extend({
     Task.prototype.initialize.call(this, options);
   },
 
-  latlng: function (latlng) {
-    latlng = LlatLng(latlng);
-    this.params.location = latlng.lng + ',' + latlng.lat;
+  latlng: function (coords) {
+    var centroid = latLng(coords);
+    this.params.location = centroid.lng + ',' + centroid.lat;
     return this;
   },
 
@@ -34,7 +34,7 @@ export var ReverseGeocode = Task.extend({
 
       if (!error) {
         result = {
-          latlng: LlatLng(response.location.y, response.location.x),
+          latlng: latLng(response.location.y, response.location.x),
           address: response.address
         };
       } else {

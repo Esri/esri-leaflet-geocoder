@@ -1,6 +1,6 @@
 import {
-  latLng as LlatLng,
-  latLngBounds as LlatLngBounds
+  latLng,
+  latLngBounds
 } from 'leaflet';
 import { Task, Util as EsriUtil } from 'esri-leaflet';
 import { WorldGeocodingServiceUrl } from '../EsriLeafletGeocoding';
@@ -39,14 +39,14 @@ export var Geocode = Task.extend({
   },
 
   within: function (bounds) {
-    bounds = LlatLngBounds(bounds);
+    bounds = latLngBounds(bounds);
     this.params.searchExtent = EsriUtil.boundsToExtent(bounds);
     return this;
   },
 
-  nearby: function (latlng, radius) {
-    latlng = LlatLng(latlng);
-    this.params.location = latlng.lng + ',' + latlng.lat;
+  nearby: function (coords, radius) {
+    var centroid = latLng(coords);
+    this.params.location = centroid.lng + ',' + centroid.lat;
     this.params.distance = Math.min(Math.max(radius, 2000), 50000);
     return this;
   },
@@ -77,7 +77,7 @@ export var Geocode = Task.extend({
         text: candidate.address,
         bounds: bounds,
         score: candidate.score,
-        latlng: LlatLng(candidate.location.y, candidate.location.x),
+        latlng: latLng(candidate.location.y, candidate.location.x),
         properties: candidate.attributes
       });
     }

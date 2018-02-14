@@ -1,4 +1,4 @@
-import { Util, geoJson, latLngBounds as LlatLngBounds } from 'leaflet';
+import { Util, geoJson, latLngBounds } from 'leaflet';
 import { FeatureLayerService } from 'esri-leaflet';
 
 export var FeatureLayerProvider = FeatureLayerService.extend({
@@ -118,7 +118,7 @@ export var FeatureLayerProvider = FeatureLayerService.extend({
       var center = geojson.getBounds().getCenter();
       var lngRadius = ((this.options.bufferRadius / 40075017) * 360) / Math.cos((180 / Math.PI) * center.lat);
       var latRadius = (this.options.bufferRadius / 40075017) * 360;
-      return LlatLngBounds([center.lat - latRadius, center.lng - lngRadius], [center.lat + latRadius, center.lng + lngRadius]);
+      return latLngBounds([center.lat - latRadius, center.lng - lngRadius], [center.lat + latRadius, center.lng + lngRadius]);
     } else {
       return geojson.getBounds();
     }

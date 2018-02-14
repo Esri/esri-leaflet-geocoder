@@ -1,4 +1,4 @@
-import { Evented, Util, latLngBounds as LlatLngBounds } from 'leaflet';
+import { Evented, Util, latLngBounds } from 'leaflet';
 
 export var GeosearchCore = Evented.extend({
 
@@ -143,7 +143,7 @@ export var GeosearchCore = Evented.extend({
       return;
     }
 
-    var nullIsland = LlatLngBounds([0, 0], [0, 0]);
+    var nullIsland = latLngBounds([0, 0], [0, 0]);
     var resultBounds = [];
     var resultLatlngs = [];
 
@@ -160,7 +160,7 @@ export var GeosearchCore = Evented.extend({
     }
 
     // form a bounds object containing all center points
-    var bounds = LlatLngBounds(resultLatlngs);
+    var bounds = latLngBounds(resultLatlngs);
 
     // and extend it to contain all bounds objects
     for (var j = 0; j < resultBounds.length; j++) {
