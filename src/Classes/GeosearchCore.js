@@ -1,6 +1,6 @@
-import L from 'leaflet';
+import { Evented, Util, latLngBounds } from 'leaflet';
 
-export var GeosearchCore = L.Evented.extend({
+export var GeosearchCore = Evented.extend({
 
   options: {
     zoomToResult: true,
@@ -9,7 +9,7 @@ export var GeosearchCore = L.Evented.extend({
   },
 
   initialize: function (control, options) {
-    L.Util.setOptions(this, options);
+    Util.setOptions(this, options);
     this._control = control;
 
     if (!options || !options.providers || !options.providers.length) {
@@ -24,7 +24,7 @@ export var GeosearchCore = L.Evented.extend({
     var allResults = [];
     var bounds;
 
-    var callback = L.Util.bind(function (error, results) {
+    var callback = Util.bind(function (error, results) {
       activeRequests--;
       if (error) {
         return;
@@ -66,8 +66,8 @@ export var GeosearchCore = L.Evented.extend({
   _suggest: function (text) {
     var activeRequests = this._providers.length;
 
-    var createCallback = L.Util.bind(function (text, provider) {
-      return L.Util.bind(function (error, suggestions) {
+    var createCallback = Util.bind(function (text, provider) {
+      return Util.bind(function (error, suggestions) {
         if (error) { return; }
 
         var i;
@@ -143,7 +143,7 @@ export var GeosearchCore = L.Evented.extend({
       return;
     }
 
-    var nullIsland = L.latLngBounds([0, 0], [0, 0]);
+    var nullIsland = latLngBounds([0, 0], [0, 0]);
     var resultBounds = [];
     var resultLatlngs = [];
 
@@ -160,7 +160,7 @@ export var GeosearchCore = L.Evented.extend({
     }
 
     // form a bounds object containing all center points
-    var bounds = L.latLngBounds(resultLatlngs);
+    var bounds = latLngBounds(resultLatlngs);
 
     // and extend it to contain all bounds objects
     for (var j = 0; j < resultBounds.length; j++) {
