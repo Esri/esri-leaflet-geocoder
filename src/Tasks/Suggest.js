@@ -1,5 +1,8 @@
-import L from 'leaflet';
-import { Task, Util } from 'esri-leaflet';
+import {
+  latLng as LlatLng,
+  latLngBounds as LlatLngBounds
+} from 'leaflet';
+import { Task, Util as EsriUtil } from 'esri-leaflet';
 import { WorldGeocodingServiceUrl } from '../EsriLeafletGeocoding';
 
 export var Suggest = Task.extend({
@@ -24,18 +27,18 @@ export var Suggest = Task.extend({
   },
 
   within: function (bounds) {
-    bounds = L.latLngBounds(bounds);
+    bounds = LlatLngBounds(bounds);
     bounds = bounds.pad(0.5);
     var center = bounds.getCenter();
     var ne = bounds.getNorthWest();
     this.params.location = center.lng + ',' + center.lat;
     this.params.distance = Math.min(Math.max(center.distanceTo(ne), 2000), 50000);
-    this.params.searchExtent = Util.boundsToExtent(bounds);
+    this.params.searchExtent = EsriUtil.boundsToExtent(bounds);
     return this;
   },
 
   nearby: function (latlng, radius) {
-    latlng = L.latLng(latlng);
+    latlng = LlatLng(latlng);
     this.params.location = latlng.lng + ',' + latlng.lat;
     this.params.distance = Math.min(Math.max(radius, 2000), 50000);
     return this;

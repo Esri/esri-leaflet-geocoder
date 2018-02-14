@@ -1,4 +1,4 @@
-import L from 'leaflet';
+import { Util, geoJson, latLngBounds as LlatLngBounds } from 'leaflet';
 import { MapService } from 'esri-leaflet';
 
 export var MapServiceProvider = MapService.extend({
@@ -90,19 +90,19 @@ export var MapServiceProvider = MapService.extend({
   },
 
   _featureBounds: function (feature) {
-    var geojson = L.geoJson(feature);
+    var geojson = geoJson(feature);
     if (feature.geometry.type === 'Point') {
       var center = geojson.getBounds().getCenter();
       var lngRadius = ((this.options.bufferRadius / 40075017) * 360) / Math.cos((180 / Math.PI) * center.lat);
       var latRadius = (this.options.bufferRadius / 40075017) * 360;
-      return L.latLngBounds([center.lat - latRadius, center.lng - lngRadius], [center.lat + latRadius, center.lng + lngRadius]);
+      return LlatLngBounds([center.lat - latRadius, center.lng - lngRadius], [center.lat + latRadius, center.lng + lngRadius]);
     } else {
       return geojson.getBounds();
     }
   },
 
   _layerMetadataCallback: function (layerid) {
-    return L.Util.bind(function (error, metadata) {
+    return Util.bind(function (error, metadata) {
       if (error) { return; }
       this._displayFields[layerid] = metadata.displayField;
       this._layerNames[layerid] = metadata.name;
