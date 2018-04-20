@@ -28,7 +28,7 @@
     "mkdirp": "^0.5.1",
     "mocha": "^3.1.0",
     "node-sass": "^3.2.0",
-    "parallelshell": "^2.0.0",
+    "npm-run-all": "^4.1.2",
     "rollup": "^0.56.5",
     "rollup-plugin-json": "^2.0.0",
     "rollup-plugin-node-resolve": "^1.4.0",
@@ -66,7 +66,8 @@
     "pretest": "npm run build",
     "release": "./scripts/release.sh",
     "start-watch": "watch \"npm run build\" src",
-    "start": "parallelshell \"npm run start-watch\" \"http-server -p 5678 -c-1 -o\"",
+    "start": "run-p start-watch serve",
+    "serve": "http-server -p 5000 -c-1 -o",
     "test": "npm run lint && karma start"
   },
   "semistandard": {
