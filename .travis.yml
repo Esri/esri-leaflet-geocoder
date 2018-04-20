@@ -2,7 +2,7 @@ language: node_js
 notifications:
   email: false
 node_js:
-  - "6"
+  - "8"
 cache:
 directories:
 - node_modules
@@ -12,7 +12,6 @@ before_script:
   - "sh -e /etc/init.d/xvfb start"
   - sleep 3 # give xvfb some time to start
 before_install:
-  - npm i -g npm@^3.0.0
   - google-chrome-stable --headless --disable-gpu
 addons:
   chrome: stable
