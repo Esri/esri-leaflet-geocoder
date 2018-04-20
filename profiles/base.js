@@ -1,6 +1,6 @@
 import config from '../node_modules/esri-leaflet/profiles/base.js';
 
-config.entry = 'src/EsriLeafletGeocoding.js';
-config.moduleName = 'L.esri.Geocoding';
+config.input = 'src/EsriLeafletGeocoding.js';
+config.output.name = 'L.esri.Geocoding';
 
 export default config;
