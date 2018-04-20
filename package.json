@@ -8,7 +8,7 @@
     "John Gravois <jgravois@esri.com> (http://johngravois.com)"
   ],
   "dependencies": {
-    "esri-leaflet": "^2.0.3",
+    "esri-leaflet": "^2.1.4",
     "leaflet": "^1.0.0"
   },
   "devDependencies": {
@@ -29,8 +29,7 @@
     "mocha": "^3.1.0",
     "node-sass": "^3.2.0",
     "parallelshell": "^2.0.0",
-    "phantomjs": "^1.9.8",
-    "rollup": "^0.25.4",
+    "rollup": "^0.56.5",
     "rollup-plugin-json": "^2.0.0",
     "rollup-plugin-node-resolve": "^1.4.0",
     "rollup-plugin-uglify": "^0.3.1",
@@ -43,6 +42,7 @@
   },
   "homepage": "https://github.com/Esri/esri-leaflet-geocoder",
   "jsnext:main": "src/EsriLeafletGeocoding.js",
+  "module": "src/EsriLeafletGeocoding.js",
   "jspm": {
     "registry": "npm",
     "format": "es6",
