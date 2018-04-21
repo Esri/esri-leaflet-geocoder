@@ -319,7 +319,7 @@ export var Geosearch = Control.extend({
       }
     }, this);
 
-    DomEvent.addListener(this._input, 'keyup', Util.throttle(function (e) {
+    DomEvent.addListener(this._input, 'keyup input', Util.throttle(function (e) {
       var key = e.which || e.keyCode;
       var text = (e.target || e.srcElement).value;
 
