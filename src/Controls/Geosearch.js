@@ -219,8 +219,11 @@ export var Geosearch = Control.extend({
     this._suggestions = DomUtil.create('div', 'geocoder-control-suggestions leaflet-bar', this._wrapper);
 
     var credits = this._geosearchCore._getAttribution();
-    map.attributionControl.addAttribution(credits);
-
+    
+    if (map.attributionControl) {
+      map.attributionControl.addAttribution(credits);
+    }
+    
     DomEvent.addListener(this._input, 'focus', function (e) {
       this._input.placeholder = this.options.placeholder;
       DomUtil.addClass(this._wrapper, 'geocoder-control-expanded');
