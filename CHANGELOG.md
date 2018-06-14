@@ -2,6 +2,12 @@
 
 ## [Upcoming changes][Unreleased]
 
+## [2.2.11] - 2018-06-14
+
+### Fixed
+
+* patch for another corrupt npm tarball [#202](https://github.com/Esri/esri-leaflet-geocoder/pull/202)
+
 ## [2.2.10] - 2018-06-13
 
 ### Fixed
@@ -329,8 +335,9 @@ This is now ready for beta! This release helps finalize the API and includes lot
 
 * Initial alpha release
 
-[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.10...HEAD
-[2.2.9]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.9...v2.2.10
+[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.11...HEAD
+[2.2.11]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.10...v2.2.11
+[2.2.10]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.9...v2.2.10
 [2.2.9]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.8...v2.2.9
 [2.2.8]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.7...v2.2.8
 [2.2.7]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.6...v2.2.7
