@@ -8,13 +8,13 @@
 
 * another guess to ensure all built files make it onto npm
 
-## [2.2.11] - 2018-06-14
+## Deprecated - [2.2.11] - 2018-06-14 Deprecated
 
 ### Fixed
 
 * patch for another corrupt npm tarball [#202](https://github.com/Esri/esri-leaflet-geocoder/pull/202)
 
-## [2.2.10] - 2018-06-13
+## Deprecated - [2.2.10] - 2018-06-13
 
 ### Fixed
 
@@ -35,7 +35,7 @@
 * `/img` folder was missing in last npm release
 * found fix to ensure we no longer have rogue missing files (hopefuly)
 
-## [2.2.7] - 2017-11-21
+## Deprecated - [2.2.7] - 2017-11-21
 
 ### Fixed
 
@@ -48,7 +48,7 @@
 
 * `esri-leaflet-geocoder.js` file was missing in last npm release
 
-## [2.2.5] - 2017-07-27
+## Deprecated - [2.2.5] - 2017-07-27
 
 ### Changed
 
@@ -341,7 +341,8 @@ This is now ready for beta! This release helps finalize the API and includes lot
 
 * Initial alpha release
 
-[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.11...HEAD
+[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.12...HEAD
+[2.2.12]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.11...v2.2.12
 [2.2.11]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.10...v2.2.11
 [2.2.10]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.9...v2.2.10
 [2.2.9]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.8...v2.2.9
