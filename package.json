@@ -58,11 +58,11 @@
   },
   "scripts": {
     "prebuild": "mkdirp dist",
-    "build": "rollup -c profiles/debug.js & rollup -c profiles/production.js & npm run css & npm run img",
+    "build": "rollup -c profiles/debug.js && rollup -c profiles/production.js && npm run css && npm run img",
     "css": "node-sass ./src/esri-leaflet-geocoder.css ./dist/esri-leaflet-geocoder.css --output-style compressed",
     "img": "node scripts/build_images.js",
     "lint": "semistandard | snazzy",
-    "pretest": "npm run build",
+    "prepare": "npm run build",
     "release": "./scripts/release.sh",
     "start-watch": "watch \"npm run build\" src",
     "start": "run-p start-watch serve",
