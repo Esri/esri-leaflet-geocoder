@@ -2,6 +2,13 @@
 
 ## [Upcoming changes][Unreleased]
 
+## [2.2.10] - 2018-06-13
+
+### Fixed
+
+* stop throwing an error when no attribution control is present [#194](https://github.com/Esri/esri-leaflet-geocoder/issues/194)
+* ensure suggestions are selected appropriately via touch events [#198](https://github.com/Esri/esri-leaflet-geocoder/issues/198)
+
 ## [2.2.9] - 2018-02-22
 
 ### Changed
@@ -322,7 +329,8 @@ This is now ready for beta! This release helps finalize the API and includes lot
 
 * Initial alpha release
 
-[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.9...HEAD
+[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.10...HEAD
+[2.2.9]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.9...v2.2.10
 [2.2.9]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.8...v2.2.9
 [2.2.8]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.7...v2.2.8
 [2.2.7]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.6...v2.2.7
