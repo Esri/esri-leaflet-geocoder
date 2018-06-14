@@ -2,6 +2,12 @@
 
 ## [Upcoming changes][Unreleased]
 
+## [2.2.12] - 2018-06-14
+
+### Changed
+
+* another guess to ensure all built files make it onto npm
+
 ## [2.2.11] - 2018-06-14
 
 ### Fixed

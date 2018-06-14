@@ -31,10 +31,10 @@ Take a look at the [live demo](http://esri.github.com/esri-leaflet/examples/geoc
     <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet-src.js"></script>
 
     <!-- Load Esri Leaflet from CDN -->
-    <script src="https://unpkg.com/esri-leaflet@2.1.3"></script>
+    <script src="https://unpkg.com/esri-leaflet@2.1.4"></script>
 
     <!-- Esri Leaflet Geocoder -->
-    <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder@2.2.11/dist/esri-leaflet-geocoder.css">
+    <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder@2.2.12/dist/esri-leaflet-geocoder.css">
     <script src="https://unpkg.com/esri-leaflet-geocoder"></script>
 
     <!-- Make the map fill the entire page -->
