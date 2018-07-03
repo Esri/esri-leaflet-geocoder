@@ -2,13 +2,19 @@
 
 ## [Upcoming changes][Unreleased]
 
+## [2.2.13] - 2018-07-03
+
+### Fixed
+
+* Ensure results are filtered using country coders when World Geocoding service is used to fetch an address _not_ based on a suggestion.
+
 ## [2.2.12] - 2018-06-14
 
 ### Changed
 
 * another guess to ensure all built files make it onto npm
 
-## Deprecated - [2.2.11] - 2018-06-14 Deprecated
+## Deprecated - [2.2.11] - 2018-06-14
 
 ### Fixed
 
