@@ -29,7 +29,9 @@ export var Geocode = Task.extend({
     'key': 'magicKey',
     'fields': 'outFields',
     'forStorage': 'forStorage',
-    'maxLocations': 'maxLocations'
+    'maxLocations': 'maxLocations',
+    // World Geocoding Service (only works with singleLine)
+    'countries': 'sourceCountry'
   },
 
   initialize: function (options) {

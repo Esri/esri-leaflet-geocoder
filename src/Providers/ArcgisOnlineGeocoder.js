@@ -59,6 +59,14 @@ export var ArcgisOnlineProvider = GeocodeService.extend({
       request.forStorage(true);
     }
 
+    if (this.options.countries) {
+      request.countries(this.options.countries);
+    }
+
+    if (this.options.categories) {
+      request.category(this.options.categories);
+    }
+
     return request.run(function (error, response) {
       callback(error, response.results);
     }, this);
