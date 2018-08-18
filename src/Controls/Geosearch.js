@@ -139,9 +139,10 @@ export var Geosearch = Control.extend({
   clear: function () {
     this._suggestions.innerHTML = '';
     this._suggestions.style.display = 'none';
-    this._input.value = '';
+    
 
     if (this.options.collapseAfterResult) {
+      this._input.value = '';
       this._input.placeholder = '';
       DomUtil.removeClass(this._wrapper, 'geocoder-control-expanded');
     }
@@ -265,6 +266,7 @@ export var Geosearch = Control.extend({
             if less than two characters have been typed, abort the geocode
           */
           if (selected) {
+            this._input.value = selected.innerText;
             this._geosearchCore._geocode(selected.unformattedText, selected['data-magic-key'], selected.provider);
             this.clear();
           } else if (this.options.allowMultipleResults && text.length >= 2) {
