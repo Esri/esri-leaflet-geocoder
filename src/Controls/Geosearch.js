@@ -139,7 +139,6 @@ export var Geosearch = Control.extend({
   clear: function () {
     this._suggestions.innerHTML = '';
     this._suggestions.style.display = 'none';
-    
 
     if (this.options.collapseAfterResult) {
       this._input.value = '';
