@@ -27,14 +27,14 @@ Take a look at the [live demo](http://esri.github.com/esri-leaflet/examples/geoc
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 
     <!-- Load Leaflet from CDN-->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet-src.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet-src.js"></script>
 
     <!-- Load Esri Leaflet from CDN -->
-    <script src="https://unpkg.com/esri-leaflet@2.1.4"></script>
+    <script src="https://unpkg.com/esri-leaflet"></script>
 
     <!-- Esri Leaflet Geocoder -->
-    <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder@2.2.12/dist/esri-leaflet-geocoder.css">
+    <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css">
     <script src="https://unpkg.com/esri-leaflet-geocoder"></script>
 
     <!-- Make the map fill the entire page -->
@@ -129,15 +129,15 @@ In order to make use of the ArcGIS Online World Geocoding Service in your web ap
 ## Cost
 
 1. User search for individual locations within web applications is defined by Esri as *Geosearch* and it is free. [Credits](https://developers.arcgis.com/credits/) are only consumed when you store results permanently.
-2. To store geocoding results, pass `forStorage: true` and a valid access token.
+2. To store geocoding results, pass `forStorage: true` and a valid access token (see [#207](https://github.com/Esri/esri-leaflet-geocoder/issues/207#issuecomment-418763785)).
 3. You are not allowed to generate revenue while on a free ArcGIS Developer plan.
-4. If your application might generate more than 1 million searches in a month, please [contact us](http://www.esri.com/about-esri/contact).
+4. If your application generates more than 1 million searches in a month, please [contact us](http://www.esri.com/about-esri/contact).
 
 * [ArcGIS for Developers Terms of Use FAQ](https://developers.arcgis.com/en/terms/faq/)
 * [ArcGIS Online World Geocoder documentation](http://resources.arcgis.com/en/help/arcgis-rest-api/#/Single_input_field_geocoding/02r300000015000000/)
 
 ## Licensing
-Copyright 2018 Esri
+Copyright &copy; 2013-2018 Esri
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -151,4 +151,4 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-A copy of the license is available in the repository's [license.txt]( https://raw.github.com/Esri/esri-leaflet-geocoder/master/license.txt) file.
+A copy of the license is available in the repository's [LICENSE]( https://raw.github.com/Esri/esri-leaflet-geocoder/master/LICENSE) file.
