@@ -1,6 +1,6 @@
 import { latLng } from 'leaflet';
 import { Task } from 'esri-leaflet';
-import { WorldGeocodingServiceUrl } from '../EsriLeafletGeocoding';
+import { WorldGeocodingServiceUrl } from '../helper';
 
 export var ReverseGeocode = Task.extend({
   path: 'reverseGeocode',
