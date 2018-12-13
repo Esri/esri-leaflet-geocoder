@@ -3,7 +3,7 @@ import {
   latLngBounds
 } from 'leaflet';
 import { Task, Util as EsriUtil } from 'esri-leaflet';
-import { WorldGeocodingServiceUrl } from '../EsriLeafletGeocoding';
+import { WorldGeocodingServiceUrl } from '../helper';
 
 export var Geocode = Task.extend({
   path: 'findAddressCandidates',

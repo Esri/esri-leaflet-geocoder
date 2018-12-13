@@ -1,5 +1,4 @@
 export { version as VERSION } from '../package.json';
-export var WorldGeocodingServiceUrl = 'https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/';
 
 // import tasks
 export { Geocode, geocode } from './Tasks/Geocode';
@@ -20,3 +19,6 @@ export { ArcgisOnlineProvider, arcgisOnlineProvider } from './Providers/ArcgisOn
 export { FeatureLayerProvider, featureLayerProvider } from './Providers/FeatureLayer';
 export { MapServiceProvider, mapServiceProvider } from './Providers/MapService';
 export { GeocodeServiceProvider, geocodeServiceProvider } from './Providers/GeocodeService';
+
+export { WorldGeocodingServiceUrl } from './helper';
+

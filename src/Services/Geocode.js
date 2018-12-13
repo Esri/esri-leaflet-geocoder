@@ -1,5 +1,5 @@
 import { Service } from 'esri-leaflet';
-import { WorldGeocodingServiceUrl } from '../EsriLeafletGeocoding';
+import { WorldGeocodingServiceUrl } from '../helper';
 import geocode from '../Tasks/Geocode';
 import reverseGeocode from '../Tasks/ReverseGeocode';
 import suggest from '../Tasks/Suggest';
