@@ -235,7 +235,8 @@ export var Geosearch = Control.extend({
     DomEvent.addListener(this._suggestions, 'mousedown', this.geocodeSuggestion, this);
 
     // for some reason DomEvent.addListener is triggered too early in Chrome.
-    this._suggestions.addEventListener('touchend', Util.bind(this.geocodeSuggestion, this));
+	// is this creating issue with mobile touch devices?  
+    // this._suggestions.addEventListener('touchend', Util.bind(this.geocodeSuggestion, this));
 
     DomEvent.addListener(this._input, 'blur', function (e) {
       this.clear();
