@@ -234,9 +234,6 @@ export var Geosearch = Control.extend({
     // make sure both click and touch spawn an address/poi search
     DomEvent.addListener(this._suggestions, 'mousedown', this.geocodeSuggestion, this);
 
-    // for some reason DomEvent.addListener is triggered too early in Chrome.
-    this._suggestions.addEventListener('touchend', Util.bind(this.geocodeSuggestion, this));
-
     DomEvent.addListener(this._input, 'blur', function (e) {
       this.clear();
     }, this);
