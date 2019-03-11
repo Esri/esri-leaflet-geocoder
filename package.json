@@ -1,11 +1,12 @@
 {
   "name": "esri-leaflet-geocoder",
   "description": "Esri Geocoding utility and search plugin for Leaflet.",
-  "version": "2.2.13",
+  "version": "2.2.14",
   "author": "Patrick Arlt <parlt@esri.com> (http://patrickarlt.com)",
   "contributors": [
     "Patrick Arlt <parlt@esri.com> (http://patrickarlt.com)",
-    "John Gravois <jgravois@esri.com> (http://johngravois.com)"
+    "John Gravois <jgravois@esri.com> (http://johngravois.com)",
+    "Patrick McKinney"
   ],
   "dependencies": {
     "esri-leaflet": "^2.1.4",
@@ -40,6 +41,10 @@
     "uglify-js": "^2.6.1",
     "watch": "^0.17.1"
   },
+  "files": [
+    "src/**/*.js",
+    "dist/**"
+  ],
   "homepage": "https://github.com/Esri/esri-leaflet-geocoder",
   "jsnext:main": "src/EsriLeafletGeocoding.js",
   "module": "src/EsriLeafletGeocoding.js",

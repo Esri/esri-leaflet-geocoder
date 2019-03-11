@@ -2,6 +2,12 @@
 
 ## [Upcoming changes][Unreleased]
 
+## [2.2.14] - 2019-03-11
+
+### Fixed
+
+* Handle attempts to scroll on mobile devices appropriately. (🙏pmacMaps🙏 [#215](https://github.com/Esri/esri-leaflet-geocoder/pull/215))
+
 ## [2.2.13] - 2018-07-03
 
 ### Fixed
