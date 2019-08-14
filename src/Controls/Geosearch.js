@@ -223,8 +223,10 @@ export var Geosearch = Control.extend({
     }
 
     this._input.value = suggestionItem.innerText;
+    if (this._closeButton) {
+      DomUtil.removeClass(this._closeButton, "hidden");
+    }
 
-    DomUtil.removeClass(this._closeButton, "hidden");
     this._geosearchCore._geocode(
       suggestionItem.unformattedText,
       suggestionItem["data-magic-key"],
@@ -257,13 +259,7 @@ export var Geosearch = Control.extend({
       "geocoder-control-suggestions leaflet-bar",
       this._wrapper
     );
-    this._closeButton = DomUtil.create(
-      "span",
-      "geocoder-control-close hidden",
-      this._wrapper
-    );
 
-    this._closeButton.title = "clear search";
     var credits = this._geosearchCore._getAttribution();
 
     if (map.attributionControl) {
@@ -279,17 +275,25 @@ export var Geosearch = Control.extend({
       },
       this
     );
+    if (!this.options.collapseAfterResult) {
+      this._closeButton = DomUtil.create(
+        "span",
+        "geocoder-control-close hidden",
+        this._wrapper
+      );
 
-    DomEvent.addListener(
-      this._closeButton,
-      "click",
-      function(e) {
-        DomUtil.addClass(this._closeButton, "hidden");
-        this._input.value = "";
-        this._geosearchCore._clear();
-      },
-      this
-    );
+      this._closeButton.title = "clear search";
+      DomEvent.addListener(
+        this._closeButton,
+        "click",
+        function(e) {
+          DomUtil.addClass(this._closeButton, "hidden");
+          this._input.value = "";
+          this._geosearchCore._clear();
+        },
+        this
+      );
+    }
 
     DomEvent.addListener(this._wrapper, "click", this._setupClick, this);
 
