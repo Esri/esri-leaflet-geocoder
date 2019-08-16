@@ -2,7 +2,10 @@
 <html>
   <head>
     <title>Esri Leaflet Geocoder</title>
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1"
+    />
 
     <!-- Load Leaflet from their CDN -->
     <link rel="stylesheet" href="../node_modules/leaflet/dist/leaflet.css" />
@@ -28,13 +31,19 @@
     <div id="map"></div>
 
     <script>
-      var map = L.map('map').setView([37.74, -121.62], 9);
+      var map = L.map("map").setView([37.74, -121.62], 9);
       // var tiles = L.esri.basemapLayer('Topographic').addTo(map);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution:
+          '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
       }).addTo(map);
 
       var searchControl = L.esri.Geocoding.geosearch({
+        position: "topright",
+        collapseAfterResult: true,
+        expanded: false,
+        zoomToResult: true,
+        useMapBounds: true,
         providers: [
           L.esri.Geocoding.arcgisOnlineProvider({
             // countries: ['USA', 'GUM', 'VIR', 'PRI'],
@@ -42,21 +51,25 @@
             maxResults: 3
           }),
           L.esri.Geocoding.mapServiceProvider({
-            label: 'States and Counties',
-            url: 'http://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer',
+            label: "States and Counties",
+            url:
+              "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer",
             layers: [2, 3],
-            searchFields: ['NAME', 'STATE_NAME']
+            searchFields: ["NAME", "STATE_NAME"]
           })
         ]
       }).addTo(map);
 
       var results = L.layerGroup().addTo(map);
 
-      searchControl.on('results', function(data){
+      searchControl.on("results", function(data) {
         results.clearLayers();
         for (var i = data.results.length - 1; i >= 0; i--) {
           results.addLayer(L.marker(data.results[i].latlng));
         }
+      });
+      searchControl.on("clear", function(data) {
+        results.clearLayers();
       });
     </script>
   </body>
