@@ -29,7 +29,7 @@ export var Geosearch = Control.extend({
       if (!options) {
         options = {};
       }
-      options.providers = [ arcgisOnlineProvider() ];
+      options.providers = [arcgisOnlineProvider()];
     }
 
     // instantiate the underlying class and pass along options
@@ -58,7 +58,12 @@ export var Geosearch = Control.extend({
     // - suggestions offset (distance from top of suggestions to top of control)
     // - control offset (distance from top of control to top of map)
     // - 10 (extra padding)
-    this._suggestions.style.maxHeight = (this._map.getSize().y - this._suggestions.offsetTop - this._wrapper.offsetTop - 10) + 'px';
+    this._suggestions.style.maxHeight =
+      this._map.getSize().y -
+      this._suggestions.offsetTop -
+      this._wrapper.offsetTop -
+      10 +
+      'px';
 
     var nodes = [];
     var list;
@@ -67,8 +72,16 @@ export var Geosearch = Control.extend({
 
     for (var i = 0; i < suggestions.length; i++) {
       var suggestion = suggestions[i];
-      if (!header && this._geosearchCore._providers.length > 1 && currentGroup !== suggestion.provider.options.label) {
-        header = DomUtil.create('span', 'geocoder-control-header', this._suggestions);
+      if (
+        !header &&
+        this._geosearchCore._providers.length > 1 &&
+        currentGroup !== suggestion.provider.options.label
+      ) {
+        header = DomUtil.create(
+          'span',
+          'geocoder-control-header',
+          this._suggestions
+        );
         header.textContent = suggestion.provider.options.label;
         header.innerText = suggestion.provider.options.label;
         currentGroup = suggestion.provider.options.label;
@@ -80,7 +93,11 @@ export var Geosearch = Control.extend({
       }
 
       if (suggestionTextArray.indexOf(suggestion.text) === -1) {
-        var suggestionItem = DomUtil.create('li', 'geocoder-control-suggestion', list);
+        var suggestionItem = DomUtil.create(
+          'li',
+          'geocoder-control-suggestion',
+          list
+        );
 
         suggestionItem.innerHTML = suggestion.text;
         suggestionItem.provider = suggestion.provider;
@@ -120,7 +137,11 @@ export var Geosearch = Control.extend({
       resultLatlngs.push(result.latlng);
 
       // make sure bounds are valid and not 0,0. sometimes bounds are incorrect or not present
-      if (result.bounds && result.bounds.isValid() && !result.bounds.equals(nullIsland)) {
+      if (
+        result.bounds &&
+        result.bounds.isValid() &&
+        !result.bounds.equals(nullIsland)
+      ) {
         resultBounds.push(result.bounds);
       }
     }
@@ -146,7 +167,10 @@ export var Geosearch = Control.extend({
       DomUtil.removeClass(this._wrapper, 'geocoder-control-expanded');
     }
 
-    if (!this._map.scrollWheelZoom.enabled() && this._map.options.scrollWheelZoom) {
+    if (
+      !this._map.scrollWheelZoom.enabled() &&
+      this._map.options.scrollWheelZoom
+    ) {
       this._map.scrollWheelZoom.enable();
     }
   },
@@ -198,7 +222,16 @@ export var Geosearch = Control.extend({
       suggestionItem = suggestionItem.parentNode;
     }
 
-    this._geosearchCore._geocode(suggestionItem.unformattedText, suggestionItem['data-magic-key'], suggestionItem.provider);
+    this._input.value = suggestionItem.innerText;
+    if (this._closeButton) {
+      DomUtil.removeClass(this._closeButton, 'hidden');
+    }
+
+    this._geosearchCore._geocode(
+      suggestionItem.unformattedText,
+      suggestionItem['data-magic-key'],
+      suggestionItem.provider
+    );
     this.clear();
   },
 
@@ -208,7 +241,12 @@ export var Geosearch = Control.extend({
 
     this._map = map;
     this._wrapper = DomUtil.create('div', 'geocoder-control');
-    this._input = DomUtil.create('input', 'geocoder-control-input leaflet-bar', this._wrapper);
+    this._input = DomUtil.create(
+      'input',
+      'geocoder-control-input leaflet-bar',
+      this._wrapper
+    );
+
     this._input.title = this.options.title;
 
     if (this.options.expanded) {
@@ -216,7 +254,11 @@ export var Geosearch = Control.extend({
       this._input.placeholder = this.options.placeholder;
     }
 
-    this._suggestions = DomUtil.create('div', 'geocoder-control-suggestions leaflet-bar', this._wrapper);
+    this._suggestions = DomUtil.create(
+      'div',
+      'geocoder-control-suggestions leaflet-bar',
+      this._wrapper
+    );
 
     var credits = this._geosearchCore._getAttribution();
 
@@ -224,129 +266,196 @@ export var Geosearch = Control.extend({
       map.attributionControl.addAttribution(credits);
     }
 
-    DomEvent.addListener(this._input, 'focus', function (e) {
-      this._input.placeholder = this.options.placeholder;
-      DomUtil.addClass(this._wrapper, 'geocoder-control-expanded');
-    }, this);
+    DomEvent.addListener(
+      this._input,
+      'focus',
+      function (e) {
+        this._input.placeholder = this.options.placeholder;
+        DomUtil.addClass(this._wrapper, 'geocoder-control-expanded');
+      },
+      this
+    );
+    if (!this.options.collapseAfterResult) {
+      this._closeButton = DomUtil.create(
+        'span',
+        'geocoder-control-close hidden',
+        this._wrapper
+      );
+
+      this._closeButton.title = 'clear search';
+      DomEvent.addListener(
+        this._closeButton,
+        'click',
+        function (e) {
+          DomUtil.addClass(this._closeButton, 'hidden');
+          this._input.value = '';
+          this._geosearchCore._clear();
+        },
+        this
+      );
+    }
 
     DomEvent.addListener(this._wrapper, 'click', this._setupClick, this);
 
     // make sure both click and touch spawn an address/poi search
-    DomEvent.addListener(this._suggestions, 'mousedown', this.geocodeSuggestion, this);
+    DomEvent.addListener(
+      this._suggestions,
+      'mousedown',
+      this.geocodeSuggestion,
+      this
+    );
 
-    DomEvent.addListener(this._input, 'blur', function (e) {
-      this.clear();
-    }, this);
+    DomEvent.addListener(
+      this._input,
+      'blur',
+      function (e) {
+        this.clear();
+      },
+      this
+    );
 
-    DomEvent.addListener(this._input, 'keydown', function (e) {
-      var text = (e.target || e.srcElement).value;
+    DomEvent.addListener(
+      this._input,
+      'keydown',
+      function (e) {
+        var text = (e.target || e.srcElement).value;
 
-      DomUtil.addClass(this._wrapper, 'geocoder-control-expanded');
+        DomUtil.addClass(this._wrapper, 'geocoder-control-expanded');
 
-      var list = this._suggestions.querySelectorAll('.' + 'geocoder-control-suggestion');
-      var selected = this._suggestions.querySelectorAll('.' + 'geocoder-control-selected')[0];
-      var selectedPosition;
+        var list = this._suggestions.querySelectorAll(
+          '.' + 'geocoder-control-suggestion'
+        );
+        var selected = this._suggestions.querySelectorAll(
+          '.' + 'geocoder-control-selected'
+        )[0];
+        var selectedPosition;
 
-      for (var i = 0; i < list.length; i++) {
-        if (list[i] === selected) {
-          selectedPosition = i;
-          break;
+        for (var i = 0; i < list.length; i++) {
+          if (list[i] === selected) {
+            selectedPosition = i;
+            break;
+          }
         }
-      }
 
-      switch (e.keyCode) {
-        case 13:
-          /*
+        switch (e.keyCode) {
+          case 13:
+            /*
             if an item has been selected, geocode it
             if focus is on the input textbox, geocode only if multiple results are allowed and more than two characters are present, or if a single suggestion is displayed.
             if less than two characters have been typed, abort the geocode
           */
-          if (selected) {
-            this._input.value = selected.innerText;
-            this._geosearchCore._geocode(selected.unformattedText, selected['data-magic-key'], selected.provider);
-            this.clear();
-          } else if (this.options.allowMultipleResults && text.length >= 2) {
-            this._geosearchCore._geocode(this._input.value, undefined);
-            this.clear();
-          } else {
-            if (list.length === 1) {
-              DomUtil.addClass(list[0], 'geocoder-control-selected');
-              this._geosearchCore._geocode(list[0].innerHTML, list[0]['data-magic-key'], list[0].provider);
-            } else {
+            if (selected) {
+              this._input.value = selected.innerText;
+              this._geosearchCore._geocode(
+                selected.unformattedText,
+                selected['data-magic-key'],
+                selected.provider
+              );
               this.clear();
-              this._input.blur();
+            } else if (this.options.allowMultipleResults && text.length >= 2) {
+              this._geosearchCore._geocode(this._input.value, undefined);
+              this.clear();
+            } else {
+              if (list.length === 1) {
+                DomUtil.addClass(list[0], 'geocoder-control-selected');
+                this._geosearchCore._geocode(
+                  list[0].innerHTML,
+                  list[0]['data-magic-key'],
+                  list[0].provider
+                );
+              } else {
+                this.clear();
+                this._input.blur();
+              }
             }
-          }
-          DomEvent.preventDefault(e);
-          break;
-        case 38:
-          if (selected) {
-            DomUtil.removeClass(selected, 'geocoder-control-selected');
-          }
-
-          var previousItem = list[selectedPosition - 1];
-
-          if (selected && previousItem) {
-            DomUtil.addClass(previousItem, 'geocoder-control-selected');
-          } else {
-            DomUtil.addClass(list[list.length - 1], 'geocoder-control-selected');
-          }
-          DomEvent.preventDefault(e);
-          break;
-        case 40:
-          if (selected) {
-            DomUtil.removeClass(selected, 'geocoder-control-selected');
-          }
-
-          var nextItem = list[selectedPosition + 1];
-
-          if (selected && nextItem) {
-            DomUtil.addClass(nextItem, 'geocoder-control-selected');
-          } else {
-            DomUtil.addClass(list[0], 'geocoder-control-selected');
-          }
-          DomEvent.preventDefault(e);
-          break;
-        default:
-          // when the input changes we should cancel all pending suggestion requests if possible to avoid result collisions
-          for (var x = 0; x < this._geosearchCore._pendingSuggestions.length; x++) {
-            var request = this._geosearchCore._pendingSuggestions[x];
-            if (request && request.abort && !request.id) {
-              request.abort();
+            DomEvent.preventDefault(e);
+            break;
+          case 38:
+            if (selected) {
+              DomUtil.removeClass(selected, 'geocoder-control-selected');
             }
-          }
-          break;
-      }
-    }, this);
 
-    DomEvent.addListener(this._input, 'keyup', Util.throttle(function (e) {
-      var key = e.which || e.keyCode;
-      var text = (e.target || e.srcElement).value;
+            var previousItem = list[selectedPosition - 1];
 
-      // require at least 2 characters for suggestions
-      if (text.length < 2) {
-        this._suggestions.innerHTML = '';
-        this._suggestions.style.display = 'none';
-        DomUtil.removeClass(this._input, 'geocoder-control-loading');
-        return;
-      }
+            if (selected && previousItem) {
+              DomUtil.addClass(previousItem, 'geocoder-control-selected');
+            } else {
+              DomUtil.addClass(
+                list[list.length - 1],
+                'geocoder-control-selected'
+              );
+            }
+            DomEvent.preventDefault(e);
+            break;
+          case 40:
+            if (selected) {
+              DomUtil.removeClass(selected, 'geocoder-control-selected');
+            }
 
-      // if this is the escape key it will clear the input so clear suggestions
-      if (key === 27) {
-        this._suggestions.innerHTML = '';
-        this._suggestions.style.display = 'none';
-        return;
-      }
+            var nextItem = list[selectedPosition + 1];
 
-      // if this is NOT the up/down arrows or enter make a suggestion
-      if (key !== 13 && key !== 38 && key !== 40) {
-        if (this._input.value !== this._lastValue) {
-          this._lastValue = this._input.value;
-          DomUtil.addClass(this._input, 'geocoder-control-loading');
-          this._geosearchCore._suggest(text);
+            if (selected && nextItem) {
+              DomUtil.addClass(nextItem, 'geocoder-control-selected');
+            } else {
+              DomUtil.addClass(list[0], 'geocoder-control-selected');
+            }
+            DomEvent.preventDefault(e);
+            break;
+          default:
+            // when the input changes we should cancel all pending suggestion requests if possible to avoid result collisions
+            for (
+              var x = 0;
+              x < this._geosearchCore._pendingSuggestions.length;
+              x++
+            ) {
+              var request = this._geosearchCore._pendingSuggestions[x];
+              if (request && request.abort && !request.id) {
+                request.abort();
+              }
+            }
+            break;
         }
-      }
-    }, 50, this), this);
+      },
+      this
+    );
+
+    DomEvent.addListener(
+      this._input,
+      'keyup',
+      Util.throttle(
+        function (e) {
+          var key = e.which || e.keyCode;
+          var text = (e.target || e.srcElement).value;
+
+          // require at least 2 characters for suggestions
+          if (text.length < 2) {
+            this._suggestions.innerHTML = '';
+            this._suggestions.style.display = 'none';
+            DomUtil.removeClass(this._input, 'geocoder-control-loading');
+            return;
+          }
+
+          // if this is the escape key it will clear the input so clear suggestions
+          if (key === 27) {
+            this._suggestions.innerHTML = '';
+            this._suggestions.style.display = 'none';
+            return;
+          }
+
+          // if this is NOT the up/down arrows or enter make a suggestion
+          if (key !== 13 && key !== 38 && key !== 40) {
+            if (this._input.value !== this._lastValue) {
+              this._lastValue = this._input.value;
+              DomUtil.addClass(this._input, 'geocoder-control-loading');
+              this._geosearchCore._suggest(text);
+            }
+          }
+        },
+        50,
+        this
+      ),
+      this
+    );
 
     DomEvent.disableClickPropagation(this._wrapper);
 
@@ -364,11 +473,15 @@ export var Geosearch = Control.extend({
       }
     });
 
-    this._geosearchCore.on('load', function (e) {
-      DomUtil.removeClass(this._input, 'geocoder-control-loading');
-      this.clear();
-      this._input.blur();
-    }, this);
+    this._geosearchCore.on(
+      'load',
+      function (e) {
+        DomUtil.removeClass(this._input, 'geocoder-control-loading');
+        this.clear();
+        this._input.blur();
+      },
+      this
+    );
 
     return this._wrapper;
   }

@@ -28,11 +28,11 @@
 .geocoder-control {
   width: 26px;
   height: 26px;
-  -webkit-transition: width .175s ease-in;
-  -moz-transition: width .175s ease-in;
-  -ms-transition: width .175s ease-in;
-  -o-transition: width .175s ease-in;
-  transition: width .175s ease-in;
+  -webkit-transition: width 0.175s ease-in;
+  -moz-transition: width 0.175s ease-in;
+  -ms-transition: width 0.175s ease-in;
+  -o-transition: width 0.175s ease-in;
+  transition: width 0.175s ease-in;
 }
 
 .geocoder-control-expanded,
@@ -46,9 +46,9 @@
 }
 
 @media only screen and (min--moz-device-pixel-ratio: 2),
-only screen and (-o-min-device-pixel-ratio: 2/1),
-only screen and (-webkit-min-device-pixel-ratio: 2),
-only screen and (min-device-pixel-ratio: 2) {
+  only screen and (-o-min-device-pixel-ratio: 2/1),
+  only screen and (-webkit-min-device-pixel-ratio: 2),
+  only screen and (min-device-pixel-ratio: 2) {
   .geocoder-control-input {
     background-image: url("img/search@2x.png");
   }
@@ -66,7 +66,7 @@ only screen and (min-device-pixel-ratio: 2) {
 }
 
 .geocoder-control-input::-ms-clear {
-    display: none;
+  display: none;
 }
 
 .geocoder-control-suggestions {
@@ -88,10 +88,10 @@ only screen and (min-device-pixel-ratio: 2) {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: #444;
-  background: #F2F2F2;
+  background: #f2f2f2;
   border-bottom: 1px solid #d5d5d5;
   display: block;
-  padding: .5em;
+  padding: 0.5em;
 }
 
 .geocoder-control-list {
@@ -115,10 +115,11 @@ only screen and (min-device-pixel-ratio: 2) {
   border: none;
 }
 
-.geocoder-control-suggestions .geocoder-control-suggestion.geocoder-control-selected,
+.geocoder-control-suggestions
+  .geocoder-control-suggestion.geocoder-control-selected,
 .geocoder-control-suggestions .geocoder-control-suggestion:hover {
-  background: #7FDFFF;
-  border-color: #7FDFFF;
+  background: #7fdfff;
+  border-color: #7fdfff;
 }
 
 /* styles when positioned on right */
@@ -154,6 +155,27 @@ only screen and (min-device-pixel-ratio: 2) {
   width: 271px;
 }
 
+.geocoder-control-close {
+  position: absolute;
+  background: white;
+  right: 2px;
+  height: 30px;
+  line-height: 30px;
+  width: 25px;
+  top: 2px;
+  margin: 0px;
+  border-left: 2px solid #c2bfba;
+  text-align: center;
+  cursor: pointer;
+  background-image: url(img/close.png);
+  background-position: center center;
+}
+.geocoder-control-close:hover {
+  background-color: #f4f4f4;
+}
+.geocoder-control-close.hidden {
+  display: none;
+}
 /* styles when browser is old and busted */
 
 .leaflet-oldie .geocoder-control-input {
