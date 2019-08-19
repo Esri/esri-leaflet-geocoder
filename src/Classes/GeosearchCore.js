@@ -1,4 +1,4 @@
-import { Evented, Util, latLngBounds } from "leaflet";
+import { Evented, Util, latLngBounds } from 'leaflet';
 
 export var GeosearchCore = Evented.extend({
   options: {
@@ -7,35 +7,35 @@ export var GeosearchCore = Evented.extend({
     searchBounds: null
   },
 
-  initialize: function(control, options) {
+  initialize: function (control, options) {
     Util.setOptions(this, options);
     this._control = control;
 
     if (!options || !options.providers || !options.providers.length) {
-      throw new Error("You must specify at least one provider");
+      throw new Error('You must specify at least one provider');
     }
 
     this._providers = options.providers;
   },
-  _clear: function() {
+  _clear: function () {
     this.fire(
-      "clear",
+      'clear',
       {
         results: null,
         bounds: null,
         latlng: undefined,
-        text: "clear"
+        text: 'clear'
       },
       true
     );
   },
 
-  _geocode: function(text, key, provider) {
+  _geocode: function (text, key, provider) {
     var activeRequests = 0;
     var allResults = [];
     var bounds;
 
-    var callback = Util.bind(function(error, results) {
+    var callback = Util.bind(function (error, results) {
       activeRequests--;
       if (error) {
         return;
@@ -49,7 +49,7 @@ export var GeosearchCore = Evented.extend({
         bounds = this._boundsFromResults(allResults);
 
         this.fire(
-          "results",
+          'results',
           {
             results: allResults,
             bounds: bounds,
@@ -63,7 +63,7 @@ export var GeosearchCore = Evented.extend({
           this._control._map.fitBounds(bounds);
         }
 
-        this.fire("load");
+        this.fire('load');
       }
     }, this);
 
@@ -78,11 +78,11 @@ export var GeosearchCore = Evented.extend({
     }
   },
 
-  _suggest: function(text) {
+  _suggest: function (text) {
     var activeRequests = this._providers.length;
 
-    var createCallback = Util.bind(function(text, provider) {
-      return Util.bind(function(error, suggestions) {
+    var createCallback = Util.bind(function (text, provider) {
+      return Util.bind(function (error, suggestions) {
         if (error) {
           return;
         }
@@ -92,8 +92,8 @@ export var GeosearchCore = Evented.extend({
         activeRequests = activeRequests - 1;
 
         if (text.length < 2) {
-          this._suggestions.innerHTML = "";
-          this._suggestions.style.display = "none";
+          this._suggestions.innerHTML = '';
+          this._suggestions.style.display = 'none';
           return;
         }
 
@@ -139,7 +139,7 @@ export var GeosearchCore = Evented.extend({
     }
   },
 
-  _searchBounds: function() {
+  _searchBounds: function () {
     if (this.options.searchBounds !== null) {
       return this.options.searchBounds;
     }
@@ -159,7 +159,7 @@ export var GeosearchCore = Evented.extend({
     return null;
   },
 
-  _boundsFromResults: function(results) {
+  _boundsFromResults: function (results) {
     if (!results.length) {
       return;
     }
@@ -195,7 +195,7 @@ export var GeosearchCore = Evented.extend({
     return bounds;
   },
 
-  _getAttribution: function() {
+  _getAttribution: function () {
     var attribs = [];
     var providers = this._providers;
 
@@ -205,11 +205,11 @@ export var GeosearchCore = Evented.extend({
       }
     }
 
-    return attribs.join(", ");
+    return attribs.join(', ');
   }
 });
 
-export function geosearchCore(control, options) {
+export function geosearchCore (control, options) {
   return new GeosearchCore(control, options);
 }
 
