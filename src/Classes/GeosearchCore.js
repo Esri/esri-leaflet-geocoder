@@ -77,7 +77,7 @@ export var GeosearchCore = Evented.extend({
         if (text.length < 2) {
           this._suggestions.style.display = 'none';
 
-          for (var i = 0; i < this.options.providers.length; i++) {
+          for (i = 0; i < this.options.providers.length; i++) {
             this.options.providers[i]._contentsElement.innerHTML = '';
           }
 
@@ -96,7 +96,7 @@ export var GeosearchCore = Evented.extend({
         if (provider._lastRender !== text && provider.nodes) {
           for (i = 0; i < provider.nodes.length; i++) {
             if (provider.nodes[i].parentElement) {
-              provider._contentsElement.removeChild(provider.nodes[i])
+              provider._contentsElement.removeChild(provider.nodes[i]);
             }
           }
 

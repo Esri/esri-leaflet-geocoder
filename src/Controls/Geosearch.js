@@ -138,7 +138,7 @@ export var Geosearch = Control.extend({
 
   clear: function () {
     this._suggestions.style.display = 'none';
-    
+
     for (var i = 0; i < this.options.providers.length; i++) {
       this.options.providers[i]._contentsElement.innerHTML = '';
     }
@@ -349,8 +349,8 @@ export var Geosearch = Control.extend({
       if (key === 27) {
         this._suggestions.style.display = 'none';
 
-        for (var i = 0; i < this.options.providers.length; i++) {
-          this.options.providers[i]._contentsElement.innerHTML = '';
+        for (var j = 0; j < this.options.providers.length; j++) {
+          this.options.providers[j]._contentsElement.innerHTML = '';
         }
 
         return;
