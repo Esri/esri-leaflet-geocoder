@@ -75,8 +75,12 @@ export var GeosearchCore = Evented.extend({
         activeRequests = activeRequests - 1;
 
         if (text.length < 2) {
-          this._suggestions.innerHTML = '';
           this._suggestions.style.display = 'none';
+
+          for (var i = 0; i < this.options.providers.length; i++) {
+            this.options.providers[i]._contentsElement.innerHTML = '';
+          }
+
           return;
         }
 
@@ -92,7 +96,7 @@ export var GeosearchCore = Evented.extend({
         if (provider._lastRender !== text && provider.nodes) {
           for (i = 0; i < provider.nodes.length; i++) {
             if (provider.nodes[i].parentElement) {
-              this._control._suggestions.removeChild(provider.nodes[i]);
+              provider._contentsElement.removeChild(provider.nodes[i])
             }
           }
 

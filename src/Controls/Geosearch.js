@@ -68,7 +68,7 @@ export var Geosearch = Control.extend({
     for (var i = 0; i < suggestions.length; i++) {
       var suggestion = suggestions[i];
       if (!header && this._geosearchCore._providers.length > 1 && currentGroup !== suggestion.provider.options.label) {
-        header = DomUtil.create('span', 'geocoder-control-header', this._suggestions);
+        header = DomUtil.create('span', 'geocoder-control-header', suggestion.provider._contentsElement);
         header.textContent = suggestion.provider.options.label;
         header.innerText = suggestion.provider.options.label;
         currentGroup = suggestion.provider.options.label;
@@ -76,7 +76,7 @@ export var Geosearch = Control.extend({
       }
 
       if (!list) {
-        list = DomUtil.create('ul', 'geocoder-control-list', this._suggestions);
+        list = DomUtil.create('ul', 'geocoder-control-list', suggestion.provider._contentsElement);
       }
 
       if (suggestionTextArray.indexOf(suggestion.text) === -1) {
@@ -137,8 +137,11 @@ export var Geosearch = Control.extend({
   },
 
   clear: function () {
-    this._suggestions.innerHTML = '';
     this._suggestions.style.display = 'none';
+    
+    for (var i = 0; i < this.options.providers.length; i++) {
+      this.options.providers[i]._contentsElement.innerHTML = '';
+    }
 
     if (this.options.collapseAfterResult) {
       this._input.value = '';
@@ -216,7 +219,14 @@ export var Geosearch = Control.extend({
       this._input.placeholder = this.options.placeholder;
     }
 
+    // create the main suggested results container element
     this._suggestions = DomUtil.create('div', 'geocoder-control-suggestions leaflet-bar', this._wrapper);
+
+    // create a child contents container element for each provider inside of this._suggestions
+    // to maintain the configured order of providers for suggested results
+    for (var i = 0; i < this.options.providers.length; i++) {
+      this.options.providers[i]._contentsElement = DomUtil.create('span', null, this._suggestions);
+    }
 
     var credits = this._geosearchCore._getAttribution();
 
@@ -325,16 +335,24 @@ export var Geosearch = Control.extend({
 
       // require at least 2 characters for suggestions
       if (text.length < 2) {
-        this._suggestions.innerHTML = '';
         this._suggestions.style.display = 'none';
         DomUtil.removeClass(this._input, 'geocoder-control-loading');
+
+        for (var i = 0; i < this.options.providers.length; i++) {
+          this.options.providers[i]._contentsElement.innerHTML = '';
+        }
+
         return;
       }
 
       // if this is the escape key it will clear the input so clear suggestions
       if (key === 27) {
-        this._suggestions.innerHTML = '';
         this._suggestions.style.display = 'none';
+
+        for (var i = 0; i < this.options.providers.length; i++) {
+          this.options.providers[i]._contentsElement.innerHTML = '';
+        }
+
         return;
       }
 
