@@ -75,7 +75,7 @@ export var GeosearchCore = Evented.extend({
         if (error) {
           // an error occurred for one of the providers' suggest requests
           this._control._clearProviderSuggestions(provider);
-          
+
           // perform additional cleanup when all requests are finished
           this._control._finalizeSuggestions(activeRequests, suggestionsLength);
 

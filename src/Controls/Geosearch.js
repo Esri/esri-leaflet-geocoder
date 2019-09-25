@@ -150,11 +150,11 @@ export var Geosearch = Control.extend({
     }
   },
 
-  _clearProviderSuggestions: function(provider) {
+  _clearProviderSuggestions: function (provider) {
     provider._contentsElement.innerHTML = '';
   },
 
-  _finalizeSuggestions: function(activeRequests, suggestionsLength) {
+  _finalizeSuggestions: function (activeRequests, suggestionsLength) {
     // check if all requests are finished to remove the loading indicator
     if (!activeRequests) {
       DomUtil.removeClass(this._input, 'geocoder-control-loading');
