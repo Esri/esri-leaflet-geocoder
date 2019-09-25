@@ -68,7 +68,7 @@ export var Geosearch = Control.extend({
     for (var i = 0; i < suggestions.length; i++) {
       var suggestion = suggestions[i];
       if (!header && this._geosearchCore._providers.length > 1 && currentGroup !== suggestion.provider.options.label) {
-        header = DomUtil.create('span', 'geocoder-control-header', suggestion.provider._contentsElement);
+        header = DomUtil.create('div', 'geocoder-control-header', suggestion.provider._contentsElement);
         header.textContent = suggestion.provider.options.label;
         header.innerText = suggestion.provider.options.label;
         currentGroup = suggestion.provider.options.label;
@@ -225,7 +225,7 @@ export var Geosearch = Control.extend({
     // create a child contents container element for each provider inside of this._suggestions
     // to maintain the configured order of providers for suggested results
     for (var i = 0; i < this.options.providers.length; i++) {
-      this.options.providers[i]._contentsElement = DomUtil.create('span', null, this._suggestions);
+      this.options.providers[i]._contentsElement = DomUtil.create('div', null, this._suggestions);
     }
 
     var credits = this._geosearchCore._getAttribution();
