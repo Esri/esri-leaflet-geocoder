@@ -338,6 +338,7 @@ export var Geosearch = Control.extend({
 
       // require at least 2 characters for suggestions
       if (text.length < 2) {
+        this._lastValue = this._input.value;
         this._clearAllSuggestions();
         DomUtil.removeClass(this._input, 'geocoder-control-loading');
         return;
