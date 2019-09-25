@@ -60,7 +60,6 @@ export var Geosearch = Control.extend({
     // - 10 (extra padding)
     this._suggestions.style.maxHeight = (this._map.getSize().y - this._suggestions.offsetTop - this._wrapper.offsetTop - 10) + 'px';
 
-    var nodes = [];
     var list;
     var header;
     var suggestionTextArray = [];
@@ -72,7 +71,6 @@ export var Geosearch = Control.extend({
         header.textContent = suggestion.provider.options.label;
         header.innerText = suggestion.provider.options.label;
         currentGroup = suggestion.provider.options.label;
-        nodes.push(header);
       }
 
       if (!list) {
@@ -96,12 +94,6 @@ export var Geosearch = Control.extend({
       }
       suggestionTextArray.push(suggestion.text);
     }
-
-    DomUtil.removeClass(this._input, 'geocoder-control-loading');
-
-    nodes.push(list);
-
-    return nodes;
   },
 
   _boundsFromResults: function (results) {
@@ -137,11 +129,7 @@ export var Geosearch = Control.extend({
   },
 
   clear: function () {
-    this._suggestions.style.display = 'none';
-
-    for (var i = 0; i < this.options.providers.length; i++) {
-      this.options.providers[i]._contentsElement.innerHTML = '';
-    }
+    this._clearAllSuggestions();
 
     if (this.options.collapseAfterResult) {
       this._input.value = '';
@@ -154,12 +142,27 @@ export var Geosearch = Control.extend({
     }
   },
 
-  clearSuggestions: function () {
-    if (this._nodes) {
-      for (var k = 0; k < this._nodes.length; k++) {
-        if (this._nodes[k].parentElement) {
-          this._suggestions.removeChild(this._nodes[k]);
-        }
+  _clearAllSuggestions: function () {
+    this._suggestions.style.display = 'none';
+
+    for (var i = 0; i < this.options.providers.length; i++) {
+      this._clearProviderSuggestions(this.options.providers[i]);
+    }
+  },
+
+  _clearProviderSuggestions: function(provider) {
+    provider._contentsElement.innerHTML = '';
+  },
+
+  _finalizeSuggestions: function(activeRequests, suggestionsLength) {
+    // check if all requests are finished to remove the loading indicator
+    if (!activeRequests) {
+      DomUtil.removeClass(this._input, 'geocoder-control-loading');
+
+      // also check if there were 0 total suggest results to clear the parent suggestions element
+      // otherwise its display value may be "block" instead of "none"
+      if (!suggestionsLength) {
+        this._clearAllSuggestions();
       }
     }
   },
@@ -335,24 +338,14 @@ export var Geosearch = Control.extend({
 
       // require at least 2 characters for suggestions
       if (text.length < 2) {
-        this._suggestions.style.display = 'none';
+        this._clearAllSuggestions();
         DomUtil.removeClass(this._input, 'geocoder-control-loading');
-
-        for (var i = 0; i < this.options.providers.length; i++) {
-          this.options.providers[i]._contentsElement.innerHTML = '';
-        }
-
         return;
       }
 
       // if this is the escape key it will clear the input so clear suggestions
       if (key === 27) {
-        this._suggestions.style.display = 'none';
-
-        for (var j = 0; j < this.options.providers.length; j++) {
-          this.options.providers[j]._contentsElement.innerHTML = '';
-        }
-
+        this._clearAllSuggestions();
         return;
       }
 

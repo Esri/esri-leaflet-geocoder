@@ -65,27 +65,25 @@ export var GeosearchCore = Evented.extend({
 
   _suggest: function (text) {
     var activeRequests = this._providers.length;
+    var suggestionsLength = 0;
 
     var createCallback = Util.bind(function (text, provider) {
       return Util.bind(function (error, suggestions) {
-        if (error) { return; }
-
-        var i;
-
         activeRequests = activeRequests - 1;
+        suggestionsLength += suggestions.length;
 
-        if (text.length < 2) {
-          this._suggestions.style.display = 'none';
-
-          for (i = 0; i < this.options.providers.length; i++) {
-            this.options.providers[i]._contentsElement.innerHTML = '';
-          }
+        if (error) {
+          // an error occurred for one of the providers' suggest requests
+          this._control._clearProviderSuggestions(provider);
+          
+          // perform additional cleanup when all requests are finished
+          this._control._finalizeSuggestions(activeRequests, suggestionsLength);
 
           return;
         }
 
         if (suggestions.length) {
-          for (i = 0; i < suggestions.length; i++) {
+          for (var i = 0; i < suggestions.length; i++) {
             suggestions[i].provider = provider;
           }
         } else {
@@ -93,23 +91,17 @@ export var GeosearchCore = Evented.extend({
           this._control._renderSuggestions(suggestions);
         }
 
-        if (provider._lastRender !== text && provider.nodes) {
-          for (i = 0; i < provider.nodes.length; i++) {
-            if (provider.nodes[i].parentElement) {
-              provider._contentsElement.removeChild(provider.nodes[i]);
-            }
-          }
-
-          provider.nodes = [];
+        if (provider._lastRender !== text) {
+          this._control._clearProviderSuggestions(provider);
         }
 
         if (suggestions.length && this._control._input.value === text) {
-          this._control.clearSuggestions(provider.nodes);
-
           provider._lastRender = text;
-          provider.nodes = this._control._renderSuggestions(suggestions);
-          this._control._nodes = [];
+          this._control._renderSuggestions(suggestions);
         }
+
+        // perform additional cleanup when all requests are finished
+        this._control._finalizeSuggestions(activeRequests, suggestionsLength);
       }, this);
     }, this);
 
