@@ -2,6 +2,12 @@
 
 ## [Upcoming changes][Unreleased]
 
+## [2.3.0] - 2019-10-10
+
+### Changed
+
+* Order of providers for suggested results is now consistently in the same order as providers were optionally configured. This PR also includes related misc. improvements to the suggest UI. [#223](https://github.com/Esri/esri-leaflet-geocoder/pull/223)
+
 ## [2.2.14] - 2019-03-11
 
 ### Fixed
@@ -353,7 +359,8 @@ This is now ready for beta! This release helps finalize the API and includes lot
 
 * Initial alpha release
 
-[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.14...HEAD
+[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.3.0...HEAD
+[2.3.0]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.14...v2.3.0
 [2.2.14]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.13...v2.2.14
 [2.2.13]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.12...v2.2.13
 [2.2.12]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.11...v2.2.12
