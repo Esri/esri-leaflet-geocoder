@@ -2,6 +2,8 @@
 
 ## [Upcoming changes][Unreleased]
 
+## [2.3.1] - 2019-10-11
+
 ### Fixed
 
 * Ensure control initialization will be successful when there are no optional `providers` passed in. [#225](https://github.com/Esri/esri-leaflet-geocoder/issues/225)
@@ -364,6 +366,7 @@ This is now ready for beta! This release helps finalize the API and includes lot
 * Initial alpha release
 
 [Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.3.0...HEAD
+[2.3.1]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.3.0...v2.3.1
 [2.3.0]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.14...v2.3.0
 [2.2.14]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.13...v2.2.14
 [2.2.13]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.12...v2.2.13
