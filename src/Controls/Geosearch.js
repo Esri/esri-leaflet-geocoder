@@ -44,7 +44,7 @@ export var Geosearch = Control.extend({
 
     this._geosearchCore._pendingSuggestions = [];
 
-    Control.prototype.initialize.call(options);
+    Control.prototype.initialize.call(this, options);
   },
 
   _renderSuggestions: function (suggestions) {
