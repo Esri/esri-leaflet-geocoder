@@ -37,10 +37,13 @@ describe('L.esri.Geosearch', function () {
   var mapbounds = L.latLngBounds(southWest, northEast);
 
   it('shouldnt overwrite custom options set in the constructor', function () {
+    var customProviders = [
+      L.esri.Geocoding.arcgisOnlineProvider(),
+      L.esri.Geocoding.arcgisOnlineProvider()
+    ];
+
     var geosearch = L.esri.Geocoding.geosearch({
-      providers: [
-        L.esri.Geocoding.arcgisOnlineProvider()
-      ],
+      providers: customProviders,
       useMapBounds: false,
       zoomToResult: false,
       collapseAfterResult: false,
@@ -50,6 +53,9 @@ describe('L.esri.Geosearch', function () {
       title: 'something not so clever',
       searchBounds: mapbounds
     });
+
+    expect(geosearch.options.providers.length).to.equal(customProviders.length);
+    expect(geosearch._geosearchCore.options.providers.length).to.equal(customProviders.length);
 
     expect(geosearch.options.useMapBounds).to.equal(false);
     expect(geosearch.options.zoomToResult).to.equal(false);
@@ -75,6 +81,22 @@ describe('L.esri.Geosearch', function () {
 
     expect(geosearch._geosearchCore.options.useMapBounds).to.equal(false);
     expect(geosearch._geosearchCore.options.searchBounds).to.equal(mapbounds);
+  });
+
+  it('and even if no provider is passed there should at least be 1 by default', function () {
+    var geosearch = L.esri.Geocoding.geosearch({
+      useMapBounds: false,
+      zoomToResult: false,
+      collapseAfterResult: false,
+      expanded: true,
+      allowMultipleResults: false,
+      placeholder: 'something clever',
+      title: 'something not so clever',
+      searchBounds: mapbounds
+    });
+
+    expect(geosearch.options.providers.length).to.equal(1);
+    expect(geosearch._geosearchCore.options.providers.length).to.equal(1);
   });
 
   it('should update map attribution when the World Geocoding Service is used', function () {

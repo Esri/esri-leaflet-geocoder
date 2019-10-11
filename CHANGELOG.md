@@ -2,6 +2,10 @@
 
 ## [Upcoming changes][Unreleased]
 
+### Fixed
+
+* Ensure control initialization will be successful when there are no optional `providers` passed in. [#225](https://github.com/Esri/esri-leaflet-geocoder/issues/225)
+
 ## [2.3.0] - 2019-10-10
 
 ### Changed
