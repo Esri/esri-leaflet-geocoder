@@ -133,6 +133,7 @@ export var Geosearch = Control.extend({
 
     if (this.options.collapseAfterResult) {
       this._input.value = '';
+      this._lastValue = '';
       this._input.placeholder = '';
       DomUtil.removeClass(this._wrapper, 'geocoder-control-expanded');
     }
@@ -199,6 +200,13 @@ export var Geosearch = Control.extend({
   geocodeSuggestion: function (e) {
     var suggestionItem = e.target || e.srcElement;
 
+    if (
+      suggestionItem.classList.contains('geocoder-control-suggestions') ||
+      suggestionItem.classList.contains('geocoder-control-header')
+    ) {
+      return;
+    }
+
     // make sure and point at the actual 'geocoder-control-suggestion'
     if (suggestionItem.classList.length < 1) {
       suggestionItem = suggestionItem.parentNode;
@@ -248,6 +256,8 @@ export var Geosearch = Control.extend({
     DomEvent.addListener(this._suggestions, 'mousedown', this.geocodeSuggestion, this);
 
     DomEvent.addListener(this._input, 'blur', function (e) {
+      // TODO: this is too greedy and should not "clear"
+      // when trying to use the scrollbar or clicking on a non-suggestion item (such as a provider header)
       this.clear();
     }, this);
 
