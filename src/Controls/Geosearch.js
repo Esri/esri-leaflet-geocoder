@@ -110,14 +110,13 @@ export var Geosearch = Control.extend({
     //  - control offsetHeight (height of geocoder control wrapper, the main expandable button)
     //  + 20 (extra spacing)
     if (this.getPosition().indexOf('bottom') > -1) {
-      // if (this._map.zoomControl && this._map.zoomControl.getPosition().indexOf('left') > -1) {
-      //   this._suggestions.style.maxHeight = (this._map.getSize().y - this._map.zoomControl.getContainer().offsetHeight - this._wrapper.offsetHeight - 10) + 'px';
-      // }
-
-      // this._suggestions.style.maxHeight = (this._map.getSize().y - this._suggestions.offsetHeight - this._wrapper.offsetHeight) + 'px';
-      this._suggestions.style.maxHeight = (this._map.getSize().y - this._map._controlCorners[this.getPosition()].offsetHeight - this._wrapper.offsetHeight) + 'px';
-      this._suggestions.style.top = (-this._suggestions.offsetHeight - this._wrapper.offsetHeight + 20) + 'px';
+      this._setSuggestionsBottomPosition();
     }
+  },
+
+  _setSuggestionsBottomPosition: function () {
+    this._suggestions.style.maxHeight = (this._map.getSize().y - this._map._controlCorners[this.getPosition()].offsetHeight - this._wrapper.offsetHeight) + 'px';
+    this._suggestions.style.top = (-this._suggestions.offsetHeight - this._wrapper.offsetHeight + 20) + 'px';
   },
 
   _boundsFromResults: function (results) {
@@ -184,10 +183,11 @@ export var Geosearch = Control.extend({
     if (!activeRequests) {
       DomUtil.removeClass(this._input, 'geocoder-control-loading');
 
-      // TODO: abstract this logic because it is similar to end of "_renderSuggestions"
+      // when the geocoder position is either "bottomleft" or "bottomright",
+      // it is necessary in some cases to recalculate the maxHeight and top values of the this._suggestions element,
+      // even though this is also being done after each provider returns their own suggestions
       if (this.getPosition().indexOf('bottom') > -1) {
-        this._suggestions.style.maxHeight = (this._map.getSize().y - this._map._controlCorners[this.getPosition()].offsetHeight - this._wrapper.offsetHeight) + 'px';
-        this._suggestions.style.top = (-this._suggestions.offsetHeight - this._wrapper.offsetHeight + 20) + 'px';
+        this._setSuggestionsBottomPosition();
       }
 
       // also check if there were 0 total suggest results to clear the parent suggestions element
