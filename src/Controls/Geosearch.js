@@ -89,7 +89,6 @@ export var Geosearch = Control.extend({
       suggestionTextArray.push(suggestion.text);
     }
 
-
     // when the geocoder position is either "topleft" or "topright":
     // set the maxHeight of the suggestions box to:
     //  map height
