@@ -2,6 +2,12 @@
 
 ## [Upcoming changes][Unreleased]
 
+### Fixed
+
+* Suggestions are now visible above the control's input element when the optional `position` property is `'bottomleft'` or `'bottomright'`. [#228](https://github.com/Esri/esri-leaflet-geocoder/issues/228)
+* Ensure that geocoding is not attempted when user interacts with invalid suggestion child elements, such as when clicking on a provider header or the suggestions parent container element. [#228](https://github.com/Esri/esri-leaflet-geocoder/issues/228)
+* Reset `this._lastValue` when clearing and collapsing the control after a result to make it easier to search again for the same input text value. [#228](https://github.com/Esri/esri-leaflet-geocoder/issues/228)
+
 ## [2.3.1] - 2019-10-11
 
 ### Fixed

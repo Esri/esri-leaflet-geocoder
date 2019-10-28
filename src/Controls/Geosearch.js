@@ -53,12 +53,6 @@ export var Geosearch = Control.extend({
     if (suggestions.length > 0) {
       this._suggestions.style.display = 'block';
     }
-    // set the maxHeight of the suggestions box to
-    // map height
-    // - suggestions offset (distance from top of suggestions to top of control)
-    // - control offset (distance from top of control to top of map)
-    // - 10 (extra padding)
-    this._suggestions.style.maxHeight = (this._map.getSize().y - this._suggestions.offsetTop - this._wrapper.offsetTop - 10) + 'px';
 
     var list;
     var header;
@@ -94,6 +88,34 @@ export var Geosearch = Control.extend({
       }
       suggestionTextArray.push(suggestion.text);
     }
+
+    // when the geocoder position is either "topleft" or "topright":
+    // set the maxHeight of the suggestions box to:
+    //  map height
+    //  - suggestions offset (distance from top of suggestions to top of control)
+    //  - control offset (distance from top of control to top of map)
+    //  - 10 (extra padding)
+    if (this.getPosition().indexOf('top') > -1) {
+      this._suggestions.style.maxHeight = (this._map.getSize().y - this._suggestions.offsetTop - this._wrapper.offsetTop - 10) + 'px';
+    }
+
+    // when the geocoder position is either "bottomleft" or "bottomright":
+    // 1. set the maxHeight of the suggestions box to:
+    //  map height
+    //  - corner control container offsetHeight (height of container of bottom corner)
+    //  - control offsetHeight (height of geocoder control wrapper, the main expandable button)
+    // 2. to move it up, set the top of the suggestions box to:
+    //  negative offsetHeight of suggestions box (its own negative height now that it has children elements
+    //  - control offsetHeight (height of geocoder control wrapper, the main expandable button)
+    //  + 20 (extra spacing)
+    if (this.getPosition().indexOf('bottom') > -1) {
+      this._setSuggestionsBottomPosition();
+    }
+  },
+
+  _setSuggestionsBottomPosition: function () {
+    this._suggestions.style.maxHeight = (this._map.getSize().y - this._map._controlCorners[this.getPosition()].offsetHeight - this._wrapper.offsetHeight) + 'px';
+    this._suggestions.style.top = (-this._suggestions.offsetHeight - this._wrapper.offsetHeight + 20) + 'px';
   },
 
   _boundsFromResults: function (results) {
@@ -133,6 +155,7 @@ export var Geosearch = Control.extend({
 
     if (this.options.collapseAfterResult) {
       this._input.value = '';
+      this._lastValue = '';
       this._input.placeholder = '';
       DomUtil.removeClass(this._wrapper, 'geocoder-control-expanded');
     }
@@ -158,6 +181,13 @@ export var Geosearch = Control.extend({
     // check if all requests are finished to remove the loading indicator
     if (!activeRequests) {
       DomUtil.removeClass(this._input, 'geocoder-control-loading');
+
+      // when the geocoder position is either "bottomleft" or "bottomright",
+      // it is necessary in some cases to recalculate the maxHeight and top values of the this._suggestions element,
+      // even though this is also being done after each provider returns their own suggestions
+      if (this.getPosition().indexOf('bottom') > -1) {
+        this._setSuggestionsBottomPosition();
+      }
 
       // also check if there were 0 total suggest results to clear the parent suggestions element
       // otherwise its display value may be "block" instead of "none"
@@ -198,6 +228,13 @@ export var Geosearch = Control.extend({
 
   geocodeSuggestion: function (e) {
     var suggestionItem = e.target || e.srcElement;
+
+    if (
+      suggestionItem.classList.contains('geocoder-control-suggestions') ||
+      suggestionItem.classList.contains('geocoder-control-header')
+    ) {
+      return;
+    }
 
     // make sure and point at the actual 'geocoder-control-suggestion'
     if (suggestionItem.classList.length < 1) {
@@ -248,6 +285,8 @@ export var Geosearch = Control.extend({
     DomEvent.addListener(this._suggestions, 'mousedown', this.geocodeSuggestion, this);
 
     DomEvent.addListener(this._input, 'blur', function (e) {
+      // TODO: this is too greedy and should not "clear"
+      // when trying to use the scrollbar or clicking on a non-suggestion item (such as a provider header)
       this.clear();
     }, this);
 

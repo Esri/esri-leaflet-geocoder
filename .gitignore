@@ -20,6 +20,7 @@ coverage
 # Debugging Files
 debug/*
 !debug/sample.html
+!debug/sample-multiple.html
 
 # Built Files and watch cache
 dist/
