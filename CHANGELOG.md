@@ -2,6 +2,8 @@
 
 ## [Upcoming changes][Unreleased]
 
+## [2.3.2] - 2019-11-12
+
 ### Fixed
 
 * Suggestions are now visible above the control's input element when the optional `position` property is `'bottomleft'` or `'bottomright'`. [#228](https://github.com/Esri/esri-leaflet-geocoder/issues/228)
@@ -371,7 +373,8 @@ This is now ready for beta! This release helps finalize the API and includes lot
 
 * Initial alpha release
 
-[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.3.0...HEAD
+[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.3.2...HEAD
+[2.3.2]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.3.1...v2.3.2
 [2.3.1]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.3.0...v2.3.1
 [2.3.0]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.14...v2.3.0
 [2.2.14]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.13...v2.2.14
