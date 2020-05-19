@@ -6,6 +6,7 @@ export var FeatureLayerProvider = FeatureLayerService.extend({
     label: 'Feature Layer',
     maxResults: 5,
     bufferRadius: 1000,
+    strictSearch: false,
     formatSuggestion: function (feature) {
       return feature.properties[this.options.searchFields[0]];
     }
@@ -101,8 +102,12 @@ export var FeatureLayerProvider = FeatureLayerService.extend({
 
     for (var i = this.options.searchFields.length - 1; i >= 0; i--) {
       var field = 'upper("' + this.options.searchFields[i] + '")';
-
-      queryString.push(field + " LIKE upper('%" + text + "%')");
+      
+      if (!this.options.strictSearch) {
+        queryString.push(field + " LIKE upper('%" + text + "%')");
+      } else {
+        queryString.push(field + " LIKE upper('" + text + "')");
+      }     
     }
 
     if (this.options.where) {
