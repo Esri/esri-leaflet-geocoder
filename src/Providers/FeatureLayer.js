@@ -104,11 +104,11 @@ export var FeatureLayerProvider = FeatureLayerService.extend({
       var field = 'upper("' + this.options.searchFields[i] + '")';
       
       if (!this.options.strictSearch) {
-       queryString.push(field + " LIKE upper('%" + text + "%')");
+        queryString.push(field + " LIKE upper('%" + text + "%')");
       } else {
-         queryString.push(field + " LIKE upper('" + text + "')");
-        }
+        queryString.push(field + " LIKE upper('" + text + "')");
       }
+    }
     
     if (this.options.where) {
       return this.options.where + ' AND (' + queryString.join(' OR ') + ')';
