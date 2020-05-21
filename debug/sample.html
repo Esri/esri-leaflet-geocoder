@@ -53,9 +53,8 @@
             label: 'Cities',
             formatSuggestion: function (feature) {
               return feature.properties.areaname + ', ' + feature.properties.st;
-            },
-            strictSearch: false // set to true to force exact match
-          })          
+            }                       
+          })                    
         ]
       }).addTo(map);
 

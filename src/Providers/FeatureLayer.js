@@ -6,7 +6,7 @@ export var FeatureLayerProvider = FeatureLayerService.extend({
     label: 'Feature Layer',
     maxResults: 5,
     bufferRadius: 1000,
-    strictSearch: false,
+    searchMode: 'contain',
     formatSuggestion: function (feature) {
       return feature.properties[this.options.searchFields[0]];
     }
@@ -103,10 +103,14 @@ export var FeatureLayerProvider = FeatureLayerService.extend({
     for (var i = this.options.searchFields.length - 1; i >= 0; i--) {
       var field = 'upper("' + this.options.searchFields[i] + '")';
       
-      if (!this.options.strictSearch) {
+      if (this.options.searchMode === 'contain') {
         queryString.push(field + " LIKE upper('%" + text + "%')");
-      } else {
+      } else if (this.options.searchMode === 'startWith') {
+        queryString.push(field + " LIKE upper('" + text + "%')");
+      } else if (this.options.searchMode === 'strict') {
         queryString.push(field + " LIKE upper('" + text + "')");
+      } else {
+        throw new Error('L.esri.Geocoding.featureLayerProvider: Invalid parameter for "searchMode". Use one of "contain", "startWith", or "strict"');
       }
     }
     
