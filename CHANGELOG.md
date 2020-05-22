@@ -2,6 +2,26 @@
 
 ## [Upcoming changes][Unreleased]
 
+## [2.3.2] - 2019-11-12
+
+### Fixed
+
+* Suggestions are now visible above the control's input element when the optional `position` property is `'bottomleft'` or `'bottomright'`. [#228](https://github.com/Esri/esri-leaflet-geocoder/issues/228)
+* Ensure that geocoding is not attempted when user interacts with invalid suggestion child elements, such as when clicking on a provider header or the suggestions parent container element. [#228](https://github.com/Esri/esri-leaflet-geocoder/issues/228)
+* Reset `this._lastValue` when clearing and collapsing the control after a result to make it easier to search again for the same input text value. [#228](https://github.com/Esri/esri-leaflet-geocoder/issues/228)
+
+## [2.3.1] - 2019-10-11
+
+### Fixed
+
+* Ensure control initialization will be successful when there are no optional `providers` passed in. [#225](https://github.com/Esri/esri-leaflet-geocoder/issues/225)
+
+## [2.3.0] - 2019-10-10
+
+### Changed
+
+* Order of providers for suggested results is now consistently in the same order as providers were optionally configured. This PR also includes related misc. improvements to the suggest UI. [#223](https://github.com/Esri/esri-leaflet-geocoder/pull/223)
+
 ## [2.2.14] - 2019-03-11
 
 ### Fixed
@@ -353,7 +373,11 @@ This is now ready for beta! This release helps finalize the API and includes lot
 
 * Initial alpha release
 
-[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.13...HEAD
+[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.3.2...HEAD
+[2.3.2]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.3.1...v2.3.2
+[2.3.1]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.3.0...v2.3.1
+[2.3.0]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.14...v2.3.0
+[2.2.14]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.13...v2.2.14
 [2.2.13]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.12...v2.2.13
 [2.2.12]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.11...v2.2.12
 [2.2.11]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.2.10...v2.2.11

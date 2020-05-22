@@ -69,6 +69,11 @@ only screen and (min-device-pixel-ratio: 2) {
     display: none;
 }
 
+/* 
+TODO: find out why this is underneath other map corner controls
+(try out a "topright" position and then suggestions will be under the attribution
+or another geocoder in the "bottomright")
+*/
 .geocoder-control-suggestions {
   width: 100%;
   position: absolute;
@@ -78,6 +83,7 @@ only screen and (min-device-pixel-ratio: 2) {
   overflow: auto;
   display: none;
 }
+
 .geocoder-control-list + .geocoder-control-header {
   border-top: 1px solid #d5d5d5;
 }
@@ -131,6 +137,13 @@ only screen and (min-device-pixel-ratio: 2) {
 .leaflet-right .geocoder-control-input {
   left: auto;
   right: 0;
+}
+
+/* styles when positioned on bottom */
+
+.leaflet-bottom .geocoder-control-suggestions {
+  margin-top: 0;
+  top: 0;
 }
 
 /* styles when on a touch device */

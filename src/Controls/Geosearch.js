@@ -44,7 +44,7 @@ export var Geosearch = Control.extend({
 
     this._geosearchCore._pendingSuggestions = [];
 
-    Control.prototype.initialize.call(options);
+    Control.prototype.initialize.call(this, options);
   },
 
   _renderSuggestions: function (suggestions) {
@@ -53,14 +53,7 @@ export var Geosearch = Control.extend({
     if (suggestions.length > 0) {
       this._suggestions.style.display = 'block';
     }
-    // set the maxHeight of the suggestions box to
-    // map height
-    // - suggestions offset (distance from top of suggestions to top of control)
-    // - control offset (distance from top of control to top of map)
-    // - 10 (extra padding)
-    this._suggestions.style.maxHeight = (this._map.getSize().y - this._suggestions.offsetTop - this._wrapper.offsetTop - 10) + 'px';
 
-    var nodes = [];
     var list;
     var header;
     var suggestionTextArray = [];
@@ -68,15 +61,14 @@ export var Geosearch = Control.extend({
     for (var i = 0; i < suggestions.length; i++) {
       var suggestion = suggestions[i];
       if (!header && this._geosearchCore._providers.length > 1 && currentGroup !== suggestion.provider.options.label) {
-        header = DomUtil.create('span', 'geocoder-control-header', this._suggestions);
+        header = DomUtil.create('div', 'geocoder-control-header', suggestion.provider._contentsElement);
         header.textContent = suggestion.provider.options.label;
         header.innerText = suggestion.provider.options.label;
         currentGroup = suggestion.provider.options.label;
-        nodes.push(header);
       }
 
       if (!list) {
-        list = DomUtil.create('ul', 'geocoder-control-list', this._suggestions);
+        list = DomUtil.create('ul', 'geocoder-control-list', suggestion.provider._contentsElement);
       }
 
       if (suggestionTextArray.indexOf(suggestion.text) === -1) {
@@ -97,11 +89,33 @@ export var Geosearch = Control.extend({
       suggestionTextArray.push(suggestion.text);
     }
 
-    DomUtil.removeClass(this._input, 'geocoder-control-loading');
+    // when the geocoder position is either "topleft" or "topright":
+    // set the maxHeight of the suggestions box to:
+    //  map height
+    //  - suggestions offset (distance from top of suggestions to top of control)
+    //  - control offset (distance from top of control to top of map)
+    //  - 10 (extra padding)
+    if (this.getPosition().indexOf('top') > -1) {
+      this._suggestions.style.maxHeight = (this._map.getSize().y - this._suggestions.offsetTop - this._wrapper.offsetTop - 10) + 'px';
+    }
 
-    nodes.push(list);
+    // when the geocoder position is either "bottomleft" or "bottomright":
+    // 1. set the maxHeight of the suggestions box to:
+    //  map height
+    //  - corner control container offsetHeight (height of container of bottom corner)
+    //  - control offsetHeight (height of geocoder control wrapper, the main expandable button)
+    // 2. to move it up, set the top of the suggestions box to:
+    //  negative offsetHeight of suggestions box (its own negative height now that it has children elements
+    //  - control offsetHeight (height of geocoder control wrapper, the main expandable button)
+    //  + 20 (extra spacing)
+    if (this.getPosition().indexOf('bottom') > -1) {
+      this._setSuggestionsBottomPosition();
+    }
+  },
 
-    return nodes;
+  _setSuggestionsBottomPosition: function () {
+    this._suggestions.style.maxHeight = (this._map.getSize().y - this._map._controlCorners[this.getPosition()].offsetHeight - this._wrapper.offsetHeight) + 'px';
+    this._suggestions.style.top = (-this._suggestions.offsetHeight - this._wrapper.offsetHeight + 20) + 'px';
   },
 
   _boundsFromResults: function (results) {
@@ -137,11 +151,11 @@ export var Geosearch = Control.extend({
   },
 
   clear: function () {
-    this._suggestions.innerHTML = '';
-    this._suggestions.style.display = 'none';
+    this._clearAllSuggestions();
 
     if (this.options.collapseAfterResult) {
       this._input.value = '';
+      this._lastValue = '';
       this._input.placeholder = '';
       DomUtil.removeClass(this._wrapper, 'geocoder-control-expanded');
     }
@@ -151,12 +165,34 @@ export var Geosearch = Control.extend({
     }
   },
 
-  clearSuggestions: function () {
-    if (this._nodes) {
-      for (var k = 0; k < this._nodes.length; k++) {
-        if (this._nodes[k].parentElement) {
-          this._suggestions.removeChild(this._nodes[k]);
-        }
+  _clearAllSuggestions: function () {
+    this._suggestions.style.display = 'none';
+
+    for (var i = 0; i < this.options.providers.length; i++) {
+      this._clearProviderSuggestions(this.options.providers[i]);
+    }
+  },
+
+  _clearProviderSuggestions: function (provider) {
+    provider._contentsElement.innerHTML = '';
+  },
+
+  _finalizeSuggestions: function (activeRequests, suggestionsLength) {
+    // check if all requests are finished to remove the loading indicator
+    if (!activeRequests) {
+      DomUtil.removeClass(this._input, 'geocoder-control-loading');
+
+      // when the geocoder position is either "bottomleft" or "bottomright",
+      // it is necessary in some cases to recalculate the maxHeight and top values of the this._suggestions element,
+      // even though this is also being done after each provider returns their own suggestions
+      if (this.getPosition().indexOf('bottom') > -1) {
+        this._setSuggestionsBottomPosition();
+      }
+
+      // also check if there were 0 total suggest results to clear the parent suggestions element
+      // otherwise its display value may be "block" instead of "none"
+      if (!suggestionsLength) {
+        this._clearAllSuggestions();
       }
     }
   },
@@ -193,6 +229,13 @@ export var Geosearch = Control.extend({
   geocodeSuggestion: function (e) {
     var suggestionItem = e.target || e.srcElement;
 
+    if (
+      suggestionItem.classList.contains('geocoder-control-suggestions') ||
+      suggestionItem.classList.contains('geocoder-control-header')
+    ) {
+      return;
+    }
+
     // make sure and point at the actual 'geocoder-control-suggestion'
     if (suggestionItem.classList.length < 1) {
       suggestionItem = suggestionItem.parentNode;
@@ -216,7 +259,14 @@ export var Geosearch = Control.extend({
       this._input.placeholder = this.options.placeholder;
     }
 
+    // create the main suggested results container element
     this._suggestions = DomUtil.create('div', 'geocoder-control-suggestions leaflet-bar', this._wrapper);
+
+    // create a child contents container element for each provider inside of this._suggestions
+    // to maintain the configured order of providers for suggested results
+    for (var i = 0; i < this.options.providers.length; i++) {
+      this.options.providers[i]._contentsElement = DomUtil.create('div', null, this._suggestions);
+    }
 
     var credits = this._geosearchCore._getAttribution();
 
@@ -235,6 +285,8 @@ export var Geosearch = Control.extend({
     DomEvent.addListener(this._suggestions, 'mousedown', this.geocodeSuggestion, this);
 
     DomEvent.addListener(this._input, 'blur', function (e) {
+      // TODO: this is too greedy and should not "clear"
+      // when trying to use the scrollbar or clicking on a non-suggestion item (such as a provider header)
       this.clear();
     }, this);
 
@@ -325,16 +377,15 @@ export var Geosearch = Control.extend({
 
       // require at least 2 characters for suggestions
       if (text.length < 2) {
-        this._suggestions.innerHTML = '';
-        this._suggestions.style.display = 'none';
+        this._lastValue = this._input.value;
+        this._clearAllSuggestions();
         DomUtil.removeClass(this._input, 'geocoder-control-loading');
         return;
       }
 
       // if this is the escape key it will clear the input so clear suggestions
       if (key === 27) {
-        this._suggestions.innerHTML = '';
-        this._suggestions.style.display = 'none';
+        this._clearAllSuggestions();
         return;
       }
 
