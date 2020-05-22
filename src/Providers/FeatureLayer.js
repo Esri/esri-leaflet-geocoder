@@ -102,7 +102,6 @@ export var FeatureLayerProvider = FeatureLayerService.extend({
 
     for (var i = this.options.searchFields.length - 1; i >= 0; i--) {
       var field = 'upper("' + this.options.searchFields[i] + '")';
-      
       if (this.options.searchMode === 'contain') {
         queryString.push(field + " LIKE upper('%" + text + "%')");
       } else if (this.options.searchMode === 'startWith') {
@@ -113,7 +112,6 @@ export var FeatureLayerProvider = FeatureLayerService.extend({
         throw new Error('L.esri.Geocoding.featureLayerProvider: Invalid parameter for "searchMode". Use one of "contain", "startWith", or "strict"');
       }
     }
-    
     if (this.options.where) {
       return this.options.where + ' AND (' + queryString.join(' OR ') + ')';
     } else {
