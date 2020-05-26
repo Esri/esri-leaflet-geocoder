@@ -193,5 +193,97 @@ describe('L.esri.Geosearch.FeatureLayer', function () {
 
     request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, suggestQueryResponseSorted);
   });
+
+  it('should work with searchMode - contain', function (done) {
+    provider.options.searchMode = 'contain';
+    var request = provider.suggestions('Pla', null, function (error, results) {
+      expect(results.length).to.equal(2);
+      expect(results[0].text).to.equal('Place 2');
+      expect(results[0].magicKey).to.equal(2);
+      done();
+    });
+
+    expect(request.url).to.contain(
+      'http://example.com/arcgis/arcgis/rest/services/MockService/0/query'
+    );
+    expect(request.url).to.contain(
+      "upper(%22Name%22)%20LIKE%20upper('%25Pla%25')"
+    );
+
+    request.respond(
+      200,
+      { 'Content-Type': 'text/plain; charset=utf-8' },
+      suggestQueryResponseSorted
+    );
+  });
+
+  it('should work with searchMode - startWith', function (done) {
+    provider.options.searchMode = 'startWith';
+    var request = provider.suggestions('Pla', null, function (error, results) {
+      expect(results.length).to.equal(2);
+      expect(results[0].text).to.equal('Place 2');
+      expect(results[0].magicKey).to.equal(2);
+      done();
+    });
+
+    expect(request.url).to.contain(
+      'http://example.com/arcgis/arcgis/rest/services/MockService/0/query'
+    );
+    expect(request.url).to.contain(
+      "upper(%22Name%22)%20LIKE%20upper('Pla%25')"
+    );
+
+    request.respond(
+      200,
+      { 'Content-Type': 'text/plain; charset=utf-8' },
+      suggestQueryResponseSorted
+    );
+  });
+
+  it('should work with searchMode - endWith', function (done) {
+    provider.options.searchMode = 'endWith';
+    var request = provider.suggestions('Pla', null, function (error, results) {
+      expect(results.length).to.equal(2);
+      expect(results[0].text).to.equal('Place 2');
+      expect(results[0].magicKey).to.equal(2);
+      done();
+    });
+
+    expect(request.url).to.contain(
+      'http://example.com/arcgis/arcgis/rest/services/MockService/0/query'
+    );
+    expect(request.url).to.contain(
+      "upper(%22Name%22)%20LIKE%20upper('%25Pla')"
+    );
+
+    request.respond(
+      200,
+      { 'Content-Type': 'text/plain; charset=utf-8' },
+      suggestQueryResponseSorted
+    );
+  });
+
+  it('should work with searchMode - strict', function (done) {
+    provider.options.searchMode = 'strict';
+    var request = provider.suggestions('Pla', null, function (error, results) {
+      expect(results.length).to.equal(2);
+      expect(results[0].text).to.equal('Place 2');
+      expect(results[0].magicKey).to.equal(2);
+      done();
+    });
+
+    expect(request.url).to.contain(
+      'http://example.com/arcgis/arcgis/rest/services/MockService/0/query'
+    );
+    expect(request.url).to.contain(
+      "upper(%22Name%22)%20LIKE%20upper('Pla')"
+    );
+
+    request.respond(
+      200,
+      { 'Content-Type': 'text/plain; charset=utf-8' },
+      suggestQueryResponseSorted
+    );
+  });
 });
 /* eslint-disable handle-callback-err */
