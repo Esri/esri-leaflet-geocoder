@@ -47,7 +47,15 @@
             url: 'http://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer',
             layers: [2, 3],
             searchFields: ['NAME', 'STATE_NAME']
-          })
+          }),
+          L.esri.Geocoding.featureLayerProvider({
+            url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0',
+            searchFields: ['areaname'],
+            label: 'Cities',
+            formatSuggestion: function (feature) {
+              return feature.properties.areaname + ', ' + feature.properties.st;
+            }                       
+          })                    
         ]
       }).addTo(map);
 
