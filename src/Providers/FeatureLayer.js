@@ -111,7 +111,7 @@ export var FeatureLayerProvider = FeatureLayerService.extend({
       } else if (this.options.searchMode === 'strict') {
         queryString.push(field + " LIKE upper('" + text + "')");
       } else {
-        throw new Error('L.esri.Geocoding.featureLayerProvider: Invalid parameter for "searchMode". Use one of "contain", "startWith", or "strict"');
+        throw new Error('L.esri.Geocoding.featureLayerProvider: Invalid parameter for "searchMode". Use one of "contain", "startWith", "endWith", or "strict"');
       }
     }
     if (this.options.where) {
