@@ -106,6 +106,8 @@ export var FeatureLayerProvider = FeatureLayerService.extend({
         queryString.push(field + " LIKE upper('%" + text + "%')");
       } else if (this.options.searchMode === 'startWith') {
         queryString.push(field + " LIKE upper('" + text + "%')");
+      } else if (this.options.searchMode === 'endWith') {
+        queryString.push(field + " LIKE upper('%" + text + "')");
       } else if (this.options.searchMode === 'strict') {
         queryString.push(field + " LIKE upper('" + text + "')");
       } else {
