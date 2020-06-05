@@ -88,6 +88,54 @@ describe('L.esri.Geosearch.FeatureLayer', function () {
     ]
   });
 
+  var resultMultiQueryResponse = JSON.stringify({
+    'objectIdFieldName': 'FID',
+    'fields': [{
+      'name': 'Name',
+      'type': 'esriFieldTypeString',
+      'alias': 'Name',
+      'sqlType': 'sqlTypeNVarchar',
+      'length': 256,
+      'domain': null,
+      'defaultValue': null
+    }, {
+      'name': 'FID',
+      'type': 'esriFieldTypeOID',
+      'alias': 'FID',
+      'sqlType': 'sqlTypeInteger',
+      'domain': null,
+      'defaultValue': null
+    }],
+    'features': [
+      {
+        'attributes': {
+          'FID': 1,
+          'Name': 'Place 1'
+        },
+        'geometry': {
+          'x': -122.81,
+          'y': 45.48,
+          'spatialReference': {
+            'wkid': 4326
+          }
+        }
+      },
+      {
+        'attributes': {
+          'FID': 2,
+          'Name': 'Place 2'
+        },
+        'geometry': {
+          'x': -122.81,
+          'y': 45.48,
+          'spatialReference': {
+            'wkid': 4326
+          }
+        }
+      }
+    ]
+  });
+
   it('should query based on text', function (done) {
     var request = provider.suggestions('Pla', null, function (error, results) {
       expect(results.length).to.equal(2);
@@ -129,6 +177,25 @@ describe('L.esri.Geosearch.FeatureLayer', function () {
     expect(request.url).to.contain('objectIds=1');
 
     request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, resultQueryResponse);
+  });
+
+  it('should query with more than 1 magic keys', function (done) {
+    var request = provider.results('Place', '1,2', null, function (error, results) {
+      expect(results.length).to.equal(2);
+
+      expect(results[0].latlng.lat).to.equal(45.48);
+      expect(results[0].latlng.lng).to.equal(-122.81);
+      expect(results[0].text).to.equal('Place 2');
+
+      expect(results[1].latlng.lat).to.equal(45.48);
+      expect(results[1].latlng.lng).to.equal(-122.81);
+      expect(results[1].text).to.equal('Place 1');
+      done();
+    });
+
+    expect(request.url).to.contain('objectIds=1%2C2'); // 'objectIds=1,2'
+
+    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, resultMultiQueryResponse);
   });
 
   it('should query for partial text', function (done) {
