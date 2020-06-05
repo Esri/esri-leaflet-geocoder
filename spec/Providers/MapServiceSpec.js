@@ -140,7 +140,7 @@ describe('L.esri.Geosearch.MapService', function () {
   });
 
   it('should geocode when there are more than 1 magic keys', function (done) {
-    var request = provider.results('Place', null, null, function (error, results) {
+    var request = provider.results('Place', '1:0,2:0', null, function (error, results) {
       expect(results.length).to.equal(2);
 
       expect(results[0].latlng.lat).to.equal(45.48);
