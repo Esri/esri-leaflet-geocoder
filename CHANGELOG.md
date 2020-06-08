@@ -2,6 +2,10 @@
 
 ## [Upcoming changes][Unreleased]
 
+### Fixed
+
+* Suggestions for the provider `L.esri.Geocoding.mapServiceProvider` with more than 1 magic key are now geocoded correctly when selected and will show all available results on the map. [#250](https://github.com/Esri/esri-leaflet-geocoder/issues/250)
+
 ## [2.3.3] - 2020-05-29
 
 ### Added

@@ -139,6 +139,29 @@ describe('L.esri.Geosearch.MapService', function () {
     request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleFindResponse);
   });
 
+  it('should geocode when there are more than 1 magic keys', function (done) {
+    var request = provider.results('Place', '1:0,2:0', null, function (error, results) {
+      expect(results.length).to.equal(2);
+
+      expect(results[0].latlng.lat).to.equal(45.48);
+      expect(results[0].latlng.lng).to.equal(-122.81);
+      expect(results[0].text).to.contain('Place 1');
+
+      expect(results[1].latlng.lat).to.equal(45.48);
+      expect(results[1].latlng.lng).to.equal(-122.81);
+      expect(results[1].text).to.contain('Place 2');
+
+      done();
+    });
+
+    expect(request.url).to.contain('http://example.com/arcgis/arcgis/rest/services/MockService/find');
+    expect(request.url).to.contain('searchText=Place');
+    expect(request.url).to.contain('searchFields=Name');
+    expect(request.url).to.contain('layers=0');
+
+    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleFindResponse);
+  });
+
   it('pass a token through', function (done) {
     provider.options.token = 'idunno';
     var request = provider.results('Pla', null, null, function (error, results) {

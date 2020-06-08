@@ -50,11 +50,13 @@ export var MapServiceProvider = MapService.extend({
     var results = [];
     var request;
 
-    if (key) {
+    if (key && !key.includes(',')) {
+      // if there is only 1 key available, use query()
       var featureId = key.split(':')[0];
       var layer = key.split(':')[1];
       request = this.query().layer(layer).featureIds(featureId);
     } else {
+      // if there are no keys or more than 1 keys available, use find()
       request = this.find().text(text).fields(this.options.searchFields).layers(this.options.layers);
     }
 

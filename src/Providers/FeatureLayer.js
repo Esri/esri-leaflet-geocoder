@@ -58,9 +58,11 @@ export var FeatureLayerProvider = FeatureLayerService.extend({
     var query = this._resultsQuery;
 
     if (key) {
+      // if there are 1 or more keys available, use query.featureIds()
       delete query.params.where;
       query.featureIds([key]);
     } else {
+      // if there are no keys available, use query.where()
       query.where(this._buildQuery(text));
     }
 
