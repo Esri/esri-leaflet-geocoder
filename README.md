@@ -1,3 +1,7 @@
+WIP for Citra
+
+---
+
 # Esri Leaflet Geocoder
 
 The Esri Leaflet Geocoder is a small series of API helpers and UI controls to interact with the ArcGIS Online geocoding services.
@@ -21,10 +25,13 @@ Take a look at the [live demo](http://esri.github.com/esri-leaflet/examples/geoc
 ```html
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset=utf-8 />
+  <head>
+    <meta charset="utf-8" />
     <title>Esri Leaflet Geocoder</title>
-    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
 
     <!-- Load Leaflet from CDN-->
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
@@ -34,42 +41,45 @@ Take a look at the [live demo](http://esri.github.com/esri-leaflet/examples/geoc
     <script src="https://unpkg.com/esri-leaflet"></script>
 
     <!-- Esri Leaflet Geocoder -->
-    <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css">
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css"
+    />
     <script src="https://unpkg.com/esri-leaflet-geocoder"></script>
 
     <!-- Make the map fill the entire page -->
     <style>
-    #map {
+      #map {
         position: fixed;
         top: 0;
         bottom: 0;
         left: 0;
         right: 0;
-    }
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="map"></div>
     <script>
-    var map = L.map('map').setView([45.5165, -122.6764], 12);
-    var tiles = L.esri.basemapLayer("Streets").addTo(map);
+      var map = L.map("map").setView([45.5165, -122.6764], 12);
+      var tiles = L.esri.basemapLayer("Streets").addTo(map);
 
-    // create the geocoding control and add it to the map
-    var searchControl = L.esri.Geocoding.geosearch().addTo(map);
+      // create the geocoding control and add it to the map
+      var searchControl = L.esri.Geocoding.geosearch().addTo(map);
 
-    // create an empty layer group to store the results and add it to the map
-    var results = L.layerGroup().addTo(map);
+      // create an empty layer group to store the results and add it to the map
+      var results = L.layerGroup().addTo(map);
 
-    // listen for the results event and add every result to the map
-    searchControl.on("results", function(data) {
+      // listen for the results event and add every result to the map
+      searchControl.on("results", function (data) {
         results.clearLayers();
         for (var i = data.results.length - 1; i >= 0; i--) {
-            results.addLayer(L.marker(data.results[i].latlng));
+          results.addLayer(L.marker(data.results[i].latlng));
         }
-    });
+      });
     </script>
-</body>
+  </body>
 </html>
 ```
 
@@ -78,22 +88,27 @@ Take a look at the [live demo](http://esri.github.com/esri-leaflet/examples/geoc
 ## Controls
 
 ### [`L.esri.Geocoding.geosearch`](http://esri.github.io/esri-leaflet/api-reference/controls/geosearch.html)
+
 a control for auto-complete enabled search
 
 ## Services
 
 ### [`L.esri.Geocoding.geocodeService`](http://esri.github.io/esri-leaflet/api-reference/services/geocode-service.html)
+
 A basic wrapper for ArcGIS Online geocoding services. Used internally by `L.esri.Geocoding.geosearch`.
 
 ## Tasks
 
 ### [`L.esri.Geocoding.geocode`](http://esri.github.io/esri-leaflet/api-reference/tasks/geocode.html)
+
 An abstraction for submitting requests to turn addresses into locations.
 
 ### [`L.esri.Geocoding.suggest`](http://esri.github.io/esri-leaflet/api-reference/tasks/suggest.html)
+
 An abstraction for submitting requests for geocoding suggestions.
 
 ### [`L.esri.Geocoding.reverseGeocode`](http://esri.github.io/esri-leaflet/api-reference/tasks/reverse-geocode.html)
+
 An abstraction for submitting requests for address candidates associated with a particular location.
 
 ## Development Instructions
@@ -101,19 +116,19 @@ An abstraction for submitting requests for address candidates associated with a 
 1. [Fork and clone Esri Leaflet Geocoder](https://help.github.com/articles/fork-a-repo)
 2. `cd` into the `esri-leaflet-geocoder` folder and install the dependencies with `npm install`
 3. Run `npm start` from the command line. This will compile minified source in a brand new `dist` directory, launch a tiny webserver and begin watching the raw source for changes.
-4. The example at `debug/sample.html` *should* 'just work'
+4. The example at `debug/sample.html` _should_ 'just work'
 5. Make your changes and create a [pull request](https://help.github.com/articles/creating-a-pull-request)
 
 ## Resources
 
-* [Geocoding Service Documentation](http://resources.arcgis.com/en/help/arcgis-rest-api/#/Single_input_field_geocoding/02r300000015000000/)
-* [ArcGIS for Developers](http://developers.arcgis.com)
-* [ArcGIS REST Services](http://resources.arcgis.com/en/help/arcgis-rest-api/)
-* [twitter@esri](http://twitter.com/esri)
+- [Geocoding Service Documentation](http://resources.arcgis.com/en/help/arcgis-rest-api/#/Single_input_field_geocoding/02r300000015000000/)
+- [ArcGIS for Developers](http://developers.arcgis.com)
+- [ArcGIS REST Services](http://resources.arcgis.com/en/help/arcgis-rest-api/)
+- [twitter@esri](http://twitter.com/esri)
 
 ## Issues
 
-Find a bug or want to request a new feature?  Please let us know by submitting an issue.
+Find a bug or want to request a new feature? Please let us know by submitting an issue.
 
 ## Contributing
 
@@ -128,15 +143,16 @@ In order to make use of the ArcGIS Online World Geocoding Service in your web ap
 
 ## Cost
 
-1. User search for individual locations within web applications is defined by Esri as *Geosearch* and it is free. [Credits](https://developers.arcgis.com/credits/) are only consumed when you store results permanently.
+1. User search for individual locations within web applications is defined by Esri as _Geosearch_ and it is free. [Credits](https://developers.arcgis.com/credits/) are only consumed when you store results permanently.
 2. To store geocoding results, pass `forStorage: true` and a valid access token (see [#207](https://github.com/Esri/esri-leaflet-geocoder/issues/207#issuecomment-418763785)).
 3. You are not allowed to generate revenue while on a free ArcGIS Developer plan.
 4. If your application generates more than 1 million searches in a month, please [contact us](http://www.esri.com/about-esri/contact).
 
-* [ArcGIS for Developers Terms of Use FAQ](https://developers.arcgis.com/en/terms/faq/)
-* [ArcGIS Online World Geocoder documentation](http://resources.arcgis.com/en/help/arcgis-rest-api/#/Single_input_field_geocoding/02r300000015000000/)
+- [ArcGIS for Developers Terms of Use FAQ](https://developers.arcgis.com/en/terms/faq/)
+- [ArcGIS Online World Geocoder documentation](http://resources.arcgis.com/en/help/arcgis-rest-api/#/Single_input_field_geocoding/02r300000015000000/)
 
 ## Licensing
+
 Copyright &copy; 2013-2018 Esri
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -151,4 +167,4 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-A copy of the license is available in the repository's [LICENSE]( https://raw.github.com/Esri/esri-leaflet-geocoder/master/LICENSE) file.
+A copy of the license is available in the repository's [LICENSE](https://raw.github.com/Esri/esri-leaflet-geocoder/master/LICENSE) file.
