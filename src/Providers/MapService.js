@@ -13,6 +13,9 @@ export var MapServiceProvider = MapService.extend({
   },
 
   initialize: function (options) {
+    if (options.apikey) {
+      options.token = options.apikey;
+    }
     MapService.prototype.initialize.call(this, options);
     this._getIdFields();
   },

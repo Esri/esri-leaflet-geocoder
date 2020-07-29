@@ -13,6 +13,9 @@ export var FeatureLayerProvider = FeatureLayerService.extend({
   },
 
   initialize: function (options) {
+    if (options.apikey) {
+      options.token = options.apikey;
+    }
     FeatureLayerService.prototype.initialize.call(this, options);
     if (typeof this.options.searchFields === 'string') {
       this.options.searchFields = [this.options.searchFields];

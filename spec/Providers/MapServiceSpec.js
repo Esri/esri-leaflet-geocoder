@@ -163,7 +163,42 @@ describe('L.esri.Geosearch.MapService', function () {
   });
 
   it('pass a token through', function (done) {
-    provider.options.token = 'idunno';
+    provider = new L.esri.Geocoding.MapServiceProvider({
+      url: 'http://example.com/arcgis/arcgis/rest/services/MockService',
+      layer: 0,
+      searchFields: ['Name', 'OBJECTID'],
+      token: 'idunno'
+    });
+    provider._idFields = {0: 'OBJECTID'};
+    provider._displayFields = {0: 'Name'};
+    provider._layerNames = {0: 'Layer'};
+
+    var request = provider.results('Pla', null, null, function (error, results) {
+      expect(results.length).to.equal(2);
+      expect(results[0].text).to.contain('Place 1');
+      done();
+    });
+
+    expect(request.url).to.contain('http://example.com/arcgis/arcgis/rest/services/MockService/find');
+    expect(request.url).to.contain('searchText=Pla');
+    expect(request.url).to.contain('searchFields=Name');
+    expect(request.url).to.contain('layers=0');
+    expect(request.url).to.contain('token=idunno');
+
+    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleFindResponse);
+  });
+
+  it('pass an apikey through', function (done) {
+    provider = new L.esri.Geocoding.MapServiceProvider({
+      url: 'http://example.com/arcgis/arcgis/rest/services/MockService',
+      layer: 0,
+      searchFields: ['Name', 'OBJECTID'],
+      apikey: 'idunno'
+    });
+    provider._idFields = {0: 'OBJECTID'};
+    provider._displayFields = {0: 'Name'};
+    provider._layerNames = {0: 'Layer'};
+
     var request = provider.results('Pla', null, null, function (error, results) {
       expect(results.length).to.equal(2);
       expect(results[0].text).to.contain('Place 1');
