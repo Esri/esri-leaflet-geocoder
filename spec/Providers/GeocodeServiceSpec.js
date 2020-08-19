@@ -97,7 +97,27 @@ describe('Providers.GeocodeService', function () {
   });
 
   it('pass a token through', function (done) {
-    provider.options.token = 'abc123';
+    provider = L.esri.Geocoding.geocodeServiceProvider({
+      url: 'http://example.com/arcgis/arcgis/rest/services/MockGeocodeService',
+      token: 'abc123'
+    });
+    var request = provider.results('380 New York St, Redlands', null, null, function (error, results) {
+      done();
+    });
+
+    expect(request.url).to.contain('http://example.com/arcgis/arcgis/rest/services/MockGeocodeService');
+    expect(request.url).to.contain('singleLine=380%20New%20York%20St%2C%20Redlands');
+    expect(request.url).to.contain('token=abc123');
+
+    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, samplefindAddressCandidatesResponse);
+  });
+
+  it('pass an apikey through', function (done) {
+    provider = L.esri.Geocoding.geocodeServiceProvider({
+      url: 'http://example.com/arcgis/arcgis/rest/services/MockGeocodeService',
+      apikey: 'abc123'
+    });
+
     var request = provider.results('380 New York St, Redlands', null, null, function (error, results) {
       done();
     });

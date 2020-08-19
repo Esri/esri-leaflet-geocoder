@@ -93,7 +93,24 @@ describe('Providers.ArcgisOnline', function () {
   });
 
   it('should pass a token through when asking for suggestions', function (done) {
-    provider.options.token = 'jsdglk';
+    provider = L.esri.Geocoding.arcgisOnlineProvider({
+      token: 'jsdglk'
+    });
+    var request = provider.suggestions('trea', [[0, 0], [100, 100]], function (error, results) {
+      done();
+    });
+
+    expect(request.url).to.contain('location=50%2C50');
+    expect(request.url).to.contain('distance=50000');
+    expect(request.url).to.contain('token=jsdglk');
+
+    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleSuggestResponse);
+  });
+
+  it('should pass an apikey through when asking for suggestions', function (done) {
+    provider = L.esri.Geocoding.arcgisOnlineProvider({
+      apikey: 'jsdglk'
+    });
     var request = provider.suggestions('trea', [[0, 0], [100, 100]], function (error, results) {
       done();
     });

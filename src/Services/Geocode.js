@@ -7,6 +7,9 @@ import suggest from '../Tasks/Suggest';
 export var GeocodeService = Service.extend({
   initialize: function (options) {
     options = options || {};
+    if (options.apikey) {
+      options.token = options.apikey;
+    }
     if (options.url) {
       Service.prototype.initialize.call(this, options);
       this._confirmSuggestSupport();

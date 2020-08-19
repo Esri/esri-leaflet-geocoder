@@ -261,6 +261,24 @@ describe('L.esri.Geosearch.FeatureLayer', function () {
     request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, suggestQueryResponseSorted);
   });
 
+  it('should pass a apikey through', function (done) {
+    var authenticatedProvider = L.esri.Geocoding.featureLayerProvider({
+      url: 'http://example.com/arcgis/arcgis/rest/services/MockService/0',
+      searchFields: ['Name'],
+      apikey: 'ipitythefool'
+    });
+
+    var request = authenticatedProvider.suggestions('Pla', null, function (error, results) {
+      done();
+    });
+
+    expect(request.url).to.contain('http://example.com/arcgis/arcgis/rest/services/MockService/0/query');
+    expect(request.url).to.contain("upper(%22Name%22)%20LIKE%20upper('%25Pla%25')");
+    expect(request.url).to.contain('token=ipitythefool');
+
+    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, suggestQueryResponseSorted);
+  });
+
   it('should work with searchMode - contain', function (done) {
     provider.options.searchMode = 'contain';
     var request = provider.suggestions('Pla', null, function (error, results) {
