@@ -63,7 +63,7 @@ describe('L.esri.ReverseGeocode', function () {
       done();
     });
 
-    expect(request.url).to.contain('//geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode');
+    expect(request.url).to.contain('//geocode-api.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode');
     expect(request.url).to.contain('location=2.2945%2C48.8583');
 
     request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleResponse);

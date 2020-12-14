@@ -47,7 +47,7 @@ describe('L.esri.Suggest', function () {
       done();
     });
 
-    expect(request.url).to.contain('//geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/suggest');
+    expect(request.url).to.contain('//geocode-api.arcgis.com/arcgis/rest/services/World/GeocodeServer/suggest');
     expect(request.url).to.contain('text=trea');
 
     request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleResponse);
