@@ -1,1 +1,1 @@
-export var WorldGeocodingServiceUrl = 'https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/';
+export var WorldGeocodingServiceUrl = 'https://geocode-api.arcgis.com/arcgis/rest/services/World/GeocodeServer/';

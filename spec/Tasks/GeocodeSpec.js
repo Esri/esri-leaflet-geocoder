@@ -212,7 +212,7 @@ describe('L.esri.Geocode', function () {
       done();
     });
 
-    expect(request.url).to.contain('//geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates');
+    expect(request.url).to.contain('//geocode-api.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates');
     expect(request.url).to.contain('singleLine=380%20New%20York%20St%2C%20Redlands%2C%20California%2C%2092373');
 
     request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleFindAddressCandidatesResponse);
@@ -246,7 +246,7 @@ describe('L.esri.Geocode', function () {
       done();
     });
 
-    expect(request.url).to.contain('//geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates');
+    expect(request.url).to.contain('//geocode-api.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates');
     expect(request.url).to.contain('address=380%20New%20York%20St');
     expect(request.url).to.contain('city=Redlands');
     expect(request.url).to.contain('region=California');
@@ -291,7 +291,7 @@ describe('L.esri.Geocode', function () {
       done();
     });
 
-    expect(request.url).to.contain('//geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates');
+    expect(request.url).to.contain('//geocode-api.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates');
     expect(request.url).to.contain('singleLine=380%20New%20York%20St');
     expect(request.url).to.contain('searchExtent=%7B%22xmin%22%3A-117.2%2C%22ymin%22%3A34.05%2C%22xmax%22%3A-117.19%2C%22ymax%22%3A34.06%2C%22spatialReference%22%3A%7B%22wkid%22%3A4326%7D%7D');
 
@@ -312,7 +312,7 @@ describe('L.esri.Geocode', function () {
       done();
     });
 
-    expect(request.url).to.contain('//geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/find');
+    expect(request.url).to.contain('//geocode-api.arcgis.com/arcgis/rest/services/World/GeocodeServer/find');
     expect(request.url).to.contain('singleLine=Highlands%20Ranch');
     expect(request.url).to.contain('location=-108.227%2C37.712');
     expect(request.url).to.contain('distance=10000');
