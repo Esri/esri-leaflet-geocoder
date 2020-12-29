@@ -40,7 +40,9 @@ export var Suggest = Task.extend({
   nearby: function (coords, radius) {
     var centroid = latLng(coords);
     this.params.location = centroid.lng + ',' + centroid.lat;
-    this.params.distance = Math.min(Math.max(radius, 2000), 50000);
+    if (radius) {
+      this.params.distance = Math.min(Math.max(radius, 2000), 50000);
+    }
     return this;
   },
 

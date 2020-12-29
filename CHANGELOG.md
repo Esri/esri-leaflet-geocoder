@@ -2,6 +2,12 @@
 
 ## [Upcoming changes][Unreleased]
 
+## [2.3.4] - 2020-12-29
+
+### Added
+
+* Support "nearby" parameter ([#262](https://github.com/Esri/esri-leaflet-geocoder/pull/262))
+
 ### Fixed
 
 * Suggestions for the provider `L.esri.Geocoding.mapServiceProvider` with more than 1 magic key are now geocoded correctly when selected and will show all available results on the map. [#250](https://github.com/Esri/esri-leaflet-geocoder/issues/250)
@@ -383,7 +389,8 @@ This is now ready for beta! This release helps finalize the API and includes lot
 
 * Initial alpha release
 
-[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.3.3...HEAD
+[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.3.4...HEAD
+[2.3.4]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.3.3...v2.3.4
 [2.3.3]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.3.2...v2.3.3
 [2.3.2]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.3.1...v2.3.2
 [2.3.1]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.3.0...v2.3.1

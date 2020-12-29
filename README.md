@@ -1,7 +1,3 @@
-WIP for Citra
-
----
-
 # Esri Leaflet Geocoder
 
 The Esri Leaflet Geocoder is a small series of API helpers and UI controls to interact with the ArcGIS Online geocoding services.

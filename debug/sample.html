@@ -40,8 +40,12 @@
           L.esri.Geocoding.arcgisOnlineProvider({
             // countries: ['USA', 'GUM', 'VIR', 'PRI'],
             // categories: ['Address', 'Postal', 'Populated Place', ],
-            maxResults: 3,
-            apikey: 'YOUR_API_KEY'
+            // maxResults: 3,
+            apikey: 'YOUR_API_KEY',
+            nearby: {
+              lat: 37.8095574, // oakland, ca
+              lng: -122.2886336
+            }
           }),
           L.esri.Geocoding.mapServiceProvider({
             label: 'States and Counties',

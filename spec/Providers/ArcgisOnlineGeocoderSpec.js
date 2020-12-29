@@ -170,6 +170,26 @@ describe('Providers.ArcgisOnline', function () {
     request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleFindAddressCandidatesResponse);
   });
 
+  it('should pass through a "nearby" parameter when geocoding', function (done) {
+    provider.options.nearby = {
+      lat: 37.8095574, // oakland, ca
+      lng: -122.2886336
+    };
+
+    var request = provider.results('380 New York St, Redlands, California, 92373', 'foo', null, function (error, results) {
+      expect(results[0].latlng.lat).to.equal(34.056490727765947);
+      expect(results[0].latlng.lng).to.equal(-117.19566584280369);
+      expect(results[0].text).to.equal('380 New York St, Redlands, California, 92373');
+      expect(results[0].score).to.equal(100);
+      expect(results[0].properties.Addr_type).to.equal('PointAddress');
+      done();
+    });
+
+    expect(request.url).to.contain('singleLine=380%20New%20York%20St%2C%20Redlands%2C%20California%2C%2092373&magicKey=foo&location=-122.2886336%2C37.8095574');
+
+    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleFindAddressCandidatesResponse);
+  });
+
   it('should pass a token through when fetching results', function (done) {
     var authenticatedProvider = L.esri.Geocoding.arcgisOnlineProvider({token: 'abc123'});
 
