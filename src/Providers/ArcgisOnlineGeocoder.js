@@ -13,6 +13,12 @@ export var ArcgisOnlineProvider = GeocodeService.extend({
       request.within(bounds);
     }
 
+    if (this.options.nearby) {
+      // "distance"/"radius" is not supported by the ArcGIS Online Geocoder,
+      // so that is intentionally not passed here:
+      request.nearby(this.options.nearby);
+    }
+
     if (this.options.countries) {
       request.countries(this.options.countries);
     }
@@ -57,6 +63,12 @@ export var ArcgisOnlineProvider = GeocodeService.extend({
 
     if (this.options.forStorage) {
       request.forStorage(true);
+    }
+
+    if (this.options.nearby) {
+      // "distance"/"radius" is not supported by the ArcGIS Online Geocoder,
+      // so that is intentionally not passed here:
+      request.nearby(this.options.nearby);
     }
 
     if (this.options.countries) {
