@@ -2,6 +2,12 @@
 
 ## [Upcoming changes][Unreleased]
 
+## [3.0.0] - 2021-01-25
+
+### Changed
+
+- Update to support the [upcoming product launch](https://www.esri.com/en-us/lg/events/esri-launch-event). Full release notes will be made available after the event.
+
 ## [2.3.4] - 2020-12-29
 
 ### Added
@@ -389,7 +395,8 @@ This is now ready for beta! This release helps finalize the API and includes lot
 
 * Initial alpha release
 
-[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.3.4...HEAD
+[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v3.0.0...HEAD
+[3.0.0]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.3.4...v3.0.0
 [2.3.4]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.3.3...v2.3.4
 [2.3.3]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.3.2...v2.3.3
 [2.3.2]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.3.1...v2.3.2
