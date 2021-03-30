@@ -4,9 +4,40 @@
 
 ## [3.0.0] - 2021-01-25
 
+### Added
+
+- `MapServiceProvider` - new property `apikey`
+- `FeatureLayerProvider` - new property `apikey`
+- `ArcgisOnlineProvider` - new property `apikey`
+- `L.esri.Geocoding.geocodeService` - new property `apikey`
+
 ### Changed
 
-- Update to support the [upcoming product launch](https://www.esri.com/en-us/lg/events/esri-launch-event). Full release notes will be made available after the event.
+- Default WorldGeocodingServiceUrl changed to new endpoint that requires an API key. (`https://geocode-api.arcgis.com/arcgis/rest/services/World/GeocodeServer/
+`)
+
+### Notes
+
+Previously, the default useage example was:
+
+```
+var searchControl = L.esri.Geocoding.geosearch().addTo(map);
+```
+
+Now that the default geocoding URL requires an API key (an API key can be obtained at https://developers.arcgis.com), that key must be provided if using the ArcGIS Online World Geocoding Service. Thus the new default usage example is:
+
+```
+var searchControl = L.esri.Geocoding.geosearch({
+    providers: [
+        L.esri.Geocoding.arcgisOnlineProvider({
+            // API Key to be passed to the ArcGIS Online Geocoding Service
+            apikey: 'YOUR_API_KEY'
+        })
+    ]
+}).addTo(map);
+```
+Other providers may be used with or without an api key.
+
 
 ## [2.3.4] - 2020-12-29
 
