@@ -10,7 +10,7 @@
     "Jacob Wasilkowski"
   ],
   "dependencies": {
-    "esri-leaflet": "^2.1.4",
+    "esri-leaflet": "^3.0.2",
     "leaflet": "^1.0.0"
   },
   "devDependencies": {
