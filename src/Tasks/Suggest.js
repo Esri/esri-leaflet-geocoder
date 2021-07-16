@@ -28,7 +28,6 @@ export var Suggest = Task.extend({
 
   within: function (bounds) {
     bounds = latLngBounds(bounds);
-    bounds = bounds.pad(0.5);
     var center = bounds.getCenter();
     var ne = bounds.getNorthWest();
     this.params.location = center.lng + ',' + center.lat;
