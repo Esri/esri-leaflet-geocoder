@@ -2,6 +2,10 @@
 
 ## [Upcoming changes][Unreleased]
 
+### Changed
+
+- Dependency version of `esri-leaflet` now set to `^3` ([#272](https://github.com/Esri/esri-leaflet-geocoder/issues/272))
+
 ## [3.0.0] - 2021-01-25
 
 ### Added
