@@ -4,7 +4,11 @@
 
 ### Fixed
 
-* Results for the `suggest` and `findAddressCandidates` operations should now be more consistent with each other when using a `searchBounds` option. We removed an automatically applied bounds padding that was only present in the `suggest`'s `within` method. [#274](https://github.com/Esri/esri-leaflet-geocoder/pull/274)
+- Results for the `suggest` and `findAddressCandidates` operations should now be more consistent with each other when using a `searchBounds` option. We removed an automatically applied bounds padding that was only present in the `suggest`'s `within` method. [#274](https://github.com/Esri/esri-leaflet-geocoder/pull/274)
+
+### Changed
+
+- Dependency version of `esri-leaflet` now set to `^3` ([#272](https://github.com/Esri/esri-leaflet-geocoder/issues/272))
 
 ## [3.0.0] - 2021-01-25
 
