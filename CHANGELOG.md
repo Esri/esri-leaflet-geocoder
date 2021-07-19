@@ -2,6 +2,10 @@
 
 ## [Upcoming changes][Unreleased]
 
+### Fixed
+
+- Results for the `suggest` and `findAddressCandidates` operations should now be more consistent with each other when using a `searchBounds` option. We removed an automatically applied bounds padding that was only present in the `suggest`'s `within` method. [#274](https://github.com/Esri/esri-leaflet-geocoder/pull/274)
+
 ### Changed
 
 - Dependency version of `esri-leaflet` now set to `^3` ([#272](https://github.com/Esri/esri-leaflet-geocoder/issues/272))
@@ -41,7 +45,6 @@ var searchControl = L.esri.Geocoding.geosearch({
 }).addTo(map);
 ```
 Other providers may be used with or without an api key.
-
 
 ## [2.3.4] - 2020-12-29
 
