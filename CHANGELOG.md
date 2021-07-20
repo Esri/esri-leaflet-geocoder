@@ -2,6 +2,8 @@
 
 ## [Upcoming changes][Unreleased]
 
+## [3.1.0] - 2021-07-20
+
 ### Fixed
 
 - Results for the `suggest` and `findAddressCandidates` operations should now be more consistent with each other when using a `searchBounds` option. We removed an automatically applied bounds padding that was only present in the `suggest`'s `within` method. [#274](https://github.com/Esri/esri-leaflet-geocoder/pull/274)
@@ -433,7 +435,8 @@ This is now ready for beta! This release helps finalize the API and includes lot
 
 * Initial alpha release
 
-[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v3.0.0...HEAD
+[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v3.1.0...HEAD
+[3.1.0]: https://github.com/Esri/esri-leaflet-geocoder/compare/v3.0.0...v3.1.0
 [3.0.0]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.3.4...v3.0.0
 [2.3.4]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.3.3...v2.3.4
 [2.3.3]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.3.2...v2.3.3
