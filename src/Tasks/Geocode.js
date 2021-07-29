@@ -26,6 +26,7 @@ export var Geocode = Task.extend({
     'text': 'singleLine',
     'category': 'category',
     'token': 'token',
+    'apikey': 'apikey',
     'key': 'magicKey',
     'fields': 'outFields',
     'forStorage': 'forStorage',
@@ -56,6 +57,12 @@ export var Geocode = Task.extend({
   },
 
   run: function (callback, context) {
+    if (this.options.token) {
+      this.params.token = this.options.token;
+    }
+    if (this.options.apikey) {
+      this.params.token = this.options.apikey;
+    }
     if (this.options.customParam) {
       this.params[this.options.customParam] = this.params.singleLine;
       delete this.params.singleLine;

@@ -333,5 +333,25 @@ describe('L.esri.Geocode', function () {
 
     request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleFindAddressCandidatesResponse);
   });
+
+  it('should pass through a token', function (done) {
+    var request = L.esri.Geocoding.geocode({token: 'testToken'}).text('380 New York St, Redlands, California, 92373').run(function (err, response) {
+      done();
+    });
+
+    expect(request.url).to.contain('token=testToken');
+
+    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleFindAddressCandidatesResponse);
+  });
+
+  it('should pass through an apikey', function (done) {
+    var request = L.esri.Geocoding.geocode({apikey: 'testApiKey'}).text('380 New York St, Redlands, California, 92373').run(function (err, response) {
+      done();
+    });
+
+    expect(request.url).to.contain('token=testApiKey');
+
+    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleFindAddressCandidatesResponse);
+  });
 });
 /* eslint-disable handle-callback-err */
