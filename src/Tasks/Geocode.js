@@ -26,7 +26,7 @@ export var Geocode = Task.extend({
     'text': 'singleLine',
     'category': 'category',
     'token': 'token',
-    'apiKey': 'apiKey',
+    'apikey': 'apikey',
     'key': 'magicKey',
     'fields': 'outFields',
     'forStorage': 'forStorage',
