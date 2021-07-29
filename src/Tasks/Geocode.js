@@ -57,11 +57,11 @@ export var Geocode = Task.extend({
   },
 
   run: function (callback, context) {
-    if(this.options.token) {
+    if (this.options.token) {
       this.params.token = this.options.token;
     }
-    if(this.options.apiKey) {
-      this.params.token = this.options.apiKey;
+    if (this.options.apikey) {
+      this.params.token = this.options.apikey;
     }
     if (this.options.customParam) {
       this.params[this.options.customParam] = this.params.singleLine;
