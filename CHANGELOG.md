@@ -2,6 +2,10 @@
 
 ## [Upcoming changes][Unreleased]
 
+### Fixed
+
+- Properly pass through token and apikey when calling `L.esri.Geocoding.geocode()` ([#278](https://github.com/Esri/esri-leaflet-geocoder/pull/278))
+
 ## [3.1.0] - 2021-07-20
 
 ### Fixed
