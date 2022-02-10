@@ -18,6 +18,8 @@ Take a look at the [live demo](http://esri.github.com/esri-leaflet/examples/geoc
 
 ![Example Image](https://raw.github.com/esri/esri-leaflet-geocoder/master/example.png)
 
+To run this demo, you need to replace 'YOUR_API_KEY' with your API key. If you do not have an account then sign up for free at [ArcGIS Developer](https://developers.arcgis.com/sign-up/).
+
 ```html
 <!DOCTYPE html>
 <html>
@@ -124,10 +126,10 @@ An abstraction for submitting requests for address candidates associated with a 
 
 ## Resources
 
-- [Geocoding Service Documentation](http://resources.arcgis.com/en/help/arcgis-rest-api/#/Single_input_field_geocoding/02r300000015000000/)
-- [ArcGIS for Developers](http://developers.arcgis.com)
-- [ArcGIS REST Services](http://resources.arcgis.com/en/help/arcgis-rest-api/)
-- [twitter@esri](http://twitter.com/esri)
+- [Geocoding Service Documentation](https://developers.arcgis.com/documentation/mapping-apis-and-services/search/services/geocoding-service/)
+- [ArcGIS Developer](http://developers.arcgis.com)
+- [ArcGIS REST services](https://developers.arcgis.com/rest/location-based-services/)
+- [twitter@EsriGeoDev](https://twitter.com/EsriGeoDev)
 
 ## Issues
 
@@ -141,22 +143,22 @@ Esri welcomes contributions from anyone and everyone. Please see our [guidelines
 
 In order to make use of the ArcGIS Online World Geocoding Service in your web application:
 
-1. Please sign up for an [ArcGIS for Developers account](https://developers.arcgis.com/en/plans) or purchase an [ArcGIS Online Organizational Subscription](http://www.arcgis.com/features/plans/pricing.html).
+1. Please sign up for an [ArcGIS Developer account](https://developers.arcgis.com) or purchase an [ArcGIS Online Organizational Subscription](http://www.arcgis.com/features/plans/pricing.html).
 2. Ensure that `Powered by`[`Esri`](http://esri.com) is displayed in the map attribution.
 
 ## Cost
 
-1. User search for individual locations within web applications is defined by Esri as _Geosearch_ and it is free. [Credits](https://developers.arcgis.com/credits/) are only consumed when you store results permanently.
-2. To store geocoding results, pass `forStorage: true` and a valid access token (see [#207](https://github.com/Esri/esri-leaflet-geocoder/issues/207#issuecomment-418763785)).
-3. You are not allowed to generate revenue while on a free ArcGIS Developer plan.
-4. If your application generates more than 1 million searches in a month, please [contact us](http://www.esri.com/about-esri/contact).
+ArcGIS geocode results have two different costs depending if the results you receive will be used only during your app session or stored permanently. Refer to the [ArcGIS Developer pricing page](https://developers.arcgis.com/pricing/) for more information regarding costs. See [Search for addresses and places](https://developers.arcgis.com/documentation/mapping-apis-and-services/search/) for more information on the available geocoding services.
 
-- [ArcGIS for Developers Terms of Use FAQ](https://developers.arcgis.com/en/terms/faq/)
-- [ArcGIS Online World Geocoder documentation](http://resources.arcgis.com/en/help/arcgis-rest-api/#/Single_input_field_geocoding/02r300000015000000/)
+To store geocoding results, pass `forStorage: true` and a valid access token (see [Esri Leaflet Get Started](https://developers.arcgis.com/esri-leaflet/get-started/)).
+
+- [ArcGIS Developer FAQ](https://developers.arcgis.com/faq/)
+- [Esri Terms of Use](https://www.esri.com/en-us/legal/terms/full-master-agreement)
+- [Complete ArcGIS geocode and search documentation](https://developers.arcgis.com/documentation/mapping-apis-and-services/search/)
 
 ## Licensing
 
-Copyright &copy; 2013-2018 Esri
+Copyright &copy; 2013-2022 Esri
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
