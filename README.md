@@ -150,7 +150,7 @@ In order use the ArcGIS geocoding service you need the following:
 
 ArcGIS geocode results have two different costs depending if the results you receive will be used only during your app session or stored permanently. Refer to the [ArcGIS Developer pricing page](https://developers.arcgis.com/pricing/) for more information regarding costs. See [Search for addresses and places](https://developers.arcgis.com/documentation/mapping-apis-and-services/search/) for more information on the available geocoding services.
 
-To store geocoding results, pass `forStorage: true` and a valid access token (see [Esri Leaflet Get Started](https://developers.arcgis.com/esri-leaflet/get-started/)).
+Note: To store geocoding results, pass `forStorage: true` and a valid access token (see [Esri Leaflet Get Started](https://developers.arcgis.com/esri-leaflet/get-started/)).
 
 - [ArcGIS Developer FAQ](https://developers.arcgis.com/faq/)
 - [Esri Terms of Use](https://www.esri.com/en-us/legal/terms/full-master-agreement)
