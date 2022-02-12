@@ -141,7 +141,7 @@ Esri welcomes contributions from anyone and everyone. Please see our [guidelines
 
 ## Terms and Conditions
 
-In order to make use of the ArcGIS Online World Geocoding Service in your web application:
+In order use the ArcGIS geocoding service you need the following:
 
 1. Please sign up for an [ArcGIS Developer account](https://developers.arcgis.com) or purchase an [ArcGIS Online Organizational Subscription](http://www.arcgis.com/features/plans/pricing.html).
 2. Ensure that `Powered by`[`Esri`](http://esri.com) is displayed in the map attribution.
