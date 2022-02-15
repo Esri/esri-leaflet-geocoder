@@ -18,6 +18,8 @@ Take a look at the [live demo](http://esri.github.com/esri-leaflet/examples/geoc
 
 ![Example Image](https://raw.github.com/esri/esri-leaflet-geocoder/master/example.png)
 
+To run this demo, you need to replace 'YOUR_API_KEY' with your API key. If you do not have an account then sign up for free at [ArcGIS Developer](https://developers.arcgis.com/sign-up/).
+
 ```html
 <!DOCTYPE html>
 <html>
@@ -124,10 +126,10 @@ An abstraction for submitting requests for address candidates associated with a 
 
 ## Resources
 
-- [Geocoding Service Documentation](http://resources.arcgis.com/en/help/arcgis-rest-api/#/Single_input_field_geocoding/02r300000015000000/)
-- [ArcGIS for Developers](http://developers.arcgis.com)
-- [ArcGIS REST Services](http://resources.arcgis.com/en/help/arcgis-rest-api/)
-- [twitter@esri](http://twitter.com/esri)
+- [Geocoding Service Documentation](https://developers.arcgis.com/documentation/mapping-apis-and-services/search/services/geocoding-service/)
+- [ArcGIS Developer](http://developers.arcgis.com)
+- [ArcGIS REST services](https://developers.arcgis.com/rest/location-based-services/)
+- [twitter@EsriGeoDev](https://twitter.com/EsriGeoDev)
 
 ## Issues
 
@@ -139,24 +141,24 @@ Esri welcomes contributions from anyone and everyone. Please see our [guidelines
 
 ## Terms and Conditions
 
-In order to make use of the ArcGIS Online World Geocoding Service in your web application:
+In order use the ArcGIS geocoding service you need the following:
 
-1. Please sign up for an [ArcGIS for Developers account](https://developers.arcgis.com/en/plans) or purchase an [ArcGIS Online Organizational Subscription](http://www.arcgis.com/features/plans/pricing.html).
-2. Ensure that `Powered by`[`Esri`](http://esri.com) is displayed in the map attribution.
+1. An [ArcGIS Developer account](https://developers.arcgis.com/sign-up/) or [ArcGIS Online account](https://www.esri.com/en-us/arcgis/products/arcgis-online/trial).
+2. If your application uses an basemap layer service or other Esri data, you must display`Powered by`[`Esri`](http://esri.com) in the map attribution. See [Basemap attribution](https://developers.arcgis.com/documentation/mapping-apis-and-services/deployment/basemap-attribution/) for more details.
 
-## Cost
+## Not-stored vs stored geocodes
 
-1. User search for individual locations within web applications is defined by Esri as _Geosearch_ and it is free. [Credits](https://developers.arcgis.com/credits/) are only consumed when you store results permanently.
-2. To store geocoding results, pass `forStorage: true` and a valid access token (see [#207](https://github.com/Esri/esri-leaflet-geocoder/issues/207#issuecomment-418763785)).
-3. You are not allowed to generate revenue while on a free ArcGIS Developer plan.
-4. If your application generates more than 1 million searches in a month, please [contact us](http://www.esri.com/about-esri/contact).
+To determine if there is a cost associated with using the Esri Leaflet Geocoder and the ArcGIS geocoding service, if you have an ArcGIS Developer account, go to [Pricing](https://developers.arcgis.com/pricing/), or, if you have an ArcGIS Online account, go to [Credits by Capability](https://doc.arcgis.com/en/arcgis-online/administer/credits.htm#GUID-D309A4D0-43CD-4E58-A6DF-012A82A6D794).
 
-- [ArcGIS for Developers Terms of Use FAQ](https://developers.arcgis.com/en/terms/faq/)
-- [ArcGIS Online World Geocoder documentation](http://resources.arcgis.com/en/help/arcgis-rest-api/#/Single_input_field_geocoding/02r300000015000000/)
+Note: To store geocoding results, pass `forStorage: true` and a valid access token (see [Esri Leaflet Get Started](https://developers.arcgis.com/esri-leaflet/get-started/)).
+
+- [ArcGIS Developer FAQ](https://developers.arcgis.com/faq/)
+- [Esri Terms of Use](https://www.esri.com/en-us/legal/terms/full-master-agreement)
+- [Complete ArcGIS geocode and search documentation](https://developers.arcgis.com/documentation/mapping-apis-and-services/search/)
 
 ## Licensing
 
-Copyright &copy; 2013-2018 Esri
+Copyright &copy; 2013-2022 Esri
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
