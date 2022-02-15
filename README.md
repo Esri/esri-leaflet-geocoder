@@ -148,7 +148,7 @@ In order use the ArcGIS geocoding service you need the following:
 
 ## Not-stored vs stored geocodes
 
-To determine if there is a cost associated with using the Esri Leaflet Geocoder and the ArcGIS geocoding service, if you have an ArcGIS Developer account, go to [Pricing](https://developers.arcgis.com/pricing/). If you have an ArcGIS Online account, go to [Credits by Capability](https://doc.arcgis.com/en/arcgis-online/administer/credits.htm#GUID-D309A4D0-43CD-4E58-A6DF-012A82A6D794).
+To determine if there is a cost associated with using the Esri Leaflet Geocoder and the ArcGIS geocoding service, if you have an ArcGIS Developer account, go to [Pricing](https://developers.arcgis.com/pricing/), or, if you have an ArcGIS Online account, go to [Credits by Capability](https://doc.arcgis.com/en/arcgis-online/administer/credits.htm#GUID-D309A4D0-43CD-4E58-A6DF-012A82A6D794).
 
 Note: To store geocoding results, pass `forStorage: true` and a valid access token (see [Esri Leaflet Get Started](https://developers.arcgis.com/esri-leaflet/get-started/)).
 
