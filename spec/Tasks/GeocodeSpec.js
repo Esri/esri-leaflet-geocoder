@@ -335,7 +335,7 @@ describe('L.esri.Geocode', function () {
   });
 
   it('should pass through a token', function (done) {
-    var request = L.esri.Geocoding.geocode({token: 'testToken'}).text('380 New York St, Redlands, California, 92373').run(function (err, response) {
+    var request = L.esri.Geocoding.geocode({ token: 'testToken' }).text('380 New York St, Redlands, California, 92373').run(function (err, response) {
       done();
     });
 
@@ -345,7 +345,7 @@ describe('L.esri.Geocode', function () {
   });
 
   it('should pass through an apikey', function (done) {
-    var request = L.esri.Geocoding.geocode({apikey: 'testApiKey'}).text('380 New York St, Redlands, California, 92373').run(function (err, response) {
+    var request = L.esri.Geocoding.geocode({ apikey: 'testApiKey' }).text('380 New York St, Redlands, California, 92373').run(function (err, response) {
       done();
     });
 

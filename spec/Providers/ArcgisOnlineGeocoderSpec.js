@@ -191,7 +191,7 @@ describe('Providers.ArcgisOnline', function () {
   });
 
   it('should pass a token through when fetching results', function (done) {
-    var authenticatedProvider = L.esri.Geocoding.arcgisOnlineProvider({token: 'abc123'});
+    var authenticatedProvider = L.esri.Geocoding.arcgisOnlineProvider({ token: 'abc123' });
 
     var request = authenticatedProvider.results('380 New York St, Redlands, California, 92373', 'foo', null, function (error, results) {
       done();

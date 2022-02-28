@@ -86,9 +86,9 @@ describe('L.esri.Geosearch.MapService', function () {
       layer: 0,
       searchFields: ['Name', 'OBJECTID']
     });
-    provider._idFields = {0: 'OBJECTID'};
-    provider._displayFields = {0: 'Name'};
-    provider._layerNames = {0: 'Layer'};
+    provider._idFields = { 0: 'OBJECTID' };
+    provider._displayFields = { 0: 'Name' };
+    provider._layerNames = { 0: 'Layer' };
   });
 
   afterEach(function () {
@@ -169,9 +169,9 @@ describe('L.esri.Geosearch.MapService', function () {
       searchFields: ['Name', 'OBJECTID'],
       token: 'idunno'
     });
-    provider._idFields = {0: 'OBJECTID'};
-    provider._displayFields = {0: 'Name'};
-    provider._layerNames = {0: 'Layer'};
+    provider._idFields = { 0: 'OBJECTID' };
+    provider._displayFields = { 0: 'Name' };
+    provider._layerNames = { 0: 'Layer' };
 
     var request = provider.results('Pla', null, null, function (error, results) {
       expect(results.length).to.equal(2);
@@ -195,9 +195,9 @@ describe('L.esri.Geosearch.MapService', function () {
       searchFields: ['Name', 'OBJECTID'],
       apikey: 'idunno'
     });
-    provider._idFields = {0: 'OBJECTID'};
-    provider._displayFields = {0: 'Name'};
-    provider._layerNames = {0: 'Layer'};
+    provider._idFields = { 0: 'OBJECTID' };
+    provider._displayFields = { 0: 'Name' };
+    provider._layerNames = { 0: 'Layer' };
 
     var request = provider.results('Pla', null, null, function (error, results) {
       expect(results.length).to.equal(2);
