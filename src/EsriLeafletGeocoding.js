@@ -21,4 +21,3 @@ export { MapServiceProvider, mapServiceProvider } from './Providers/MapService';
 export { GeocodeServiceProvider, geocodeServiceProvider } from './Providers/GeocodeService';
 
 export { WorldGeocodingServiceUrl } from './helper';
-
