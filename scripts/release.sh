@@ -7,6 +7,11 @@ NAME=$(node --eval "console.log(require('./package.json').name);")
 # build and test
 npm test || exit 1
 
+# Integrity string and save to siteData.json
+JS_INTEGRITY=$(cat dist/esri-leaflet-geocoder.js | openssl dgst -sha512 -binary | openssl base64 -A)
+CSS_INTEGRITY=$(cat dist/esri-leaflet-geocoder.css | openssl dgst -sha512 -binary | openssl base64 -A)
+echo "{\"name\": \"esri-leaflet-geocoder\",\"version\": \"$VERSION\",\"lib\": {\"path\": \"dist/esri-leaflet-geocoder.js\",\"integrity\": \"sha512-$JS_INTEGRITY\"},\"css\": {\"path\": \"dist/esri-leaflet-geocoder.css\",\"integrity\": \"sha512-$CSS_INTEGRITY\"}}" > dist/siteData.json
+
 # checkout temp branch for release
 git checkout -b gh-release
 
@@ -25,10 +30,10 @@ zip -r $NAME-v$VERSION.zip dist
 # run gh-release to create the tag and push release to github
 gh-release --assets $NAME-v$VERSION.zip
 
+# publish release on NPM
+npm publish
+
 # checkout master and delete release branch locally and on GitHub
 git checkout master
 git branch -D gh-release
 git push https://github.com/Esri/esri-leaflet-geocoder :gh-release
-
-# publish release on NPM
-npm publish
