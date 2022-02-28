@@ -2,45 +2,45 @@
 /* eslint-disable handle-callback-err */
 describe('L.esri.ReverseGeocode', function () {
   var sampleResponse = JSON.stringify({
-    'address': {
-      'Address': '6 Avenue Gustave Eiffel',
-      'Neighborhood': '7e Arrondissement',
-      'City': 'Paris',
-      'Subregion': 'Paris',
-      'Region': 'Île-de-France',
-      'Postal': '75007',
-      'PostalExt': null,
-      'CountryCode': 'FRA',
-      'Loc_name': 'FRA.PointAddress'
+    address: {
+      Address: '6 Avenue Gustave Eiffel',
+      Neighborhood: '7e Arrondissement',
+      City: 'Paris',
+      Subregion: 'Paris',
+      Region: 'Île-de-France',
+      Postal: '75007',
+      PostalExt: null,
+      CountryCode: 'FRA',
+      Loc_name: 'FRA.PointAddress'
     },
-    'location': {
-      'x': 2.2946500041892821,
-      'y': 48.857489996304814,
-      'spatialReference': {
-        'wkid': 4326,
-        'latestWkid': 4326
+    location: {
+      x: 2.2946500041892821,
+      y: 48.857489996304814,
+      spatialReference: {
+        wkid: 4326,
+        latestWkid: 4326
       }
     }
   });
 
   var sampleFrenchResponse = JSON.stringify({
-    'address': {
-      'Address': 'Rue de la Sablonnière 16',
-      'Neighborhood': 'Bruxelles',
-      'City': 'Bruxelles',
-      'Subregion': null,
-      'Region': null,
-      'Postal': '1000',
-      'PostalExt': null,
-      'CountryCode': 'BEL',
-      'Loc_name': 'BEL.StreetAddress'
+    address: {
+      Address: 'Rue de la Sablonnière 16',
+      Neighborhood: 'Bruxelles',
+      City: 'Bruxelles',
+      Subregion: null,
+      Region: null,
+      Postal: '1000',
+      PostalExt: null,
+      CountryCode: 'BEL',
+      Loc_name: 'BEL.StreetAddress'
     },
-    'location': {
-      'x': 4.3663543042681159,
-      'y': 50.851981583549332,
-      'spatialReference': {
-        'wkid': 4326,
-        'latestWkid': 4326
+    location: {
+      x: 4.3663543042681159,
+      y: 50.851981583549332,
+      spatialReference: {
+        wkid: 4326,
+        latestWkid: 4326
       }
     }
   });
