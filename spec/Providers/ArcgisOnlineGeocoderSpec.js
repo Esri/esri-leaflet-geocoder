@@ -14,57 +14,57 @@ describe('Providers.ArcgisOnline', function () {
   });
 
   var sampleSuggestResponse = JSON.stringify({
-    'suggestions': [
+    suggestions: [
       {
-        'text': 'Treasure Island (Casino), 3300 Las Vegas Blvd S Las Vegas, NV 89109',
-        'magicKey': 'JS91CYhQDS5vDPhvSMyGZby0YFbaMsxIQsNOQNbJCcpaOg8F',
-        'isCollection': false
+        text: 'Treasure Island (Casino), 3300 Las Vegas Blvd S Las Vegas, NV 89109',
+        magicKey: 'JS91CYhQDS5vDPhvSMyGZby0YFbaMsxIQsNOQNbJCcpaOg8F',
+        isCollection: false
       },
       {
-        'text': 'Treasure Island (Performing Arts), 3300 Las Vegas Blvd S Las Vegas, NV 89109',
-        'magicKey': 'JS91CYhQDS5vDPhvSMyGZby0YFbaUBoGQDkaQ1baCcpaOg8F',
-        'isCollection': false
+        text: 'Treasure Island (Performing Arts), 3300 Las Vegas Blvd S Las Vegas, NV 89109',
+        magicKey: 'JS91CYhQDS5vDPhvSMyGZby0YFbaUBoGQDkaQ1baCcpaOg8F',
+        isCollection: false
       },
       {
-        'text': 'Treasure Island (Tourist Attraction), 3300 Las Vegas Blvd S Las Vegas, NV 89109',
-        'magicKey': 'JS91CYhQDS5vDPhvSMyGZby0YFbAQBwEU5gEMNbACcpaOg8F',
-        'isCollection': false
+        text: 'Treasure Island (Tourist Attraction), 3300 Las Vegas Blvd S Las Vegas, NV 89109',
+        magicKey: 'JS91CYhQDS5vDPhvSMyGZby0YFbAQBwEU5gEMNbACcpaOg8F',
+        isCollection: false
       },
       {
-        'text': 'Treasure Island-Parking Entrance, Mel Torme Way, Las Vegas, Nevada',
-        'magicKey': 'JS91CYhQDS5vDPhvSMyGZby0YFbOQDVJQsxKCDkuZc50HoFF',
-        'isCollection': false
+        text: 'Treasure Island-Parking Entrance, Mel Torme Way, Las Vegas, Nevada',
+        magicKey: 'JS91CYhQDS5vDPhvSMyGZby0YFbOQDVJQsxKCDkuZc50HoFF',
+        isCollection: false
       },
       {
-        'text': 'Treasure Island-Las Vegas, 3300 Las Vegas Blvd S Las Vegas, NV 89109',
-        'magicKey': 'JS91CYhQDS5vDPhvSMyGZby0YFbAQDNKU5gKUNb7CcpaOg8F',
-        'isCollection': false
+        text: 'Treasure Island-Las Vegas, 3300 Las Vegas Blvd S Las Vegas, NV 89109',
+        magicKey: 'JS91CYhQDS5vDPhvSMyGZby0YFbAQDNKU5gKUNb7CcpaOg8F',
+        isCollection: false
       }
     ]
   });
 
   var sampleFindAddressCandidatesResponse = JSON.stringify({
-    'spatialReference': {
-      'wkid': 4326,
-      'latestWkid': 4326
+    spatialReference: {
+      wkid: 4326,
+      latestWkid: 4326
     },
-    'candidates': [
+    candidates: [
       {
-        'address': '380 New York St, Redlands, California, 92373',
-        'location': {
-          'x': -117.19566584280369,
-          'y': 34.056490727765947
+        address: '380 New York St, Redlands, California, 92373',
+        location: {
+          x: -117.19566584280369,
+          y: 34.056490727765947
         },
-        'score': 100,
-        'attributes': {
-          'Score': 100,
-          'Addr_type': 'PointAddress'
+        score: 100,
+        attributes: {
+          Score: 100,
+          Addr_type: 'PointAddress'
         },
-        'extent': {
-          'xmin': -117.196701,
-          'ymin': 34.055489999999999,
-          'xmax': -117.19470099999999,
-          'ymax': 34.057490000000001
+        extent: {
+          xmin: -117.196701,
+          ymin: 34.055489999999999,
+          xmax: -117.19470099999999,
+          ymax: 34.057490000000001
         }
       }
     ]
@@ -191,7 +191,7 @@ describe('Providers.ArcgisOnline', function () {
   });
 
   it('should pass a token through when fetching results', function (done) {
-    var authenticatedProvider = L.esri.Geocoding.arcgisOnlineProvider({token: 'abc123'});
+    var authenticatedProvider = L.esri.Geocoding.arcgisOnlineProvider({ token: 'abc123' });
 
     var request = authenticatedProvider.results('380 New York St, Redlands, California, 92373', 'foo', null, function (error, results) {
       done();

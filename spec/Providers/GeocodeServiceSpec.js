@@ -16,65 +16,65 @@ describe('Providers.GeocodeService', function () {
   });
 
   var samplefindAddressCandidatesResponse = JSON.stringify({
-    'spatialReference': {
-      'wkid': 4326,
-      'latestWkid': 4326
+    spatialReference: {
+      wkid: 4326,
+      latestWkid: 4326
     },
-    'candidates': [
+    candidates: [
       {
-        'address': '380 New York St, Redlands, California, 92373',
-        'location': {
-          'x': -117.19566584280369,
-          'y': 34.056490727765947
+        address: '380 New York St, Redlands, California, 92373',
+        location: {
+          x: -117.19566584280369,
+          y: 34.056490727765947
         },
-        'score': 100,
-        'attributes': {
-          'Loc_name': 'USA.PointAddress',
-          'Score': 100,
-          'Match_addr': '380 New York St, Redlands, California, 92373',
-          'Addr_type': 'PointAddress',
-          'Type': '',
-          'PlaceName': '',
-          'Place_addr': '',
-          'Phone': '',
-          'URL': '',
-          'Rank': '',
-          'AddBldg': '',
-          'AddNum': '380',
-          'AddNumFrom': '',
-          'AddNumTo': '',
-          'Side': 'R',
-          'StPreDir': '',
-          'StPreType': '',
-          'StName': 'New York',
-          'StType': 'St',
-          'StDir': '',
-          'StAddr': '',
-          'Nbrhd': '',
-          'City': 'Redlands',
-          'Subregion': '',
-          'Region': 'California',
-          'Postal': '92373',
-          'PostalExt': '',
-          'Country': 'USA',
-          'LangCode': 'ENG',
-          'Distance': 0,
-          'X': -117.195667,
-          'Y': 34.056491000000001,
-          'DisplayX': -117.195311,
-          'DisplayY': 34.056109999999997,
-          'Xmin': -117.196701,
-          'Xmax': -117.19470099999999,
-          'Ymin': 34.055489999999999,
-          'Ymax': 34.057490000000001,
-          'SubAdmin': '',
-          'Admin': ''
+        score: 100,
+        attributes: {
+          Loc_name: 'USA.PointAddress',
+          Score: 100,
+          Match_addr: '380 New York St, Redlands, California, 92373',
+          Addr_type: 'PointAddress',
+          Type: '',
+          PlaceName: '',
+          Place_addr: '',
+          Phone: '',
+          URL: '',
+          Rank: '',
+          AddBldg: '',
+          AddNum: '380',
+          AddNumFrom: '',
+          AddNumTo: '',
+          Side: 'R',
+          StPreDir: '',
+          StPreType: '',
+          StName: 'New York',
+          StType: 'St',
+          StDir: '',
+          StAddr: '',
+          Nbrhd: '',
+          City: 'Redlands',
+          Subregion: '',
+          Region: 'California',
+          Postal: '92373',
+          PostalExt: '',
+          Country: 'USA',
+          LangCode: 'ENG',
+          Distance: 0,
+          X: -117.195667,
+          Y: 34.056491000000001,
+          DisplayX: -117.195311,
+          DisplayY: 34.056109999999997,
+          Xmin: -117.196701,
+          Xmax: -117.19470099999999,
+          Ymin: 34.055489999999999,
+          Ymax: 34.057490000000001,
+          SubAdmin: '',
+          Admin: ''
         },
-        'extent': {
-          'xmin': -117.196701,
-          'ymin': 34.055489999999999,
-          'xmax': -117.19470099999999,
-          'ymax': 34.057490000000001
+        extent: {
+          xmin: -117.196701,
+          ymin: 34.055489999999999,
+          xmax: -117.19470099999999,
+          ymax: 34.057490000000001
         }
       }
     ]

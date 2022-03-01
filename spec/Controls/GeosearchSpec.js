@@ -124,7 +124,7 @@ describe('L.esri.Geosearch', function () {
     expect(request).to.be.an.instanceof(XMLHttpRequest);
 
     this.requests[0].respond(200, { 'Content-Type': 'application/json' },
-                                 JSON.stringify({'suggestions': []}));
+      JSON.stringify({ suggestions: [] }));
 
     expect(geosearch._geosearchCore._pendingSuggestions[0].url).to.equal('https://geocode-api.arcgis.com/arcgis/rest/services/World/GeocodeServer/suggest?text=Mayoworth%2C%20WY&location=-97.63999999999999%2C30.32&distance=50000&searchExtent=%7B%22xmin%22%3A-99.71%2C%22ymin%22%3A29.3%2C%22xmax%22%3A-95.57%2C%22ymax%22%3A31.34%2C%22spatialReference%22%3A%7B%22wkid%22%3A4326%7D%7D&maxSuggestions=6&f=json');
     done();
@@ -144,12 +144,12 @@ describe('L.esri.Geosearch', function () {
         lng: -99.25060627399967
       },
       properties: {
-        'Loc_name': 'Gaz.WorldGazetteer.POI1',
-        'Score': 100,
-        'Match_addr': 'Texas, United States',
-        'Addr_type': 'POI',
-        'Type': 'State or Province',
-        'PlaceName': 'Texas'
+        Loc_name: 'Gaz.WorldGazetteer.POI1',
+        Score: 100,
+        Match_addr: 'Texas, United States',
+        Addr_type: 'POI',
+        Type: 'State or Province',
+        PlaceName: 'Texas'
       },
       score: 100,
       text: 'Texas, United States'

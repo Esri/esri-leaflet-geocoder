@@ -2,31 +2,31 @@
 /* eslint-disable handle-callback-err */
 describe('L.esri.Suggest', function () {
   var sampleResponse = JSON.stringify({
-    'suggestions': [
+    suggestions: [
       {
-        'text': 'Treasure Island (Casino), 3300 Las Vegas Blvd S Las Vegas, NV 89109',
-        'magicKey': 'JS91CYhQDS5vDPhvSMyGZby0YFbaMsxIQsNOQNbJCcpaOg8F',
-        'isCollection': false
+        text: 'Treasure Island (Casino), 3300 Las Vegas Blvd S Las Vegas, NV 89109',
+        magicKey: 'JS91CYhQDS5vDPhvSMyGZby0YFbaMsxIQsNOQNbJCcpaOg8F',
+        isCollection: false
       },
       {
-        'text': 'Treasure Island (Performing Arts), 3300 Las Vegas Blvd S Las Vegas, NV 89109',
-        'magicKey': 'JS91CYhQDS5vDPhvSMyGZby0YFbaUBoGQDkaQ1baCcpaOg8F',
-        'isCollection': false
+        text: 'Treasure Island (Performing Arts), 3300 Las Vegas Blvd S Las Vegas, NV 89109',
+        magicKey: 'JS91CYhQDS5vDPhvSMyGZby0YFbaUBoGQDkaQ1baCcpaOg8F',
+        isCollection: false
       },
       {
-        'text': 'Treasure Island (Tourist Attraction), 3300 Las Vegas Blvd S Las Vegas, NV 89109',
-        'magicKey': 'JS91CYhQDS5vDPhvSMyGZby0YFbAQBwEU5gEMNbACcpaOg8F',
-        'isCollection': false
+        text: 'Treasure Island (Tourist Attraction), 3300 Las Vegas Blvd S Las Vegas, NV 89109',
+        magicKey: 'JS91CYhQDS5vDPhvSMyGZby0YFbAQBwEU5gEMNbACcpaOg8F',
+        isCollection: false
       },
       {
-        'text': 'Treasure Island-Parking Entrance, Mel Torme Way, Las Vegas, Nevada',
-        'magicKey': 'JS91CYhQDS5vDPhvSMyGZby0YFbOQDVJQsxKCDkuZc50HoFF',
-        'isCollection': false
+        text: 'Treasure Island-Parking Entrance, Mel Torme Way, Las Vegas, Nevada',
+        magicKey: 'JS91CYhQDS5vDPhvSMyGZby0YFbOQDVJQsxKCDkuZc50HoFF',
+        isCollection: false
       },
       {
-        'text': 'Treasure Island-Las Vegas, 3300 Las Vegas Blvd S Las Vegas, NV 89109',
-        'magicKey': 'JS91CYhQDS5vDPhvSMyGZby0YFbAQDNKU5gKUNb7CcpaOg8F',
-        'isCollection': false
+        text: 'Treasure Island-Las Vegas, 3300 Las Vegas Blvd S Las Vegas, NV 89109',
+        magicKey: 'JS91CYhQDS5vDPhvSMyGZby0YFbAQDNKU5gKUNb7CcpaOg8F',
+        isCollection: false
       }
     ]
   });

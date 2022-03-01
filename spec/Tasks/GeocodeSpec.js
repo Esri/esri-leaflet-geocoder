@@ -2,191 +2,191 @@
 /* eslint-disable handle-callback-err */
 describe('L.esri.Geocode', function () {
   var sampleFindAddressCandidatesResponse = JSON.stringify({
-    'spatialReference': {
-      'wkid': 4326,
-      'latestWkid': 4326
+    spatialReference: {
+      wkid: 4326,
+      latestWkid: 4326
     },
-    'candidates': [
+    candidates: [
       {
-        'address': '380 New York St, Redlands, California, 92373',
-        'location': {
-          'x': -117.19566584280369,
-          'y': 34.056490727765947
+        address: '380 New York St, Redlands, California, 92373',
+        location: {
+          x: -117.19566584280369,
+          y: 34.056490727765947
         },
-        'score': 100,
-        'attributes': {
-          'Loc_name': 'USA.PointAddress',
-          'Score': 100,
-          'Match_addr': '380 New York St, Redlands, California, 92373',
-          'Addr_type': 'PointAddress',
-          'Type': '',
-          'PlaceName': '',
-          'Place_addr': '',
-          'Phone': '',
-          'URL': '',
-          'Rank': '',
-          'AddBldg': '',
-          'AddNum': '380',
-          'AddNumFrom': '',
-          'AddNumTo': '',
-          'Side': 'R',
-          'StPreDir': '',
-          'StPreType': '',
-          'StName': 'New York',
-          'StType': 'St',
-          'StDir': '',
-          'StAddr': '',
-          'Nbrhd': '',
-          'City': 'Redlands',
-          'Subregion': '',
-          'Region': 'California',
-          'Postal': '92373',
-          'PostalExt': '',
-          'Country': 'USA',
-          'LangCode': 'ENG',
-          'Distance': 0,
-          'X': -117.195667,
-          'Y': 34.056491000000001,
-          'DisplayX': -117.195311,
-          'DisplayY': 34.056109999999997,
-          'Xmin': -117.196701,
-          'Xmax': -117.19470099999999,
-          'Ymin': 34.055489999999999,
-          'Ymax': 34.057490000000001,
-          'SubAdmin': '',
-          'Admin': ''
+        score: 100,
+        attributes: {
+          Loc_name: 'USA.PointAddress',
+          Score: 100,
+          Match_addr: '380 New York St, Redlands, California, 92373',
+          Addr_type: 'PointAddress',
+          Type: '',
+          PlaceName: '',
+          Place_addr: '',
+          Phone: '',
+          URL: '',
+          Rank: '',
+          AddBldg: '',
+          AddNum: '380',
+          AddNumFrom: '',
+          AddNumTo: '',
+          Side: 'R',
+          StPreDir: '',
+          StPreType: '',
+          StName: 'New York',
+          StType: 'St',
+          StDir: '',
+          StAddr: '',
+          Nbrhd: '',
+          City: 'Redlands',
+          Subregion: '',
+          Region: 'California',
+          Postal: '92373',
+          PostalExt: '',
+          Country: 'USA',
+          LangCode: 'ENG',
+          Distance: 0,
+          X: -117.195667,
+          Y: 34.056491000000001,
+          DisplayX: -117.195311,
+          DisplayY: 34.056109999999997,
+          Xmin: -117.196701,
+          Xmax: -117.19470099999999,
+          Ymin: 34.055489999999999,
+          Ymax: 34.057490000000001,
+          SubAdmin: '',
+          Admin: ''
         },
-        'extent': {
-          'xmin': -117.196701,
-          'ymin': 34.055489999999999,
-          'xmax': -117.19470099999999,
-          'ymax': 34.057490000000001
+        extent: {
+          xmin: -117.196701,
+          ymin: 34.055489999999999,
+          xmax: -117.19470099999999,
+          ymax: 34.057490000000001
         }
       }
     ]
   });
 
   var sampleFindAddressCandidatesWithinResponse = JSON.stringify({
-    'spatialReference': {
-      'wkid': 4326,
-      'latestWkid': 4326
+    spatialReference: {
+      wkid: 4326,
+      latestWkid: 4326
     },
-    'candidates': [
+    candidates: [
       {
-        'address': '380 New York St, Redlands, California, 92373',
-        'score': 100,
-        'extent': {
-          'xmin': -117.196667,
-          'ymin': 34.055491,
-          'xmax': -117.194667,
-          'ymax': 34.057491
+        address: '380 New York St, Redlands, California, 92373',
+        score: 100,
+        extent: {
+          xmin: -117.196667,
+          ymin: 34.055491,
+          xmax: -117.194667,
+          ymax: 34.057491
         },
-        'location': {
-          'x': -117.19566602536605,
-          'y': 34.056490511029324
+        location: {
+          x: -117.19566602536605,
+          y: 34.056490511029324
         },
-        'attributes': {
-          'Loc_name': 'USA.PointAddress',
-          'Score': 100,
-          'Match_addr': '380 New York St, Redlands, California, 92373',
-          'Addr_type': 'PointAddress',
-          'Type': '',
-          'PlaceName': '',
-          'Place_addr': '',
-          'Phone': '',
-          'URL': '',
-          'Rank': '',
-          'AddBldg': '',
-          'AddNum': '380',
-          'AddNumFrom': '',
-          'AddNumTo': '',
-          'Side': 'R',
-          'StPreDir': '',
-          'StPreType': '',
-          'StName': 'New York',
-          'StType': 'St',
-          'StDir': '',
-          'StAddr': '',
-          'Nbrhd': '',
-          'City': 'Redlands',
-          'Subregion': '',
-          'Region': 'California',
-          'Postal': '92373',
-          'PostalExt': '',
-          'Country': 'USA',
-          'LangCode': 'ENG',
-          'Distance': 0,
-          'X': -117.195667,
-          'Y': 34.056491,
-          'DisplayX': -117.195311,
-          'DisplayY': 34.05611,
-          'Xmin': -117.196667,
-          'Xmax': -117.194667,
-          'Ymin': 34.055491,
-          'Ymax': 34.057491
+        attributes: {
+          Loc_name: 'USA.PointAddress',
+          Score: 100,
+          Match_addr: '380 New York St, Redlands, California, 92373',
+          Addr_type: 'PointAddress',
+          Type: '',
+          PlaceName: '',
+          Place_addr: '',
+          Phone: '',
+          URL: '',
+          Rank: '',
+          AddBldg: '',
+          AddNum: '380',
+          AddNumFrom: '',
+          AddNumTo: '',
+          Side: 'R',
+          StPreDir: '',
+          StPreType: '',
+          StName: 'New York',
+          StType: 'St',
+          StDir: '',
+          StAddr: '',
+          Nbrhd: '',
+          City: 'Redlands',
+          Subregion: '',
+          Region: 'California',
+          Postal: '92373',
+          PostalExt: '',
+          Country: 'USA',
+          LangCode: 'ENG',
+          Distance: 0,
+          X: -117.195667,
+          Y: 34.056491,
+          DisplayX: -117.195311,
+          DisplayY: 34.05611,
+          Xmin: -117.196667,
+          Xmax: -117.194667,
+          Ymin: 34.055491,
+          Ymax: 34.057491
         }
       }
     ]
   });
 
   var sampleFindAddressCandidatesNearbyResponse = JSON.stringify({
-    'spatialReference': {
-      'wkid': 4326,
-      'latestWkid': 4326
+    spatialReference: {
+      wkid: 4326,
+      latestWkid: 4326
     },
-    'candidates': [
+    candidates: [
       {
-        'address': 'Highlands Ranch, Colorado, United States',
-        'score': 100,
-        'extent': {
-          'xmin': -105.053427,
-          'ymin': 39.469876,
-          'xmax': -104.885427,
-          'ymax': 39.637876
+        address: 'Highlands Ranch, Colorado, United States',
+        score: 100,
+        extent: {
+          xmin: -105.053427,
+          ymin: 39.469876,
+          xmax: -104.885427,
+          ymax: 39.637876
         },
-        'location': {
-          'x': -104.96942569799967,
-          'y': 39.55387558400048
+        location: {
+          x: -104.96942569799967,
+          y: 39.55387558400048
         },
-        'attributes': {
-          'Loc_name': 'Gaz.WorldGazetteer.POI1',
-          'Score': 100,
-          'Match_addr': 'Highlands Ranch, Colorado, United States',
-          'Addr_type': 'POI',
-          'Type': 'City',
-          'PlaceName': 'Highlands Ranch',
-          'Place_addr': '',
-          'Phone': '',
-          'URL': '',
-          'Rank': '8.04',
-          'AddBldg': '',
-          'AddNum': '',
-          'AddNumFrom': '',
-          'AddNumTo': '',
-          'Side': '',
-          'StPreDir': '',
-          'StPreType': '',
-          'StName': '',
-          'StType': '',
-          'StDir': '',
-          'StAddr': '',
-          'Nbrhd': '',
-          'City': '',
-          'Subregion': 'Douglas',
-          'Region': 'Colorado',
-          'Postal': '',
-          'PostalExt': '',
-          'Country': 'USA',
-          'LangCode': '',
-          'Distance': 349299.97,
-          'X': -104.969427,
-          'Y': 39.553876,
-          'DisplayX': -104.969427,
-          'DisplayY': 39.553876,
-          'Xmin': -105.053427,
-          'Xmax': -104.885427,
-          'Ymin': 39.469876,
-          'Ymax': 39.637876
+        attributes: {
+          Loc_name: 'Gaz.WorldGazetteer.POI1',
+          Score: 100,
+          Match_addr: 'Highlands Ranch, Colorado, United States',
+          Addr_type: 'POI',
+          Type: 'City',
+          PlaceName: 'Highlands Ranch',
+          Place_addr: '',
+          Phone: '',
+          URL: '',
+          Rank: '8.04',
+          AddBldg: '',
+          AddNum: '',
+          AddNumFrom: '',
+          AddNumTo: '',
+          Side: '',
+          StPreDir: '',
+          StPreType: '',
+          StName: '',
+          StType: '',
+          StDir: '',
+          StAddr: '',
+          Nbrhd: '',
+          City: '',
+          Subregion: 'Douglas',
+          Region: 'Colorado',
+          Postal: '',
+          PostalExt: '',
+          Country: 'USA',
+          LangCode: '',
+          Distance: 349299.97,
+          X: -104.969427,
+          Y: 39.553876,
+          DisplayX: -104.969427,
+          DisplayY: 39.553876,
+          Xmin: -105.053427,
+          Xmax: -104.885427,
+          Ymin: 39.469876,
+          Ymax: 39.637876
         }
       }
     ]
@@ -335,7 +335,7 @@ describe('L.esri.Geocode', function () {
   });
 
   it('should pass through a token', function (done) {
-    var request = L.esri.Geocoding.geocode({token: 'testToken'}).text('380 New York St, Redlands, California, 92373').run(function (err, response) {
+    var request = L.esri.Geocoding.geocode({ token: 'testToken' }).text('380 New York St, Redlands, California, 92373').run(function (err, response) {
       done();
     });
 
@@ -345,7 +345,7 @@ describe('L.esri.Geocode', function () {
   });
 
   it('should pass through an apikey', function (done) {
-    var request = L.esri.Geocoding.geocode({apikey: 'testApiKey'}).text('380 New York St, Redlands, California, 92373').run(function (err, response) {
+    var request = L.esri.Geocoding.geocode({ apikey: 'testApiKey' }).text('380 New York St, Redlands, California, 92373').run(function (err, response) {
       done();
     });
 

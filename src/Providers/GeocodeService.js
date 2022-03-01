@@ -30,7 +30,7 @@ export var GeocodeServiceProvider = GeocodeService.extend({
         callback(error, suggestions);
       }, this);
     } else {
-      callback(undefined, []);
+      callback(null, []);
       return false;
     }
   },

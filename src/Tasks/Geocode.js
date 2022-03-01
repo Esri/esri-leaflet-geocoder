@@ -16,23 +16,23 @@ export var Geocode = Task.extend({
   },
 
   setters: {
-    'address': 'address',
-    'neighborhood': 'neighborhood',
-    'city': 'city',
-    'subregion': 'subregion',
-    'region': 'region',
-    'postal': 'postal',
-    'country': 'country',
-    'text': 'singleLine',
-    'category': 'category',
-    'token': 'token',
-    'apikey': 'apikey',
-    'key': 'magicKey',
-    'fields': 'outFields',
-    'forStorage': 'forStorage',
-    'maxLocations': 'maxLocations',
+    address: 'address',
+    neighborhood: 'neighborhood',
+    city: 'city',
+    subregion: 'subregion',
+    region: 'region',
+    postal: 'postal',
+    country: 'country',
+    text: 'singleLine',
+    category: 'category',
+    token: 'token',
+    apikey: 'apikey',
+    key: 'magicKey',
+    fields: 'outFields',
+    forStorage: 'forStorage',
+    maxLocations: 'maxLocations',
     // World Geocoding Service (only works with singleLine)
-    'countries': 'sourceCountry'
+    countries: 'sourceCountry'
   },
 
   initialize: function (options) {

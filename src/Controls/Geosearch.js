@@ -29,7 +29,7 @@ export var Geosearch = Control.extend({
       if (!options) {
         options = {};
       }
-      options.providers = [ arcgisOnlineProvider() ];
+      options.providers = [arcgisOnlineProvider()];
     }
 
     // instantiate the underlying class and pass along options

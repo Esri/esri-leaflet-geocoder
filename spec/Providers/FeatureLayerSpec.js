@@ -17,34 +17,34 @@ describe('L.esri.Geosearch.FeatureLayer', function () {
   });
 
   var rawSuggestQueryResponse = {
-    'objectIdFieldName': 'FID',
-    'fields': [{
-      'name': 'Name',
-      'type': 'esriFieldTypeString',
-      'alias': 'Name',
-      'sqlType': 'sqlTypeNVarchar',
-      'length': 256,
-      'domain': null,
-      'defaultValue': null
+    objectIdFieldName: 'FID',
+    fields: [{
+      name: 'Name',
+      type: 'esriFieldTypeString',
+      alias: 'Name',
+      sqlType: 'sqlTypeNVarchar',
+      length: 256,
+      domain: null,
+      defaultValue: null
     }, {
-      'name': 'FID',
-      'type': 'esriFieldTypeOID',
-      'alias': 'FID',
-      'sqlType': 'sqlTypeInteger',
-      'domain': null,
-      'defaultValue': null
+      name: 'FID',
+      type: 'esriFieldTypeOID',
+      alias: 'FID',
+      sqlType: 'sqlTypeInteger',
+      domain: null,
+      defaultValue: null
     }],
-    'features': [
+    features: [
       {
-        'attributes': {
-          'FID': 1,
-          'Name': 'Place 1'
+        attributes: {
+          FID: 1,
+          Name: 'Place 1'
         }
       },
       {
-        'attributes': {
-          'FID': 2,
-          'Name': 'Place 2'
+        attributes: {
+          FID: 2,
+          Name: 'Place 2'
         }
       }
     ]
@@ -54,34 +54,34 @@ describe('L.esri.Geosearch.FeatureLayer', function () {
   var suggestQueryResponseSorted = JSON.stringify(rawSuggestQueryResponse);
 
   var resultQueryResponse = JSON.stringify({
-    'objectIdFieldName': 'FID',
-    'fields': [{
-      'name': 'Name',
-      'type': 'esriFieldTypeString',
-      'alias': 'Name',
-      'sqlType': 'sqlTypeNVarchar',
-      'length': 256,
-      'domain': null,
-      'defaultValue': null
+    objectIdFieldName: 'FID',
+    fields: [{
+      name: 'Name',
+      type: 'esriFieldTypeString',
+      alias: 'Name',
+      sqlType: 'sqlTypeNVarchar',
+      length: 256,
+      domain: null,
+      defaultValue: null
     }, {
-      'name': 'FID',
-      'type': 'esriFieldTypeOID',
-      'alias': 'FID',
-      'sqlType': 'sqlTypeInteger',
-      'domain': null,
-      'defaultValue': null
+      name: 'FID',
+      type: 'esriFieldTypeOID',
+      alias: 'FID',
+      sqlType: 'sqlTypeInteger',
+      domain: null,
+      defaultValue: null
     }],
-    'features': [
+    features: [
       {
-        'attributes': {
-          'FID': 1,
-          'Name': 'Place 1'
+        attributes: {
+          FID: 1,
+          Name: 'Place 1'
         },
-        'geometry': {
-          'x': -122.81,
-          'y': 45.48,
-          'spatialReference': {
-            'wkid': 4326
+        geometry: {
+          x: -122.81,
+          y: 45.48,
+          spatialReference: {
+            wkid: 4326
           }
         }
       }
@@ -89,47 +89,47 @@ describe('L.esri.Geosearch.FeatureLayer', function () {
   });
 
   var resultMultiQueryResponse = JSON.stringify({
-    'objectIdFieldName': 'FID',
-    'fields': [{
-      'name': 'Name',
-      'type': 'esriFieldTypeString',
-      'alias': 'Name',
-      'sqlType': 'sqlTypeNVarchar',
-      'length': 256,
-      'domain': null,
-      'defaultValue': null
+    objectIdFieldName: 'FID',
+    fields: [{
+      name: 'Name',
+      type: 'esriFieldTypeString',
+      alias: 'Name',
+      sqlType: 'sqlTypeNVarchar',
+      length: 256,
+      domain: null,
+      defaultValue: null
     }, {
-      'name': 'FID',
-      'type': 'esriFieldTypeOID',
-      'alias': 'FID',
-      'sqlType': 'sqlTypeInteger',
-      'domain': null,
-      'defaultValue': null
+      name: 'FID',
+      type: 'esriFieldTypeOID',
+      alias: 'FID',
+      sqlType: 'sqlTypeInteger',
+      domain: null,
+      defaultValue: null
     }],
-    'features': [
+    features: [
       {
-        'attributes': {
-          'FID': 1,
-          'Name': 'Place 1'
+        attributes: {
+          FID: 1,
+          Name: 'Place 1'
         },
-        'geometry': {
-          'x': -122.81,
-          'y': 45.48,
-          'spatialReference': {
-            'wkid': 4326
+        geometry: {
+          x: -122.81,
+          y: 45.48,
+          spatialReference: {
+            wkid: 4326
           }
         }
       },
       {
-        'attributes': {
-          'FID': 2,
-          'Name': 'Place 2'
+        attributes: {
+          FID: 2,
+          Name: 'Place 2'
         },
-        'geometry': {
-          'x': -122.81,
-          'y': 45.48,
-          'spatialReference': {
-            'wkid': 4326
+        geometry: {
+          x: -122.81,
+          y: 45.48,
+          spatialReference: {
+            wkid: 4326
           }
         }
       }

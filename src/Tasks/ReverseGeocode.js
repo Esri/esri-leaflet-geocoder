@@ -11,9 +11,9 @@ export var ReverseGeocode = Task.extend({
   },
 
   setters: {
-    'distance': 'distance',
-    'language': 'langCode',
-    'intersection': 'returnIntersection'
+    distance: 'distance',
+    language: 'langCode',
+    intersection: 'returnIntersection'
   },
 
   initialize: function (options) {

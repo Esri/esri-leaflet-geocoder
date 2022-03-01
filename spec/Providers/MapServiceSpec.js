@@ -5,40 +5,40 @@ describe('L.esri.Geosearch.MapService', function () {
   var xhr;
 
   var sampleFindResponse = JSON.stringify({
-    'results': [
+    results: [
       {
-        'layerId': 0,
-        'layerName': 'Features',
-        'displayFieldName': 'Name',
-        'value': '0',
-        'attributes': {
-          'OBJECTID': 1,
-          'Name': 'Place 1'
+        layerId: 0,
+        layerName: 'Features',
+        displayFieldName: 'Name',
+        value: '0',
+        attributes: {
+          OBJECTID: 1,
+          Name: 'Place 1'
         },
-        'geometryType': 'esriGeometryPoint',
-        'geometry': {
-          'x': -122.81,
-          'y': 45.48,
-          'spatialReference': {
-            'wkid': 4326
+        geometryType: 'esriGeometryPoint',
+        geometry: {
+          x: -122.81,
+          y: 45.48,
+          spatialReference: {
+            wkid: 4326
           }
         }
       },
       {
-        'layerId': 0,
-        'layerName': 'Features',
-        'displayFieldName': 'Name',
-        'value': '0',
-        'attributes': {
-          'OBJECTID': 2,
-          'Name': 'Place 2'
+        layerId: 0,
+        layerName: 'Features',
+        displayFieldName: 'Name',
+        value: '0',
+        attributes: {
+          OBJECTID: 2,
+          Name: 'Place 2'
         },
-        'geometryType': 'esriGeometryPoint',
-        'geometry': {
-          'x': -122.81,
-          'y': 45.48,
-          'spatialReference': {
-            'wkid': 4326
+        geometryType: 'esriGeometryPoint',
+        geometry: {
+          x: -122.81,
+          y: 45.48,
+          spatialReference: {
+            wkid: 4326
           }
         }
       }
@@ -46,33 +46,33 @@ describe('L.esri.Geosearch.MapService', function () {
   });
 
   var sampleQueryResponse = JSON.stringify({
-    'fieldAliases': {
-      'OBJECTID': 'OBJECTID',
-      'Name': 'Name'
+    fieldAliases: {
+      OBJECTID: 'OBJECTID',
+      Name: 'Name'
     },
-    'fields': [
+    fields: [
       {
-        'name': 'OBJECTID',
-        'type': 'esriFieldTypeOID',
-        'alias': 'OBJECTID'
+        name: 'OBJECTID',
+        type: 'esriFieldTypeOID',
+        alias: 'OBJECTID'
       },
       {
-        'name': 'Name',
-        'type': 'esriFieldTypeString',
-        'alias': 'Name'
+        name: 'Name',
+        type: 'esriFieldTypeString',
+        alias: 'Name'
       }
     ],
-    'features': [
+    features: [
       {
-        'attributes': {
-          'OBJECTID': 1,
-          'Name': 'Place 1'
+        attributes: {
+          OBJECTID: 1,
+          Name: 'Place 1'
         },
-        'geometry': {
-          'x': -122.81,
-          'y': 45.48,
-          'spatialReference': {
-            'wkid': 4326
+        geometry: {
+          x: -122.81,
+          y: 45.48,
+          spatialReference: {
+            wkid: 4326
           }
         }
       }
@@ -86,9 +86,9 @@ describe('L.esri.Geosearch.MapService', function () {
       layer: 0,
       searchFields: ['Name', 'OBJECTID']
     });
-    provider._idFields = {0: 'OBJECTID'};
-    provider._displayFields = {0: 'Name'};
-    provider._layerNames = {0: 'Layer'};
+    provider._idFields = { 0: 'OBJECTID' };
+    provider._displayFields = { 0: 'Name' };
+    provider._layerNames = { 0: 'Layer' };
   });
 
   afterEach(function () {
@@ -169,9 +169,9 @@ describe('L.esri.Geosearch.MapService', function () {
       searchFields: ['Name', 'OBJECTID'],
       token: 'idunno'
     });
-    provider._idFields = {0: 'OBJECTID'};
-    provider._displayFields = {0: 'Name'};
-    provider._layerNames = {0: 'Layer'};
+    provider._idFields = { 0: 'OBJECTID' };
+    provider._displayFields = { 0: 'Name' };
+    provider._layerNames = { 0: 'Layer' };
 
     var request = provider.results('Pla', null, null, function (error, results) {
       expect(results.length).to.equal(2);
@@ -195,9 +195,9 @@ describe('L.esri.Geosearch.MapService', function () {
       searchFields: ['Name', 'OBJECTID'],
       apikey: 'idunno'
     });
-    provider._idFields = {0: 'OBJECTID'};
-    provider._displayFields = {0: 'Name'};
-    provider._layerNames = {0: 'Layer'};
+    provider._idFields = { 0: 'OBJECTID' };
+    provider._displayFields = { 0: 'Name' };
+    provider._layerNames = { 0: 'Layer' };
 
     var request = provider.results('Pla', null, null, function (error, results) {
       expect(results.length).to.equal(2);
