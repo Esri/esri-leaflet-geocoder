@@ -2,6 +2,16 @@
 
 ## [Upcoming changes][Unreleased]
 
+## [3.1.2] - 2022-03-01
+
+### Updated
+
+- Updated dependencies ([#292](https://github.com/Esri/esri-leaflet-geocoder/pull/292))
+- Updated to rollup-plugin-terser ([#292](https://github.com/Esri/esri-leaflet-geocoder/pull/292))
+- Switched to chokidar ([#292](https://github.com/Esri/esri-leaflet-geocoder/pull/292))
+- Updated to Semistandard 14 ([#292](https://github.com/Esri/esri-leaflet-geocoder/pull/292))
+- Include `siteData.json` in NPM release ([#292](https://github.com/Esri/esri-leaflet-geocoder/pull/292))
+
 ## [3.1.1] - 2021-07-29
 
 ### Fixed
@@ -441,7 +451,8 @@ This is now ready for beta! This release helps finalize the API and includes lot
 
 * Initial alpha release
 
-[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v3.1.1...HEAD
+[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v3.1.2...HEAD
+[3.1.2]: https://github.com/Esri/esri-leaflet-geocoder/compare/v3.1.1...v3.1.2
 [3.1.1]: https://github.com/Esri/esri-leaflet-geocoder/compare/v3.1.0...v3.1.1
 [3.1.0]: https://github.com/Esri/esri-leaflet-geocoder/compare/v3.0.0...v3.1.0
 [3.0.0]: https://github.com/Esri/esri-leaflet-geocoder/compare/v2.3.4...v3.0.0
