@@ -105,5 +105,25 @@ describe('L.esri.ReverseGeocode', function () {
 
     request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleFrenchResponse);
   });
+
+  it('should pass through a token', function (done) {
+    var request = L.esri.Geocoding.reverseGeocode({ token: 'testToken' }).latlng([48.8583, 2.2945]).run(function (error, result, response) {
+      done();
+    });
+
+    expect(request.url).to.contain('token=testToken');
+
+    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleResponse);
+  });
+
+  it('should pass through an apikey', function (done) {
+    var request = L.esri.Geocoding.reverseGeocode({ apikey: 'testApiKey' }).latlng([48.8583, 2.2945]).run(function (error, result, response) {
+      done();
+    });
+
+    expect(request.url).to.contain('token=testApiKey');
+
+    request.respond(200, { 'Content-Type': 'text/plain; charset=utf-8' }, sampleResponse);
+  });
 });
 /* eslint-disable handle-callback-err */

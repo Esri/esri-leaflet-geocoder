@@ -13,7 +13,8 @@ export var ReverseGeocode = Task.extend({
   setters: {
     distance: 'distance',
     language: 'langCode',
-    intersection: 'returnIntersection'
+    intersection: 'returnIntersection',
+    apikey: 'apikey'
   },
 
   initialize: function (options) {
@@ -29,6 +30,12 @@ export var ReverseGeocode = Task.extend({
   },
 
   run: function (callback, context) {
+    if (this.options.token) {
+      this.params.token = this.options.token;
+    }
+    if (this.options.apikey) {
+      this.params.token = this.options.apikey;
+    }
     return this.request(function (error, response) {
       var result;
 
