@@ -2,6 +2,12 @@
 
 ## [Upcoming changes][Unreleased]
 
+## [3.1.3] - 2022-04-08
+
+### Fixed
+
+- Properly pass through token and apikey when calling `L.esri.Geocoding.reverseGeocode()` ([#295](https://github.com/Esri/esri-leaflet-geocoder/pull/295))
+
 ## [3.1.2] - 2022-03-01
 
 ### Updated
@@ -451,7 +457,8 @@ This is now ready for beta! This release helps finalize the API and includes lot
 
 * Initial alpha release
 
-[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v3.1.2...HEAD
+[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v3.1.3...HEAD
+[3.1.3]: https://github.com/Esri/esri-leaflet-geocoder/compare/v3.1.2...v3.1.3
 [3.1.2]: https://github.com/Esri/esri-leaflet-geocoder/compare/v3.1.1...v3.1.2
 [3.1.1]: https://github.com/Esri/esri-leaflet-geocoder/compare/v3.1.0...v3.1.1
 [3.1.0]: https://github.com/Esri/esri-leaflet-geocoder/compare/v3.0.0...v3.1.0
