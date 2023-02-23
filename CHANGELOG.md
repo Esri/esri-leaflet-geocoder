@@ -2,6 +2,16 @@
 
 ## [Upcoming changes][Unreleased]
 
+## [3.1.4] - 2023-02-23
+
+### Fixed
+
+- Switched from [node-sass (deprecated)](https://www.npmjs.com/package/node-sass) to [sass](https://www.npmjs.com/package/sass) ([#306](https://github.com/Esri/esri-leaflet-geocoder/pull/306) 🙏JeffJacobson🙏)
+
+### Updated
+
+- Updated dependencies ([#308](https://github.com/Esri/esri-leaflet-geocoder/pull/308))
+
 ## [3.1.3] - 2022-04-08
 
 ### Fixed
@@ -457,7 +467,8 @@ This is now ready for beta! This release helps finalize the API and includes lot
 
 * Initial alpha release
 
-[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v3.1.3...HEAD
+[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v3.1.4...HEAD
+[3.1.4]: https://github.com/Esri/esri-leaflet-geocoder/compare/v3.1.3...v3.1.4
 [3.1.3]: https://github.com/Esri/esri-leaflet-geocoder/compare/v3.1.2...v3.1.3
 [3.1.2]: https://github.com/Esri/esri-leaflet-geocoder/compare/v3.1.1...v3.1.2
 [3.1.1]: https://github.com/Esri/esri-leaflet-geocoder/compare/v3.1.0...v3.1.1
