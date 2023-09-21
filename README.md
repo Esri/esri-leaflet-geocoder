@@ -11,7 +11,7 @@ The Esri Leaflet Geocoder is a small series of API helpers and UI controls to in
 
 ## Example
 
-Take a look at the [live demo](http://esri.github.com/esri-leaflet/examples/geocoding-control.html).
+Take a look at the [live demo](https://developers.arcgis.com/esri-leaflet/samples/geocoding-control/).
 
 ![Example Image](https://raw.github.com/esri/esri-leaflet-geocoder/master/example.png)
 
