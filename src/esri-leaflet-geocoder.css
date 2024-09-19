@@ -35,6 +35,10 @@
   transition: width .175s ease-in;
 }
 
+.geocoder-control.leaflet-control {
+  z-index: 801;
+}
+
 .geocoder-control-expanded,
 .leaflet-touch .geocoder-control-expanded {
   width: 275px;
