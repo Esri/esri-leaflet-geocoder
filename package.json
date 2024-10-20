@@ -85,5 +85,6 @@
       "xhr"
     ]
   },
-  "style": "./dist/esri-leaflet-geocoder.css"
+  "style": "./dist/esri-leaflet-geocoder.css",
+  "types": "index.d.ts"
 }
