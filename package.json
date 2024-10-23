@@ -45,7 +45,8 @@
   },
   "files": [
     "src/**/*.js",
-    "dist/**"
+    "dist/**",
+    "index.d.ts"
   ],
   "homepage": "https://github.com/Esri/esri-leaflet-geocoder",
   "jsnext:main": "src/EsriLeafletGeocoding.js",

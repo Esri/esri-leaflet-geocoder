@@ -1,10 +1,18 @@
 declare module 'esri-leaflet-geocoder' {
+    export function arcgisOnlineProvider(options): any;
+    export var ArcgisOnlineProvider: any;
+    export function featureLayerProvider(options): any;
+    export var FeatureLayerProvider: any;
     export function geocode(options): any;
     export var Geocode: any;
     export function geocodeService(options): any;
     export var GeocodeService: any;
+    export function geocodeServiceProvider(options): any;
+    export var GeocodeServiceProvider: any;
     export function geosearch(options): any;
     export var Geosearch: any;
+    export function mapServiceProvider(options): any;
+    export var MapServiceProvider: any;
     export function reverseGeocode(options): any;
     export var ReverseGeocode: any;
     export function suggest(options): any;
