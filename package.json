@@ -45,6 +45,7 @@
   },
   "files": [
     "src/**/*.js",
+    "src/**/*.css",
     "dist/**",
     "index.d.ts"
   ],
