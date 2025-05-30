@@ -2,6 +2,18 @@
 
 ## [Upcoming changes][Unreleased]
 
+## [3.1.6] - 2025-05-30
+
+### Fixed
+
+- Include CSS source files in published package ([#323](https://github.com/Esri/esri-leaflet-geocoder/pull/323))
+
+## [3.1.5] - 2024-10-01
+
+### Fixed
+
+- Increase z-index of geocoder-control element ([#320](https://github.com/Esri/esri-leaflet-geocoder/pull/320))
+
 ## [3.1.4] - 2023-02-23
 
 ### Fixed
@@ -467,7 +479,9 @@ This is now ready for beta! This release helps finalize the API and includes lot
 
 * Initial alpha release
 
-[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v3.1.4...HEAD
+[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v3.1.6...HEAD
+[3.1.6]: https://github.com/Esri/esri-leaflet-geocoder/compare/v3.1.5...v3.1.6
+[3.1.5]: https://github.com/Esri/esri-leaflet-geocoder/compare/v3.1.4...v3.1.5
 [3.1.4]: https://github.com/Esri/esri-leaflet-geocoder/compare/v3.1.3...v3.1.4
 [3.1.3]: https://github.com/Esri/esri-leaflet-geocoder/compare/v3.1.2...v3.1.3
 [3.1.2]: https://github.com/Esri/esri-leaflet-geocoder/compare/v3.1.1...v3.1.2

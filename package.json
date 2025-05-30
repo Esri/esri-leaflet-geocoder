@@ -1,7 +1,7 @@
 {
   "name": "esri-leaflet-geocoder",
   "description": "Esri Geocoding utility and search plugin for Leaflet.",
-  "version": "3.1.5",
+  "version": "3.1.6",
   "author": "Patrick Arlt <parlt@esri.com> (http://patrickarlt.com)",
   "contributors": [
     "Patrick Arlt <parlt@esri.com> (http://patrickarlt.com)",
