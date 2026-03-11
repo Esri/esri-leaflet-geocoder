@@ -52,10 +52,17 @@ export var ArcgisOnlineProvider = GeocodeService.extend({
     var request = this.geocode().text(text);
 
     if (key) {
+      // If there is a key (magicKey), that means someone selected a result from the dropdown, and it's reasonable to
+      // assume that they only want to see that one result. This is how the Geocoding API used to work, but recently
+      // (~2026) it changed.
+      request.maxLocations(1);
+    } else {
+      request.maxLocations(this.options.maxResults);
+    }
+
+    if (key) {
       request.key(key);
     }
-    // in the future Address/StreetName geocoding requests that include a magicKey will always only return one match
-    request.maxLocations(this.options.maxResults);
 
     if (bounds) {
       request.within(bounds);
