@@ -2,6 +2,12 @@
 
 ## [Upcoming changes][Unreleased]
 
+## [3.1.7] - 2026-03-24
+
+### Fixed
+
+- Only show one result when selecting an item from the suggestions dropdown ([#327](https://github.com/Esri/esri-leaflet-geocoder/pull/327))
+
 ## [3.1.6] - 2025-05-30
 
 ### Fixed
@@ -479,7 +485,8 @@ This is now ready for beta! This release helps finalize the API and includes lot
 
 * Initial alpha release
 
-[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v3.1.6...HEAD
+[Unreleased]: https://github.com/Esri/esri-leaflet-geocoder/compare/v3.1.7...HEAD
+[3.1.7]: https://github.com/Esri/esri-leaflet-geocoder/compare/v3.1.6...v3.1.7
 [3.1.6]: https://github.com/Esri/esri-leaflet-geocoder/compare/v3.1.5...v3.1.6
 [3.1.5]: https://github.com/Esri/esri-leaflet-geocoder/compare/v3.1.4...v3.1.5
 [3.1.4]: https://github.com/Esri/esri-leaflet-geocoder/compare/v3.1.3...v3.1.4
