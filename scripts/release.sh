@@ -22,7 +22,7 @@ git add dist -f
 git commit -m "build $VERSION"
 
 # push commit so it exists on GitHub when we run gh-release
-git push https://github.com/Esri/esri-leaflet-geocoder gh-release
+git push git@github.com:Esri/esri-leaflet-geocoder.git gh-release
 
 # create a ZIP archive of the dist files
 zip -r $NAME-v$VERSION.zip dist
@@ -36,4 +36,4 @@ npm publish
 # checkout master and delete release branch locally and on GitHub
 git checkout master
 git branch -D gh-release
-git push https://github.com/Esri/esri-leaflet-geocoder :gh-release
+git push git@github.com:Esri/esri-leaflet-geocoder.git :gh-release
